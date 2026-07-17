@@ -160,8 +160,12 @@
   .cover-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(38px, 5.5vw, 58px); line-height: 1; color: #0d2d52; margin-bottom: 18px; letter-spacing: 1px; animation: fadeUp 0.5s ease 0.45s backwards; }
   .cover-title span { color: var(--gold); display: block; }
   .cover-divider { width: 44px; height: 3px; background: var(--gold); border-radius: 2px; margin-bottom: 14px; animation: fadeUp 0.5s ease 0.55s backwards; }
-  .cover-tagline { font-size: 13px; line-height: 1.7; color: var(--dim); margin-bottom: 22px; max-width: 360px; animation: fadeUp 0.5s ease 0.65s backwards; }
-  .cover-meta { display: flex; gap: 8px; flex-wrap: wrap; animation: fadeUp 0.5s ease 0.75s backwards; }
+  .cover-tagline { font-size: 13px; line-height: 1.7; color: var(--dim); margin-bottom: 18px; max-width: 360px; animation: fadeUp 0.5s ease 0.65s backwards; }
+  .cover-concepts { margin-bottom: 18px; animation: fadeUp 0.5s ease 0.7s backwards; }
+  .cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+  .cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+  .cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+  .cover-meta { display: flex; gap: 8px; flex-wrap: wrap; animation: fadeUp 0.5s ease 0.8s backwards; }
   .cover-pill { background: rgba(13,45,82,0.06); border: 1px solid rgba(13,45,82,0.14); color: #0d2d52; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 1px; padding: 5px 12px; border-radius: 20px; text-transform: uppercase; }
 
   /* ===== HOOK (s0) ===== */
@@ -336,6 +340,16 @@
     <div class="cover-title">Can't Have It All!<span>Scarcity · Choice · Systems</span></div>
     <div class="cover-divider"></div>
     <div class="cover-tagline">Even the richest country on Earth can't have everything it wants. Why not? If you could take only a few things to a desert island — what would you give up?</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Scarcity</span>
+        <span class="cc-chip">Opportunity Cost</span>
+        <span class="cc-chip">Trade-offs</span>
+        <span class="cc-chip">Factors of Production</span>
+        <span class="cc-chip">Economic Systems</span>
+      </div>
+    </div>
     <div class="cover-meta">
       <div class="cover-pill">Tier 1 · Draw the Map</div>
       <div class="cover-pill">Ages 10–12</div>

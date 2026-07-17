@@ -89,8 +89,27 @@ description: |
 [왼쪽 45% — 남색 배경 + 개념 시각화]  [오른쪽 55% — 흰 배경 + 텍스트]
 ```
 - 왼쪽: 개념을 상징하는 SVG/CSS 애니메이션 (바 차트, 링, 아이콘 등)
-- 오른쪽: 모듈명(Space Mono), 제목(Bebas Neue 대형, **영어**), 골드 구분선, 서브타이틀(**영어**), 메타 pill
+- 오른쪽: 모듈명(Space Mono), 제목(Bebas Neue 대형, **영어**), 골드 구분선, 서브타이틀(**영어**), **개념 목록(필수)**, 메타 pill
 - `cover-bg`: `linear-gradient(135deg, #0d2d52 0%, #0d2d52 45%, #ffffff 45%)`
+
+> **필수 규칙 — 표지에 개념 목록.** 모든 덱의 Cover 슬라이드에는 그 덱이 다루는 핵심 개념(concepts covered)이 **반드시** 보여야 한다. `IN THIS DECK` 라벨(Space Mono, 소문자/대문자 골드) 아래 개념을 chip 형태로 나열한다. 개념명은 레슨 스펙(§6 Core Concepts)에서 가져오고, 학생이 그 세션에서 실제로 배우는 것과 일치해야 한다. 예시 마크업:
+> ```html
+> <div class="cover-concepts">
+>   <div class="cc-label">In this deck</div>
+>   <div class="cc-chips">
+>     <span class="cc-chip">Scarcity</span>
+>     <span class="cc-chip">Opportunity Cost</span>
+>     <span class="cc-chip">Trade-offs</span>
+>     <span class="cc-chip">Economic Systems</span>
+>   </div>
+> </div>
+> ```
+> ```css
+> .cover-concepts { margin-bottom: 18px; animation: fadeUp 0.5s ease 0.7s backwards; }
+> .cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+> .cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+> .cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+> ```
 
 ### 고정 UI 요소 (모든 슬라이드 공통)
 ```html
@@ -259,6 +278,7 @@ function adaptLogo() {
 - [ ] 최소 1개 인터랙티브 요소 (계산기 / 게임 / reveal)
 - [ ] 모든 슬라이드 내용이 960×540 안에 들어오는가?
 - [ ] 퀴즈 마지막에 해설 포함되어 있는가?
+- [ ] **표지에 개념 목록(`In this deck` chips)이 있는가?** (필수 규칙)
 - [ ] **모든 학생용 텍스트가 영어인가?** (절대 규칙 1)
 - [ ] **로고 이미지/씰이 없고, 텍스트 워드마크만 쓰였는가?** (절대 규칙 2)
 - [ ] attribution `adaptLogo()` — 어두운 배경 슬라이드 id 목록 업데이트했는가?
