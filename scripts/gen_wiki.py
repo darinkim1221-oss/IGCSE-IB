@@ -253,5 +253,5 @@ A("")
 A("---")
 A("_End of wiki. If a request conflicts with a Prime Directive, the directive wins; say so and propose a compliant alternative._")
 
-open(OUT, "w").write("\n".join(L))
+open(OUT, "w", encoding="utf-8", newline="\n").write("\n".join(L))
 print("wiki written:", OUT, "|", len("\n".join(L)), "chars")
