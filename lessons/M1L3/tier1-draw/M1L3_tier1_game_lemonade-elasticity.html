@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lemonade Elasticity Challenge — a Stretchy vs Stiff Game | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Noto Sans KR',sans-serif; color:var(--white);
+  background:linear-gradient(180deg,#bfe3ef 0%,#eaf6f3 40%,#f5f7fa 100%);
+  min-height:100vh; padding:28px 16px 60px;
+}
+.wrap { max-width:780px; margin:0 auto; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px; }
+.hdr-title { font-family:'Bebas Neue',sans-serif; font-size:34px; color:var(--blue); line-height:1; }
+.hdr-title span { color:var(--gold); }
+.hdr-sub { font-size:12px; color:var(--dim); margin-top:6px; max-width:460px; line-height:1.6; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.meta-pills { display:flex; gap:6px; margin-bottom:20px; flex-wrap:wrap; }
+.pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:var(--blue); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 11px; border-radius:20px; text-transform:uppercase; }
+
+.game-card { background:#fff; border-radius:20px; box-shadow:0 10px 40px rgba(13,45,82,0.12); padding:28px 30px; margin-bottom:24px; min-height:340px; }
+.phase-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.phase-title { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--blue); margin-bottom:10px; }
+.phase-body { font-size:13px; color:var(--dim); line-height:1.7; margin-bottom:16px; }
+
+.hud { display:flex; gap:22px; margin-bottom:18px; flex-wrap:wrap; }
+.hud-item { background:var(--card); border-radius:12px; padding:8px 16px; text-align:center; min-width:100px; }
+.hud-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.hud-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+.stall-grid { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin-bottom:16px; }
+.stall-box { background:var(--card); border-radius:16px; padding:16px 20px; width:300px; text-align:center; }
+.stall-name { font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--blue); }
+.stall-tag { font-size:10px; color:var(--dim); margin-bottom:10px; }
+.price-row { display:flex; gap:6px; justify-content:center; margin-bottom:10px; }
+.price-btn { background:#fff; border:2px solid rgba(0,0,0,0.1); font-family:'Space Mono',monospace; font-size:12px; padding:7px 12px; border-radius:8px; cursor:pointer; }
+.price-btn.active { border-color:var(--blue); color:var(--blue); font-weight:700; background:rgba(13,45,82,0.05); }
+.stall-result { font-size:12px; color:var(--dim); min-height:36px; line-height:1.6; }
+.stall-result strong { color:var(--white); }
+
+.verdict-banner { text-align:center; font-family:'Bebas Neue',sans-serif; font-size:18px; padding:8px; border-radius:10px; margin-bottom:16px; }
+.verdict-banner.good { background:rgba(0,137,123,0.1); color:var(--teal); }
+.verdict-banner.mid { background:rgba(200,150,10,0.08); color:var(--gold); }
+.verdict-banner.low { background:rgba(229,57,53,0.08); color:var(--red); }
+
+.act-row { display:flex; justify-content:center; gap:10px; }
+.act-btn { font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:11px 22px; border-radius:20px; cursor:pointer; border:2px solid transparent; transition:all 0.15s; background:var(--gold); color:#fff; }
+.act-btn:hover { background:var(--gold2); }
+.act-btn:disabled { opacity:0.35; cursor:not-allowed; }
+
+.log-box { background:var(--card); border-radius:12px; padding:12px 16px; font-size:11px; color:var(--dim); max-height:110px; overflow-y:auto; margin-top:14px; }
+.log-box div { padding:2px 0; border-bottom:1px dashed rgba(0,0,0,0.06); }
+.log-box div:last-child { border-bottom:none; }
+
+.result-score { font-family:'Bebas Neue',sans-serif; font-size:52px; color:var(--gold); text-align:center; }
+.result-msg { font-size:14px; color:var(--dim); text-align:center; margin:6px 0 18px; line-height:1.6; }
+
+.cta-row { display:flex; justify-content:center; gap:10px; }
+.btn { background:var(--gold); color:#fff; border:none; font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:1px; padding:11px 30px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:var(--gold2); transform:translateY(-2px); box-shadow:0 8px 24px rgba(200,150,10,0.3); }
+.btn.secondary { background:transparent; border:1.5px solid rgba(13,45,82,0.2); color:var(--blue); }
+
+/* ===== TUTOR GUIDE ===== */
+details.tutor { background:#fff; border-radius:16px; padding:6px 24px 22px; box-shadow:0 4px 20px rgba(13,45,82,0.08); }
+details.tutor summary { cursor:pointer; padding:16px 0; font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--blue); letter-spacing:0.5px; list-style:none; display:flex; align-items:center; gap:8px; }
+details.tutor summary::-webkit-details-marker { display:none; }
+details.tutor summary::before { content:'▸'; color:var(--gold); transition:transform 0.2s; }
+details.tutor[open] summary::before { transform:rotate(90deg); }
+.tg-section { margin-bottom:16px; }
+.tg-h { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+.tg-p { font-size:12.5px; color:var(--dim); line-height:1.7; }
+.tg-p strong { color:var(--white); }
+.tg-list { font-size:12.5px; color:var(--dim); line-height:1.9; padding-left:18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div>
+      <div class="hdr-title">Lemonade <span>Elasticity</span> Challenge</div>
+      <div class="hdr-sub">M1L3 · Tier 1 game — you run TWO stalls at the same fair: Candy Corner (lots of nearby competitors) and Desert Water (the only water for miles). Pick a price for each, every round, and chase the highest total revenue.</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="meta-pills">
+    <div class="pill">Ages 10–12</div>
+    <div class="pill">Solo or pairs</div>
+    <div class="pill">10–15 min</div>
+    <div class="pill">No prep needed</div>
+  </div>
+
+  <div class="game-card" id="gameCard"></div>
+
+  <details class="tutor">
+    <summary>🧠 For Tutors — Game Guide &amp; Debrief</summary>
+    <div class="tg-section">
+      <div class="tg-h">What this game teaches</div>
+      <div class="tg-p">PED intuition through consequence, not formula. Running two stalls side by side — one with many substitutes (Candy Corner) and one with none (Desert Water) — lets a student discover, by trial and error, that the SAME pricing move ("raise the price") makes money for one stall and loses money for the other. No elasticity number is ever shown; the game is won by noticing the pattern.</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Core mechanic</div>
+      <div class="tg-p">Each of 4 rounds, the student sets a price ($1–$4) for BOTH stalls independently. Quantity sold reacts differently for each: Candy Corner's sales collapse fast as price rises (many substitutes = stretchy demand); Desert Water's sales fall only slightly (no substitute = stiff demand). Revenue is tallied per stall and totalled across all rounds.</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Round structure</div>
+      <ul class="tg-list">
+        <li><strong>Briefing:</strong> two-stall scenario is introduced with the "why" for each (competitors vs. no substitute).</li>
+        <li><strong>Rounds 1–4:</strong> student sets both prices, sees quantity sold and revenue per stall immediately, then confirms to move to the next round.</li>
+        <li><strong>Result:</strong> total revenue across both stalls compared against the best possible total, with a tier and a plain-language explanation of what pricing pattern won.</li>
+      </ul>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Pre-game brief (1 minute)</div>
+      <div class="tg-p">"You're running two stalls at the same fair. Candy Corner has ten other candy stalls right next to it. Desert Water is the only water stall for fifty miles. You set the price for each, every round — try to make as much total money as you can, and watch closely: does raising the price always help?"</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Debrief questions</div>
+      <ul class="tg-list">
+        <li>What happened to Candy Corner's revenue when you pushed the price too high? Why do you think that happened there and not at Desert Water?</li>
+        <li>Which stall could you push to a much higher price without losing many buyers? What made that possible?</li>
+        <li>If you owned a real shop, how would you decide whether raising your price is a good idea?</li>
+      </ul>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Common misconceptions &amp; fix</div>
+      <div class="tg-p"><strong>"Raising the price always makes more money."</strong> Point to the Candy Corner revenue numbers at $3–$4 — sales collapse faster than the price rises, so total revenue falls. <strong>"Both stalls should be priced the same way."</strong> Contrast the optimal price found for each stall — the right pricing strategy depends on how many substitutes buyers have, not on a single rule.</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Variants</div>
+      <div class="tg-p"><strong>Simpler:</strong> run Candy Corner only, across more rounds, to isolate one pattern at a time. <strong>Harder:</strong> add a mid-game twist — "a new candy stall just opened next door" (Candy Corner becomes even more stretchy) or "the desert water truck broke down" (Desert Water becomes even stiffer) — and ask students to re-optimise.</div>
+    </div>
+  </details>
+</div>
+
+<script>
+const MAX_ROUNDS = 4;
+const PRICES = [1,2,3,4];
+const CANDY_QTY = {1:40, 2:22, 3:8, 4:2};
+const WATER_QTY = {1:40, 2:37, 3:33, 4:29};
+const OPTIMAL_CANDY_REV = Math.max(...PRICES.map(p=>p*CANDY_QTY[p])); // 44 at $2
+const OPTIMAL_WATER_REV = Math.max(...PRICES.map(p=>p*WATER_QTY[p])); // 116 at $4
+const BEST_POSSIBLE_TOTAL = (OPTIMAL_CANDY_REV + OPTIMAL_WATER_REV) * MAX_ROUNDS;
+
+let round = 0;
+let candyPrice = 2, waterPrice = 2;
+let totalRevenue = 0;
+let log = [];
+
+const card = document.getElementById('gameCard');
+
+function renderStart() {
+  card.innerHTML = `
+    <div class="phase-tag">Briefing</div>
+    <div class="phase-title">Fair day. Two stalls, one owner: you. 🎪</div>
+    <div class="phase-body">
+      <strong style="color:var(--gold)">Candy Corner</strong> sits next to ten other candy stalls — buyers can walk two steps and switch.<br>
+      <strong style="color:var(--teal)">Desert Water</strong> is the only water for fifty miles — buyers have nowhere else to go.<br><br>
+      Set a price for each stall, every round, for <strong>${MAX_ROUNDS} rounds</strong>. Chase the highest TOTAL revenue across both stalls.
+    </div>
+    <div class="cta-row"><button class="btn" onclick="startGame()">Open Both Stalls →</button></div>`;
+}
+
+function startGame() {
+  round = 0; candyPrice = 2; waterPrice = 2; totalRevenue = 0; log = [];
+  renderRound();
+}
+
+function priceButtons(id, current, setter) {
+  return PRICES.map(p => `<button class="price-btn${p===current?' active':''}" onclick="${setter}(${p})">$${p}</button>`).join('');
+}
+
+function setCandyPrice(p) { candyPrice = p; renderRound(); }
+function setWaterPrice(p) { waterPrice = p; renderRound(); }
+
+function renderRound() {
+  const cQty = CANDY_QTY[candyPrice], cRev = candyPrice * cQty;
+  const wQty = WATER_QTY[waterPrice], wRev = waterPrice * wQty;
+  const roundTotal = cRev + wRev;
+
+  card.innerHTML = `
+    <div class="phase-tag">Round ${round+1} of ${MAX_ROUNDS}</div>
+    <div class="phase-title">Set today's prices</div>
+    <div class="hud">
+      <div class="hud-item"><div class="hud-num">${round+1}/${MAX_ROUNDS}</div><div class="hud-lbl">Round</div></div>
+      <div class="hud-item"><div class="hud-num">$${totalRevenue}</div><div class="hud-lbl">Total so far</div></div>
+    </div>
+    <div class="stall-grid">
+      <div class="stall-box">
+        <div class="stall-name">🍭 Candy Corner</div>
+        <div class="stall-tag">10 competitors next door — stretchy demand</div>
+        <div class="price-row">${priceButtons('candy', candyPrice, 'setCandyPrice')}</div>
+        <div class="stall-result">${cQty} sold at $${candyPrice} = <strong>$${cRev}</strong> this round</div>
+      </div>
+      <div class="stall-box">
+        <div class="stall-name">💧 Desert Water</div>
+        <div class="stall-tag">Only water for 50 miles — stiff demand</div>
+        <div class="price-row">${priceButtons('water', waterPrice, 'setWaterPrice')}</div>
+        <div class="stall-result">${wQty} sold at $${waterPrice} = <strong>$${wRev}</strong> this round</div>
+      </div>
+    </div>
+    <div class="verdict-banner ${roundTotal >= (OPTIMAL_CANDY_REV+OPTIMAL_WATER_REV)*0.85 ? 'good' : roundTotal >= (OPTIMAL_CANDY_REV+OPTIMAL_WATER_REV)*0.6 ? 'mid' : 'low'}">This round's combined revenue: $${roundTotal}</div>
+    <div class="act-row">
+      <button class="act-btn" onclick="confirmRound(${cRev},${wRev})">Confirm Prices — Next Round →</button>
+    </div>
+    <div class="log-box" id="logBox">${log.length ? log.map(l=>`<div>${l}</div>`).join('') : '<div>No rounds played yet.</div>'}</div>`;
+}
+
+function confirmRound(cRev, wRev) {
+  const roundTotal = cRev + wRev;
+  totalRevenue += roundTotal;
+  log.unshift(`Round ${round+1}: Candy $${candyPrice} → $${cRev} · Water $${waterPrice} → $${wRev} · Total $${roundTotal}`);
+  round++;
+  if (round >= MAX_ROUNDS) { renderFinal(); return; }
+  renderRound();
+}
+
+function renderFinal() {
+  const pct = Math.round((totalRevenue / BEST_POSSIBLE_TOTAL) * 100);
+  let tier, msg;
+  if (pct >= 90) { tier = 'Elasticity Expert 🏆'; msg = `You found near-optimal prices for BOTH stalls — a low price to keep Candy Corner's crowd from fleeing to competitors, and a high price at Desert Water where buyers had no choice.`; }
+  else if (pct >= 65) { tier = 'Sharp Trader 👍'; msg = `Solid instincts — you likely priced one stall well but left revenue on the table at the other. Which stall could you have pushed higher or lower?`; }
+  else { tier = 'Room to Grow 🌱'; msg = `Replay and watch each stall's numbers closely — one stall rewards a high price, the other punishes it. The trick is telling which is which.`; }
+  card.innerHTML = `
+    <div class="phase-tag">Result</div>
+    <div class="result-score">$${totalRevenue}</div>
+    <div class="result-msg"><strong style="color:var(--blue)">${tier}</strong> — ${pct}% of the best possible total ($${BEST_POSSIBLE_TOTAL})<br><br>${msg}<br><br>The SAME move — "raise the price" — grew revenue at one stall and shrank it at the other. That difference in reaction is exactly what economists call <strong style="color:var(--gold)">elasticity</strong>.</div>
+    <div class="cta-row"><button class="btn" onclick="renderStart()">Play Again</button></div>`;
+}
+
+renderStart();
+</script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Notebook — The Economic Problem (Tier 2) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:16px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.flow-strip { font-size:11px; color:var(--dim); background:var(--card); border-radius:10px; padding:10px 16px; margin-bottom:20px; font-family:'Space Mono',monospace; }
+.toc { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:30px; }
+.toc a { font-size:10px; text-decoration:none; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); padding:4px 10px; border-radius:20px; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:34px; scroll-margin-top:20px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:12px; }
+.p { font-size:13.5px; line-height:1.8; color:var(--white); margin-bottom:10px; }
+.p strong { color:var(--blue); }
+.list { font-size:13px; line-height:1.9; color:var(--white); padding-left:20px; margin-bottom:10px; }
+.kc-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+.kc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.obj-item { font-size:13px; line-height:1.8; padding:6px 0 6px 26px; position:relative; }
+.obj-item::before { content:'✓'; color:var(--teal); position:absolute; left:0; font-weight:700; }
+.obj-item .ao-tag { font-family:'Space Mono',monospace; font-size:9px; color:var(--gold); margin-left:6px; }
+
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:12px 18px; font-size:12.5px; color:var(--dim); line-height:1.7; margin:12px 0; }
+.tip-box strong { color:var(--gold); }
+.warn-box { border-left:3px solid var(--red); background:rgba(229,57,53,0.05); border-radius:0 10px 10px 0; padding:12px 18px; font-size:12.5px; color:var(--dim); line-height:1.7; margin:12px 0; }
+.warn-box strong { color:var(--red); }
+
+.diagram-note { display:flex; gap:16px; background:var(--card); border-radius:14px; padding:16px 18px; margin-bottom:12px; }
+.diagram-note .dn-icon { font-size:26px; flex-shrink:0; }
+.diagram-note .dn-text { font-size:12.5px; color:var(--dim); line-height:1.7; }
+.diagram-note .dn-text strong { color:var(--white); }
+
+table.glossary { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:8px; }
+table.glossary td { padding:8px 10px; border-bottom:1px solid rgba(0,0,0,0.08); vertical-align:top; }
+table.glossary td:first-child { font-weight:700; color:var(--blue); width:170px; }
+
+.adapter-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:10px; }
+.adapter-card { border:1px solid var(--border); border-radius:12px; padding:14px 16px; }
+.adapter-card .a-tag { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+.adapter-card.igcse .a-tag { color:var(--teal); }
+.adapter-card.ib .a-tag { color:var(--blue); }
+.adapter-card .p { font-size:12.5px; margin-bottom:6px; }
+
+.takeaway-box { background:linear-gradient(135deg,rgba(0,137,123,0.08),rgba(0,137,123,0.02)); border:1px solid rgba(0,137,123,0.25); border-radius:12px; padding:16px 20px; margin-top:10px; }
+.takeaway-box .tk-title { font-family:'Bebas Neue',sans-serif; font-size:16px; color:var(--teal); margin-bottom:8px; }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 1 · Microeconomics — Lesson 1</div>
+      <div class="k-title">The Economic Problem</div>
+      <div class="k-sub">Teacher Notebook · Tier 2 — Read the Map (Ages 13–15)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="flow-strip">SUGGESTED FLOW (50 min) — Hook (5) → AO1 Definitions + command-term drill (8) → Opportunity Cost across stakeholders (7) → Factors of Production table (5) → PPC diagram + growth (10) → Economic Systems + country comparison (7) → Circular Flow [IB enrichment] (4) → Positive/Normative game (3) → Exam Adapter Slot (5) → Quiz (3)</div>
+  <div class="toc">
+    <a href="#obj">Objectives</a><a href="#kc">Key Concepts</a><a href="#notes">Teaching Notes</a>
+    <a href="#viz">Visuals</a><a href="#worked">Worked Example</a><a href="#misc">Misconceptions</a>
+    <a href="#adapter">Exam Adapter</a><a href="#ext">Extensions</a><a href="#resources">Resources</a>
+  </div>
+
+  <div class="section-tag" id="obj">Learning Objectives</div>
+  <div class="big-title">By the end, students can…</div>
+  <div class="obj-item">state and define scarcity, opportunity cost, and the four factors of production to Cambridge command-word precision <span class="ao-tag">AO1</span></div>
+  <div class="obj-item">draw and label a PPC, correctly interpreting points on/inside/outside the curve and distinguishing a movement along it from a shift of it <span class="ao-tag">AO1/AO2</span></div>
+  <div class="obj-item">apply opportunity cost reasoning to consumers, workers, firms, and governments <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">compare market, planned, and mixed economic systems on how each answers what/how/for whom <span class="ao-tag">AO1</span></div>
+  <div class="obj-item">distinguish positive from normative statements, using testability (not correctness) as the criterion <span class="ao-tag">AO1</span></div>
+  <div class="obj-item">[IB] label a 2-sector circular flow diagram and explain the two flows in each market</div>
+
+  <div class="section-tag" id="kc">Key Concepts &amp; the IB Lens</div>
+  <div class="kc-row"><span class="kc-chip">Scarcity (primary)</span><span class="kc-chip">Choice (primary)</span><span class="kc-chip">Efficiency (primary)</span></div>
+  <div class="p">This lesson is the entry point to <strong>IB Unit 1 (Introduction)</strong> and <strong>IGCSE Topic 1</strong> simultaneously. Everything downstream in the spine — demand/supply, elasticity, market failure, and eventually macro and global modules — is a restatement of "scarcity forces choice under some allocation mechanism." Treat this lesson as installing the lens students will use in every subsequent lesson, not as a stand-alone topic to be checked off.</div>
+
+  <div class="section-tag" id="notes">Detailed Teaching Notes</div>
+  <div class="big-title">Precision first, then structure</div>
+  <div class="p">Unlike Tier 1, do not open with pure discovery — open with the same hook question ("could even the richest country have everything it wants?") but move quickly to <strong>precision</strong>: this is the lesson where students learn that economics rewards exact, testable definitions over vague gestures. Run the command-term drill early (slide s1): show the same concept (scarcity) phrased as a <em>Define</em>, <em>State</em>, and <em>Describe</em> question, and have students notice how the expected answer length and depth changes with the command word. This is a technique they will reuse in every future lesson's Exam Adapter Slot.</div>
+  <div class="p">For <strong>opportunity cost</strong>, insist students name a specific stakeholder each time (slide s2's four tabs: consumers / workers / firms / governments) — IGCSE and IB examiners consistently penalise vague opportunity-cost answers that don't specify whose cost it is and what, precisely, is foregone.</div>
+  <div class="p">The <strong>PPC</strong> is the load-bearing diagram of this lesson (and the wiki's §8 bridge shows it gets promoted directly into growth analysis at M2L4 and IB LRAS). Insist on the exam-standard labelling discipline from day one: axes labelled with units/goods named, curve bowed outward (concave to origin — do NOT let students draw a straight line at this tier, unlike the Tier 1 trade-off curve), points lettered, and — critically — the vocabulary split: a <strong>movement along</strong> the curve represents a choice/opportunity cost between two attainable points; a <strong>shift of</strong> the curve represents economic growth (or contraction). This distinction is examined constantly and is the single most common source of lost marks at this level.</div>
+  <div class="p">Economic systems: push past mere description into the exam-required <strong>arguments for and against</strong> each system (IGCSE 2.8/2.10). Use the country-chip interactive (US / North Korea / Singapore) to force students to place real economies on the market–planned spectrum rather than treating the three types as purely theoretical.</div>
+  <div class="p">The <strong>circular flow model</strong> (slide s6) is explicitly IB enrichment scaffolding — it is not in the IGCSE 0455 syllabus. Flag this openly to mixed classes: IGCSE-track students should still learn it (it makes M2 macro much easier later) but should know it will not appear on their exam.</div>
+  <div class="p">Close with <strong>positive vs normative</strong> — the seed for evaluative writing across the whole course. The test to drill is testability, not truth: "Can this statement, in principle, be checked against evidence?" not "Do I agree with it?"</div>
+
+  <div class="section-tag" id="viz">Visuals &amp; Diagrams</div>
+  <div class="diagram-note">
+    <div class="dn-icon">📉</div>
+    <div class="dn-text"><strong>PPC:</strong> always draw bowed outward (increasing opportunity cost as you move along it — resources aren't perfectly substitutable between the two goods). Label axes with actual goods (e.g. Consumer Goods / Capital Goods), not just "Good X / Good Y," for exam-realistic practice. Mark A (on curve, efficient), B (inside, underutilised/unemployed resources), C (outside, unattainable with current resources).</div>
+  </div>
+  <div class="diagram-note">
+    <div class="dn-icon">🔄</div>
+    <div class="dn-text"><strong>Circular flow (2-sector):</strong> two boxes (Households, Firms), factor market flow at top (factors of production → households; income → firms... reversed correctly: households supply factors to firms, firms pay income to households) and goods market flow at bottom (firms supply goods/services to households; households pay expenditure to firms). Use arrows, not just boxes — direction is often the examined detail.</div>
+  </div>
+  <div class="tip-box"><strong>Tip:</strong> when a student draws the PPC as a straight line (carried over from a Tier 1 background), don't just correct it — ask "why would giving up the LAST unit of capital goods to get one more consumer good cost more than giving up the first unit?" and let them reason toward increasing opportunity cost themselves.</div>
+
+  <div class="section-tag" id="worked">Worked Example</div>
+  <div class="p"><strong>Exam-style prompt:</strong> "A government has a fixed budget. It can spend it on healthcare or on defence. It chooses to increase defence spending by $2 billion." Model a full AO2 answer: (1) name the opportunity cost precisely — the healthcare provision foregone, not just "money"; (2) name a specific affected stakeholder group — e.g. patients on waiting lists; (3) note this is a movement, not a shift — the country's total productive capacity hasn't changed, only the allocation within it.</div>
+
+  <div class="section-tag" id="misc">Common Misconceptions</div>
+  <div class="warn-box"><strong>"Opportunity cost is the money paid."</strong> Fix: money is the measuring tool; the true cost is always the next-best foregone alternative — drill this with a zero-cost example (e.g. free time) where there's no money involved at all.</div>
+  <div class="warn-box"><strong>"A shift of the PPC and a movement along it are basically the same thing."</strong> Fix: use the two-question test — "Has the economy's total capacity changed (shift) or just the allocation within the same capacity (movement)?"</div>
+  <div class="warn-box"><strong>"Positive = correct, normative = wrong."</strong> Fix: give a positive statement that is actually false ("Inflation in this country is currently 50%" — testable, and could just be wrong) to show positive ≠ true, just testable.</div>
+
+  <div class="section-tag" id="adapter">Exam Adapter Slot</div>
+  <div class="big-title">Source: Wiki §7 drip map, row M1 L1 ("Foundations")</div>
+  <div class="p">Skill focus this lesson: <strong>precise definitions; PPC &amp; circular flow drawn and labelled to exam standard.</strong> Command terms in play: <em>define, state, list, describe.</em></div>
+  <div class="adapter-grid">
+    <div class="adapter-card igcse">
+      <div class="a-tag">IGCSE (AO1)</div>
+      <div class="p">1-sentence Cambridge command-word definitions; diagram labelling discipline.</div>
+      <div class="p" style="color:var(--dim);font-size:11.5px">Practice move: give students a definition with one word wrong or vague and have them correct it to Cambridge-exact phrasing.</div>
+    </div>
+    <div class="adapter-card ib">
+      <div class="a-tag">IB (AO1)</div>
+      <div class="p">2–3 sentence IB-style full definitions; first 'explain' cause-chain.</div>
+      <div class="p" style="color:var(--dim);font-size:11.5px">Practice move: extend every IGCSE 1-sentence definition into IB form by adding "...which means that..." and one consequence.</div>
+    </div>
+  </div>
+  <div class="tip-box"><strong>Note for mixed classes:</strong> this is the first lesson where the two adapters visibly diverge in expected answer length — use it to set expectations for the rest of the course rather than treating it as a one-off.</div>
+
+  <div class="section-tag" id="ext">Extension Activities</div>
+  <div class="list">
+    <li><strong>Real economy audit:</strong> research one real country not covered in class and place it on the market–planned spectrum with 2 pieces of evidence.</li>
+    <li><strong>PPC construction:</strong> given a small dataset (e.g. 5 combinations of two goods a hypothetical economy can produce), plot an actual PPC and identify which points are efficient.</li>
+    <li><strong>Positive/normative hunt:</strong> find 3 statements from a real news article and classify each, justifying the harder judgement calls.</li>
+  </div>
+
+  <div class="section-tag" id="resources">Teaching Resources</div>
+  <div class="big-title">Exam-Precise Glossary</div>
+  <table class="glossary">
+    <tr><td>Scarcity</td><td>The condition where finite resources are insufficient to satisfy infinite/unlimited wants.</td></tr>
+    <tr><td>Opportunity cost</td><td>The value of the next-best alternative foregone when a choice is made.</td></tr>
+    <tr><td>Factors of production</td><td>Land, labour, capital, enterprise — the inputs combined to produce goods and services; rewarded by rent, wages, interest, and profit respectively.</td></tr>
+    <tr><td>PPC (Production Possibilities Curve)</td><td>A diagram showing the maximum combinations of two goods an economy can produce with fixed resources and technology.</td></tr>
+    <tr><td>Economic system</td><td>The mechanism by which a society answers what, how, and for whom to produce (market, planned, or mixed).</td></tr>
+    <tr><td>Positive statement</td><td>A testable/verifiable claim about what is — can in principle be checked against evidence.</td></tr>
+    <tr><td>Normative statement</td><td>A value judgement about what ought to be — cannot be settled by evidence alone.</td></tr>
+    <tr><td>Circular flow of income</td><td>[IB enrichment] A model showing the flow of factors/income and goods/expenditure between households and firms.</td></tr>
+  </table>
+  <div class="takeaway-box">
+    <div class="tk-title">Key Takeaways</div>
+    <div class="p" style="margin-bottom:0">1. Scarcity is the universal starting condition of economics — no system, however designed, eliminates it. 2. Every choice carries an opportunity cost that must be named precisely, by stakeholder. 3. The PPC formalises trade-offs and growth: movement along = opportunity cost, shift = growth. 4. Economic systems differ in HOW they answer what/how/for whom, each with real trade-offs — none is exam-correct by default. 5. Positive vs normative is a test of testability, not truth — the seed of all future evaluative writing.</div>
+  </div>
+
+  <div class="footer">M1L1 · Economics Academy · Stoic Edu — Teacher Notebook</div>
+</div>
+</body>
+</html>

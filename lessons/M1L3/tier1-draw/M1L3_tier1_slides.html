@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stretchy vs Stiff: The Elasticity Game | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif;
+  overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center;
+}
+#slide-frame {
+  position:relative; width:960px; height:540px; background:var(--bg);
+  border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0;
+}
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide {
+  position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center;
+  align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none;
+  transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box;
+}
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%),
+             radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%);
+  pointer-events:none;
+}
+#nav {
+  position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100;
+  background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border);
+  border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg {
+  position:absolute; inset:0;
+  background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size:48px 48px; pointer-events:none;
+}
+.tag {
+  display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold);
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px;
+  margin-bottom:8px; text-transform:uppercase;
+}
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(26px,4vw,44px); line-height:1.05; margin-bottom:14px; color:var(--white); }
+.btn {
+  background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px;
+  letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s;
+}
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+@keyframes stretchBand { 0%,100%{transform:scaleX(1);} 50%{transform:scaleX(1.35);} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.band-scene { position:relative; z-index:2; width:260px; height:180px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px; }
+.band-row { display:flex; align-items:center; gap:10px; animation:fadeUp 0.6s ease 0.4s backwards; }
+.band-emoji { font-size:34px; }
+.band-elastic { width:70px; height:10px; background:linear-gradient(90deg,var(--gold),#f0c352); border-radius:6px; animation:stretchBand 1.6s ease-in-out infinite; }
+.band-stiff { width:70px; height:10px; background:linear-gradient(90deg,var(--teal),#4db6a8); border-radius:6px; }
+.band-lbl { color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(32px,5vw,54px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:360px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 HOOK ===== */
+#s0 { text-align:center; }
+.hook-question { font-family:'Bebas Neue',sans-serif; font-size:clamp(22px,3.4vw,38px); line-height:1.15; letter-spacing:1px; margin-bottom:18px; max-width:780px; }
+.hook-question span { color:var(--gold); }
+.hook-scene { display:flex; gap:24px; margin:10px 0; }
+.hook-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:16px 24px; text-align:center; }
+.hook-emoji { font-size:34px; }
+.hook-lbl { font-family:'Bebas Neue',sans-serif; font-size:18px; margin-top:6px; }
+.hook-sub { font-size:11px; color:var(--dim); margin-top:2px; }
+.hook-reveal { font-size:14px; color:var(--teal); opacity:0; animation:fadeUp 0.8s ease 1.2s forwards; margin-top:10px; }
+
+/* ===== s1: RUBBER BAND DEMO ===== */
+#s1 { flex-direction:column; gap:10px; }
+.rb-arena { display:flex; gap:20px; max-width:820px; width:100%; justify-content:center; }
+.rb-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:16px 22px; width:340px; text-align:center; }
+.rb-title { font-family:'Bebas Neue',sans-serif; font-size:18px; margin-bottom:2px; }
+.rb-sub { font-size:10.5px; color:var(--dim); margin-bottom:8px; }
+.rb-price { font-family:'Space Mono',monospace; font-size:20px; color:var(--blue); margin:6px 0; }
+.rb-buyers { font-size:22px; letter-spacing:3px; min-height:30px; margin-bottom:8px; }
+.rb-meter-track { width:100%; height:14px; background:rgba(0,0,0,0.06); border-radius:8px; overflow:hidden; margin-bottom:8px; }
+.rb-meter-fill { height:100%; border-radius:8px; transition:width 0.4s ease; }
+.rb-meter-lbl { font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; }
+.rb-btn { background:var(--red); color:#fff; border:none; font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:1px; padding:7px 18px; border-radius:20px; cursor:pointer; margin-top:6px; }
+.rb-btn:hover { opacity:0.85; }
+.rb-verdict { font-size:11px; color:var(--dim); min-height:32px; margin-top:6px; line-height:1.5; }
+
+/* ===== s2: SPECTRUM SORT ===== */
+#s2 { flex-direction:column; gap:10px; }
+.spec-line-box { max-width:840px; width:100%; }
+.spec-line { position:relative; height:6px; background:linear-gradient(90deg,var(--gold),var(--card),var(--teal)); border-radius:4px; margin:18px 0 26px; }
+.spec-ends { display:flex; justify-content:space-between; font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); text-transform:uppercase; }
+.spec-ends .l { color:var(--gold); } .spec-ends .r { color:var(--teal); }
+.spec-cards { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+.spec-card { background:var(--card); border:2px solid rgba(0,0,0,0.06); border-radius:12px; padding:9px 14px; font-size:12px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; }
+.spec-card:hover { border-color:var(--gold); }
+.spec-card.stretchy { border-color:var(--gold); background:rgba(200,150,10,0.08); }
+.spec-card.stiff { border-color:var(--teal); background:rgba(0,137,123,0.08); }
+.spec-hint { font-size:11px; color:var(--dim); text-align:center; margin-top:4px; min-height:34px; max-width:700px; line-height:1.5; }
+
+/* ===== s3: LEMONADE REVENUE TEASER ===== */
+#s3 { flex-direction:column; gap:10px; }
+.lem-arena { display:flex; gap:20px; max-width:820px; width:100%; justify-content:center; }
+.lem-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:16px 22px; width:340px; text-align:center; }
+.lem-title { font-family:'Bebas Neue',sans-serif; font-size:17px; }
+.lem-sub { font-size:10.5px; color:var(--dim); margin-bottom:8px; }
+.lem-btns { display:flex; gap:6px; justify-content:center; margin:8px 0; }
+.lem-pbtn { background:#fff; border:2px solid rgba(0,0,0,0.1); font-family:'Space Mono',monospace; font-size:11px; padding:6px 10px; border-radius:8px; cursor:pointer; }
+.lem-pbtn.active { border-color:var(--blue); color:var(--blue); font-weight:700; }
+.lem-revenue { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--teal); margin-top:6px; }
+.lem-revenue.down { color:var(--red); }
+.lem-detail { font-size:10.5px; color:var(--dim); }
+
+/* ===== s4: RAISE PRICE SLIDER ===== */
+#s4 { flex-direction:column; gap:14px; }
+.px-arena { display:flex; gap:20px; max-width:840px; width:100%; justify-content:center; }
+.px-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:16px 22px; width:360px; text-align:center; }
+.px-card input[type=range] { width:100%; -webkit-appearance:none; height:6px; background:linear-gradient(90deg,var(--teal),var(--gold),var(--red)); border-radius:3px; outline:none; margin:10px 0; }
+.px-card input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:#fff; border:3px solid var(--blue); cursor:pointer; }
+.px-readout { font-family:'Space Mono',monospace; font-size:13px; color:var(--blue); }
+.px-bar-track { height:70px; background:rgba(0,0,0,0.04); border-radius:8px; display:flex; align-items:flex-end; justify-content:center; margin-top:8px; }
+.px-bar { width:38px; border-radius:6px 6px 0 0; transition:height 0.3s ease; }
+.px-result { font-size:11px; color:var(--dim); margin-top:6px; min-height:30px; line-height:1.5; }
+
+/* ===== s5: DETERMINANTS SORT ===== */
+#s5 { flex-direction:column; gap:12px; }
+.det-grid { display:flex; gap:14px; max-width:880px; flex-wrap:wrap; justify-content:center; }
+.det-card { width:190px; background:var(--card); border:2px solid rgba(0,0,0,0.06); border-radius:14px; padding:14px; text-align:center; cursor:pointer; transition:all 0.2s; }
+.det-card:hover { border-color:var(--gold); transform:translateY(-2px); }
+.det-card.picked { border-color:var(--teal); background:rgba(0,137,123,0.08); }
+.det-emoji { font-size:26px; }
+.det-lbl { font-family:'Bebas Neue',sans-serif; font-size:14px; margin:4px 0; }
+.det-desc { font-size:10.5px; color:var(--dim); line-height:1.5; }
+
+/* ===== s6: RAPID ROUND ===== */
+#s6 { flex-direction:column; gap:16px; }
+.rr-arena { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:20px 30px; max-width:680px; width:100%; text-align:center; }
+
+/* ===== quiz reused ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:18px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left">
+    <div class="band-scene">
+      <div class="band-row"><span class="band-emoji">🍬</span><div class="band-elastic"></div><span class="band-lbl">STRETCHY</span></div>
+      <div class="band-row"><span class="band-emoji">🧂</span><div class="band-stiff"></div><span class="band-lbl">STIFF</span></div>
+    </div>
+  </div>
+  <div class="cover-right">
+    <div class="cover-module">Module 1 · Microeconomics — Lesson 3</div>
+    <div class="cover-title">Stretchy vs Stiff:<br><span>The Elasticity Game</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">Why do some prices swing wildly while others barely move? Run your own lemonade stand and find out when raising your price actually costs you money.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Responsiveness</span>
+        <span class="cc-chip">Elastic vs Inelastic</span>
+        <span class="cc-chip">Revenue</span>
+        <span class="cc-chip">Substitutes</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 10–12</div>
+      <div class="cover-pill">Interactive</div>
+      <div class="cover-pill">45 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0: HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="hook-question">Petrol prices <span>swing wildly</span> from week to week.<br>Haircut prices <span>barely move</span> all year. Why?</div>
+  <div class="hook-scene">
+    <div class="hook-card"><div class="hook-emoji">⛽</div><div class="hook-lbl">Petrol</div><div class="hook-sub">price jumps around</div></div>
+    <div class="hook-card"><div class="hook-emoji">💇</div><div class="hook-lbl">Haircut</div><div class="hook-sub">price stays steady</div></div>
+  </div>
+  <div class="hook-reveal">👇 Let's stretch some rubber bands and find out...</div>
+</section>
+
+<!-- ============ s1: RUBBER BAND DEMO ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Live Demo</div>
+    <div class="big-title">Raise the Price — Watch Buyers React</div>
+    <p style="font-size:11px;color:var(--dim);max-width:600px">Tap "Raise Price" on each stall a few times and watch how many buyers stick around.</p>
+  </div>
+  <div class="rb-arena">
+    <div class="rb-card">
+      <div class="rb-title">🍬 Candy (one of many brands)</div>
+      <div class="rb-sub">There are 10 other candy brands right next door.</div>
+      <div class="rb-price" id="candyPrice">$1.00</div>
+      <div class="rb-buyers" id="candyBuyers">🙋🙋🙋🙋🙋🙋</div>
+      <div class="rb-meter-track"><div class="rb-meter-fill" id="candyMeter" style="width:10%;background:var(--gold)"></div></div>
+      <div class="rb-meter-lbl">STRETCH METER</div>
+      <button class="rb-btn" onclick="raisePrice('candy')">Raise Price +$0.25</button>
+      <div class="rb-verdict" id="candyVerdict"></div>
+    </div>
+    <div class="rb-card">
+      <div class="rb-title">💧 Water (last bottle, desert)</div>
+      <div class="rb-sub">The nearest other water is 50 miles away.</div>
+      <div class="rb-price" id="waterPrice">$1.00</div>
+      <div class="rb-buyers" id="waterBuyers">🙋🙋🙋🙋🙋🙋</div>
+      <div class="rb-meter-track"><div class="rb-meter-fill" id="waterMeter" style="width:10%;background:var(--teal)"></div></div>
+      <div class="rb-meter-lbl">STRETCH METER</div>
+      <button class="rb-btn" onclick="raisePrice('water')">Raise Price +$0.25</button>
+      <div class="rb-verdict" id="waterVerdict"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s2: SPECTRUM SORT ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Sort the Line</div>
+    <div class="big-title">Easy to Give Up ←→ Impossible to Give Up</div>
+    <p style="font-size:11px;color:var(--dim);max-width:640px">Tap each item to place it. Things with lots of substitutes are "stretchy" — things you truly need aren't.</p>
+  </div>
+  <div class="spec-line-box">
+    <div class="spec-line"></div>
+    <div class="spec-ends"><span class="l">← Stretchy (easy to give up)</span><span class="r">Stiff (hard to give up) →</span></div>
+  </div>
+  <div class="spec-cards" id="specCards"></div>
+  <div class="spec-hint" id="specHint">Tap an item above to see where it belongs — and why.</div>
+</section>
+
+<!-- ============ s3: LEMONADE REVENUE TEASER ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Two Stalls, Two Reactions</div>
+    <div class="big-title">Pick a Price — Watch Your Revenue</div>
+  </div>
+  <div class="lem-arena">
+    <div class="lem-card">
+      <div class="lem-title">🍭 Trendy Candy</div>
+      <div class="lem-sub">Lots of other candy stalls nearby (stretchy)</div>
+      <div class="lem-btns" id="candyPBtns"></div>
+      <div class="lem-revenue" id="candyRevenue">$0</div>
+      <div class="lem-detail" id="candyDetail"></div>
+    </div>
+    <div class="lem-card">
+      <div class="lem-title">💧 Desert Water</div>
+      <div class="lem-sub">The only water stall for miles (stiff)</div>
+      <div class="lem-btns" id="waterPBtns"></div>
+      <div class="lem-revenue" id="waterRevenue">$0</div>
+      <div class="lem-detail" id="waterDetail"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s4: RAISE PRICE — LOSE MONEY? ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">The Big Question</div>
+    <div class="big-title">When Does Raising Price Lose You Money?</div>
+  </div>
+  <div class="px-arena">
+    <div class="px-card">
+      <div class="lem-title">🍭 Candy</div>
+      <input type="range" id="candySlider" min="50" max="300" value="100" step="25" oninput="updatePx('candy', this.value)">
+      <div class="px-readout" id="candySliderLbl">Price: $1.00</div>
+      <div class="px-bar-track"><div class="px-bar" id="candyBar" style="background:var(--gold);height:20px"></div></div>
+      <div class="px-result" id="candyPxResult"></div>
+    </div>
+    <div class="px-card">
+      <div class="lem-title">💧 Water</div>
+      <input type="range" id="waterSlider" min="50" max="300" value="100" step="25" oninput="updatePx('water', this.value)">
+      <div class="px-readout" id="waterSliderLbl">Price: $1.00</div>
+      <div class="px-bar-track"><div class="px-bar" id="waterBar" style="background:var(--teal);height:20px"></div></div>
+      <div class="px-result" id="waterPxResult"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s5: DETERMINANTS SORT ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">What Makes Something Stretchy?</div>
+    <div class="big-title">Tap Every Reason a Good Could Be Stretchy</div>
+  </div>
+  <div class="det-grid" id="detGrid"></div>
+  <div class="shift-tally" id="detTally" style="text-align:center;font-family:'Space Mono',monospace;font-size:12px;color:var(--gold)">0 picked</div>
+</section>
+
+<!-- ============ s6: RAPID ROUND ============ -->
+<section class="slide" id="s6">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Bonus Round</div>
+    <div class="big-title">Stretchy or Stiff? Quick Guess!</div>
+  </div>
+  <div class="rr-arena">
+    <div class="game-question" id="rrRoundLbl" style="font-size:12px;color:var(--dim);margin-bottom:8px">Round 1 of 5</div>
+    <div class="game-scenario" id="rrScenario" style="font-family:'Bebas Neue',sans-serif;font-size:22px;min-height:60px">Loading...</div>
+    <div class="answer-options" style="display:flex;gap:16px;justify-content:center">
+      <button class="ans-btn" style="background:rgba(200,150,10,0.08);border:2px solid var(--gold);color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:18px;padding:10px 26px;border-radius:12px;cursor:pointer" onclick="rrAnswer(true)">STRETCHY</button>
+      <button class="ans-btn" style="background:rgba(0,137,123,0.08);border:2px solid var(--teal);color:var(--teal);font-family:'Bebas Neue',sans-serif;font-size:18px;padding:10px 26px;border-radius:12px;cursor:pointer" onclick="rrAnswer(false)">STIFF</button>
+    </div>
+    <div class="nudge-feedback" id="rrFeedback" style="min-height:30px;font-size:12px;color:var(--dim);margin-top:8px"></div>
+  </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">How well did you get it? 🧠</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const QUIZ_SLIDE_IDX = 8;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ s1: RUBBER BAND DEMO ============
+const rbState = {
+  candy: { price:1.00, buyers:6, dropPerClick:1.6, min:0 },
+  water: { price:1.00, buyers:6, dropPerClick:0.15, min:5 }
+};
+function raisePrice(key) {
+  const s = rbState[key];
+  s.price += 0.25;
+  s.buyers = Math.max(s.min, s.buyers - s.dropPerClick);
+  const buyersRounded = Math.round(s.buyers);
+  document.getElementById(key+'Price').textContent = '$' + s.price.toFixed(2);
+  document.getElementById(key+'Buyers').textContent = '🙋'.repeat(Math.max(1,buyersRounded));
+  const pctDrop = Math.round((1 - s.buyers/6) * 100);
+  document.getElementById(key+'Meter').style.width = Math.min(100, 10 + pctDrop) + '%';
+  const verdict = document.getElementById(key+'Verdict');
+  if (key === 'candy') {
+    verdict.textContent = pctDrop > 40 ? '🍬 Buyers are fleeing to other candy stalls — this good is STRETCHY.' : 'Buyers are starting to drift away...';
+  } else {
+    verdict.textContent = pctDrop < 15 ? '💧 Almost nobody left — they NEED it, no matter the price. This good is STIFF.' : 'A few buyers are hesitating...';
+  }
+}
+
+// ============ s2: SPECTRUM SORT ============
+const SPEC_ITEMS = [
+  {name:'One brand of chips', side:'stretchy', why:'Dozens of other chip brands sit right next to it — easy to switch.'},
+  {name:'Insulin (medicine)', side:'stiff', why:'No substitute exists — a person needs it to stay alive.'},
+  {name:'A specific soda brand', side:'stretchy', why:'Plenty of other sodas taste almost the same.'},
+  {name:'Salt', side:'stiff', why:'You use very little of it and there is no real substitute, so price barely changes behaviour.'},
+  {name:'A ride to a friend\\'s birthday party', side:'stretchy', why:'You could walk, bike, or get a different ride instead.'},
+  {name:'Your only bus route to school', side:'stiff', why:'If there\\'s no other way to get to school, you\\'ll pay almost any reasonable fare.'}
+];
+const specGrid = document.getElementById('specCards');
+SPEC_ITEMS.forEach((it,i) => {
+  const c = document.createElement('div');
+  c.className = 'spec-card';
+  c.textContent = it.name;
+  c.onclick = () => {
+    document.querySelectorAll('.spec-card').forEach(x=>x.classList.remove('stretchy','stiff'));
+    c.classList.add(it.side);
+    document.getElementById('specHint').innerHTML = `<strong style="color:${it.side==='stretchy'?'var(--gold)':'var(--teal)'}">${it.side==='stretchy'?'STRETCHY':'STIFF'}:</strong> ${it.why}`;
+  };
+  specGrid.appendChild(c);
+});
+
+// ============ s3: LEMONADE REVENUE TEASER ============
+const LEM_PRICES = [1,2,3,4];
+const CANDY_QTY = {1:40, 2:22, 3:8, 4:2};
+const WATER_QTY = {1:40, 2:37, 3:33, 4:29};
+function buildPBtns(key, target) {
+  const box = document.getElementById(target);
+  LEM_PRICES.forEach(p => {
+    const b = document.createElement('button');
+    b.className = 'lem-pbtn' + (p===1?' active':'');
+    b.textContent = '$' + p;
+    b.onclick = () => { document.querySelectorAll('#'+target+' .lem-pbtn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); setLemPrice(key,p); };
+    box.appendChild(b);
+  });
+}
+buildPBtns('candy','candyPBtns');
+buildPBtns('water','waterPBtns');
+function setLemPrice(key, p) {
+  const qtyMap = key==='candy' ? CANDY_QTY : WATER_QTY;
+  const qty = qtyMap[p];
+  const rev = p * qty;
+  const prevQty = qtyMap[Math.max(1,p-1)];
+  const prevRev = Math.max(1,p-1) * prevQty;
+  const el = document.getElementById(key+'Revenue');
+  el.textContent = '$' + rev;
+  el.className = 'lem-revenue' + (p>1 && rev < prevRev ? ' down' : '');
+  document.getElementById(key+'Detail').textContent = qty + ' sold at $' + p + ' each';
+}
+setLemPrice('candy',1); setLemPrice('water',1);
+
+// ============ s4: RAISE PRICE SLIDER ============
+function updatePx(key, cents) {
+  const price = cents/100;
+  const isCandy = key === 'candy';
+  // candy: revenue peaks low then crashes (elastic). water: revenue keeps climbing (inelastic).
+  const qty = isCandy ? Math.max(1, 45 - (price-1)*16) : Math.max(1, 40 - (price-1)*3);
+  const revenue = price * qty;
+  const maxRev = isCandy ? 45 : 120;
+  document.getElementById(key+'SliderLbl').textContent = 'Price: $' + price.toFixed(2);
+  document.getElementById(key+'Bar').style.height = Math.max(6, (revenue/maxRev)*130) + 'px';
+  const result = document.getElementById(key+'PxResult');
+  if (isCandy) {
+    result.innerHTML = price >= 2 ? '<strong style="color:var(--red)">Revenue is falling!</strong> Buyers just go elsewhere.' : 'Revenue: $' + Math.round(revenue) + ' — still climbing a little.';
+  } else {
+    result.innerHTML = '<strong style="color:var(--teal)">Revenue keeps climbing.</strong> $' + Math.round(revenue) + ' — buyers stay no matter what.';
+  }
+}
+updatePx('candy',100); updatePx('water',100);
+
+// ============ s5: DETERMINANTS ============
+const DETERMINANTS = [
+  {emoji:'🔀', lbl:'Lots of substitutes', desc:'Many similar products to switch to.'},
+  {emoji:'🎈', lbl:'It\\'s a luxury, not a need', desc:'You can easily live without it.'},
+  {emoji:'💰', lbl:'Big chunk of your money', desc:'A price rise really hurts your wallet.'},
+  {emoji:'⏳', lbl:'You have time to shop around', desc:'No rush means more chances to compare.'},
+  {emoji:'🚫', lbl:'No substitutes exist', desc:'This one makes a good STIFF, not stretchy!'}
+];
+let detPicked = new Set();
+const detGrid = document.getElementById('detGrid');
+DETERMINANTS.forEach((s,i) => {
+  const c = document.createElement('div');
+  c.className = 'det-card';
+  c.innerHTML = `<div class="det-emoji">${s.emoji}</div><div class="det-lbl">${s.lbl}</div><div class="det-desc">${s.desc}</div>`;
+  c.onclick = () => {
+    if (detPicked.has(i)) { detPicked.delete(i); c.classList.remove('picked'); }
+    else { detPicked.add(i); c.classList.add('picked'); }
+    document.getElementById('detTally').textContent = detPicked.size + ' picked — these are the reasons a good ends up "stretchy" (elastic)!';
+  };
+  detGrid.appendChild(c);
+});
+
+// ============ s6: RAPID ROUND ============
+const RR_ROUNDS = [
+  { text: 'Gasoline for your family\\'s only car', answer: false, why: 'You still need to get to work/school — demand barely reacts to price in the short run. STIFF.' },
+  { text: 'A specific brand of soda when 5 others taste the same', answer: true, why: 'Tons of substitutes — buyers switch brands fast. STRETCHY.' },
+  { text: 'A haircut at your only nearby barber', answer: false, why: 'Few alternatives nearby and it\\'s a small part of your budget — price barely changes behaviour. STIFF.' },
+  { text: 'A concert ticket for a show with 20 other similar concerts that week', answer: true, why: 'Many similar events compete for the same money — STRETCHY.' },
+  { text: 'Insulin for someone who needs it to live', answer: false, why: 'No substitute, life-or-death — about as STIFF (inelastic) as it gets.' }
+];
+let rrIdx = 0;
+function renderRR() {
+  if (rrIdx >= RR_ROUNDS.length) {
+    document.getElementById('rrRoundLbl').textContent = 'Complete!';
+    document.getElementById('rrScenario').textContent = '🌟 You can spot stretchy vs stiff goods on sight now!';
+    return;
+  }
+  document.getElementById('rrRoundLbl').textContent = 'Round ' + (rrIdx+1) + ' of ' + RR_ROUNDS.length;
+  document.getElementById('rrScenario').textContent = RR_ROUNDS[rrIdx].text;
+  document.getElementById('rrFeedback').textContent = '';
+}
+function rrAnswer(choice) {
+  const r = RR_ROUNDS[rrIdx];
+  document.getElementById('rrFeedback').innerHTML = (choice===r.answer ? '<strong style="color:var(--teal)">✓ Correct.</strong> ' : '<strong style="color:var(--red)">✗ Not quite.</strong> ') + r.why;
+  rrIdx++;
+  setTimeout(renderRR, 1900);
+}
+renderRR();
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'A good with LOTS of substitutes is usually...', opts:['Stretchy (elastic) — buyers react a lot to price','Stiff (inelastic) — buyers barely react','Impossible to sell'], correct:0, explain:'Many substitutes mean buyers can easily switch away when price rises — that is what makes demand stretchy.' },
+  { q:'Why does the price of insulin barely change buyer behaviour?', opts:['Nobody wants it','There is no substitute and people need it to live','It is very cheap to make'], correct:1, explain:'No substitute + a true necessity = buyers keep buying almost no matter the price. This is a "stiff" (inelastic) good.' },
+  { q:'You raise the price of trendy candy a lot and total revenue FALLS. What does that tell you?', opts:['The candy is stiff (inelastic)','The candy is stretchy (elastic)','Nothing — revenue always falls'], correct:1, explain:'If raising price causes revenue to fall, buyers reacted strongly and bought a lot less — a sign of a stretchy (elastic) good.' },
+  { q:'Which is MOST likely to be "stretchy" (elastic)?', opts:['One brand of soda among many similar brands', 'Your only bus route to school', 'Salt'], correct:0, explain:'Many similar substitutes right nearby make it easy for buyers to switch — classic stretchy good.' },
+  { q:'A good that takes up a HUGE chunk of your money is more likely to be...', opts:['Stretchy — you notice price changes more', 'Stiff — you ignore the price', 'Neither matters'], correct:0, explain:'Big-budget items make you think harder about price, so demand tends to react more (be more elastic).' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\\'ve mastered stretchy vs stiff! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>

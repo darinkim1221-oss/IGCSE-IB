@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework Workbook — Market Failure & Intervention (Tier 2) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:8px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.meta-strip { display:flex; gap:8px; margin:14px 0 28px; flex-wrap:wrap; }
+.pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:var(--blue); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 11px; border-radius:20px; text-transform:uppercase; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:28px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:30px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:14px; }
+.q-block { margin-bottom:22px; page-break-inside:avoid; }
+.q-num { font-family:'Space Mono',monospace; font-size:11px; color:var(--gold); font-weight:700; margin-right:6px; }
+.q-text { font-size:14px; line-height:1.7; margin-bottom:8px; }
+.marks { font-family:'Space Mono',monospace; font-size:10px; color:var(--teal); font-weight:700; }
+.q-opts { list-style:none; padding-left:6px; }
+.q-opts li { font-size:13px; color:var(--white); padding:4px 0; }
+.q-opts li::before { content:'○  '; color:var(--dim); }
+.answer-line { border-bottom:1px solid rgba(0,0,0,0.18); height:26px; margin-bottom:4px; }
+.work-box { background:var(--card); border:1px dashed rgba(0,0,0,0.18); border-radius:8px; height:96px; margin-top:6px; position:relative; }
+.work-box .wb-tag { position:absolute; top:6px; left:10px; font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); text-transform:uppercase; letter-spacing:1px; }
+.tier-band { display:inline-block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1px; text-transform:uppercase; padding:2px 8px; border-radius:10px; margin-left:8px; }
+.band-easy { background:rgba(0,137,123,0.1); color:var(--teal); }
+.band-med { background:rgba(200,150,10,0.12); color:var(--gold); }
+.band-hard { background:rgba(229,57,53,0.1); color:var(--red); }
+.ib-tag { background:rgba(13,45,82,0.08); color:var(--blue); }
+.diagram-box { width:100%; height:200px; background-image:linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size:22px 22px; border:1px solid rgba(0,0,0,0.2); border-radius:4px; position:relative; margin-top:8px; }
+.graph-axis-x { position:absolute; bottom:-20px; left:0; right:0; text-align:center; font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; }
+.graph-axis-y { position:absolute; top:50%; left:-64px; transform:rotate(-90deg); font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; width:150px; text-align:center; }
+.data-table { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:8px; }
+.data-table th, .data-table td { padding:7px 10px; border:1px solid rgba(0,0,0,0.1); text-align:left; }
+.data-table th { background:var(--card); font-family:'Space Mono',monospace; font-size:10px; text-transform:uppercase; color:var(--blue); }
+.extended-box { background:linear-gradient(135deg,rgba(13,45,82,0.05),rgba(13,45,82,0.01)); border:1px solid rgba(13,45,82,0.15); border-radius:12px; padding:16px 20px; margin-top:10px; }
+.extended-box .etag { font-family:'Space Mono',monospace; font-size:10px; color:var(--blue); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+
+.answer-key { margin-top:50px; padding-top:24px; border-top:3px dashed var(--gold); page-break-before:always; }
+.ak-title { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--gold); margin-bottom:16px; }
+.ak-item { font-size:13px; line-height:1.7; margin-bottom:12px; }
+.ak-item strong { color:var(--teal); }
+.ak-item .why { color:var(--dim); }
+.ms-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--red); }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+@media print {
+  body { background:#fff; }
+  .page { box-shadow:none; padding:0; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 1 · Microeconomics — Lesson 4</div>
+      <div class="k-title">Market Failure &amp; The Intervention Toolkit</div>
+      <div class="k-sub">Homework Workbook · Tier 2 — Read the Map (Ages 13–15)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="meta-strip">
+    <div class="pill">10 questions</div>
+    <div class="pill">+ 1 extended response</div>
+    <div class="pill">~35 min</div>
+    <div class="pill">Mixed IGCSE / IB skills</div>
+  </div>
+  <div class="cc-chips">
+    <span class="cc-chip">Price Ceilings</span><span class="cc-chip">Price Floors</span>
+    <span class="cc-chip">Indirect Taxes</span><span class="cc-chip">Subsidies</span>
+    <span class="cc-chip">Stakeholder Analysis</span><span class="cc-chip">Externalities (IB)</span>
+  </div>
+
+  <div class="section-tag">Foundations</div>
+  <div class="big-title">AO1 command terms — precise definitions</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">1.</span> <strong>Define</strong> market failure. <span class="marks">[2]</span><span class="tier-band band-easy">Easy</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">2.</span> <strong>Define</strong> externality, then <strong>distinguish</strong> between a negative and a positive externality, giving ONE original example of each (do not reuse an example from class). <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="section-tag">Diagram Skill — Drawing REQUIRED at IGCSE</div>
+  <div class="big-title">Price ceilings &amp; price floors</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">3.</span> Sketch a demand and supply diagram for the rental housing market. Add a <strong>price ceiling</strong> set below the free-market equilibrium price. Label the equilibrium, the ceiling, and the resulting shortage. <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
+    <div style="margin:26px 0 30px 76px;position:relative;max-width:600px">
+      <div class="diagram-box">
+        <div class="graph-axis-y">Price</div>
+        <div class="graph-axis-x">Quantity</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">4.</span> Sketch a demand and supply diagram for unskilled labour. Add a <strong>price floor</strong> (minimum wage) set above the free-market equilibrium wage. Label the equilibrium, the floor, and the resulting surplus (unemployment). <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
+    <div style="margin:26px 0 30px 76px;position:relative;max-width:600px">
+      <div class="diagram-box">
+        <div class="graph-axis-y">Wage</div>
+        <div class="graph-axis-x">Quantity of labour</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-tag">Diagram Skill — Drawing REQUIRED at IGCSE</div>
+  <div class="big-title">Indirect taxes &amp; subsidies</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">5.</span> Sketch a demand and supply diagram for cigarettes. Show the effect of a new <strong>indirect tax</strong>: draw the original supply curve, the new (shifted) supply curve, the new equilibrium price and quantity, and label the tax wedge. <span class="marks">[5]</span><span class="tier-band band-hard">Challenging</span></div>
+    <div style="margin:26px 0 30px 76px;position:relative;max-width:600px">
+      <div class="diagram-box">
+        <div class="graph-axis-y">Price</div>
+        <div class="graph-axis-x">Quantity</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">6.</span> Sketch a demand and supply diagram for solar panels. Show the effect of a new <strong>subsidy</strong>: draw the original supply curve, the new (shifted) supply curve, the new equilibrium price and quantity, and label the subsidy per unit. <span class="marks">[5]</span><span class="tier-band band-hard">Challenging</span></div>
+    <div style="margin:26px 0 30px 76px;position:relative;max-width:600px">
+      <div class="diagram-box">
+        <div class="graph-axis-y">Price</div>
+        <div class="graph-axis-x">Quantity</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-tag">The Wider Toolkit</div>
+  <div class="big-title">Beyond price ceilings, floors, taxes &amp; subsidies</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">7.</span> Match each government tool to a real-world example by writing the correct letter next to each tool.</div>
+    <table class="data-table">
+      <tr><th>Tool</th><th>Match (A–D)</th></tr>
+      <tr><td>Regulation / ban</td><td></td></tr>
+      <tr><td>Direct provision</td><td></td></tr>
+      <tr><td>Quota</td><td></td></tr>
+      <tr><td>Nationalisation</td><td></td></tr>
+    </table>
+    <div class="q-text" style="margin-top:8px;font-size:12.5px;color:var(--dim)">A. A national water company is brought under state ownership. &nbsp; B. A country limits the number of fishing licences issued each year. &nbsp; C. A city government builds and runs free public libraries. &nbsp; D. A country bans the sale of single-use plastic straws.</div>
+    <div class="marks" style="display:block;margin-top:8px">[4]</div>
+  </div>
+
+  <div class="section-tag">Stakeholder Analysis</div>
+  <div class="big-title">Who wins, who loses — minimum wage</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">8.</span> A government introduces a minimum wage set above the free-market equilibrium wage for unskilled labour. Complete the stakeholder table: for each stakeholder, state Winner, Loser, or Mixed, and give ONE reason. <span class="marks">[6]</span><span class="tier-band band-hard">Challenging</span></div>
+    <table class="data-table">
+      <tr><th>Stakeholder</th><th>Winner / Loser / Mixed</th><th>Reason</th></tr>
+      <tr><td>Workers who keep their jobs</td><td></td><td></td></tr>
+      <tr><td>Workers who lose their jobs / can't find one</td><td></td><td></td></tr>
+      <tr><td>Employers (firms)</td><td></td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="section-tag">Classifying Market Failure — IB Enrichment</div>
+  <div class="big-title">Externalities &amp; common pool resources</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">9.</span> [IB enrichment] For each example, <strong>classify</strong> it as a negative production externality, positive production externality, negative consumption externality, or positive consumption externality. <span class="marks">[4]</span><span class="tier-band band-hard">Challenging</span><span class="tier-band ib-tag">IB enrichment</span></div>
+    <table class="data-table">
+      <tr><th>Example</th><th>Classification</th></tr>
+      <tr><td>A steel mill's smoke damages nearby crops</td><td></td></tr>
+      <tr><td>Loud music from a house party disturbs neighbours</td><td></td></tr>
+      <tr><td>An orchard's blossoms support a nearby beekeeper's honey yield</td><td></td></tr>
+      <tr><td>A homeowner's tidy front garden raises the whole street's property values</td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">10.</span> [IB enrichment] <strong>Explain</strong>, using the concept of a common pool resource, why an open-access fishing ground can collapse even though no individual fishing boat wants that outcome. <span class="marks">[4]</span><span class="tier-band band-hard">Challenging</span><span class="tier-band ib-tag">IB enrichment</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="extended-box">
+    <div class="etag">Extended Response · exam-style</div>
+    <div class="q-text"><strong>11.</strong> <strong>Discuss</strong> whether a government should tax sugary drinks to reduce consumption. Consider both the case FOR the tax and the case AGAINST it, referring to at least one relevant economic concept from this lesson (e.g. externality, demerit good, price elasticity, stakeholder impact). Do not reach a final judgement — this is an "examine," not an "evaluate." <span class="marks">[8]</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="answer-key">
+    <div class="ak-title">Answer Key &amp; Mark Scheme Notes</div>
+    <div class="ak-item"><strong>1.</strong> Market failure occurs when the free market, left to itself, fails to allocate scarce resources efficiently — the outcome the price mechanism produces is not the socially optimal one. <span class="ms-tag">[1 mark for "free market fails to allocate efficiently," 1 mark for a correct cause or consequence, e.g. externalities, public goods, or common pool resource overuse]</span></div>
+    <div class="ak-item"><strong>2.</strong> An externality is a spillover cost or benefit of a transaction that falls on a third party who did not agree to it and is not reflected in the market price. A <strong>negative externality</strong> imposes a cost on third parties (e.g. a factory's noise disturbing a nearby school). A <strong>positive externality</strong> creates a benefit for third parties (e.g. a well-maintained private garden that beautifies the whole street for passers-by). <span class="why">[1 mark definition, 1 mark correct negative distinction, 1 mark correct positive distinction, 1 mark for two valid original examples]</span></div>
+    <div class="ak-item"><strong>3.</strong> Standard D/S diagram: downward-sloping D, upward-sloping S, equilibrium (Pe, Qe) marked at their intersection. A horizontal ceiling line drawn BELOW Pe. At the ceiling price, Qd (read off the demand curve) is greater than Qs (read off the supply curve) — the horizontal gap between these two points, at the ceiling price, is the shortage, and should be marked/shaded. <span class="why">[1 mark correctly shaped D and S with labelled equilibrium, 1 mark ceiling correctly drawn below equilibrium, 1 mark Qd/Qs points at the ceiling correctly identified, 1 mark shortage clearly labelled]</span></div>
+    <div class="ak-item"><strong>4.</strong> Standard D/S diagram for labour (wage on the price axis). A horizontal floor line drawn ABOVE the equilibrium wage. At the floor wage, Qs (labour supplied) is greater than Qd (labour demanded) — this gap is the surplus of labour, i.e. unemployment, and should be marked/shaded. <span class="why">[1 mark correctly shaped D and S with labelled equilibrium, 1 mark floor correctly drawn above equilibrium, 1 mark Qs/Qd points at the floor correctly identified, 1 mark surplus/unemployment clearly labelled]</span></div>
+    <div class="ak-item"><strong>5.</strong> Original S curve drawn, then a second S curve shifted up and to the left (parallel or near-parallel), representing the higher cost of supplying each unit once the tax is added. New equilibrium at a higher price and lower quantity than before. A vertical line/bracket at the new quantity connecting the new (higher) price consumers pay to the (lower) price producers receive on the original supply curve — this vertical distance is the tax wedge, and should be labelled. <span class="why">[1 mark original S and D, 1 mark new S shifted correctly up/left, 1 mark new equilibrium at higher P / lower Q, 1 mark tax wedge correctly identified, 1 mark full correct labelling]</span></div>
+    <div class="ak-item"><strong>6.</strong> Original S curve drawn, then a second S curve shifted down and to the right, representing the lower cost of supplying each unit once the subsidy is applied. New equilibrium at a lower price and higher quantity than before. A vertical line/bracket at the new quantity connecting the new (lower) price consumers pay to the (higher) price producers receive on the original supply curve — this vertical distance is the subsidy per unit, and should be labelled. <span class="why">[1 mark original S and D, 1 mark new S shifted correctly down/right, 1 mark new equilibrium at lower P / higher Q, 1 mark subsidy per unit correctly identified, 1 mark full correct labelling]</span></div>
+    <div class="ak-item"><strong>7.</strong> Regulation/ban → D (bans the sale of single-use plastic straws). Direct provision → C (builds and runs free public libraries). Quota → B (limits fishing licences issued each year). Nationalisation → A (state ownership of the water company). <span class="ms-tag">[1 mark per correct match]</span></div>
+    <div class="ak-item"><strong>8.</strong> Workers who keep their jobs: <strong>Winner</strong> — they now earn a higher wage than the free-market equilibrium would have paid them. Workers who lose their jobs / can't find one: <strong>Loser</strong> — at the higher minimum wage, quantity of labour demanded by firms falls, so some workers who would have been hired at the lower equilibrium wage are not. Employers: <strong>Loser</strong> (or Mixed) — labour costs rise per worker employed, squeezing profit margins or forcing a reduction in hours/staff, though some may pass costs to consumers via higher prices. <span class="why">[2 marks per row: 1 for correct classification, 1 for a valid supporting reason]</span></div>
+    <div class="ak-item"><strong>9.</strong> Steel mill smoke damaging crops → <strong>Negative production externality</strong> (harm arises from the act of PRODUCING). Loud party disturbing neighbours → <strong>Negative consumption externality</strong> (harm arises from the act of CONSUMING/enjoying the party). Orchard blossoms supporting a beekeeper → <strong>Positive production externality</strong> (benefit arises from the orchard's production activity). Tidy garden raising property values → <strong>Positive consumption externality</strong> (benefit arises from the homeowner's private consumption/enjoyment choice, gardening). <span class="ms-tag">[1 mark per correct classification]</span></div>
+    <div class="ak-item"><strong>10.</strong> A common pool resource is non-excludable (no single boat can stop others fishing) but rival (fish caught by one boat are not available to any other boat). Because no individual boat owns the fish, each boat has an incentive to catch as much as possible before someone else does — there is no individual reward for restraint, since fish left uncaught will likely just be taken by a rival boat instead. If every boat reasons this way simultaneously, the total catch can exceed the rate at which the fish stock regenerates, causing the stock to collapse — even though every boat, taken individually, would have preferred a sustainable outcome. <span class="why">[1 mark correct non-excludable+rival definition, 1 mark individual-incentive reasoning ("no reward for restraint"), 2 marks for correctly explaining how individually rational choices aggregate into a collectively irrational/destructive outcome]</span></div>
+    <div class="ak-item"><strong>11.</strong> Band 3 (6–8 marks): develops both sides with equal seriousness. FOR: sugary drinks are a demerit good with a negative consumption externality (higher public healthcare costs from diet-related illness borne by taxpayers generally, not just the drinker); a tax raises price, and if demand is even moderately elastic, reduces quantity consumed while raising government revenue that can fund health programmes. AGAINST: demand for sugary drinks may be relatively inelastic (habitual/addictive consumption), so a tax mainly raises revenue without much changing behaviour, and is regressive — it takes a larger share of income from lower-income consumers who spend a higher proportion of their budget on such goods. A strong answer explicitly names a concept (externality, demerit good, PED, regressive taxation) on each side and reaches no final verdict. Band 2 (3–5): one side well developed, other side thin or purely assertive; some correct concept use. Band 1 (1–2): one-sided argument, no named economic concept, or a premature final judgement without acknowledging the other side.</div>
+  </div>
+
+  <div class="footer">M1L4 · Economics Academy · Stoic Edu</div>
+</div>
+</body>
+</html>

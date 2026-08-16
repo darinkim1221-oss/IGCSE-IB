@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Day: Run Your Stall | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Noto Sans KR',sans-serif; color:var(--white);
+  background:linear-gradient(180deg,#bfe3ef 0%,#eaf6f3 40%,#f5f7fa 100%);
+  min-height:100vh; padding:28px 16px 60px;
+}
+.wrap { max-width:780px; margin:0 auto; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px; }
+.hdr-title { font-family:'Bebas Neue',sans-serif; font-size:34px; color:var(--blue); line-height:1; }
+.hdr-title span { color:var(--gold); }
+.hdr-sub { font-size:12px; color:var(--dim); margin-top:6px; max-width:460px; line-height:1.6; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.meta-pills { display:flex; gap:6px; margin-bottom:20px; flex-wrap:wrap; }
+.pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:var(--blue); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 11px; border-radius:20px; text-transform:uppercase; }
+
+.game-card { background:#fff; border-radius:20px; box-shadow:0 10px 40px rgba(13,45,82,0.12); padding:28px 30px; margin-bottom:24px; min-height:340px; }
+.phase-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.phase-title { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--blue); margin-bottom:10px; }
+.phase-body { font-size:13px; color:var(--dim); line-height:1.7; margin-bottom:16px; }
+
+.hud { display:flex; gap:22px; margin-bottom:18px; flex-wrap:wrap; }
+.hud-item { background:var(--card); border-radius:12px; padding:8px 16px; text-align:center; min-width:100px; }
+.hud-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.hud-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+.event-box { background:linear-gradient(180deg,#fdf3d9,#fff8ea); border:1px solid var(--border); border-radius:16px; padding:14px 20px; text-align:center; margin-bottom:16px; }
+.event-name { font-family:'Bebas Neue',sans-serif; font-size:19px; color:var(--blue); }
+.event-desc { font-size:11.5px; color:var(--dim); margin-top:4px; line-height:1.6; }
+
+.stall-box { background:linear-gradient(180deg,#d3edf5,#eef8f5); border-radius:16px; padding:16px 20px; text-align:center; margin-bottom:16px; }
+.stall-scene { font-size:26px; letter-spacing:2px; line-height:1.5; min-height:40px; }
+.stall-lbl { font-size:10px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; margin-top:4px; }
+
+.effort-row { display:flex; gap:10px; justify-content:center; margin-bottom:16px; flex-wrap:wrap; }
+.effort-btn { background:#fff; border:2px solid rgba(0,0,0,0.1); font-family:'Bebas Neue',sans-serif; font-size:15px; padding:10px 20px; border-radius:14px; cursor:pointer; text-align:center; min-width:140px; transition:all 0.15s; }
+.effort-btn:hover { border-color:var(--gold); }
+.effort-btn .e-sub { display:block; font-family:'Noto Sans KR',sans-serif; font-size:10px; color:var(--dim); font-weight:400; margin-top:2px; }
+.effort-btn.low { border-color:var(--teal); }
+.effort-btn.med { border-color:var(--gold); }
+.effort-btn.high { border-color:var(--red); }
+.effort-btn:disabled { opacity:0.3; cursor:not-allowed; }
+.effort-btn:disabled:hover { border-color:rgba(0,0,0,0.1); }
+
+.round-result { background:var(--card); border-radius:12px; padding:12px 16px; font-size:12px; color:var(--dim); line-height:1.7; margin-bottom:14px; text-align:center; }
+.round-result strong { color:var(--white); }
+
+.act-row { display:flex; justify-content:center; gap:10px; }
+.act-btn { font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:11px 22px; border-radius:20px; cursor:pointer; border:2px solid transparent; transition:all 0.15s; background:var(--gold); color:#fff; }
+.act-btn:hover { background:var(--gold2); }
+.act-btn:disabled { opacity:0.35; cursor:not-allowed; }
+
+.log-box { background:var(--card); border-radius:12px; padding:12px 16px; font-size:11px; color:var(--dim); max-height:110px; overflow-y:auto; margin-top:14px; }
+.log-box div { padding:2px 0; border-bottom:1px dashed rgba(0,0,0,0.06); }
+.log-box div:last-child { border-bottom:none; }
+
+.result-score { font-family:'Bebas Neue',sans-serif; font-size:44px; color:var(--gold); text-align:center; }
+.result-msg { font-size:14px; color:var(--dim); text-align:center; margin:6px 0 18px; line-height:1.6; }
+
+.cta-row { display:flex; justify-content:center; gap:10px; }
+.btn { background:var(--gold); color:#fff; border:none; font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:1px; padding:11px 30px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:var(--gold2); transform:translateY(-2px); box-shadow:0 8px 24px rgba(200,150,10,0.3); }
+.btn.secondary { background:transparent; border:1.5px solid rgba(13,45,82,0.2); color:var(--blue); }
+
+.merge-row { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:10px; }
+.merge-card { background:var(--card); border-radius:14px; padding:14px 18px; max-width:260px; font-size:12px; color:var(--dim); line-height:1.6; text-align:left; }
+.merge-card strong { color:var(--white); }
+
+.recap-box { background:var(--card); border-radius:14px; padding:14px 18px; margin-top:16px; text-align:left; }
+.recap-h { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+.recap-item { font-size:11.5px; color:var(--dim); line-height:1.6; padding:5px 0; border-bottom:1px dashed rgba(0,0,0,0.08); }
+.recap-item:last-child { border-bottom:none; }
+.recap-item strong { color:var(--white); }
+
+/* ===== TUTOR GUIDE ===== */
+details.tutor { background:#fff; border-radius:16px; padding:6px 24px 22px; box-shadow:0 4px 20px rgba(13,45,82,0.08); }
+details.tutor summary { cursor:pointer; padding:16px 0; font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--blue); letter-spacing:0.5px; list-style:none; display:flex; align-items:center; gap:8px; }
+details.tutor summary::-webkit-details-marker { display:none; }
+details.tutor summary::before { content:'▸'; color:var(--gold); transition:transform 0.2s; }
+details.tutor[open] summary::before { transform:rotate(90deg); }
+.tg-section { margin-bottom:16px; }
+.tg-h { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+.tg-p { font-size:12.5px; color:var(--dim); line-height:1.7; }
+.tg-p strong { color:var(--white); }
+.tg-list { font-size:12.5px; color:var(--dim); line-height:1.9; padding-left:18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div>
+      <div class="hdr-title">Market Day: <span>Run Your Stall</span></div>
+      <div class="hdr-sub">M1L6 · Tier 1 capstone game — run a snack stall across 6 market days. Each day the "government" changes the rules: taxes, subsidies, price ceilings, price floors, and one day, a Monopoly Licence up for auction. Every twist connects back to something you learned this module.</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="meta-pills">
+    <div class="pill">Ages 10–12</div>
+    <div class="pill">Solo, pairs, or whole class</div>
+    <div class="pill">15–20 min</div>
+    <div class="pill">Capstone review</div>
+  </div>
+
+  <div class="game-card" id="gameCard"></div>
+
+  <details class="tutor">
+    <summary>🧠 For Tutors — Game Guide &amp; Debrief</summary>
+    <div class="tg-section">
+      <div class="tg-h">What this game teaches</div>
+      <div class="tg-p">This is the Module 1 capstone — every mechanic maps directly to a concept from Lessons 1–5. Students run a snack stall across 6 "market days," each with a different rule imposed by "the government": a free market baseline, a sales tax, a subsidy, a price ceiling, a price floor, and a Monopoly Licence auction. By choosing a price each day and watching how customers, costs, and profit respond, students feel — rather than just recall — how each type of intervention changes a market, and what it means to be the only seller in town.</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Core mechanic</div>
+      <div class="tg-p">Each round shows an event banner (the day's rule) and up to three price buttons — Low $0.80, Fair $1.20, High $1.80. The game computes how many cups sell (fewer at high prices, more at low prices — elasticity in action) and the profit per cup after that day's cost or price rule. A price ceiling round removes the High price option (illegal to charge that much); a price floor round removes the Low price option (illegal to charge that little); a tax round raises cost; a subsidy round lowers cost. On the Monopoly Licence day, students first bid (Low/Med/High) for the exclusive right to be the only seller — a bigger bid costs more up front but wins the licence more often, and winning dramatically changes how many customers show up.</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Round structure</div>
+      <ul class="tg-list">
+        <li><strong>Day 1 — Free Market:</strong> baseline, no rules, pure supply and demand.</li>
+        <li><strong>Day 2 — Sales Tax:</strong> a $0.30 per-cup tax raises the stall's cost.</li>
+        <li><strong>Day 3 — Subsidy:</strong> a $0.20 per-cup government payment lowers the stall's cost.</li>
+        <li><strong>Day 4 — Price Ceiling:</strong> a legal maximum price of $1.20 removes the High option.</li>
+        <li><strong>Day 5 — Price Floor:</strong> a legal minimum price of $1.20 removes the Low option.</li>
+        <li><strong>Day 6 — Monopoly Licence Auction:</strong> bid for exclusive selling rights, then price knowing whether you won or lost the licence.</li>
+        <li><strong>Result:</strong> total profit across all 6 days, plus a Concept Recap mapping every day's event to the economic idea it demonstrated.</li>
+      </ul>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Pre-game brief (1 minute)</div>
+      <div class="tg-p">"You run a snack stall. Most days, you just pick a price and see who buys. But this is a review week, so the town government keeps changing the rules — taxes, subsidies, price limits — and on the last day, they're even auctioning off the right to be the ONLY seller in town. Watch what each rule does to your customers and your profit, and be ready to explain why."</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Debrief questions</div>
+      <ul class="tg-list">
+        <li>On the tax day versus the subsidy day, how did your best price choice change? Why?</li>
+        <li>On the price ceiling day, what option disappeared — and who does a price ceiling usually protect?</li>
+        <li>If you won the Monopoly Licence, what changed about how many customers you had and what price you could charge? If you lost, what did that feel like?</li>
+        <li>Which single day taught you the most? Map it back to the lesson (L1–L5) it came from.</li>
+      </ul>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Common misconceptions &amp; fix</div>
+      <div class="tg-p"><strong>"A tax and a price ceiling are the same kind of rule."</strong> A tax changes the stall's COST (economists model this as a leftward shift in supply); a price ceiling directly limits what price is legally allowed — have students name the difference out loud before moving on. <strong>"Winning a monopoly is only good news."</strong> Ask a student who won the licence what happened to buyers' choices that day — point out that while the seller gains power, buyers usually lose out on price and choice, which is exactly what Lesson 5's lemonade-stand role play showed.</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Variants</div>
+      <div class="tg-p"><strong>Simpler:</strong> play only Days 1, 2, and 4 (free market, tax, ceiling) for a shorter 3-round version focused on government intervention alone. <strong>Harder:</strong> after finishing, have students redesign one day's rule (e.g. a bigger tax, a stricter ceiling) and predict — before replaying — how their best price choice would change.</div>
+    </div>
+  </details>
+</div>
+
+<script>
+const MAX_ROUNDS = 6;
+const BASE_COST = 0.50;
+
+const EVENTS = [
+  { key:'free', name:'Free Market', desc:'No rules today — just supply, demand, and your pricing instincts.', concept:'Free Market: price is set purely by buyers and sellers meeting at equilibrium — no government rule needed.' },
+  { key:'tax', name:'Sales Tax Announced', desc:'The government adds a $0.30 tax on every cup you sell today, raising your cost.', concept:'Sales Tax: a government-imposed cost that raises your cost of production — economists picture this as supply shifting left, meaning less is offered at every price.' },
+  { key:'subsidy', name:'Healthy Snack Subsidy', desc:'The government pays YOU $0.20 per cup today to encourage healthy stalls — your cost drops.', concept:'Subsidy: a government payment that LOWERS cost of production — the opposite of a tax, encouraging more supply.' },
+  { key:'ceiling', name:'Price Ceiling: $1.20 max', desc:"The government sets a legal MAXIMUM price today. You can't charge more than $1.20, even if you want to.", concept:'Price Ceiling: a legal maximum price, usually set to protect buyers — but it can cause a shortage if set below the natural equilibrium price.' },
+  { key:'floor', name:'Price Floor: $1.20 min', desc:"The government sets a legal MINIMUM price today. You can't charge less than $1.20, even to attract more buyers.", concept:'Price Floor: a legal minimum price, usually set to protect sellers — but it can cause a surplus if set above the natural equilibrium price.' },
+  { key:'monopoly', name:'Monopoly Licence Auction', desc:'One stall in town can bid for the exclusive Monopoly Licence — the only seller allowed to operate today. Bid high to improve your odds, but the licence fee comes out of your profit either way.', concept:'Monopoly Licence: winning made you the ONLY legal seller — real market power to set a higher price with less fear of losing customers. Losing showed you what it feels like when someone ELSE holds that power instead.' }
+];
+
+let round = 0;
+let totalProfit = 0;
+let log = [];
+let conceptLog = [];
+let auctionResolved = false;
+let monopolyWon = false;
+let auctionFee = 0;
+
+const card = document.getElementById('gameCard');
+
+function baseQty(price) { return Math.max(5, 40 - 30*(price - 1.20)); }
+
+function stallScene(price) {
+  if (price <= 0.9) return '🙋‍♀️🙋‍♂️🙋‍♀️🙋‍♂️🙋‍♀️';
+  if (price <= 1.4) return '🙋‍♀️🙋‍♂️🙋‍♀️';
+  return '🙋‍♂️';
+}
+
+function renderStart() {
+  card.innerHTML = `
+    <div class="phase-tag">Briefing</div>
+    <div class="phase-title">Six market days. One stall. You. 🏪</div>
+    <div class="phase-body">
+      Run your stall across <strong>${MAX_ROUNDS} market days</strong>. Each day, the "government" may change the rules — a tax, a subsidy, a price ceiling, a price floor — and on the final day, ONE stall wins the exclusive <strong>Monopoly Licence</strong>.<br><br>
+      Pick your price each day, watch how customers and profit respond, and see how every rule connects to something you've already learned.
+    </div>
+    <div class="cta-row"><button class="btn" onclick="startGame()">Open the Stall →</button></div>`;
+}
+
+function startGame() {
+  round = 0; totalProfit = 0; log = []; conceptLog = [];
+  auctionResolved = false; monopolyWon = false; auctionFee = 0;
+  renderRound();
+}
+
+function renderRound() {
+  const ev = EVENTS[round];
+  if (ev.key === 'monopoly' && !auctionResolved) { renderAuction(); return; }
+
+  let cost = BASE_COST;
+  if (ev.key === 'tax') cost = BASE_COST + 0.30;
+  if (ev.key === 'subsidy') cost = BASE_COST - 0.20;
+
+  const showLow = ev.key !== 'floor';
+  const showHigh = ev.key !== 'ceiling';
+
+  card.innerHTML = `
+    <div class="phase-tag">Market Day ${round+1} of ${MAX_ROUNDS}</div>
+    <div class="phase-title">Set today's price</div>
+    <div class="hud">
+      <div class="hud-item"><div class="hud-num">${round+1}/${MAX_ROUNDS}</div><div class="hud-lbl">Day</div></div>
+      <div class="hud-item"><div class="hud-num">$${cost.toFixed(2)}</div><div class="hud-lbl">Cost / cup</div></div>
+      <div class="hud-item"><div class="hud-num">$${totalProfit.toFixed(2)}</div><div class="hud-lbl">Total profit</div></div>
+    </div>
+    <div class="event-box"><div class="event-name">📢 ${ev.name}</div><div class="event-desc">${ev.desc}</div></div>
+    <div class="stall-box">
+      <div class="stall-scene">🏪</div>
+      <div class="stall-lbl">Pick a price for today's cups</div>
+    </div>
+    <div class="effort-row">
+      ${showLow ? `<button class="effort-btn low" onclick="choosePrice(0.80,'Low Price')">Low — $0.80<span class="e-sub">more customers, thin margin</span></button>` : `<button class="effort-btn low" disabled>Low — not allowed<span class="e-sub">blocked by today's price floor</span></button>`}
+      <button class="effort-btn med" onclick="choosePrice(1.20,'Fair Price')">Fair — $1.20<span class="e-sub">balanced, steady demand</span></button>
+      ${showHigh ? `<button class="effort-btn high" onclick="choosePrice(1.80,'High Price')">High — $1.80<span class="e-sub">fewer customers, fat margin</span></button>` : `<button class="effort-btn high" disabled>High — not allowed<span class="e-sub">blocked by today's price ceiling</span></button>`}
+    </div>
+    <div class="log-box" id="logBox">${log.length ? log.map(l=>`<div>${l}</div>`).join('') : '<div>No market days finished yet.</div>'}</div>`;
+}
+
+function renderAuction() {
+  card.innerHTML = `
+    <div class="phase-tag">Market Day ${round+1} of ${MAX_ROUNDS} — Auction</div>
+    <div class="phase-title">Bid for the Monopoly Licence 🏛️</div>
+    <div class="event-box"><div class="event-name">📢 ${EVENTS[5].name}</div><div class="event-desc">${EVENTS[5].desc}</div></div>
+    <div class="phase-body">Choose how much to bid. A bigger bid costs more up front but wins the licence more often.</div>
+    <div class="effort-row">
+      <button class="effort-btn low" onclick="resolveAuction(0,0.30,'Low Bid')">Low Bid — $0 fee<span class="e-sub">30% chance to win</span></button>
+      <button class="effort-btn med" onclick="resolveAuction(5,0.60,'Medium Bid')">Medium Bid — $5 fee<span class="e-sub">60% chance to win</span></button>
+      <button class="effort-btn high" onclick="resolveAuction(10,0.90,'High Bid')">High Bid — $10 fee<span class="e-sub">90% chance to win</span></button>
+    </div>
+    <div class="log-box" id="logBox">${log.length ? log.map(l=>`<div>${l}</div>`).join('') : '<div>No market days finished yet.</div>'}</div>`;
+}
+
+function resolveAuction(fee, winProb, label) {
+  auctionResolved = true;
+  auctionFee = fee;
+  monopolyWon = Math.random() < winProb;
+  log.unshift(`<strong>${label}</strong> (fee $${fee.toFixed(2)}) → ${monopolyWon ? '<strong style="color:var(--teal)">Won the Monopoly Licence!</strong>' : '<strong style="color:var(--red)">Lost the auction — a rival stall is today\\'s monopolist.</strong>'}`);
+  card.innerHTML = `
+    <div class="phase-tag">Auction Result</div>
+    <div class="phase-title">${monopolyWon ? 'You won the Monopoly Licence! 🏆' : 'A rival won the licence.'}</div>
+    <div class="round-result">${monopolyWon ? 'You are the ONLY legal seller today — customers who still want a cup have nowhere else to go, so you can charge more with less fear of losing them.' : 'A rival stall holds exclusive rights today. Most customers head there instead — expect a much quieter day at your stall.'}</div>
+    <div class="cta-row"><button class="act-btn" onclick="renderRound()">Set Today's Price →</button></div>
+    <div class="log-box" id="logBox">${log.map(l=>`<div>${l}</div>`).join('')}</div>`;
+}
+
+function choosePrice(price, label) {
+  const ev = EVENTS[round];
+  let cost = BASE_COST;
+  if (ev.key === 'tax') cost = BASE_COST + 0.30;
+  if (ev.key === 'subsidy') cost = BASE_COST - 0.20;
+
+  let qty = baseQty(price);
+  if (ev.key === 'monopoly') qty = Math.max(5, qty + (monopolyWon ? 15 : -20));
+
+  const fee = ev.key === 'monopoly' ? auctionFee : 0;
+  const profit = qty * (price - cost) - fee;
+  totalProfit += profit;
+
+  log.unshift(`Day ${round+1} (${ev.name}): <strong>${label}</strong> $${price.toFixed(2)} → ${Math.round(qty)} cups sold · profit ${profit>=0?'+':''}$${profit.toFixed(2)}`);
+  conceptLog.push(ev.concept);
+
+  card.innerHTML = `
+    <div class="phase-tag">Day ${round+1} result</div>
+    <div class="phase-title">${label} — $${price.toFixed(2)}</div>
+    <div class="round-result">You sold about <strong>${Math.round(qty)} cups</strong> at $${price.toFixed(2)} each, with a cost of $${cost.toFixed(2)} per cup${fee>0?` and a $${fee.toFixed(2)} licence fee`:''}. Today's profit: <strong style="color:${profit>=0?'var(--teal)':'var(--red)'}">${profit>=0?'+':''}$${profit.toFixed(2)}</strong>.</div>
+    <div class="cta-row"><button class="act-btn" onclick="afterRound()">Continue →</button></div>
+    <div class="log-box" id="logBox">${log.map(l=>`<div>${l}</div>`).join('')}</div>`;
+  round++;
+}
+
+function afterRound() {
+  if (round >= MAX_ROUNDS) renderFinal();
+  else renderRound();
+}
+
+function renderFinal() {
+  let tier, msg;
+  if (totalProfit >= 150) {
+    tier = 'Market Master 🏆';
+    msg = 'You read every rule correctly and adjusted your price each time — exactly what a savvy business owner (and a sharp economics student) does.';
+  } else if (totalProfit >= 90) {
+    tier = 'Savvy Trader 👍';
+    msg = 'Solid results overall. A sharper price call on the tax, ceiling, or auction day could have pushed your total even higher.';
+  } else if (totalProfit >= 40) {
+    tier = 'Getting the Hang of It 🌱';
+    msg = 'You kept your stall profitable, but some days clearly cost you. Look back at the log — which rule caught you off guard?';
+  } else {
+    tier = 'Back to the Drawing Board ⚠️';
+    msg = 'Tough week for the stall. Revisit the log: on tax and price-ceiling days especially, the "safe" price isn\\'t always the same as the free-market price.';
+  }
+
+  card.innerHTML = `
+    <div class="phase-tag">Market Week Result</div>
+    <div class="result-score" style="color:${totalProfit>=0?'var(--gold)':'var(--red)'}">${totalProfit>=0?'+':''}$${totalProfit.toFixed(2)}</div>
+    <div class="result-msg"><strong style="color:var(--blue)">${tier}</strong><br><br>${msg}</div>
+    <div class="recap-box">
+      <div class="recap-h">Concept Recap — every day, mapped back</div>
+      ${conceptLog.map((c,i)=>`<div class="recap-item"><strong>Day ${i+1} — ${EVENTS[i].name}:</strong> ${c}</div>`).join('')}
+    </div>
+    <div class="cta-row" style="margin-top:16px"><button class="btn" onclick="renderStart()">Run Market Day Again</button></div>`;
+}
+
+renderStart();
+</script>
+</body>
+</html>

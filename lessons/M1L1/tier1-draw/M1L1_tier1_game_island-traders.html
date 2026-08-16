@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Island Traders — a Scarcity & Opportunity Cost Game | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Noto Sans KR',sans-serif; color:var(--white);
+  background:linear-gradient(180deg,#bfe3ef 0%,#eaf6f3 40%,#f5f7fa 100%);
+  min-height:100vh; padding:28px 16px 60px;
+}
+.wrap { max-width:760px; margin:0 auto; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px; }
+.hdr-title { font-family:'Bebas Neue',sans-serif; font-size:34px; color:var(--blue); line-height:1; }
+.hdr-title span { color:var(--gold); }
+.hdr-sub { font-size:12px; color:var(--dim); margin-top:6px; max-width:440px; line-height:1.6; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.meta-pills { display:flex; gap:6px; margin-bottom:20px; flex-wrap:wrap; }
+.pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:var(--blue); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 11px; border-radius:20px; text-transform:uppercase; }
+
+.game-card { background:#fff; border-radius:20px; box-shadow:0 10px 40px rgba(13,45,82,0.12); padding:28px 30px; margin-bottom:24px; min-height:340px; }
+.phase-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.phase-title { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--blue); margin-bottom:10px; }
+.phase-body { font-size:13px; color:var(--dim); line-height:1.7; margin-bottom:16px; }
+
+.hud { display:flex; gap:22px; margin-bottom:18px; flex-wrap:wrap; }
+.hud-item { background:var(--card); border-radius:12px; padding:8px 16px; text-align:center; min-width:100px; }
+.hud-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.hud-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+.item-row { display:flex; align-items:center; gap:18px; background:var(--card); border-radius:16px; padding:16px 20px; margin-bottom:14px; }
+.item-emoji { font-size:38px; flex-shrink:0; }
+.item-info { flex:1; }
+.item-name { font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--white); }
+.item-desc { font-size:11px; color:var(--dim); }
+.item-actions { display:flex; gap:8px; }
+.act-btn { font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:1px; padding:9px 18px; border-radius:20px; cursor:pointer; border:2px solid transparent; transition:all 0.15s; }
+.act-grab { background:var(--teal); color:#fff; }
+.act-grab:hover { background:#00695c; }
+.act-skip { background:transparent; border-color:rgba(0,0,0,0.15); color:var(--dim); }
+.act-skip:hover { border-color:var(--red); color:var(--red); }
+.act-btn:disabled { opacity:0.35; cursor:not-allowed; }
+
+.trade-offer { background:var(--card); border-radius:16px; padding:18px 22px; margin-bottom:14px; }
+.trader-line { font-size:13px; color:var(--white); margin-bottom:12px; line-height:1.6; }
+.trader-line strong { color:var(--blue); }
+.trade-items { display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:14px; }
+.trade-side { text-align:center; background:#fff; border-radius:12px; padding:12px 16px; min-width:120px; border:1px solid rgba(0,0,0,0.06); }
+.trade-side .te { font-size:28px; }
+.trade-side .tn { font-family:'Bebas Neue',sans-serif; font-size:15px; margin-top:4px; }
+.trade-arrow { font-size:20px; color:var(--gold); }
+
+.log-box { background:var(--card); border-radius:12px; padding:12px 16px; font-size:11px; color:var(--dim); max-height:120px; overflow-y:auto; margin-top:8px; }
+.log-box div { padding:2px 0; border-bottom:1px dashed rgba(0,0,0,0.06); }
+.log-box div:last-child { border-bottom:none; }
+
+.result-score { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.result-msg { font-size:14px; color:var(--dim); text-align:center; margin:6px 0 18px; line-height:1.6; }
+
+.cta-row { display:flex; justify-content:center; gap:10px; }
+.btn { background:var(--gold); color:#fff; border:none; font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:1px; padding:11px 30px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:var(--gold2); transform:translateY(-2px); box-shadow:0 8px 24px rgba(200,150,10,0.3); }
+.btn.secondary { background:transparent; border:1.5px solid rgba(13,45,82,0.2); color:var(--blue); }
+
+/* ===== TUTOR GUIDE ===== */
+details.tutor { background:#fff; border-radius:16px; padding:6px 24px 22px; box-shadow:0 4px 20px rgba(13,45,82,0.08); }
+details.tutor summary { cursor:pointer; padding:16px 0; font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--blue); letter-spacing:0.5px; list-style:none; display:flex; align-items:center; gap:8px; }
+details.tutor summary::-webkit-details-marker { display:none; }
+details.tutor summary::before { content:'▸'; color:var(--gold); transition:transform 0.2s; }
+details.tutor[open] summary::before { transform:rotate(90deg); }
+.tg-section { margin-bottom:16px; }
+.tg-h { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+.tg-p { font-size:12.5px; color:var(--dim); line-height:1.7; }
+.tg-p strong { color:var(--white); }
+.tg-list { font-size:12.5px; color:var(--dim); line-height:1.9; padding-left:18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div>
+      <div class="hdr-title">Island <span>Traders</span></div>
+      <div class="hdr-sub">M1L1 · Tier 1 game — a scarcity &amp; opportunity-cost simulation. Salvage what you can carry, then trade — every deal has a hidden cost.</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="meta-pills">
+    <div class="pill">Ages 10–12</div>
+    <div class="pill">Solo or pairs</div>
+    <div class="pill">15–20 min</div>
+    <div class="pill">No prep needed</div>
+  </div>
+
+  <div class="game-card" id="gameCard"></div>
+
+  <details class="tutor">
+    <summary>🧠 For Tutors — Game Guide &amp; Debrief</summary>
+    <div class="tg-section">
+      <div class="tg-h">What this game teaches</div>
+      <div class="tg-p">Every item on the island has a hidden "survival value" the student can't see up front — just like real scarcity, they must decide under uncertainty with a raft that holds only <strong>4 items</strong> out of 8. Round 2 turns "give up to get" into a felt mechanic: every accepted trade shows the student exactly what they gained <em>and</em> what they gave up, making opportunity cost visible the instant it happens.</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Core mechanic</div>
+      <div class="tg-p">Sequential yes/no decisions under a hard capacity limit (raft = 4 slots). The student cannot "undo" a Grab or a Skip — mirroring the real economic problem that choices are rarely reversible.</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Round structure</div>
+      <ul class="tg-list">
+        <li><strong>Round 1 — Salvage (8 items, 4 slots):</strong> items appear one at a time; Grab or Let it Sink. Ends when 4 are grabbed or all 8 are seen.</li>
+        <li><strong>Round 2 — Trade (4 offers from Milo the Trader):</strong> accept or decline each swap. Accepting reveals the point gain/loss immediately.</li>
+        <li><strong>Result:</strong> final survival score + a tier message (Master Survivor / Smart Trader / Room to Grow) tied to how well trade-offs were managed.</li>
+      </ul>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Pre-game brief (1 minute)</div>
+      <div class="tg-p">"You're shipwrecked. Your raft only holds 4 things — you'll see 8 float by, one at a time, and you can't go back for one you skipped. Later, a trader named Milo will offer you swaps. Every choice — grab, skip, trade, or decline — has a cost you can't take back. Watch for it."</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Debrief questions</div>
+      <ul class="tg-list">
+        <li>Which item did you skip that you now wish you'd grabbed — and why couldn't you take it too?</li>
+        <li>Pick one trade you accepted. What did you give up to get it — and was it worth it?</li>
+        <li>If your raft had held 6 slots instead of 4, would scarcity have disappeared, or just gotten smaller?</li>
+      </ul>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Common misconceptions &amp; fix</div>
+      <div class="tg-p"><strong>"Opportunity cost is only about money."</strong> Point back to Round 1 — no money changed hands, yet every Grab still cost a raft slot. <strong>"More slots = no more scarcity."</strong> Ask what an 8-slot raft with 20 items floating by would feel like — scarcity returns at any size once wants exceed supply.</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Variants</div>
+      <div class="tg-p"><strong>Simpler:</strong> raise the raft to 5 slots and read each item's value aloud before deciding. <strong>Harder:</strong> drop the raft to 3 slots and remove the value reveal on trades — students must estimate value from the item's description alone, closer to real market uncertainty.</div>
+    </div>
+  </details>
+</div>
+
+<script>
+const ITEMS = [
+  {name:'Fresh Water', emoji:'💧', desc:'You won\\'t last 3 days without it.', val:9},
+  {name:'Fishing Net', emoji:'🕸️', desc:'Steady food, if you know how to use it.', val:7},
+  {name:'Old Blanket', emoji:'🧣', desc:'Cold nights on the sand.', val:4},
+  {name:'Radio', emoji:'📻', desc:'Might catch a rescue signal... if it still works.', val:6},
+  {name:'First-Aid Kit', emoji:'🩹', desc:'You might not need it. You might really need it.', val:8},
+  {name:'Coil of Rope', emoji:'🪢', desc:'Shelter, traps, climbing — surprisingly useful.', val:5},
+  {name:'Torn Map', emoji:'🗺️', desc:'Half the ink washed away.', val:3},
+  {name:'Flashlight', emoji:'🔦', desc:'No batteries included.', val:2}
+];
+const TRADES = [
+  {give:'Fresh Water', get:{name:'Coconut Stash', emoji:'🥥', val:6}, line:'"Trade me your <strong>Fresh Water</strong> for my <strong>Coconut Stash</strong>? Coconuts have water AND food inside!"'},
+  {give:'Old Blanket', get:{name:'Signal Mirror', emoji:'🪞', val:7}, line:'"That <strong>Old Blanket</strong> for my <strong>Signal Mirror</strong> — ships can see this from miles away."'},
+  {give:'Torn Map', get:{name:'Fishing Spear', emoji:'🔱', val:6}, line:'"I\\'ll trade you a <strong>Fishing Spear</strong> for that <strong>Torn Map</strong>. Half the map is useless anyway."'},
+  {give:'Flashlight', get:{name:'Dry Firewood', emoji:'🪵', val:5}, line:'"Swap your <strong>Flashlight</strong> for my bundle of <strong>Dry Firewood</strong>? Fire beats a dead battery."'}
+];
+
+let raft = [];        // items the player is carrying {name,emoji,val}
+let itemIdx = 0;
+let slots = 4;
+let tradeIdx = 0;
+let tradeLog = [];
+let netTradeChange = 0;
+
+const card = document.getElementById('gameCard');
+
+function renderStart() {
+  card.innerHTML = `
+    <div class="phase-tag">Round 0 · Briefing</div>
+    <div class="phase-title">You've washed ashore. 🏝️</div>
+    <div class="phase-body">Eight things are floating in from the wreck, one at a time. Your raft only holds <strong style="color:var(--gold)">4 items</strong> — once it's full, everything else drifts away for good. Choose wisely.</div>
+    <div class="cta-row"><button class="btn" onclick="startSalvage()">Start Salvaging →</button></div>`;
+}
+
+function startSalvage() {
+  raft = []; itemIdx = 0; slots = 4;
+  renderSalvage();
+}
+function renderSalvage() {
+  if (slots === 0 || itemIdx >= ITEMS.length) { renderSalvageResult(); return; }
+  const it = ITEMS[itemIdx];
+  card.innerHTML = `
+    <div class="phase-tag">Round 1 · Salvage</div>
+    <div class="phase-title">Grab it, or let it sink?</div>
+    <div class="hud">
+      <div class="hud-item"><div class="hud-num">${slots}</div><div class="hud-lbl">Raft slots left</div></div>
+      <div class="hud-item"><div class="hud-num">${itemIdx+1}/${ITEMS.length}</div><div class="hud-lbl">Item</div></div>
+    </div>
+    <div class="item-row">
+      <div class="item-emoji">${it.emoji}</div>
+      <div class="item-info"><div class="item-name">${it.name}</div><div class="item-desc">${it.desc}</div></div>
+      <div class="item-actions">
+        <button class="act-btn act-grab" onclick="decideItem(true)">Grab</button>
+        <button class="act-btn act-skip" onclick="decideItem(false)">Let it sink</button>
+      </div>
+    </div>`;
+}
+function decideItem(grab) {
+  const it = ITEMS[itemIdx];
+  if (grab) { raft.push(it); slots--; }
+  itemIdx++;
+  renderSalvage();
+}
+function renderSalvageResult() {
+  const total = raft.reduce((s,i)=>s+i.val,0);
+  card.innerHTML = `
+    <div class="phase-tag">Round 1 · Result</div>
+    <div class="phase-title">Your raft is loaded.</div>
+    <div class="phase-body">You kept: ${raft.map(i=>i.emoji+' '+i.name).join(', ') || '(nothing — risky!)'}. Survival score so far: <strong style="color:var(--gold)">${total}</strong>.</div>
+    <div class="phase-body">That's <strong>scarcity</strong> in action — you wanted all 8 things, but the raft (a finite resource) forced real trade-offs. Next: a trader wants to swap with you.</div>
+    <div class="cta-row"><button class="btn" onclick="startTrade()">Meet the Trader →</button></div>`;
+}
+
+function startTrade() { tradeIdx = 0; tradeLog = []; netTradeChange = 0; renderTrade(); }
+function renderTrade() {
+  if (tradeIdx >= TRADES.length) { renderFinal(); return; }
+  const t = TRADES[tradeIdx];
+  const have = raft.find(i => i.name === t.give);
+  if (!have) { tradeIdx++; renderTrade(); return; }  // skip offers for items player doesn't have
+  card.innerHTML = `
+    <div class="phase-tag">Round 2 · Trade (offer ${tradeIdx+1})</div>
+    <div class="phase-title">Milo the Trader appears 🧑‍🌾</div>
+    <div class="trade-offer">
+      <div class="trader-line">${t.line}</div>
+      <div class="trade-items">
+        <div class="trade-side"><div class="te">${have.emoji}</div><div class="tn">Your ${have.name}</div></div>
+        <div class="trade-arrow">⇄</div>
+        <div class="trade-side"><div class="te">${t.get.emoji}</div><div class="tn">${t.get.name}</div></div>
+      </div>
+      <div class="cta-row">
+        <button class="btn" onclick="decideTrade(true)">Accept Trade</button>
+        <button class="btn secondary" onclick="decideTrade(false)">Decline</button>
+      </div>
+    </div>
+    <div class="log-box" id="tradeLogBox">${tradeLog.length ? tradeLog.map(l=>`<div>${l}</div>`).join('') : '<div>No trades yet.</div>'}</div>`;
+}
+function decideTrade(accept) {
+  const t = TRADES[tradeIdx];
+  const haveIdx = raft.findIndex(i => i.name === t.give);
+  if (accept && haveIdx > -1) {
+    const gaveUp = raft[haveIdx];
+    const change = t.get.val - gaveUp.val;
+    netTradeChange += change;
+    raft[haveIdx] = t.get;
+    tradeLog.unshift(`Traded ${gaveUp.name} → ${t.get.name} (${change>=0?'+':''}${change} pts). Opportunity cost: giving up ${gaveUp.name}.`);
+  } else {
+    tradeLog.unshift(`Declined ${t.get.name} — kept ${t.give}.`);
+  }
+  tradeIdx++;
+  renderTrade();
+}
+
+function renderFinal() {
+  const salvageTotal = raft.reduce((s,i)=>s+i.val,0);
+  let tier, msg;
+  if (salvageTotal >= 26) { tier = 'Master Survivor 🏆'; msg = 'You weighed every trade-off with sharp instincts — high value, smart swaps.'; }
+  else if (salvageTotal >= 18) { tier = 'Smart Trader 👍'; msg = 'Solid choices! A couple of trades could have paid off even more.'; }
+  else { tier = 'Room to Grow 🌱'; msg = 'Scarcity is tough — replay and notice which trade-offs you\\'d change.'; }
+  card.innerHTML = `
+    <div class="phase-tag">Result</div>
+    <div class="result-score">${salvageTotal}</div>
+    <div class="result-msg"><strong style="color:var(--blue)">${tier}</strong><br>${msg}<br><br>Every point you have — and every point you don't — came from a choice. That's the economic problem: <strong style="color:var(--gold)">scarcity forces choice, and every choice has an opportunity cost.</strong></div>
+    <div class="cta-row"><button class="btn" onclick="renderStart()">Play Again</button></div>`;
+}
+
+renderStart();
+</script>
+</body>
+</html>

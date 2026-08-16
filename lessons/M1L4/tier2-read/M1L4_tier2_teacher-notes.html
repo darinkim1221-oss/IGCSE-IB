@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Notebook — Market Failure & Intervention (Tier 2) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:16px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.flow-strip { font-size:11px; color:var(--dim); background:var(--card); border-radius:10px; padding:10px 16px; margin-bottom:20px; font-family:'Space Mono',monospace; }
+.toc { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:30px; }
+.toc a { font-size:10px; text-decoration:none; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); padding:4px 10px; border-radius:20px; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:34px; scroll-margin-top:20px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:12px; }
+.p { font-size:13.5px; line-height:1.8; color:var(--white); margin-bottom:10px; }
+.p strong { color:var(--blue); }
+.list { font-size:13px; line-height:1.9; color:var(--white); padding-left:20px; margin-bottom:10px; }
+.kc-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+.kc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.obj-item { font-size:13px; line-height:1.8; padding:6px 0 6px 26px; position:relative; }
+.obj-item::before { content:'✓'; color:var(--teal); position:absolute; left:0; font-weight:700; }
+.obj-item .ao-tag { font-family:'Space Mono',monospace; font-size:9px; color:var(--gold); margin-left:6px; }
+
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:12px 18px; font-size:12.5px; color:var(--dim); line-height:1.7; margin:12px 0; }
+.tip-box strong { color:var(--gold); }
+.warn-box { border-left:3px solid var(--red); background:rgba(229,57,53,0.05); border-radius:0 10px 10px 0; padding:12px 18px; font-size:12.5px; color:var(--dim); line-height:1.7; margin:12px 0; }
+.warn-box strong { color:var(--red); }
+
+.diagram-note { display:flex; gap:16px; background:var(--card); border-radius:14px; padding:16px 18px; margin-bottom:12px; }
+.diagram-note .dn-icon { font-size:26px; flex-shrink:0; }
+.diagram-note .dn-text { font-size:12.5px; color:var(--dim); line-height:1.7; }
+.diagram-note .dn-text strong { color:var(--white); }
+
+table.glossary { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:8px; }
+table.glossary td { padding:8px 10px; border-bottom:1px solid rgba(0,0,0,0.08); vertical-align:top; }
+table.glossary td:first-child { font-weight:700; color:var(--blue); width:170px; }
+
+.adapter-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:10px; }
+.adapter-card { border:1px solid var(--border); border-radius:12px; padding:14px 16px; }
+.adapter-card .a-tag { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+.adapter-card.igcse .a-tag { color:var(--teal); }
+.adapter-card.ib .a-tag { color:var(--blue); }
+.adapter-card .p { font-size:12.5px; margin-bottom:6px; }
+
+.takeaway-box { background:linear-gradient(135deg,rgba(0,137,123,0.08),rgba(0,137,123,0.02)); border:1px solid rgba(0,137,123,0.25); border-radius:12px; padding:16px 20px; margin-top:10px; }
+.takeaway-box .tk-title { font-family:'Bebas Neue',sans-serif; font-size:16px; color:var(--teal); margin-bottom:8px; }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 1 · Microeconomics — Lesson 4</div>
+      <div class="k-title">Market Failure &amp; The Intervention Toolkit</div>
+      <div class="k-sub">Teacher Notebook · Tier 2 — Read the Map (Ages 13–15)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="flow-strip">SUGGESTED FLOW (50 min) — Hook (4) → AO1 command-term drill: market failure (5) → Price ceiling/floor diagrams (9) → Indirect tax/subsidy diagrams (9) → Wider toolkit (5) → Stakeholder analysis: rent control (6) → Externality/CPR classification [IB] (5) → Merit/demerit/public goods/monopoly cases (4) → First "discuss" paragraph (5) → Exam Adapter Slot (4) → Quiz (4)</div>
+  <div class="toc">
+    <a href="#obj">Objectives</a><a href="#kc">Key Concepts</a><a href="#notes">Teaching Notes</a>
+    <a href="#viz">Visuals</a><a href="#worked">Worked Example</a><a href="#misc">Misconceptions</a>
+    <a href="#adapter">Exam Adapter</a><a href="#ext">Extensions</a><a href="#resources">Resources</a>
+  </div>
+
+  <div class="section-tag" id="obj">Learning Objectives</div>
+  <div class="big-title">By the end, students can…</div>
+  <div class="obj-item">define market failure and externality to Cambridge command-word precision, distinguishing positive from negative <span class="ao-tag">AO1</span></div>
+  <div class="obj-item">draw and correctly label a price ceiling diagram and a price floor diagram, identifying the resulting shortage or surplus <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">draw and correctly label an indirect tax diagram and a subsidy diagram, identifying the new equilibrium and the tax wedge/subsidy per unit <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">name and apply the wider intervention toolkit (regulation/ban, direct provision, quotas, nationalisation/privatisation) to unfamiliar real-world cases <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">build a stakeholder analysis table identifying winners, losers, and reasons for a given intervention <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">construct a 2+ link cause-effect-consequence chain from an intervention to its market and stakeholder impact <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">[IB] classify an externality as negative/positive and production/consumption, and explain the tragedy of the commons using the non-excludable/rival framework</div>
+  <div class="obj-item">write a first two-sided "discuss" paragraph presenting a FOR and an AGAINST case with equal seriousness, without reaching a final verdict <span class="ao-tag">AO2</span></div>
+
+  <div class="section-tag" id="kc">Key Concepts &amp; the IB Lens</div>
+  <div class="kc-row"><span class="kc-chip">Intervention (primary)</span><span class="kc-chip">Efficiency (primary)</span><span class="kc-chip">Equity (primary)</span></div>
+  <div class="p">M1L4 is the course's first formal encounter with government intervention diagrams and the first structured introduction to two-sided analytical writing. Where M1L3 built calculation fluency, M1L4 builds <strong>diagram fluency under a policy lens</strong> — every diagram drawn here must be immediately followed by "who does this help, and who does this hurt?" This is also the drip map's first appearance of stakeholder analysis and the "examine" command term (two-sided, no final judgement), both of which recur and intensify through the rest of the IGCSE/IB analysis arc. Treat the discipline of NOT concluding — holding both sides seriously — as being just as important a deliverable this lesson as the diagrams themselves.</div>
+
+  <div class="section-tag" id="notes">Detailed Teaching Notes</div>
+  <div class="big-title">From hypothesis to diagram to stakeholder</div>
+  <div class="p">Open with the hook framed as a testable hypothesis (slide s0): "every time a government intervenes in a market, someone gains — and someone loses — even when the goal is fairness." This reframes the lesson as building a tool to identify exactly who, not just a vocabulary list. Run the command-term drill (slide s1) on market failure and price ceilings across <em>Define / State / Describe</em> before any diagrams appear.</div>
+  <div class="p">The <strong>price ceiling / price floor diagrams</strong> (slide s2) are the first of the four diagrams the wiki flags as drawing-REQUIRED at IGCSE — treat them as load-bearing exam skills, not optional illustration. Drill the sequence every time: (1) draw standard D and S with a labelled equilibrium; (2) draw the ceiling/floor as a horizontal line at the legally fixed price; (3) identify which curve (D or S) is now the binding constraint at that price; (4) read off and shade the resulting gap; (5) name it correctly — shortage for a ceiling (Qd &gt; Qs), surplus for a floor (Qs &gt; Qd). A common Cambridge mark-loss is students drawing the ceiling ABOVE or the floor BELOW equilibrium — physically check direction with students before they practise independently.</div>
+  <div class="p">The <strong>indirect tax / subsidy diagrams</strong> (slide s3) are the second required pair. The core visual insight to land: a tax makes selling more costly at every quantity, so the ENTIRE supply curve shifts up/left (not just one point moves); a subsidy does the reverse. New equilibrium price and quantity change together — students should be able to state the direction of both without re-deriving from scratch (tax → price up, quantity down; subsidy → price down, quantity up). The tax wedge / subsidy-per-unit is the vertical distance, at the NEW quantity, between the new supply curve and the OLD supply curve — this is the step students most often skip; insist it is drawn and labelled every time.</div>
+  <div class="p">The <strong>wider toolkit</strong> (slide s4) — regulation/ban, direct provision, quotas, nationalisation/privatisation — deliberately does NOT require a D/S diagram; make this explicit so students don't try to force every tool onto a price-based graph. These tools work by changing what is legal, who owns/produces something, or how much may be produced/consumed, rather than by shifting a curve.</div>
+  <div class="p">The <strong>stakeholder analysis table</strong> (slide s5, rent control) is this lesson's core AO2 structured-analysis skill. Model the three-column habit explicitly: Stakeholder → Winner/Loser/Mixed → Reason. Push students to go beyond "landlords lose money" toward the full chain: rent ceiling → landlords receive less revenue per unit → some withdraw flats from the rental market → fewer flats available → shortage worsens for renters still searching. This is the "2+ link cause-effect chain" the wiki drip map names explicitly for this lesson.</div>
+  <div class="p">The <strong>externality &amp; common pool resource classification</strong> (slide s6) is explicitly flagged as IB enrichment — the four-way grid (negative/positive × production/consumption) and the CPR/tragedy-of-commons framework do not appear in IGCSE 0455. Students should still recognise real-world examples of each from Tier 1's factory-by-the-river and fishing-lake material; this slide adds the formal classification vocabulary on top of intuition already built.</div>
+  <div class="p">The <strong>merit/demerit/public goods/monopoly cases tour</strong> (slide s7) connects the toolkit to real policy: merit goods are under-consumed and often subsidised/directly provided (education, vaccination); demerit goods are over-consumed and often taxed/regulated (tobacco, sugary drinks); public goods are under-provided by the market due to the free-rider problem and are usually directly provided (lighthouses, national defence); monopoly abuse of market power is a distinct failure mode addressed through competition regulation rather than a price/quantity diagram.</div>
+  <div class="p">The <strong>"discuss" paragraph</strong> (slide s8, plastic bag ban) is the course's first formal two-sided writing exercise. The critical teaching move: stop students the moment they reach for a verdict ("so overall, I think...") — that move belongs to <em>evaluate</em>, taught later. At this stage, "examine" success means both sides are equally developed, each uses a named economic concept, and the paragraph ends without picking a winner.</div>
+
+  <div class="section-tag" id="viz">Visuals &amp; Diagrams</div>
+  <div class="diagram-note">
+    <div class="dn-icon">📊</div>
+    <div class="dn-text"><strong>The four required intervention diagrams:</strong> price ceiling (horizontal line below equilibrium → shortage), price floor (horizontal line above equilibrium → surplus), indirect tax (supply shifts up/left → higher price, lower quantity, tax wedge), subsidy (supply shifts down/right → lower price, higher quantity, subsidy wedge). All four use the same base D/S diagram — teach them as one skeleton with four different applications, not four unrelated diagrams.</div>
+  </div>
+  <div class="tip-box"><strong>Important — do NOT draw an externality diagram at this tier:</strong> the wiki's syllabus verification note is explicit — "the 2027–2029 syllabus states explicitly that demand &amp; supply diagrams relating to market failure are NOT required at IGCSE. Externality/welfare-loss diagrams are IB-level." The four diagrams above (ceiling, floor, tax, subsidy) ARE required at IGCSE and should be drilled heavily. A formal marginal-social-cost/benefit externality diagram with a welfare-loss triangle should only be introduced with IB-track classes, and flagged clearly as beyond IGCSE 0455 if any IGCSE-track student encounters it via wider reading.</div>
+
+  <div class="section-tag" id="worked">Worked Example</div>
+  <div class="p"><strong>Exam-style prompt:</strong> "A government introduces a minimum wage above the free-market equilibrium wage for unskilled labour. Draw a diagram to show the effect, and analyse the impact on workers and employers." Model: (1) draw standard labour D/S with equilibrium wage; (2) draw the minimum wage as a horizontal line above equilibrium; (3) identify Qs &gt; Qd at that wage — a surplus of labour, i.e. unemployment; (4) stakeholder chain — workers who keep jobs are better off (higher wage), but firms now demand less labour at the higher wage, so some workers who would have been hired at the old equilibrium are not. This is the exact structure used in workbook Q4 and Q8 — walk the diagram AND the stakeholder chain together on the board before students attempt them independently.</div>
+
+  <div class="section-tag" id="misc">Common Misconceptions</div>
+  <div class="warn-box"><strong>"A price ceiling/floor moves the equilibrium point."</strong> Fix: it does not — the equilibrium stays where D and S cross. The ceiling/floor is a separate, legally fixed horizontal line that FORCES the market away from that equilibrium, creating a shortage or surplus at the fixed price instead.</div>
+  <div class="warn-box"><strong>"A tax/subsidy shifts demand, not supply."</strong> Fix: taxes and subsidies in this syllabus are modelled as changes to the SELLER's cost of supplying the good, so it is the supply curve that shifts — demand is unaffected because buyers' willingness to pay at each quantity hasn't changed.</div>
+  <div class="warn-box"><strong>"Intervention always helps consumers and hurts producers (or vice versa)."</strong> Fix: every intervention has a genuine stakeholder MIX — a price ceiling helps tenants who keep their flat but hurts renters who can no longer find one at all. Insist students name at least one winner AND one loser inside the same stakeholder group before accepting an analysis as complete.</div>
+
+  <div class="section-tag" id="adapter">Exam Adapter Slot</div>
+  <div class="big-title">Source: Wiki §7 drip map, row M1 L4 ("Analysis")</div>
+  <div class="p">Skill focus this lesson: <strong>stakeholder analysis table; 2+ link cause-effect chains; first intervention diagrams.</strong> Command terms in play: <em>analyse, distinguish, apply.</em></div>
+  <div class="adapter-grid">
+    <div class="adapter-card igcse">
+      <div class="a-tag">IGCSE (AO2)</div>
+      <div class="p">Structured analysis paragraphs; first Section B short-answer practice (4–6 marks). Reward a clear cause-effect-consequence chain over a list of disconnected facts — e.g. "tax raises cost of production → supply shifts left → price rises → quantity falls → consumers pay more, producers sell less."</div>
+      <div class="p" style="color:var(--dim);font-size:11.5px">Practice move: give students a bare policy ("a subsidy on solar panels") and have them build the full chain from mechanism to at least one named stakeholder consequence, in one continuous sentence.</div>
+    </div>
+    <div class="adapter-card ib">
+      <div class="a-tag">IB (AO2)</div>
+      <div class="p">Cause-effect-consequence chains extended into an introduction to "examine" — two-sided, with NO final judgement yet. That final "which side wins" move is "evaluate," introduced later in the course.</div>
+      <div class="p" style="color:var(--dim);font-size:11.5px">Practice move: for any intervention studied this lesson, require one FOR chain and one AGAINST chain of equal length before moving on — exactly the discipline modelled in the plastic-bag "discuss" slide.</div>
+    </div>
+  </div>
+
+  <div class="section-tag" id="ext">Extension Activities</div>
+  <div class="list">
+    <li><strong>Real intervention hunt:</strong> find a real news story about a government intervention (a new tax, subsidy, price cap, or ban) and identify which of the four diagrams or wider-toolkit tools applies, then build a 3-stakeholder table for it.</li>
+    <li><strong>Black market mini-case:</strong> [low-priority enrichment] research a real historical price ceiling (e.g. rent control, wartime price controls) and discuss what happened in the informal/black market as a consequence.</li>
+    <li><strong>[IB] Externality classification challenge:</strong> collect five real-world examples (news, local community) and classify each into the four-way negative/positive × production/consumption grid.</li>
+  </div>
+
+  <div class="section-tag" id="resources">Teaching Resources</div>
+  <div class="big-title">Exam-Precise Glossary</div>
+  <table class="glossary">
+    <tr><td>Market failure</td><td>When the free market fails to allocate resources efficiently — the price mechanism does not produce the socially optimal outcome.</td></tr>
+    <tr><td>Externality</td><td>A spillover cost or benefit of a transaction falling on a third party not reflected in the market price.</td></tr>
+    <tr><td>Price ceiling</td><td>A legal MAXIMUM price set below equilibrium — causes a shortage (Qd &gt; Qs).</td></tr>
+    <tr><td>Price floor</td><td>A legal MINIMUM price set above equilibrium — causes a surplus (Qs &gt; Qd).</td></tr>
+    <tr><td>Indirect tax</td><td>A tax on spending/production that shifts supply up/left, raising price and lowering quantity traded.</td></tr>
+    <tr><td>Subsidy</td><td>A payment to producers that shifts supply down/right, lowering price and raising quantity traded.</td></tr>
+    <tr><td>Stakeholder analysis</td><td>Identifying who wins, who loses, and why, for a given market outcome or intervention.</td></tr>
+    <tr><td>Common pool resource</td><td>[IB enrichment] Non-excludable but rival — overuse by individuals can collapse the shared resource (tragedy of the commons).</td></tr>
+    <tr><td>Public good</td><td>Non-excludable AND non-rival — under-provided by the free market due to the free-rider problem; typically directly provided by government.</td></tr>
+  </table>
+  <div class="takeaway-box">
+    <div class="tk-title">Key Takeaways</div>
+    <div class="p" style="margin-bottom:0">1. Four diagrams are drawing-REQUIRED at IGCSE — price ceiling, price floor, indirect tax, subsidy — drill the shared D/S skeleton, not four separate diagrams. 2. Externality/welfare-loss diagrams are IB-level enrichment only — never required or tested at IGCSE 0455. 3. Every intervention has a genuine stakeholder mix; insist on a named winner AND a named loser before accepting an analysis as complete. 4. "Examine"/"discuss" at this stage means two sides held with equal seriousness and NO final verdict — that move is "evaluate," introduced later. 5. The wider toolkit (regulation, direct provision, quotas, nationalisation) works without a price diagram — don't force every tool onto a D/S graph.</div>
+  </div>
+
+  <div class="footer">M1L4 · Economics Academy · Stoic Edu — Teacher Notebook</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Notebook — Elasticity: Measuring Responsiveness (Tier 2) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:16px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.flow-strip { font-size:11px; color:var(--dim); background:var(--card); border-radius:10px; padding:10px 16px; margin-bottom:20px; font-family:'Space Mono',monospace; }
+.toc { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:30px; }
+.toc a { font-size:10px; text-decoration:none; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); padding:4px 10px; border-radius:20px; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:34px; scroll-margin-top:20px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:12px; }
+.p { font-size:13.5px; line-height:1.8; color:var(--white); margin-bottom:10px; }
+.p strong { color:var(--blue); }
+.list { font-size:13px; line-height:1.9; color:var(--white); padding-left:20px; margin-bottom:10px; }
+.kc-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+.kc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.obj-item { font-size:13px; line-height:1.8; padding:6px 0 6px 26px; position:relative; }
+.obj-item::before { content:'✓'; color:var(--teal); position:absolute; left:0; font-weight:700; }
+.obj-item .ao-tag { font-family:'Space Mono',monospace; font-size:9px; color:var(--gold); margin-left:6px; }
+
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:12px 18px; font-size:12.5px; color:var(--dim); line-height:1.7; margin:12px 0; }
+.tip-box strong { color:var(--gold); }
+.warn-box { border-left:3px solid var(--red); background:rgba(229,57,53,0.05); border-radius:0 10px 10px 0; padding:12px 18px; font-size:12.5px; color:var(--dim); line-height:1.7; margin:12px 0; }
+.warn-box strong { color:var(--red); }
+
+.diagram-note { display:flex; gap:16px; background:var(--card); border-radius:14px; padding:16px 18px; margin-bottom:12px; }
+.diagram-note .dn-icon { font-size:26px; flex-shrink:0; }
+.diagram-note .dn-text { font-size:12.5px; color:var(--dim); line-height:1.7; }
+.diagram-note .dn-text strong { color:var(--white); }
+
+table.glossary { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:8px; }
+table.glossary td { padding:8px 10px; border-bottom:1px solid rgba(0,0,0,0.08); vertical-align:top; }
+table.glossary td:first-child { font-weight:700; color:var(--blue); width:170px; }
+
+.adapter-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:10px; }
+.adapter-card { border:1px solid var(--border); border-radius:12px; padding:14px 16px; }
+.adapter-card .a-tag { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+.adapter-card.igcse .a-tag { color:var(--teal); }
+.adapter-card.ib .a-tag { color:var(--blue); }
+.adapter-card .p { font-size:12.5px; margin-bottom:6px; }
+
+.takeaway-box { background:linear-gradient(135deg,rgba(0,137,123,0.08),rgba(0,137,123,0.02)); border:1px solid rgba(0,137,123,0.25); border-radius:12px; padding:16px 20px; margin-top:10px; }
+.takeaway-box .tk-title { font-family:'Bebas Neue',sans-serif; font-size:16px; color:var(--teal); margin-bottom:8px; }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 1 · Microeconomics — Lesson 3</div>
+      <div class="k-title">Elasticity: Measuring Responsiveness</div>
+      <div class="k-sub">Teacher Notebook · Tier 2 — Read the Map (Ages 13–15)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="flow-strip">SUGGESTED FLOW (50 min) — Hook (4) → AO1 command-term drill: PED (5) → Calculation walkthrough: train ticket (8) → Five-value vocabulary tour (7) → PED &amp; revenue link (8) → Determinants of PED (6) → PES: definition, calculation, determinants (7) → IB enrichment: YED &amp; tax incidence (5) → Exam Adapter Slot (4) → Quiz (3)</div>
+  <div class="toc">
+    <a href="#obj">Objectives</a><a href="#kc">Key Concepts</a><a href="#notes">Teaching Notes</a>
+    <a href="#viz">Visuals</a><a href="#worked">Worked Example</a><a href="#misc">Misconceptions</a>
+    <a href="#adapter">Exam Adapter</a><a href="#ext">Extensions</a><a href="#resources">Resources</a>
+  </div>
+
+  <div class="section-tag" id="obj">Learning Objectives</div>
+  <div class="big-title">By the end, students can…</div>
+  <div class="obj-item">state and define price elasticity of demand (PED) to Cambridge command-word precision, including the correct formula <span class="ao-tag">AO1</span></div>
+  <div class="obj-item">calculate PED from raw price/quantity data, showing full working (%ΔQd, %ΔP, ratio), and interpret the resulting value <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">place a good correctly on the five-value elasticity spectrum (perfectly inelastic → perfectly elastic) with a real-world example for each <span class="ao-tag">AO1/AO2</span></div>
+  <div class="obj-item">prove numerically that the effect of a price change on total revenue depends on the value of PED, and state the general rule <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">name and apply the determinants of PED and PES to unfamiliar goods <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">calculate price elasticity of supply (PES) and interpret the value using the same five-value logic <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">[IB] calculate/interpret income elasticity of demand (YED) and identify normal vs inferior goods from its sign</div>
+  <div class="obj-item">[IB HL] explain qualitatively how the elasticity of demand determines who bears more of a tax burden</div>
+  <div class="obj-item">apply the value → implication chain: state a calculated elasticity value, then explain what it means for a firm's pricing decision or a government's policy choice <span class="ao-tag">AO4</span></div>
+
+  <div class="section-tag" id="kc">Key Concepts &amp; the IB Lens</div>
+  <div class="kc-row"><span class="kc-chip">Change (primary)</span><span class="kc-chip">Choice (primary)</span><span class="kc-chip">Efficiency (primary)</span></div>
+  <div class="p">Elasticity is the course's first fully quantitative analytical tool, and it is the most heavily calculation-tested topic in Module 1 for both boards. Where M1L2 built diagram fluency, M1L3 builds <strong>calculation fluency</strong> — the discipline of showing every step, not just stating a final number. Students who master the three-line "formula → substitution → answer + comment" habit here will reuse it directly in cost/revenue calculations (M1L5) and in any numerical IB Paper 3 question. Treat the calculation technique itself, not just the economics, as the core deliverable of this lesson.</div>
+
+  <div class="section-tag" id="notes">Detailed Teaching Notes</div>
+  <div class="big-title">From hypothesis to proof</div>
+  <div class="p">Open with the hook framed as a testable hypothesis (slide s0): "raising a price can sometimes make a firm LESS money — and elasticity tells you exactly when." This reframes elasticity as a tool that resolves a genuine puzzle, not an abstract vocabulary list. Run the command-term drill (slide s1) on PED across <em>Define / State / Describe</em> before any numbers appear, so students separate "knowing what it means" from "knowing how to calculate it."</div>
+  <div class="p">The <strong>calculation walkthrough</strong> (slide s2, train ticket $10→$12, quantity 100→70) is the load-bearing skill of this lesson. Drill the exact sequence every time, with no shortcuts: (1) %ΔQd = change ÷ original × 100; (2) %ΔP = change ÷ original × 100; (3) PED = %ΔQd ÷ %ΔP; (4) state the value; (5) interpret the value against the five-value vocabulary; (6) state the implication (here, PED = −1.5 → elastic → a price rise would REDUCE revenue). Insist students write all six steps even when they can do the arithmetic in their heads — this is exactly the AO2 "show all working" structure IGCSE markers reward with method marks even if the final answer is wrong.</div>
+  <div class="p">The <strong>five-value vocabulary tour</strong> (slide s3) should be taught as a spectrum, not five disconnected boxes: perfectly inelastic (vertical curve, |PED|=0) → inelastic (0&lt;|PED|&lt;1) → unitary (|PED|=1) → elastic (|PED|&gt;1) → perfectly elastic (horizontal curve, |PED|=∞). For each, require students to state BOTH the curve shape AND a plausible real-world example — examiners commonly ask for one or the other in isolation.</div>
+  <div class="p">The <strong>PED–revenue link</strong> (slide s4) is the single most exam-relevant idea in the lesson. Use the elastic/inelastic toggle to show the shaded "old revenue" rectangle vs the outlined "new revenue" rectangle for the SAME price rise applied to goods with different elasticities — this makes visually obvious why the identical percentage price rise can either raise or lower revenue depending only on PED. State the general rule explicitly and have students repeat it back: raise price on an INELASTIC good → revenue rises; raise price on an ELASTIC good → revenue falls; at UNITARY elasticity, revenue is unchanged by a small price change.</div>
+  <div class="p"><strong>Determinants of PED</strong> (slide s5) should be taught as a memorised, exam-ready list of six: availability of substitutes, necessity vs luxury, proportion of income spent, time period, habit/addiction, breadth of definition of the good. Push students to apply — not just recite — these by testing them on unfamiliar goods in the moment.</div>
+  <div class="p"><strong>PES</strong> (slide s6) mirrors PED's structure exactly (formula, worked calculation, five-value interpretation, determinants), which is worth stating explicitly to reduce cognitive load — "everything you just learned about demand has a supply-side twin." PES determinants: time available to increase production, spare capacity, ability to store output, and factor mobility (how easily inputs can be redirected into producing more).</div>
+  <div class="p"><strong>IB enrichment</strong> (slide s7) covers YED (income elasticity — sign, not just size, matters: positive = normal good, negative = inferior good) and tax incidence (IB HL only — inelastic demand means buyers absorb more of a tax). Flag both explicitly as beyond IGCSE 0455. Note for IB-track teachers: the full incidence-SPLIT calculation (exact $ burden on each side) is HL-level; SL students and all IGCSE students only need the qualitative direction of the argument (inelastic demand → sellers can pass on more of the tax).</div>
+
+  <div class="section-tag" id="viz">Visuals &amp; Diagrams</div>
+  <div class="diagram-note">
+    <div class="dn-icon">📉</div>
+    <div class="dn-text"><strong>Five-value curve family:</strong> perfectly inelastic is a vertical line; perfectly elastic is a horizontal line; the other three are downward-sloping lines of increasing flatness from inelastic (steep) through unitary (moderate) to elastic (shallow). Drawing all five on axes with the same scale side by side makes the spectrum concrete rather than abstract.</div>
+  </div>
+  <div class="diagram-note">
+    <div class="dn-icon">🟩</div>
+    <div class="dn-text"><strong>Revenue rectangles:</strong> total revenue = price × quantity is always the area of a rectangle under the equilibrium point. Shade the ORIGINAL revenue rectangle and outline the NEW revenue rectangle after a price change on the same axes — students should be able to see by eye whether the new rectangle's area is bigger or smaller than the old one, before doing any arithmetic.</div>
+  </div>
+  <div class="tip-box"><strong>Tip:</strong> when a student states a PED value with the wrong sign or forgets it should usually be negative, don't just correct the sign — ask them to check whether price and quantity moved in the same or opposite directions on the demand curve, and let them re-derive the sign.</div>
+
+  <div class="section-tag" id="worked">Worked Example</div>
+  <div class="p"><strong>Exam-style prompt:</strong> "A market stall raises the price of scarves from $10 to $13. Quantity demanded falls from 50 to 30 per week. Calculate PED and explain the effect on revenue." Model the full six-step chain: (1) %ΔQd = (30−50)/50 × 100 = −40%; (2) %ΔP = (13−10)/10 × 100 = +30%; (3) PED = −40 ÷ 30 = −1.33; (4) state the value; (5) |PED| &gt; 1 → elastic; (6) implication — because demand is elastic, the proportional fall in quantity (40%) outweighs the proportional rise in price (30%), so total revenue FALLS (from $500 to $390). This is the exact structure used in workbook Q6 — walk it on the board before students attempt it independently.</div>
+
+  <div class="section-tag" id="misc">Common Misconceptions</div>
+  <div class="warn-box"><strong>"A bigger PED number always means a 'better' or 'more important' good."</strong> Fix: PED size measures RESPONSIVENESS to price, not importance or value — insulin is enormously important but very inelastic (|PED| close to 0) precisely because buyers have no choice but to keep buying it regardless of price.</div>
+  <div class="warn-box"><strong>"Raising price always raises revenue" / "cutting price always raises revenue."</strong> Fix: both are half-true at best — the direction depends entirely on PED. Drill the rule as a conditional statement, never as a universal one: IF demand is inelastic, a price RISE raises revenue; IF demand is elastic, a price RISE cuts revenue (and vice versa for a price cut).</div>
+  <div class="warn-box"><strong>"PES works exactly like PED, so I can skip re-deriving it."</strong> Fix: the formula and five-value logic are structurally identical, but the determinants are different (time to produce, spare capacity, storability, factor mobility — not substitutes/necessity/budget share). Require students to state PES's own determinant list, not PED's, when asked.</div>
+
+  <div class="section-tag" id="adapter">Exam Adapter Slot</div>
+  <div class="big-title">Source: Wiki §7 drip map, row M1 L3 ("Analysis")</div>
+  <div class="p">Skill focus this lesson: <strong>PED/PES/YED calculations with full working; interpret the value; state the implication.</strong> Command terms in play: <em>calculate, explain, apply.</em></div>
+  <div class="adapter-grid">
+    <div class="adapter-card igcse">
+      <div class="a-tag">IGCSE (AO2)</div>
+      <div class="p">"Calculate and comment" structure, worth 2–3 marks: show all working (method marks are awarded even if the final figure is wrong), then add one sentence of comment interpreting the value (e.g. "this means demand is elastic").</div>
+      <div class="p" style="color:var(--dim);font-size:11.5px">Practice move: give students a final PED answer with the working stripped out and have them reconstruct a valid 3-line "formula → substitution → answer + comment" solution that could have produced it.</div>
+    </div>
+    <div class="adapter-card ib">
+      <div class="a-tag">IB (AO4)</div>
+      <div class="p">Calculation technique extended into the value → implication chain: state the value, name the term (elastic/inelastic/unitary), then explicitly complete the sentence "Because PED = [value], a firm/government should therefore ___."</div>
+      <div class="p" style="color:var(--dim);font-size:11.5px">Practice move: take any IGCSE-style "calculate and comment" answer from this lesson and extend the final comment into a full firm-or-government policy recommendation sentence using the value → implication chain.</div>
+    </div>
+  </div>
+
+  <div class="section-tag" id="ext">Extension Activities</div>
+  <div class="list">
+    <li><strong>Real-price hunt:</strong> find a real news story about a price change (fuel, transit fares, a subscription service) and estimate whether demand is likely elastic or inelastic using the determinants list, then predict the revenue effect.</li>
+    <li><strong>Tax-incidence mini-case:</strong> [IB] research one real "sin tax" (tobacco, sugary drinks) and discuss, using PED reasoning, why governments often choose to tax goods with inelastic demand for revenue-raising purposes even though the stated goal is to reduce consumption.</li>
+    <li><strong>PES bottleneck design:</strong> pick a real product and identify what would need to change (spare capacity, storage, factor mobility) to make its supply more elastic over time.</li>
+  </div>
+
+  <div class="section-tag" id="resources">Teaching Resources</div>
+  <div class="big-title">Exam-Precise Glossary</div>
+  <table class="glossary">
+    <tr><td>Price elasticity of demand (PED)</td><td>%ΔQd ÷ %ΔP — measures how responsive quantity demanded is to a change in a good's own price.</td></tr>
+    <tr><td>Price elasticity of supply (PES)</td><td>%ΔQs ÷ %ΔP — measures how responsive quantity supplied is to a change in price.</td></tr>
+    <tr><td>Perfectly inelastic / elastic</td><td>|PED| = 0 (vertical curve, quantity never changes) / |PED| = ∞ (horizontal curve, any quantity sold only at one price).</td></tr>
+    <tr><td>Unitary elasticity</td><td>|PED| = 1 — % change in quantity exactly equals % change in price; total revenue unchanged by a small price change.</td></tr>
+    <tr><td>Total revenue</td><td>Price × Quantity — visualised as the area of a rectangle under the demand curve at the chosen price.</td></tr>
+    <tr><td>Determinants of PED</td><td>Substitutes, necessity vs luxury, proportion of income, time period, habit/addiction, breadth of definition.</td></tr>
+    <tr><td>Determinants of PES</td><td>Time to produce, spare capacity, storability, factor mobility.</td></tr>
+    <tr><td>Income elasticity of demand (YED)</td><td>[IB enrichment] %ΔQd ÷ %ΔIncome — sign indicates normal (positive) vs inferior (negative) good.</td></tr>
+    <tr><td>Tax incidence</td><td>[IB HL enrichment] How the burden of a tax is split between buyers and sellers, determined by relative elasticity of demand and supply.</td></tr>
+  </table>
+  <div class="takeaway-box">
+    <div class="tk-title">Key Takeaways</div>
+    <div class="p" style="margin-bottom:0">1. Elasticity calculation technique (show every step) is this lesson's core deliverable and reappears all course. 2. The revenue rule is conditional, not universal: it depends entirely on the PED value. 3. PES is PED's structural twin with different determinants — don't let students conflate the two determinant lists. 4. YED and tax incidence are genuine IB enrichment (YED sign; incidence-split calculation is HL only) — flag clearly as beyond IGCSE 0455. 5. The value → implication chain ("because PED = X, therefore...") is the AO4 skill examiners are actually testing, not the arithmetic alone.</div>
+  </div>
+
+  <div class="footer">M1L3 · Economics Academy · Stoic Edu — Teacher Notebook</div>
+</div>
+</body>
+</html>

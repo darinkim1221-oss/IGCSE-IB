@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Factory by the River: Who Pays for the Mess? | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif;
+  overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center;
+}
+#slide-frame {
+  position:relative; width:960px; height:540px; background:var(--bg);
+  border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0;
+}
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide {
+  position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center;
+  align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none;
+  transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box;
+}
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%),
+             radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%);
+  pointer-events:none;
+}
+#nav {
+  position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100;
+  background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border);
+  border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg {
+  position:absolute; inset:0;
+  background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size:48px 48px; pointer-events:none;
+}
+.tag {
+  display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold);
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px;
+  margin-bottom:8px; text-transform:uppercase;
+}
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(26px,4vw,44px); line-height:1.05; margin-bottom:14px; color:var(--white); }
+.btn {
+  background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px;
+  letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s;
+}
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+@keyframes flowRiver { 0%,100%{transform:translateX(0);} 50%{transform:translateX(6px);} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.river-scene { position:relative; z-index:2; width:260px; height:190px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; }
+.river-row { display:flex; align-items:center; gap:10px; animation:fadeUp 0.6s ease 0.4s backwards; }
+.river-emoji { font-size:36px; }
+.river-strip { width:170px; height:14px; background:linear-gradient(90deg,#4db6ac,#1565c0); border-radius:8px; animation:flowRiver 2.2s ease-in-out infinite; }
+.river-lbl { color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(30px,5vw,50px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:380px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 HOOK ===== */
+#s0 { text-align:center; }
+.hook-question { font-family:'Bebas Neue',sans-serif; font-size:clamp(20px,3.2vw,36px); line-height:1.15; letter-spacing:1px; margin-bottom:18px; max-width:800px; }
+.hook-question span { color:var(--gold); }
+.hook-scene { display:flex; gap:24px; margin:10px 0; }
+.hook-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:16px 24px; text-align:center; }
+.hook-emoji { font-size:34px; }
+.hook-lbl { font-family:'Bebas Neue',sans-serif; font-size:16px; margin-top:6px; }
+.hook-sub { font-size:11px; color:var(--dim); margin-top:2px; max-width:150px; }
+.hook-reveal { font-size:14px; color:var(--teal); opacity:0; animation:fadeUp 0.8s ease 1.2s forwards; margin-top:10px; }
+
+/* ===== s1: FACTORY DEMO ===== */
+#s1 { flex-direction:column; gap:10px; }
+.rb-arena { display:flex; gap:20px; max-width:820px; width:100%; justify-content:center; }
+.rb-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:16px 22px; width:340px; text-align:center; }
+.rb-title { font-family:'Bebas Neue',sans-serif; font-size:17px; margin-bottom:2px; }
+.rb-sub { font-size:10.5px; color:var(--dim); margin-bottom:8px; }
+.rb-price { font-family:'Space Mono',monospace; font-size:20px; color:var(--blue); margin:6px 0; }
+.rb-buyers { font-size:22px; letter-spacing:3px; min-height:30px; margin-bottom:8px; }
+.rb-meter-track { width:100%; height:14px; background:rgba(0,0,0,0.06); border-radius:8px; overflow:hidden; margin-bottom:8px; }
+.rb-meter-fill { height:100%; border-radius:8px; transition:width 0.4s ease; }
+.rb-meter-lbl { font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; }
+.rb-btn { background:var(--red); color:#fff; border:none; font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:1px; padding:7px 18px; border-radius:20px; cursor:pointer; margin-top:6px; }
+.rb-btn:hover { opacity:0.85; }
+.rb-verdict { font-size:11px; color:var(--dim); min-height:32px; margin-top:6px; line-height:1.5; }
+
+/* ===== s2: SPECTRUM SORT ===== */
+#s2 { flex-direction:column; gap:10px; }
+.spec-line-box { max-width:840px; width:100%; }
+.spec-line { position:relative; height:6px; background:linear-gradient(90deg,var(--teal),var(--card),var(--red)); border-radius:4px; margin:18px 0 26px; }
+.spec-ends { display:flex; justify-content:space-between; font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); text-transform:uppercase; }
+.spec-ends .l { color:var(--teal); } .spec-ends .r { color:var(--red); }
+.spec-cards { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+.spec-card { background:var(--card); border:2px solid rgba(0,0,0,0.06); border-radius:12px; padding:9px 14px; font-size:12px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; }
+.spec-card:hover { border-color:var(--gold); }
+.spec-card.pos { border-color:var(--teal); background:rgba(0,137,123,0.08); }
+.spec-card.neg { border-color:var(--red); background:rgba(229,57,53,0.08); }
+.spec-hint { font-size:11px; color:var(--dim); text-align:center; margin-top:4px; min-height:34px; max-width:700px; line-height:1.5; }
+
+/* ===== s3: FREE-RIDER ===== */
+#s3 { flex-direction:column; gap:10px; }
+.fr-arena { max-width:820px; width:100%; text-align:center; }
+.fr-house-row { display:flex; gap:12px; justify-content:center; margin:10px 0; flex-wrap:wrap; }
+.fr-house { background:var(--card); border:2px solid rgba(0,0,0,0.08); border-radius:14px; padding:12px 16px; width:150px; text-align:center; }
+.fr-house.you { border-color:var(--blue); }
+.fr-house-emoji { font-size:24px; }
+.fr-house-lbl { font-family:'Bebas Neue',sans-serif; font-size:13px; margin:4px 0; }
+.fr-house-status { font-size:10.5px; color:var(--dim); min-height:16px; }
+.fr-house-btns { display:flex; gap:4px; justify-content:center; margin-top:6px; }
+.fr-mini-btn { font-family:'Space Mono',monospace; font-size:9px; padding:4px 7px; border-radius:6px; border:1px solid rgba(0,0,0,0.15); background:#fff; cursor:pointer; }
+.fr-mini-btn.active { border-color:var(--blue); color:var(--blue); font-weight:700; background:rgba(13,45,82,0.05); }
+.fr-progress-track { width:80%; margin:14px auto 4px; height:16px; background:rgba(0,0,0,0.06); border-radius:8px; overflow:hidden; }
+.fr-progress-fill { height:100%; background:var(--gold); border-radius:8px; transition:width 0.4s ease; }
+.fr-result { font-size:12px; color:var(--dim); margin-top:8px; line-height:1.6; max-width:640px; margin-left:auto; margin-right:auto; }
+
+/* ===== s4: TAX SLIDER + DEBATE ===== */
+#s4 { flex-direction:column; gap:12px; }
+.tax-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:16px 26px; max-width:600px; width:100%; text-align:center; }
+.tax-card input[type=range] { width:100%; -webkit-appearance:none; height:6px; background:linear-gradient(90deg,var(--teal),var(--gold),var(--red)); border-radius:3px; outline:none; margin:10px 0; }
+.tax-card input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:#fff; border:3px solid var(--blue); cursor:pointer; }
+.tax-readout { font-family:'Space Mono',monospace; font-size:13px; color:var(--blue); }
+.tax-bars { display:flex; gap:20px; justify-content:center; margin-top:10px; }
+.tax-bar-col { text-align:center; }
+.tax-bar-track { height:64px; width:36px; background:rgba(0,0,0,0.04); border-radius:8px; display:flex; align-items:flex-end; justify-content:center; }
+.tax-bar { width:26px; border-radius:6px 6px 0 0; transition:height 0.3s ease; }
+.tax-bar-lbl { font-size:9px; color:var(--dim); margin-top:4px; }
+.debate-row { display:flex; gap:10px; justify-content:center; margin-top:12px; }
+.debate-btn { font-family:'Bebas Neue',sans-serif; font-size:14px; padding:8px 18px; border-radius:16px; cursor:pointer; border:2px solid; background:#fff; }
+.debate-btn.yes { border-color:var(--teal); color:var(--teal); }
+.debate-btn.no { border-color:var(--red); color:var(--red); }
+.debate-out { font-size:11px; color:var(--dim); margin-top:6px; min-height:30px; max-width:640px; line-height:1.5; }
+
+/* ===== s5: TOOLBOX SORT ===== */
+#s5 { flex-direction:column; gap:12px; }
+.det-grid { display:flex; gap:14px; max-width:880px; flex-wrap:wrap; justify-content:center; }
+.det-card { width:195px; background:var(--card); border:2px solid rgba(0,0,0,0.06); border-radius:14px; padding:14px; text-align:center; cursor:pointer; transition:all 0.2s; }
+.det-card:hover { border-color:var(--gold); transform:translateY(-2px); }
+.det-card.picked { border-color:var(--teal); background:rgba(0,137,123,0.08); }
+.det-emoji { font-size:26px; }
+.det-lbl { font-family:'Bebas Neue',sans-serif; font-size:14px; margin:4px 0; }
+.det-desc { font-size:10.5px; color:var(--dim); line-height:1.5; }
+
+/* ===== s6: RAPID ROUND ===== */
+#s6 { flex-direction:column; gap:16px; }
+.rr-arena { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:20px 30px; max-width:680px; width:100%; text-align:center; }
+
+/* ===== quiz reused ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:18px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left">
+    <div class="river-scene">
+      <div class="river-row"><span class="river-emoji">🏭</span><span class="river-lbl">FACTORY</span></div>
+      <div class="river-strip"></div>
+      <div class="river-row"><span class="river-emoji">🎣</span><span class="river-lbl">FISHING VILLAGE</span></div>
+    </div>
+  </div>
+  <div class="cover-right">
+    <div class="cover-module">Module 1 · Microeconomics — Lesson 4</div>
+    <div class="cover-title">The Factory by the River:<br><span>Who Pays for the Mess?</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">A factory dumps waste in the river for free — but somebody always pays. Meet the people affected, share a shrinking fishing lake, and debate whether candy should be taxed like cigarettes.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Spillover Effects</span>
+        <span class="cc-chip">Shared Resources</span>
+        <span class="cc-chip">Free-Riding</span>
+        <span class="cc-chip">Government Tools</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 10–12</div>
+      <div class="cover-pill">Interactive</div>
+      <div class="cover-pill">45 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0: HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="hook-question">A factory saves money by dumping waste in the river.<br>The factory keeps the <span>profit</span>. Who pays the <span>real price</span>?</div>
+  <div class="hook-scene">
+    <div class="hook-card"><div class="hook-emoji">🏭</div><div class="hook-lbl">The Factory</div><div class="hook-sub">makes money, pays nothing for the waste</div></div>
+    <div class="hook-card"><div class="hook-emoji">🎣</div><div class="hook-lbl">The Village</div><div class="hook-sub">catches fewer fish, drinks dirtier water</div></div>
+  </div>
+  <div class="hook-reveal">👇 Let's watch it happen...</div>
+</section>
+
+<!-- ============ s1: FACTORY DEMO ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Live Demo</div>
+    <div class="big-title">Turn Up the Factory — Watch Who Pays</div>
+    <p style="font-size:11px;color:var(--dim);max-width:600px">Tap "Produce More" a few times and watch what happens to the village downstream — a cost the factory never has to pay.</p>
+  </div>
+  <div class="rb-arena">
+    <div class="rb-card">
+      <div class="rb-title">🏭 Wonder Widgets Factory</div>
+      <div class="rb-sub">Profit climbs every time they produce more.</div>
+      <div class="rb-price" id="factoryProfit">$0</div>
+      <div class="rb-meter-track"><div class="rb-meter-fill" id="factoryMeter" style="width:0%;background:var(--gold)"></div></div>
+      <div class="rb-meter-lbl">PROFIT METER</div>
+      <button class="rb-btn" onclick="produceMore()">Produce More +</button>
+      <div class="rb-verdict" id="factoryVerdict">The factory pays nothing for the waste it creates.</div>
+    </div>
+    <div class="rb-card">
+      <div class="rb-title">🎣 Riverside Fishing Village</div>
+      <div class="rb-sub">They never chose this — but they feel every drop.</div>
+      <div class="rb-buyers" id="riverFish">🐟🐟🐟🐟🐟🐟</div>
+      <div class="rb-meter-track"><div class="rb-meter-fill" id="riverMeter" style="width:100%;background:var(--teal)"></div></div>
+      <div class="rb-meter-lbl">RIVER HEALTH</div>
+      <div class="rb-verdict" id="riverVerdict">The village bears a cost it never agreed to — that's a <strong>spillover</strong> (externality).</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s2: SPECTRUM SORT ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Sort the Line</div>
+    <div class="big-title">Good Spillover ←→ Bad Spillover</div>
+    <p style="font-size:11px;color:var(--dim);max-width:640px">Tap each scenario to see whether it spills a benefit onto others, or a cost.</p>
+  </div>
+  <div class="spec-line-box">
+    <div class="spec-line"></div>
+    <div class="spec-ends"><span class="l">← Good spillover (positive)</span><span class="r">Bad spillover (negative) →</span></div>
+  </div>
+  <div class="spec-cards" id="specCards"></div>
+  <div class="spec-hint" id="specHint">Tap an item above to see where it belongs — and why.</div>
+</section>
+
+<!-- ============ s3: FREE-RIDER ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Public Good Experiment</div>
+    <div class="big-title">The Street Needs a Light — Who Pays?</div>
+    <p style="font-size:11px;color:var(--dim);max-width:640px">The streetlight costs $12 total, split four ways ($3 each). Choose to pay your share or free-ride — then see who gets the light either way.</p>
+  </div>
+  <div class="fr-arena">
+    <div class="fr-house-row" id="frHouses"></div>
+    <div class="fr-progress-track"><div class="fr-progress-fill" id="frProgress" style="width:0%"></div></div>
+    <div class="fr-result" id="frResult"></div>
+  </div>
+</section>
+
+<!-- ============ s4: TAX SLIDER + DEBATE ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">The Debate</div>
+    <div class="big-title">Should Candy Be Taxed Like Cigarettes?</div>
+  </div>
+  <div class="tax-card">
+    <input type="range" id="taxSlider" min="0" max="100" value="0" step="10" oninput="updateTax(this.value)">
+    <div class="tax-readout" id="taxReadout">Candy tax: $0.00 extra per bag</div>
+    <div class="tax-bars">
+      <div class="tax-bar-col"><div class="tax-bar-track"><div class="tax-bar" id="taxQtyBar" style="background:var(--red);height:60px"></div></div><div class="tax-bar-lbl">Candy bought</div></div>
+      <div class="tax-bar-col"><div class="tax-bar-track"><div class="tax-bar" id="taxRevBar" style="background:var(--teal);height:6px"></div></div><div class="tax-bar-lbl">Tax collected</div></div>
+    </div>
+    <div class="debate-row">
+      <button class="debate-btn yes" onclick="debatePick('yes')">YES — tax it</button>
+      <button class="debate-btn no" onclick="debatePick('no')">NO — leave it</button>
+    </div>
+    <div class="debate-out" id="debateOut">Move the slider, then pick a side — there's a real argument for both.</div>
+  </div>
+</section>
+
+<!-- ============ s5: TOOLBOX SORT ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">The Government's Toolbox</div>
+    <div class="big-title">Tap Each Tool to See What It Does</div>
+  </div>
+  <div class="det-grid" id="detGrid"></div>
+</section>
+
+<!-- ============ s6: RAPID ROUND ============ -->
+<section class="slide" id="s6">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Bonus Round</div>
+    <div class="big-title">Market Failure or Working Fine? Quick Guess!</div>
+  </div>
+  <div class="rr-arena">
+    <div class="game-question" id="rrRoundLbl" style="font-size:12px;color:var(--dim);margin-bottom:8px">Round 1 of 5</div>
+    <div class="game-scenario" id="rrScenario" style="font-family:'Bebas Neue',sans-serif;font-size:20px;min-height:70px">Loading...</div>
+    <div class="answer-options" style="display:flex;gap:16px;justify-content:center">
+      <button class="ans-btn" style="background:rgba(229,57,53,0.08);border:2px solid var(--red);color:var(--red);font-family:'Bebas Neue',sans-serif;font-size:18px;padding:10px 26px;border-radius:12px;cursor:pointer" onclick="rrAnswer(true)">MARKET FAILURE</button>
+      <button class="ans-btn" style="background:rgba(0,137,123,0.08);border:2px solid var(--teal);color:var(--teal);font-family:'Bebas Neue',sans-serif;font-size:18px;padding:10px 26px;border-radius:12px;cursor:pointer" onclick="rrAnswer(false)">WORKING FINE</button>
+    </div>
+    <div class="nudge-feedback" id="rrFeedback" style="min-height:30px;font-size:12px;color:var(--dim);margin-top:8px"></div>
+  </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">How well did you get it? 🧠</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const QUIZ_SLIDE_IDX = 8;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ s1: FACTORY DEMO ============
+let factory = { profit:0, riverHealth:100, fish:6 };
+function produceMore() {
+  factory.profit += 180;
+  factory.riverHealth = Math.max(0, factory.riverHealth - 14);
+  factory.fish = Math.max(0, Math.round(factory.riverHealth/100 * 6));
+  document.getElementById('factoryProfit').textContent = '$' + factory.profit;
+  document.getElementById('factoryMeter').style.width = Math.min(100, factory.profit/1600*100) + '%';
+  document.getElementById('riverFish').textContent = '🐟'.repeat(Math.max(0,factory.fish)) + '💀'.repeat(6-Math.max(0,factory.fish));
+  document.getElementById('riverMeter').style.width = factory.riverHealth + '%';
+  const fVerdict = document.getElementById('factoryVerdict');
+  const rVerdict = document.getElementById('riverVerdict');
+  if (factory.profit >= 900) {
+    fVerdict.innerHTML = '<strong style="color:var(--gold)">Profit keeps climbing.</strong> The factory never sees a bill for the river.';
+  }
+  if (factory.riverHealth <= 30) {
+    rVerdict.innerHTML = '<strong style="color:var(--red)">The village is paying a huge price</strong> — fewer fish, dirtier water — for a decision it never made. That\\'s a <strong>negative externality</strong>.';
+  } else if (factory.riverHealth <= 65) {
+    rVerdict.innerHTML = 'Fish are disappearing and the water looks worse — the village is already paying a cost the factory doesn\\'t see on its books.';
+  }
+}
+
+// ============ s2: SPECTRUM SORT ============
+const SPEC_ITEMS = [
+  {name:'A beekeeper\\'s bees pollinate the neighbor\\'s crops for free', side:'pos', why:'The neighbor gets bigger harvests without paying the beekeeper a cent — a spillover BENEFIT.'},
+  {name:'Factory smoke drifts over the town', side:'neg', why:'The town breathes dirtier air and pays a health cost the factory never billed for — a spillover COST.'},
+  {name:'A neighbor plants a beautiful garden everyone enjoys walking past', side:'pos', why:'The whole street enjoys the view for free — a spillover BENEFIT nobody paid for.'},
+  {name:'Loud late-night construction noise', side:'neg', why:'Neighbors lose sleep and pay a real cost (tiredness, stress) they never agreed to — a spillover COST.'},
+  {name:'Getting vaccinated protects people around you too', side:'pos', why:'Other people are less likely to catch the disease from you — a spillover BENEFIT beyond just you.'},
+  {name:'Litter left behind after a picnic in the park', side:'neg', why:'Everyone else who uses the park pays the cost of a messier, less pleasant space — a spillover COST.'}
+];
+const specGrid = document.getElementById('specCards');
+SPEC_ITEMS.forEach((it,i) => {
+  const c = document.createElement('div');
+  c.className = 'spec-card';
+  c.textContent = it.name;
+  c.onclick = () => {
+    document.querySelectorAll('.spec-card').forEach(x=>x.classList.remove('pos','neg'));
+    c.classList.add(it.side);
+    document.getElementById('specHint').innerHTML = `<strong style="color:${it.side==='pos'?'var(--teal)':'var(--red)'}">${it.side==='pos'?'GOOD SPILLOVER':'BAD SPILLOVER'}:</strong> ${it.why}`;
+  };
+  specGrid.appendChild(c);
+});
+
+// ============ s3: FREE-RIDER ============
+const FR_HOUSES = [
+  {name:'Neighbor A', you:false, defaultPay:true},
+  {name:'Neighbor B', you:false, defaultPay:false},
+  {name:'Neighbor C', you:false, defaultPay:true},
+  {name:'You', you:true, defaultPay:true}
+];
+let frChoices = FR_HOUSES.map(h => h.defaultPay);
+const frHousesEl = document.getElementById('frHouses');
+function renderFrHouses() {
+  frHousesEl.innerHTML = '';
+  FR_HOUSES.forEach((h,i) => {
+    const box = document.createElement('div');
+    box.className = 'fr-house' + (h.you ? ' you' : '');
+    box.innerHTML = `
+      <div class="fr-house-emoji">🏠</div>
+      <div class="fr-house-lbl">${h.name}</div>
+      <div class="fr-house-status">${frChoices[i] ? 'Paid $3' : 'Free-riding'}</div>
+      ${h.you ? `<div class="fr-house-btns">
+        <button class="fr-mini-btn ${frChoices[i]?'active':''}" onclick="setFrChoice(${i},true)">Pay $3</button>
+        <button class="fr-mini-btn ${!frChoices[i]?'active':''}" onclick="setFrChoice(${i},false)">Free-ride</button>
+      </div>` : ''}`;
+    frHousesEl.appendChild(box);
+  });
+  updateFrProgress();
+}
+function setFrChoice(i, val) { frChoices[i] = val; renderFrHouses(); }
+function updateFrProgress() {
+  const collected = frChoices.filter(Boolean).length * 3;
+  document.getElementById('frProgress').style.width = Math.min(100, collected/12*100) + '%';
+  const built = collected >= 12;
+  document.getElementById('frResult').innerHTML = built
+    ? `<strong style="color:var(--teal)">$${collected} collected — the light gets built! 💡</strong> Notice: EVERYONE on the street gets the light now — even Neighbor B, who never paid a cent. That's the free-rider problem: nobody can be excluded from a public good.`
+    : `<strong style="color:var(--red)">Only $${collected} of $12 collected — not enough.</strong> If too many people free-ride, the light never gets built and everyone loses out, even the people who were willing to pay.`;
+}
+renderFrHouses();
+
+// ============ s4: TAX SLIDER + DEBATE ============
+function updateTax(val) {
+  const tax = val/100;
+  document.getElementById('taxReadout').textContent = 'Candy tax: $' + tax.toFixed(2) + ' extra per bag';
+  const qty = Math.max(10, 60 - val*0.45);
+  const revenue = tax * qty;
+  document.getElementById('taxQtyBar').style.height = Math.max(6, qty) + 'px';
+  document.getElementById('taxRevBar').style.height = Math.max(4, revenue*3) + 'px';
+}
+let debateChoice = null;
+function debatePick(side) {
+  debateChoice = side;
+  const out = document.getElementById('debateOut');
+  if (side === 'yes') {
+    out.innerHTML = '<strong style="color:var(--teal)">YES side:</strong> a tax makes the "bad" choice more expensive, so fewer people buy it — and the government collects money that could pay for things like health campaigns.';
+  } else {
+    out.innerHTML = '<strong style="color:var(--red)">NO side:</strong> candy isn\\'t dangerous like cigarettes, a tax mostly hits families who can least afford it, and people might just drive further to buy it tax-free anyway.';
+  }
+}
+
+// ============ s5: TOOLBOX SORT ============
+const DETERMINANTS = [
+  {emoji:'🏷️', lbl:'Tax', desc:'Makes a "bad" good more expensive to discourage buying it — like a tax on cigarettes.'},
+  {emoji:'💰', lbl:'Subsidy', desc:'Makes a "good" good cheaper to encourage more of it — like paying part of the cost of vaccines.'},
+  {emoji:'🚫', lbl:'Ban / Regulation', desc:'Stops or limits something completely — like banning a dangerous chemical from being dumped in rivers.'},
+  {emoji:'🏛️', lbl:'Direct Provision', desc:'The government just provides it itself — like building streetlights or public parks nobody else would pay for alone.'}
+];
+let detPicked = new Set();
+const detGrid = document.getElementById('detGrid');
+DETERMINANTS.forEach((s,i) => {
+  const c = document.createElement('div');
+  c.className = 'det-card';
+  c.innerHTML = `<div class="det-emoji">${s.emoji}</div><div class="det-lbl">${s.lbl}</div><div class="det-desc">${s.desc}</div>`;
+  c.onclick = () => {
+    if (detPicked.has(i)) { detPicked.delete(i); c.classList.remove('picked'); }
+    else { detPicked.add(i); c.classList.add('picked'); }
+  };
+  detGrid.appendChild(c);
+});
+
+// ============ s6: RAPID ROUND ============
+const RR_ROUNDS = [
+  { text: 'A factory dumps chemicals in a river for free', answer: true, why: 'A cost is dumped onto people who never agreed to it — a classic negative externality. MARKET FAILURE.' },
+  { text: 'Ten bakeries compete nearby and prices stay fair', answer: false, why: 'Lots of competition keeps things working well for buyers — no failure here. WORKING FINE.' },
+  { text: 'One company owns the only water pipe in town and charges sky-high prices', answer: true, why: 'No competition means the seller can overcharge — a monopoly problem. MARKET FAILURE.' },
+  { text: 'A free public fireworks show — but almost nobody wants to chip in to pay for it', answer: true, why: 'Nobody can be stopped from watching even if they didn\\'t pay — the free-rider problem for a public good. MARKET FAILURE.' },
+  { text: 'A farmer\\'s market where lots of buyers and sellers trade fruit freely', answer: false, why: 'Many buyers, many sellers, nobody forced — the market is working as it should. WORKING FINE.' }
+];
+let rrIdx = 0;
+function renderRR() {
+  if (rrIdx >= RR_ROUNDS.length) {
+    document.getElementById('rrRoundLbl').textContent = 'Complete!';
+    document.getElementById('rrScenario').textContent = '🌟 You can spot market failure on sight now!';
+    return;
+  }
+  document.getElementById('rrRoundLbl').textContent = 'Round ' + (rrIdx+1) + ' of ' + RR_ROUNDS.length;
+  document.getElementById('rrScenario').textContent = RR_ROUNDS[rrIdx].text;
+  document.getElementById('rrFeedback').textContent = '';
+}
+function rrAnswer(choice) {
+  const r = RR_ROUNDS[rrIdx];
+  document.getElementById('rrFeedback').innerHTML = (choice===r.answer ? '<strong style="color:var(--teal)">✓ Correct.</strong> ' : '<strong style="color:var(--red)">✗ Not quite.</strong> ') + r.why;
+  rrIdx++;
+  setTimeout(renderRR, 2000);
+}
+renderRR();
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'A factory pollutes a river and never pays for the damage. What is this called?', opts:['A negative externality — a cost spilling onto people who didn\\'t choose it','A subsidy','A free-rider problem'], correct:0, explain:'When a decision creates a cost for someone outside the deal, that unpaid cost is a negative externality.' },
+  { q:'Why is a public fireworks show hard for a private company to sell tickets to?', opts:['Fireworks are too expensive to make','Nobody can be stopped from watching, so people can enjoy it without paying — the free-rider problem','Fireworks are illegal'], correct:1, explain:'A public good is hard to exclude people from — everyone can enjoy it whether they paid or not, so some people "free-ride."' },
+  { q:'A government puts a tax on candy to reduce how much people buy. This is an example of...', opts:['A public good','A tool to shrink a "bad" behaviour by making it more expensive','A free-rider problem'], correct:1, explain:'Taxing a good raises its price, which — for most goods — reduces the amount people buy.' },
+  { q:'Getting vaccinated protects other people too, not just you. This is an example of a...', opts:['Negative externality','Positive externality — a spillover benefit', 'Market with no failure at all'], correct:1, explain:'A benefit that spills onto people beyond the person making the choice is a positive externality.' },
+  { q:'Which government tool means "the government just builds/provides it itself"?', opts:['Subsidy','Ban', 'Direct provision'], correct:2, explain:'Direct provision means the government supplies the good or service directly — like streetlights or public parks — rather than taxing, subsidising, or banning.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\\'ve mastered market failure! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>

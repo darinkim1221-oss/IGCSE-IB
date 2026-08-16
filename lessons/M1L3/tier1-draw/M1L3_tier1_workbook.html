@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework Workbook — Stretchy vs Stiff: The Elasticity Game (Tier 1) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:8px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.meta-strip { display:flex; gap:8px; margin:14px 0 28px; flex-wrap:wrap; }
+.pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:var(--blue); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 11px; border-radius:20px; text-transform:uppercase; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:28px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:30px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:14px; }
+.q-block { margin-bottom:22px; page-break-inside:avoid; }
+.q-num { font-family:'Space Mono',monospace; font-size:11px; color:var(--gold); font-weight:700; margin-right:6px; }
+.q-text { font-size:14px; line-height:1.7; margin-bottom:8px; }
+.q-opts { list-style:none; padding-left:6px; }
+.q-opts li { font-size:13px; color:var(--white); padding:4px 0; }
+.q-opts li::before { content:'○  '; color:var(--dim); }
+.answer-line { border-bottom:1px solid rgba(0,0,0,0.18); height:26px; margin-bottom:4px; }
+.match-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:6px; }
+.match-table td { padding:7px 10px; border-bottom:1px solid rgba(0,0,0,0.08); }
+.mission-box { background:linear-gradient(135deg,rgba(200,150,10,0.08),rgba(200,150,10,0.02)); border:1px solid var(--border); border-radius:12px; padding:16px 20px; margin-top:10px; }
+.mission-box .mtag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+
+.answer-key { margin-top:50px; padding-top:24px; border-top:3px dashed var(--gold); page-break-before:always; }
+.ak-title { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--gold); margin-bottom:16px; }
+.ak-item { font-size:13px; line-height:1.7; margin-bottom:12px; }
+.ak-item strong { color:var(--teal); }
+.ak-item .why { color:var(--dim); }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+@media print { body { background:#fff; } .page { box-shadow:none; padding:0; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 1 · Microeconomics — Lesson 3</div>
+      <div class="k-title">Stretchy vs Stiff: The Elasticity Game</div>
+      <div class="k-sub">Homework Workbook · Tier 1 — Draw the Map (Ages 10–12)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="meta-strip">
+    <div class="pill">10 questions</div>
+    <div class="pill">+ 1 family mission</div>
+    <div class="pill">~20 min</div>
+  </div>
+  <div class="cc-chips">
+    <span class="cc-chip">Responsiveness</span><span class="cc-chip">Stretchy vs Stiff</span>
+    <span class="cc-chip">Revenue</span><span class="cc-chip">Substitutes</span>
+  </div>
+
+  <div class="section-tag">Warm-up</div>
+  <div class="big-title">Show what you discovered today</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">1.</span> In your own words, what does it mean for a good to be "stretchy" (in economics: elastic)?</div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">2.</span> Fill in the blank: A good is usually "stiff" (inelastic) when it has ______________ substitutes.</div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">3.</span> Why does petrol's price swing around a lot, but a haircut's price barely moves? Explain in 1–2 sentences.</div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">4.</span> In the Lemonade Elasticity Challenge, which stall could you raise the price on WITHOUT losing many buyers — Candy Corner or Desert Water? Why?</div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">5.</span> True or False: Raising the price always makes a seller more money.</div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">6.</span> Match each product to STRETCHY or STIFF.</div>
+    <table class="match-table">
+      <tr><td>One brand of chips (many others nearby)</td><td>____________</td></tr>
+      <tr><td>Insulin (life-saving medicine, no substitute)</td><td>____________</td></tr>
+      <tr><td>Salt (tiny part of your budget, no real substitute)</td><td>____________</td></tr>
+      <tr><td>A trendy toy with 5 similar copycats</td><td>____________</td></tr>
+    </table>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">7.</span> Name TWO reasons a good might end up being "stretchy" (easy to give up).</div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">8.</span> A shop owner raises the price of a stretchy good a lot and total revenue FALLS. Explain why this happens, using the word "buyers" in your answer.</div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">9.</span> If you owned a real shop, name ONE product you'd feel safe raising the price on, and ONE you would NOT. Explain your reasoning.</div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">10.</span> How could a government use the idea of "stretchy vs stiff" to change what people buy (for example, to get people to smoke less or drive less)?</div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="mission-box">
+    <div class="mtag">🏠 Family Discussion Mission</div>
+    <div class="q-text">Ask a family member: <em>"Is there a product you'd keep buying almost no matter how much the price went up? What about one you'd drop the moment it got even a little more expensive?"</em> Write down their two examples and why.</div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="answer-key">
+    <div class="ak-title">Answer Key</div>
+    <div class="ak-item"><strong>1.</strong> Accept any answer capturing: buyers react a lot to a price change — if the price goes up even a little, a lot of people stop buying (usually because there are other choices).</div>
+    <div class="ak-item"><strong>2.</strong> Few / no. <span class="why">— With no other option, buyers keep buying even when price rises.</span></div>
+    <div class="ak-item"><strong>3.</strong> Sample: "Petrol has few substitutes in the short run (you still need to drive), but people can often postpone or skip a haircut, or few substitutes exist for driving vs. many barbers compete for haircuts, keeping that price steady." Accept reasoning built around substitutes/necessity.</div>
+    <div class="ak-item"><strong>4.</strong> Desert Water — because it has no substitute nearby, buyers keep paying even at a high price. Candy Corner's buyers flee to a competitor the moment price rises.</div>
+    <div class="ak-item"><strong>5.</strong> False. <span class="why">— For a stretchy good, raising price too much can cause so many buyers to leave that total revenue actually falls.</span></div>
+    <div class="ak-item"><strong>6.</strong> Chips: Stretchy. Insulin: Stiff. Salt: Stiff. Trendy toy with copycats: Stretchy.</div>
+    <div class="ak-item"><strong>7.</strong> Accept any two: lots of substitutes exist, it's a luxury not a need, it takes up a big chunk of your money, you have time to shop around.</div>
+    <div class="ak-item"><strong>8.</strong> Accept: because so many buyers switch to a substitute or stop buying that the number of buyers falls by MORE than the price rose, so price × quantity (revenue) goes down overall.</div>
+    <div class="ak-item"><strong>9.</strong> Accept any reasonable pair with correct reasoning tied to substitutes/necessity (e.g. "raise price on my only ice-cream stand at the one beach" vs. "not on a candy brand next to five others").</div>
+    <div class="ak-item"><strong>10.</strong> Sample: "A government could raise the price of cigarettes a LOT, because even though smokers may not quit easily at first (stiff in the short run), a big enough price rise over time can push behaviour, especially for stretchier related choices like buying a second car or driving for short trips." Accept any answer connecting a price change to a stretchy/stiff good to encourage or discourage a behaviour.</div>
+  </div>
+
+  <div class="footer">M1L3 · Economics Academy · Stoic Edu</div>
+</div>
+</body>
+</html>
