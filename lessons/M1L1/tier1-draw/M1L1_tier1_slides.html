@@ -557,7 +557,7 @@ function chooseTrade(side) {
   if (tradeRound < TRADE_ROUNDS.length - 1) {
     document.getElementById('tradeNextBtn').style.display = 'inline-block';
   } else {
-    document.getElementById('tradeFeedback').innerHTML += '<br><br>🎉 Every choice you made today had a hidden price — that\\'s opportunity cost!';
+    document.getElementById('tradeFeedback').innerHTML += '<br><br>🎉 Every choice you made today had a hidden price — that\'s opportunity cost!';
   }
 }
 function nextTrade() { tradeRound++; renderTrade(); }
@@ -596,7 +596,7 @@ function updateCurve(v) {
 // ============ s5: THREE VILLAGES ============
 const VILLAGES = [
   {key:'market', name:'Market Village', desc:'Prices and free trade decide what gets made. Anyone can start a shop.', arg:'Argument for: businesses race to make what people actually want, and prices adjust fast.'},
-  {key:'planned', name:'Planned Village', desc:'A village council plans exactly what everyone makes and shares.', arg:'Argument for: the council can make sure everyone\\'s basic needs are covered, not just what sells.'},
+  {key:'planned', name:'Planned Village', desc:'A village council plans exactly what everyone makes and shares.', arg:'Argument for: the council can make sure everyone\'s basic needs are covered, not just what sells.'},
   {key:'mixed', name:'Mixed Village', desc:'Shops trade freely, but the council still runs the school and hospital.', arg:'Argument for: you get market speed AND a safety net for things markets might skip.'}
 ];
 const villageRow = document.getElementById('villageRow');
@@ -657,7 +657,7 @@ function sortAnswer(choice) {
     btn.classList.add('wrong');
     otherBtn.classList.add('correct');
     sortStreak = 0;
-    document.getElementById('sortFeedback').textContent = '✗ Not quite — that\\'s ' + item.type + '.';
+    document.getElementById('sortFeedback').textContent = '✗ Not quite — that\'s ' + item.type + '.';
     document.getElementById('sortFeedback').className = 'game-feedback wrong';
   }
   document.getElementById('sortScore').textContent = sortScore;
@@ -668,11 +668,11 @@ function sortAnswer(choice) {
 
 // ============ QUIZ ============
 const QUIZ = [
-  { q:'What is <span>scarcity</span>?', opts:['Finite resources vs. infinite wants','Never having any money','A type of factor of production'], correct:0, explain:'Scarcity means there aren\\'t enough resources to satisfy everyone\\'s unlimited wants — like a raft with only 3 spaces.' },
+  { q:'What is <span>scarcity</span>?', opts:['Finite resources vs. infinite wants','Never having any money','A type of factor of production'], correct:0, explain:'Scarcity means there aren\'t enough resources to satisfy everyone\'s unlimited wants — like a raft with only 3 spaces.' },
   { q:'You chose gaming over reading for an hour. What is your <span>opportunity cost</span>?', opts:['The hour of reading you gave up','The hour of gaming you enjoyed','Nothing — it was free'], correct:0, explain:'Opportunity cost is the next-best thing you give up when you make a choice — here, the reading time.' },
   { q:'A factory worker earns wages. Which <span>factor of production</span> is this?', opts:['Land','Labour','Enterprise'], correct:1, explain:'Labour is human effort, and its reward is wages. Land earns rent; enterprise earns profit.' },
-  { q:'On the pizza-vs-robots trade-off, sliding to more robots means...', opts:['Fewer pizza ovens — that\\'s the trade-off','More pizza ovens too, for free','Nothing changes'], correct:0, explain:'Along a trade-off curve you can\\'t get more of one good without giving up some of the other.' },
-  { q:'In a <span>market</span> economic system, who mainly decides what gets produced?', opts:['A government council','Prices and free trade between buyers & sellers','No one — it\\'s random'], correct:1, explain:'Market systems let prices and voluntary trade answer what/how/for whom, unlike planned systems where a council decides.' }
+  { q:'On the pizza-vs-robots trade-off, sliding to more robots means...', opts:['Fewer pizza ovens — that\'s the trade-off','More pizza ovens too, for free','Nothing changes'], correct:0, explain:'Along a trade-off curve you can\'t get more of one good without giving up some of the other.' },
+  { q:'In a <span>market</span> economic system, who mainly decides what gets produced?', opts:['A government council','Prices and free trade between buyers & sellers','No one — it\'s random'], correct:1, explain:'Market systems let prices and voluntary trade answer what/how/for whom, unlike planned systems where a council decides.' }
 ];
 let quizIdx = 0, quizScoreVal = 0, quizInited = false;
 function initQuiz() {
@@ -685,7 +685,7 @@ function renderQuiz() {
   const prog = document.getElementById('quizProgress').children;
   for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
   if (quizIdx >= QUIZ.length) {
-    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\\'ve mastered the economic problem! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\'ve mastered the economic problem! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
     document.getElementById('quizNextBtn').style.display = 'none';
     return;
   }

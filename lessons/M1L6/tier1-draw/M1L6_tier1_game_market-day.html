@@ -266,7 +266,7 @@ function resolveAuction(fee, winProb, label) {
   auctionResolved = true;
   auctionFee = fee;
   monopolyWon = Math.random() < winProb;
-  log.unshift(`<strong>${label}</strong> (fee $${fee.toFixed(2)}) → ${monopolyWon ? '<strong style="color:var(--teal)">Won the Monopoly Licence!</strong>' : '<strong style="color:var(--red)">Lost the auction — a rival stall is today\\'s monopolist.</strong>'}`);
+  log.unshift(`<strong>${label}</strong> (fee $${fee.toFixed(2)}) → ${monopolyWon ? '<strong style="color:var(--teal)">Won the Monopoly Licence!</strong>' : '<strong style="color:var(--red)">Lost the auction — a rival stall is today\'s monopolist.</strong>'}`);
   card.innerHTML = `
     <div class="phase-tag">Auction Result</div>
     <div class="phase-title">${monopolyWon ? 'You won the Monopoly Licence! 🏆' : 'A rival won the licence.'}</div>
@@ -318,7 +318,7 @@ function renderFinal() {
     msg = 'You kept your stall profitable, but some days clearly cost you. Look back at the log — which rule caught you off guard?';
   } else {
     tier = 'Back to the Drawing Board ⚠️';
-    msg = 'Tough week for the stall. Revisit the log: on tax and price-ceiling days especially, the "safe" price isn\\'t always the same as the free-market price.';
+    msg = 'Tough week for the stall. Revisit the log: on tax and price-ceiling days especially, the "safe" price isn\'t always the same as the free-market price.';
   }
 
   card.innerHTML = `

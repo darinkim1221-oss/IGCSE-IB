@@ -525,7 +525,7 @@ const SUPPLY_ROUNDS = [
   { text: 'The price sneakers sell for jumps from $40 to $70.', answer: true, why: 'Higher price = more reward for sellers, so they supply more (Law of Supply).' },
   { text: 'The cost of leather (a key material) suddenly doubles.', answer: false, why: 'Higher costs eat into profit, so sellers are willing to supply less at the same price.' },
   { text: 'A factory invents a faster machine that makes shoes cheaper to produce.', answer: true, why: 'Lower production costs mean sellers can profitably supply more.' },
-  { text: 'A new government rule adds an extra tax on every pair sold.', answer: false, why: 'A tax raises the seller\\'s cost per pair, so supply falls at the same price.' }
+  { text: 'A new government rule adds an extra tax on every pair sold.', answer: false, why: 'A tax raises the seller\'s cost per pair, so supply falls at the same price.' }
 ];
 let supplyIdx = 0;
 function renderSupply() {
@@ -559,7 +559,7 @@ NUDGE_ITEMS.forEach(it => {
   c.innerHTML = `<div class="ne-emoji">${it.emoji}</div><div class="ne-lbl">${it.lbl}</div>`;
   c.onclick = () => {
     document.getElementById('nudgeFeedback').innerHTML = it.eye
-      ? '<strong style="color:var(--teal)">Yes!</strong> Shops place items they want you to buy at eye level — a tiny "nudge" that changes choices without banning anything. That\\'s behavioural economics!'
+      ? '<strong style="color:var(--teal)">Yes!</strong> Shops place items they want you to buy at eye level — a tiny "nudge" that changes choices without banning anything. That\'s behavioural economics!'
       : 'Try the middle shelf — shops know eye-level items get picked more often, even if nothing else changes.';
   };
   nudgeShelf.appendChild(c);
@@ -567,7 +567,7 @@ NUDGE_ITEMS.forEach(it => {
 
 // ============ QUIZ ============
 const QUIZ = [
-  { q:'In the Pit Market, a trade only happens when...', opts:['The buyer\\'s max price is at least the seller\\'s min price','The buyer is louder than the seller','Every seller agrees at once'], correct:0, explain:'A deal needs the buyer willing to pay at least as much as the seller needs — that overlap sets the price.' },
+  { q:'In the Pit Market, a trade only happens when...', opts:['The buyer\'s max price is at least the seller\'s min price','The buyer is louder than the seller','Every seller agrees at once'], correct:0, explain:'A deal needs the buyer willing to pay at least as much as the seller needs — that overlap sets the price.' },
   { q:'The <span>Law of Demand</span> says that as price falls...', opts:['Fewer people want to buy','More people want to buy','Nothing changes'], correct:1, explain:'Lower price → more buyers willing and able to buy — the demand curve slopes downward.' },
   { q:'500 buyers want a sneaker, but only 50 pairs exist. This is a...', opts:['Surplus','Shortage','Trade-off'], correct:1, explain:'Too many buyers for too few goods at that price = a shortage.' },
   { q:'A cheaper way to make shoes means sellers can now supply more at the same price. This is a change in...', opts:['Demand','Supply','Opportunity cost'], correct:1, explain:'Lower production costs shift supply — sellers are willing to sell more at every price.' },
@@ -584,7 +584,7 @@ function renderQuiz() {
   const prog = document.getElementById('quizProgress').children;
   for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
   if (quizIdx >= QUIZ.length) {
-    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\\'ve cracked the price puzzle! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\'ve cracked the price puzzle! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
     document.getElementById('quizNextBtn').style.display = 'none';
     return;
   }

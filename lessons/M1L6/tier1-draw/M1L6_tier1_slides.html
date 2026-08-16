@@ -370,7 +370,7 @@ adaptLogo();
 // ============ s1: STORY MAP ============
 const STORY_CHAPTERS = [
   {name:'🌍 Scarcity & Choice (L1)', recap:'Resources are limited, so every choice has an OPPORTUNITY COST — what you give up to get something else.'},
-  {name:'⚖️ Demand & Supply (L2)', recap:'Prices are the signal where buyers\\' demand and sellers\\' supply meet at EQUILIBRIUM.'},
+  {name:'⚖️ Demand & Supply (L2)', recap:'Prices are the signal where buyers\' demand and sellers\' supply meet at EQUILIBRIUM.'},
   {name:'📈 Elasticity (L3)', recap:'Some prices barely change how much people buy (INELASTIC); others change it a lot (ELASTIC) — it depends how badly buyers need the item.'},
   {name:'🏛️ Government & Market Failure (L4)', recap:'Governments step in with TAXES, SUBSIDIES, and PRICE CONTROLS when free markets create problems like externalities.'},
   {name:'🏭 Firms & Scale (L5)', recap:'Growing bigger can make costs fall (ECONOMIES OF SCALE) — but grow too much and costs can rise again. MERGERS and MONOPOLIES change market power.'}
@@ -390,11 +390,11 @@ STORY_CHAPTERS.forEach((it) => {
 
 // ============ s2: CONCEPT CONNECTION ============
 const CONNECT_SCENES = [
-  {name:'An ice-cream truck raises its price on the hottest day of summer, and people still buy almost the same amount.', opts:['Inelastic Demand','Elastic Demand','Price Ceiling'], correct:0, why:'On a scorching day buyers want ice cream badly enough that a price rise barely changes how much they buy — that\\'s INELASTIC demand.'},
+  {name:'An ice-cream truck raises its price on the hottest day of summer, and people still buy almost the same amount.', opts:['Inelastic Demand','Elastic Demand','Price Ceiling'], correct:0, why:'On a scorching day buyers want ice cream badly enough that a price rise barely changes how much they buy — that\'s INELASTIC demand.'},
   {name:'The government caps rent prices so more families can afford housing — but landlords start pulling apartments off the market.', opts:['Subsidy','Price Ceiling','Merger'], correct:1, why:'A legal MAXIMUM price is a price ceiling; it can cause shortages when sellers pull back supply.'},
   {name:'A cookie factory hires more bakers and the cost per cookie drops.', opts:['Diseconomies of Scale','Elasticity','Economies of Scale'], correct:2, why:'Cost per unit FALLING as a business grows is the definition of economies of scale.'},
-  {name:'Two rival bakeries making the same kind of bread combine into one company.', opts:['Horizontal Merger','Vertical Merger','Price Floor'], correct:0, why:'Same product, same stage of production — that\\'s a HORIZONTAL merger.'},
-  {name:'A factory pollutes a river and nearby fishers lose income, even though they weren\\'t part of the sale.', opts:['Scarcity','Externality','Elasticity'], correct:1, why:'A side-effect that hits someone outside the original deal is an EXTERNALITY.'}
+  {name:'Two rival bakeries making the same kind of bread combine into one company.', opts:['Horizontal Merger','Vertical Merger','Price Floor'], correct:0, why:'Same product, same stage of production — that\'s a HORIZONTAL merger.'},
+  {name:'A factory pollutes a river and nearby fishers lose income, even though they weren\'t part of the sale.', opts:['Scarcity','Externality','Elasticity'], correct:1, why:'A side-effect that hits someone outside the original deal is an EXTERNALITY.'}
 ];
 const connectGrid = document.getElementById('connectCards');
 CONNECT_SCENES.forEach((d,i) => {
@@ -417,7 +417,7 @@ function pickConnect(i, choice, el) {
 // ============ s3: MISCONCEPTION CLINIC ============
 const CLINIC_ITEMS = [
   {name:'"When the price of an item changes, the whole demand CURVE shifts to a new position."', correct:'F', why:'A price change causes a MOVEMENT ALONG the same demand curve — the curve itself only SHIFTS when something else changes, like income or tastes.'},
-  {name:'"\\'Price rises, so demand falls\\' is the correct way to describe a price change."', correct:'F', why:'Economists say QUANTITY DEMANDED falls (a movement along the curve), not that "demand" falls — demand means the whole relationship, not one quantity.'},
+  {name:'"\'Price rises, so demand falls\' is the correct way to describe a price change."', correct:'F', why:'Economists say QUANTITY DEMANDED falls (a movement along the curve), not that "demand" falls — demand means the whole relationship, not one quantity.'},
   {name:'"Cost and price mean the same thing."', correct:'F', why:'COST is what it takes a firm to make something. PRICE is what a buyer pays for it. A firm sets price based on cost plus the profit it wants.'},
   {name:'"A tax on a good with INELASTIC demand raises more government revenue than a tax on a good with elastic demand."', correct:'T', why:'Because buyers of inelastic goods keep buying almost the same quantity even after a tax, the revenue collected tends to be higher and more predictable.'}
 ];
@@ -447,7 +447,7 @@ const KC_WORDS = [
   {name:'Opportunity Cost', bucket:'Choice', why:'Every decision to use a scarce resource one way means giving up another — the essence of CHOICE.'},
   {name:'Equilibrium Price', bucket:'Interdependence', why:'Price emerges from buyers AND sellers interacting together — no one sets it alone.'},
   {name:'Price Elasticity', bucket:'Choice', why:'Elasticity measures how much buyers CHANGE their choices when price moves.'},
-  {name:'Externality', bucket:'Interdependence', why:'An externality means one person\\'s choice spills over and affects OTHERS who weren\\'t part of the deal.'},
+  {name:'Externality', bucket:'Interdependence', why:'An externality means one person\'s choice spills over and affects OTHERS who weren\'t part of the deal.'},
   {name:'Economies of Scale', bucket:'Efficiency', why:'Producing more at a lower cost per unit is a textbook EFFICIENCY gain.'},
   {name:'Subsidy', bucket:'Interdependence', why:'A subsidy changes how government, sellers, and buyers all interact with each other.'},
   {name:'Merger', bucket:'Efficiency', why:'Firms often merge hoping to combine resources and produce more efficiently together.'},
@@ -469,7 +469,7 @@ KC_WORDS.forEach((it) => {
 
 // ============ s5: BUZZER ROUND ============
 const BUZZ_ROUNDS = [
-  { text: 'A price FLOOR set BELOW the equilibrium price would have no effect on the market.', answer: true, why: 'A floor only "binds" when it\\'s set ABOVE equilibrium. Set below equilibrium, the market just settles at its normal price anyway. TRUE.' },
+  { text: 'A price FLOOR set BELOW the equilibrium price would have no effect on the market.', answer: true, why: 'A floor only "binds" when it\'s set ABOVE equilibrium. Set below equilibrium, the market just settles at its normal price anyway. TRUE.' },
   { text: 'Opportunity cost is the money you actually spend on a purchase.', answer: false, why: 'Opportunity cost is the NEXT BEST alternative you give up — not the money spent. FALSE.' },
   { text: 'A monopoly is a market with only ONE seller.', answer: true, why: 'Exactly — "mono" means one. TRUE.' },
   { text: 'Goods with many close substitutes tend to have INELASTIC demand.', answer: false, why: 'The opposite! Easy substitutes mean buyers can switch away fast, so demand tends to be ELASTIC. FALSE.' },
@@ -479,7 +479,7 @@ let buzzIdx = 0;
 function renderBuzz() {
   if (buzzIdx >= BUZZ_ROUNDS.length) {
     document.getElementById('buzzRoundLbl').textContent = 'Complete!';
-    document.getElementById('buzzScenario').textContent = '🌟 You\\'ve connected the whole module — ready for Market Day!';
+    document.getElementById('buzzScenario').textContent = '🌟 You\'ve connected the whole module — ready for Market Day!';
     return;
   }
   document.getElementById('buzzRoundLbl').textContent = 'Round ' + (buzzIdx+1) + ' of ' + BUZZ_ROUNDS.length;
@@ -496,11 +496,11 @@ renderBuzz();
 
 // ============ QUIZ ============
 const QUIZ = [
-  { q:'A farmer decides to grow wheat instead of corn on his one field. What is the OPPORTUNITY COST of this decision?', opts:['The money he spends on wheat seeds','The corn he could have grown instead','The price of wheat at the market'], correct:1, explain:'Opportunity cost = the next best alternative given up — here, the corn he didn\\'t grow.' },
-  { q:'When people\\'s INCOME rises and they now buy more of a good at every price, what happens to the demand curve?', opts:['It shifts to the right','It stays the same and only price moves along it','It shifts to the left'], correct:0, explain:'A change in a non-price factor like income shifts the WHOLE curve, not just a point on it.' },
-  { q:'A 20% rise in the price of insulin (a medicine some people need to survive) causes almost no drop in quantity bought. This demand is...', opts:['Elastic','Inelastic','Perfectly elastic'], correct:1, explain:'Buyers barely change how much they buy despite the price rise — that\\'s inelastic demand.' },
+  { q:'A farmer decides to grow wheat instead of corn on his one field. What is the OPPORTUNITY COST of this decision?', opts:['The money he spends on wheat seeds','The corn he could have grown instead','The price of wheat at the market'], correct:1, explain:'Opportunity cost = the next best alternative given up — here, the corn he didn\'t grow.' },
+  { q:'When people\'s INCOME rises and they now buy more of a good at every price, what happens to the demand curve?', opts:['It shifts to the right','It stays the same and only price moves along it','It shifts to the left'], correct:0, explain:'A change in a non-price factor like income shifts the WHOLE curve, not just a point on it.' },
+  { q:'A 20% rise in the price of insulin (a medicine some people need to survive) causes almost no drop in quantity bought. This demand is...', opts:['Elastic','Inelastic','Perfectly elastic'], correct:1, explain:'Buyers barely change how much they buy despite the price rise — that\'s inelastic demand.' },
   { q:'A government sets a MINIMUM wage above the market equilibrium wage. What is this an example of?', opts:['A price ceiling','A price floor','A subsidy'], correct:1, explain:'A price floor is a legal MINIMUM price — setting it above equilibrium is exactly what a minimum wage does.' },
-  { q:'Two children\\'s shoe companies merge into one bigger company that still only makes children\\'s shoes. This is a...', opts:['Vertical merger','Conglomerate merger','Horizontal merger'], correct:2, explain:'Same product, same stage of production = horizontal merger.' }
+  { q:'Two children\'s shoe companies merge into one bigger company that still only makes children\'s shoes. This is a...', opts:['Vertical merger','Conglomerate merger','Horizontal merger'], correct:2, explain:'Same product, same stage of production = horizontal merger.' }
 ];
 let quizIdx = 0, quizScoreVal = 0, quizInited = false;
 function initQuiz() {
@@ -513,7 +513,7 @@ function renderQuiz() {
   const prog = document.getElementById('quizProgress').children;
   for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
   if (quizIdx >= QUIZ.length) {
-    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\\'ve mastered the whole module! 🏆' : 'Nice work — review any tricky ones and head to Market Day!'}</div>`;
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\'ve mastered the whole module! 🏆' : 'Nice work — review any tricky ones and head to Market Day!'}</div>`;
     document.getElementById('quizNextBtn').style.display = 'none';
     return;
   }

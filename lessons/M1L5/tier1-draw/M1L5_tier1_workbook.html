@@ -49,6 +49,29 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
 .footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
 
 @media print { body { background:#fff; } .page { box-shadow:none; padding:0; } }
+
+/* ===== Editable answer fields ===== */
+[contenteditable="true"] { outline:none; cursor:text; -webkit-user-modify:read-write-plaintext-only; }
+[contenteditable="true"]:hover { background:rgba(200,150,10,0.05); }
+[contenteditable="true"]:focus { background:rgba(200,150,10,0.08); box-shadow:0 0 0 2px var(--gold) inset; border-radius:4px; }
+.answer-line[contenteditable="true"] { padding:2px 6px; font-size:13px; line-height:22px; color:var(--white); font-family:'Noto Sans KR',sans-serif; white-space:pre-wrap; }
+.work-box .wb-content { position:absolute; top:24px; left:10px; right:10px; bottom:8px; overflow-y:auto; font-size:12.5px; line-height:1.6; color:var(--white); white-space:pre-wrap; }
+td[contenteditable="true"] { min-width:60px; }
+.blank-fill { display:inline-block; min-width:32px; border-bottom:1px solid rgba(0,0,0,0.35); text-align:center; padding:0 4px; margin-right:2px; font-family:'Space Mono',monospace; font-size:12.5px; font-weight:700; color:var(--white); text-transform:uppercase; }
+.blank-fill[contenteditable="true"]:hover { background:rgba(200,150,10,0.06); }
+.blank-fill[contenteditable="true"]:focus { background:rgba(200,150,10,0.08); box-shadow:0 0 0 2px var(--gold) inset; border-radius:4px; }
+.q-opts.selectable li { cursor:pointer; border-radius:8px; padding:4px 8px; transition:background 0.12s, color 0.12s; }
+.q-opts.selectable li:hover { background:rgba(200,150,10,0.07); }
+.q-opts.selectable li.selected { background:rgba(0,137,123,0.10); font-weight:700; }
+.q-opts.selectable li.selected::before { content:'●  '; color:var(--teal); }
+.autosave-note { font-size:9px; color:var(--dim); text-align:center; margin-top:10px; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+.autosave-note .reset-link { color:var(--gold); cursor:pointer; text-decoration:underline; }
+@media print {
+  [contenteditable="true"]:focus, [contenteditable="true"]:hover { box-shadow:none; background:none; }
+  .q-opts.selectable li:hover { background:none; }
+  .q-opts.selectable li.selected { background:none; }
+  .autosave-note { display:none; }
+}
 </style>
 </head>
 <body>
@@ -81,72 +104,72 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">1.</span> In the Cookie Factory game, what happened to the average cost per cookie as you hired your FIRST few bakers? Why?</div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">2.</span> Fill in the blank: when hiring more workers makes each item CHEAPER to make, economists call this ______________ of scale.</div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">3.</span> What happened in the game once the factory got TOO crowded? What is that pattern called?</div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">4.</span> Match each business to its correct SECTOR.</div>
     <table class="match-table">
-      <tr><td>A wheat farm</td><td>____________</td></tr>
-      <tr><td>A cookie factory</td><td>____________</td></tr>
-      <tr><td>A hair salon</td><td>____________</td></tr>
+      <tr><td>A wheat farm</td><td contenteditable="true" spellcheck="false"></td></tr>
+      <tr><td>A cookie factory</td><td contenteditable="true" spellcheck="false"></td></tr>
+      <tr><td>A hair salon</td><td contenteditable="true" spellcheck="false"></td></tr>
     </table>
     <div class="q-text" style="margin-top:8px; font-size:12px; color:var(--dim)">Choices: Primary · Secondary · Tertiary</div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">5.</span> True or False: a business owned and run by the government (like a public library) is a "private" firm.</div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">6.</span> Two rival cookie factories join together to become one bigger cookie factory. What TYPE of merger is this — horizontal, vertical, or conglomerate? Explain your choice.</div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">7.</span> A cookie factory buys the flour mill that supplies its flour. What TYPE of merger is this? Explain your choice.</div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">8.</span> In the lemonade stand game, what happened to the price — and to how many customers stayed — as the stand became the ONLY seller in town?</div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">9.</span> In the used-bike game, why couldn't you tell just by looking whether a bike was "peachy" or a "lemon"? What is it called when a seller knows more about a product than the buyer does?</div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">10.</span> Do you think a factory should ALWAYS try to grow as big as possible? Give one reason why growing can help, and one reason why growing too much can hurt.</div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="mission-box">
     <div class="mtag">🏠 Family Discussion Mission</div>
     <div class="q-text">Ask a family member: <em>"Have you ever bought something from a business that turned out to be the ONLY place selling that thing nearby? What was that experience like — price, choice, quality?"</em> Write down their example and say whether it sounds like it came from a competitive market or a monopoly.</div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="answer-key">
@@ -164,6 +187,199 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
   </div>
 
   <div class="footer">M1L5 · Economics Academy · Stoic Edu</div>
+  <div class="autosave-note">Your typed answers autosave in this browser on this device · Press Enter on a blank line to add another line · <span class="reset-link" id="resetAnswersBtn">Clear my answers</span></div>
 </div>
+
+<script>
+(function(){
+  var STORAGE_KEY = 'stoic-edu-workbook::' + location.pathname;
+  var EXTRAS_KEY = STORAGE_KEY + '::extras';
+  var SELECT_KEY = STORAGE_KEY + '::selected';
+
+  function each(list, fn){ Array.prototype.forEach.call(list, fn); }
+
+  function allFields(){
+    return document.querySelectorAll('.answer-line[contenteditable="true"], .wb-content[contenteditable="true"], td[contenteditable="true"], .blank-fill[contenteditable="true"]');
+  }
+
+  function focusEnd(el){
+    el.focus();
+    try {
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } catch(e) {}
+  }
+
+  function saveAnswers(){
+    var data = {};
+    each(allFields(), function(el){ data[el.dataset.fieldId] = el.textContent; });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+  function loadAnswers(){
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      each(allFields(), function(el){
+        if (saved[el.dataset.fieldId] !== undefined) el.textContent = saved[el.dataset.fieldId];
+      });
+    } catch(e) {}
+  }
+
+  function getExtrasOf(anchorEl){
+    var id = anchorEl.dataset.anchorId;
+    var result = [];
+    var node = anchorEl.nextElementSibling;
+    while (node && node.classList && node.classList.contains('answer-line') && !node.dataset.anchorId &&
+           node.dataset.fieldId && node.dataset.fieldId.indexOf(id + '_x') === 0) {
+      result.push(node);
+      node = node.nextElementSibling;
+    }
+    return result;
+  }
+
+  function saveExtras(){
+    var counts = {};
+    each(document.querySelectorAll('.answer-line[data-anchor-id]'), function(anchorEl){
+      var n = getExtrasOf(anchorEl).length;
+      if (n > 0) counts[anchorEl.dataset.anchorId] = n;
+    });
+    try { localStorage.setItem(EXTRAS_KEY, JSON.stringify(counts)); } catch(e) {}
+  }
+
+  function attachAnswerLine(el){
+    el.addEventListener('input', saveAnswers);
+    el.addEventListener('keydown', function(ev){
+      if (ev.key === 'Enter') {
+        ev.preventDefault();
+        addLineAfter(el);
+      } else if (ev.key === 'Backspace' && el.dataset.fieldId.indexOf('_x') > -1 && el.textContent === '') {
+        ev.preventDefault();
+        removeLine(el);
+      }
+    });
+  }
+
+  function newLine(fieldId){
+    var el = document.createElement('div');
+    el.className = 'answer-line';
+    el.setAttribute('contenteditable', 'true');
+    el.setAttribute('spellcheck', 'false');
+    el.dataset.fieldId = fieldId;
+    attachAnswerLine(el);
+    return el;
+  }
+
+  function addLineAfter(el){
+    var anchorId = el.dataset.anchorId || el.dataset.fieldId.split('_x')[0];
+    var anchorEl = document.querySelector('.answer-line[data-anchor-id="' + anchorId + '"]');
+    var newIdx = getExtrasOf(anchorEl).length;
+    var lineEl = newLine(anchorId + '_x' + newIdx);
+    el.parentNode.insertBefore(lineEl, el.nextSibling);
+    focusEnd(lineEl);
+    saveExtras();
+    saveAnswers();
+  }
+
+  function removeLine(el){
+    var anchorId = el.dataset.fieldId.split('_x')[0];
+    var anchorEl = document.querySelector('.answer-line[data-anchor-id="' + anchorId + '"]');
+    var prev = el.previousElementSibling;
+    el.parentNode.removeChild(el);
+    each(getExtrasOf(anchorEl), function(node, i){ node.dataset.fieldId = anchorId + '_x' + i; });
+    if (prev) focusEnd(prev);
+    saveExtras();
+    saveAnswers();
+  }
+
+  // ----- Selectable multiple-choice / "circle it" option lists -----
+  function initSelectableLists(){
+    each(document.querySelectorAll('.q-opts.selectable'), function(ul, ulIdx){
+      var ulId = 'sel' + ulIdx;
+      ul.dataset.selId = ulId;
+      var items = ul.querySelectorAll('li');
+      each(items, function(li){
+        li.addEventListener('click', function(){
+          var already = li.classList.contains('selected');
+          each(items, function(other){ other.classList.remove('selected'); });
+          if (!already) li.classList.add('selected');
+          saveSelections();
+        });
+      });
+    });
+  }
+  function saveSelections(){
+    var data = {};
+    each(document.querySelectorAll('.q-opts.selectable'), function(ul){
+      var items = ul.querySelectorAll('li');
+      var sel = -1;
+      each(items, function(li, i){ if (li.classList.contains('selected')) sel = i; });
+      data[ul.dataset.selId] = sel;
+    });
+    try { localStorage.setItem(SELECT_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+  function loadSelections(){
+    try {
+      var saved = JSON.parse(localStorage.getItem(SELECT_KEY) || '{}');
+      each(document.querySelectorAll('.q-opts.selectable'), function(ul){
+        var idx = saved[ul.dataset.selId];
+        if (idx === undefined || idx < 0) return;
+        var items = ul.querySelectorAll('li');
+        if (items[idx]) items[idx].classList.add('selected');
+      });
+    } catch(e) {}
+  }
+
+  // Tag original answer-line blanks as stable anchors.
+  each(document.querySelectorAll('.answer-line[contenteditable="true"]'), function(el, i){
+    el.dataset.anchorId = 'a' + i;
+    el.dataset.fieldId = 'a' + i;
+  });
+
+  // Recreate any extra lines a student had added previously, from localStorage.
+  var extraCounts = {};
+  try { extraCounts = JSON.parse(localStorage.getItem(EXTRAS_KEY) || '{}'); } catch(e) {}
+  each(document.querySelectorAll('.answer-line[data-anchor-id]'), function(anchorEl){
+    var id = anchorEl.dataset.anchorId;
+    var count = extraCounts[id] || 0;
+    var ref = anchorEl;
+    for (var i = 0; i < count; i++) {
+      var lineEl = newLine(id + '_x' + i);
+      ref.parentNode.insertBefore(lineEl, ref.nextSibling);
+      ref = lineEl;
+    }
+  });
+
+  each(document.querySelectorAll('.answer-line[data-anchor-id]'), attachAnswerLine);
+
+  var autoIdx = 0;
+  each(document.querySelectorAll('.wb-content[contenteditable="true"], td[contenteditable="true"], .blank-fill[contenteditable="true"]'), function(el){
+    el.dataset.fieldId = 'g' + (autoIdx++);
+    el.addEventListener('input', saveAnswers);
+  });
+
+  initSelectableLists();
+  loadAnswers();
+  loadSelections();
+
+  var resetBtn = document.getElementById('resetAnswersBtn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function(){
+      if (confirm('Clear all typed answers and selections on this page? This also removes any extra lines you added.')) {
+        each(document.querySelectorAll('.answer-line[data-field-id*="_x"]'), function(el){ el.parentNode.removeChild(el); });
+        each(document.querySelectorAll('.answer-line[data-anchor-id], .wb-content[contenteditable="true"], td[contenteditable="true"], .blank-fill[contenteditable="true"]'), function(el){ el.textContent = ''; });
+        each(document.querySelectorAll('.q-opts.selectable li.selected'), function(li){ li.classList.remove('selected'); });
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(EXTRAS_KEY);
+          localStorage.removeItem(SELECT_KEY);
+        } catch(e) {}
+      }
+    });
+  }
+})();
+</script>
 </body>
 </html>

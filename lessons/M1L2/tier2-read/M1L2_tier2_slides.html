@@ -464,8 +464,8 @@ const DETS = {
   demand: [
     {n:'Income', d:'Normal goods: ↑income → ↑demand. Inferior goods: ↑income → ↓demand.'},
     {n:'Tastes/Fashion', d:'A trend or endorsement increases desire at every price.'},
-    {n:'Price of substitutes', d:'If a substitute\\'s price rises, demand for this good rises.'},
-    {n:'Price of complements', d:'If a complement\\'s price rises, demand for this good falls.'},
+    {n:'Price of substitutes', d:'If a substitute\'s price rises, demand for this good rises.'},
+    {n:'Price of complements', d:'If a complement\'s price rises, demand for this good falls.'},
     {n:'Expectations', d:'Expecting future price rises increases demand now.'},
     {n:'Population/number of buyers', d:'More potential buyers shifts market demand right.'}
   ],
@@ -474,7 +474,7 @@ const DETS = {
     {n:'Technology', d:'Improved technology lowers cost per unit, shifting supply right.'},
     {n:'Government tax/subsidy', d:'A tax shifts supply left; a subsidy shifts supply right.'},
     {n:'Number of sellers', d:'More firms entering the market shifts supply right.'},
-    {n:'Price of other goods', d:'A firm may switch production to a more profitable good, reducing this good\\'s supply.'},
+    {n:'Price of other goods', d:'A firm may switch production to a more profitable good, reducing this good\'s supply.'},
     {n:'Expectations', d:'Expecting future price rises may reduce supply now (sellers hold back stock).'}
   ]
 };
@@ -530,7 +530,7 @@ function drawSurplus() {
 
 // ============ s6 BEHAVIOURAL ============
 const BIASES = [
-  {icon:'🎯', name:'Anchoring', detail:'Buyers judge a price against the first number they see (e.g. a crossed-out "was $100") rather than the item\\'s real value.'},
+  {icon:'🎯', name:'Anchoring', detail:'Buyers judge a price against the first number they see (e.g. a crossed-out "was $100") rather than the item\'s real value.'},
   {icon:'👥', name:'Herding', detail:'People buy what others are buying, regardless of their own independent assessment — challenges the idea of independent rational choice.'},
   {icon:'⏳', name:'Present bias', detail:'Consumers overweight immediate rewards over future ones — undermining the assumption that consumers always maximise long-run utility.'}
 ];
@@ -585,10 +585,10 @@ setAdapter('igcse', document.querySelector('.adapter-tab.igcse'));
 
 // ============ QUIZ ============
 const QUIZ = [
-  { q:'A rise in the price of coffee (holding all else constant) causes a...', opts:['Movement along the demand curve','Shift of the demand curve','Shift of the supply curve only'], correct:0, explain:'A change in the good\\'s OWN price causes a movement along the curve, not a shift — this is the single most-tested distinction.' },
+  { q:'A rise in the price of coffee (holding all else constant) causes a...', opts:['Movement along the demand curve','Shift of the demand curve','Shift of the supply curve only'], correct:0, explain:'A change in the good\'s OWN price causes a movement along the curve, not a shift — this is the single most-tested distinction.' },
   { q:'A new tax on sugary drinks would most likely...', opts:['Shift supply left','Shift demand right','Cause a movement along supply'], correct:0, explain:'A tax raises production/selling cost, shifting the supply curve left (less supplied at every price).' },
   { q:'At a price above equilibrium, a market experiences a...', opts:['Shortage','Surplus','Perfectly balanced market'], correct:1, explain:'Above equilibrium, quantity supplied exceeds quantity demanded — a surplus, which pushes price back down.' },
-  { q:'Consumer surplus is best defined as...', opts:['The price consumers actually pay','The value consumers get beyond what they paid','The government\\'s tax revenue'], correct:1, explain:'CS is the gap between what consumers were willing to pay and what they actually paid — an IB SL enrichment concept.' },
+  { q:'Consumer surplus is best defined as...', opts:['The price consumers actually pay','The value consumers get beyond what they paid','The government\'s tax revenue'], correct:1, explain:'CS is the gap between what consumers were willing to pay and what they actually paid — an IB SL enrichment concept.' },
   { q:'A shopper buys a "limited edition" item mainly because everyone else is buying it. This best illustrates...', opts:['Rational maximisation','Herding behaviour','The law of supply'], correct:1, explain:'Herding challenges the assumption that consumers make fully independent, rational decisions — an IB HL 2.4 seed.' }
 ];
 let quizIdx = 0, quizScoreVal = 0, quizInited = false;

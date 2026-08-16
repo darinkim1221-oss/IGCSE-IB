@@ -151,7 +151,7 @@ details.tutor[open] summary::before { transform:rotate(90deg); }
 
 <script>
 const ITEMS = [
-  {name:'Fresh Water', emoji:'💧', desc:'You won\\'t last 3 days without it.', val:9},
+  {name:'Fresh Water', emoji:'💧', desc:'You won\'t last 3 days without it.', val:9},
   {name:'Fishing Net', emoji:'🕸️', desc:'Steady food, if you know how to use it.', val:7},
   {name:'Old Blanket', emoji:'🧣', desc:'Cold nights on the sand.', val:4},
   {name:'Radio', emoji:'📻', desc:'Might catch a rescue signal... if it still works.', val:6},
@@ -163,7 +163,7 @@ const ITEMS = [
 const TRADES = [
   {give:'Fresh Water', get:{name:'Coconut Stash', emoji:'🥥', val:6}, line:'"Trade me your <strong>Fresh Water</strong> for my <strong>Coconut Stash</strong>? Coconuts have water AND food inside!"'},
   {give:'Old Blanket', get:{name:'Signal Mirror', emoji:'🪞', val:7}, line:'"That <strong>Old Blanket</strong> for my <strong>Signal Mirror</strong> — ships can see this from miles away."'},
-  {give:'Torn Map', get:{name:'Fishing Spear', emoji:'🔱', val:6}, line:'"I\\'ll trade you a <strong>Fishing Spear</strong> for that <strong>Torn Map</strong>. Half the map is useless anyway."'},
+  {give:'Torn Map', get:{name:'Fishing Spear', emoji:'🔱', val:6}, line:'"I\'ll trade you a <strong>Fishing Spear</strong> for that <strong>Torn Map</strong>. Half the map is useless anyway."'},
   {give:'Flashlight', get:{name:'Dry Firewood', emoji:'🪵', val:5}, line:'"Swap your <strong>Flashlight</strong> for my bundle of <strong>Dry Firewood</strong>? Fire beats a dead battery."'}
 ];
 
@@ -267,7 +267,7 @@ function renderFinal() {
   let tier, msg;
   if (salvageTotal >= 26) { tier = 'Master Survivor 🏆'; msg = 'You weighed every trade-off with sharp instincts — high value, smart swaps.'; }
   else if (salvageTotal >= 18) { tier = 'Smart Trader 👍'; msg = 'Solid choices! A couple of trades could have paid off even more.'; }
-  else { tier = 'Room to Grow 🌱'; msg = 'Scarcity is tough — replay and notice which trade-offs you\\'d change.'; }
+  else { tier = 'Room to Grow 🌱'; msg = 'Scarcity is tough — replay and notice which trade-offs you\'d change.'; }
   card.innerHTML = `
     <div class="phase-tag">Result</div>
     <div class="result-score">${salvageTotal}</div>
