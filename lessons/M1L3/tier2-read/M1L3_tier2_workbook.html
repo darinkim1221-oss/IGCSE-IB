@@ -65,6 +65,29 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
   body { background:#fff; }
   .page { box-shadow:none; padding:0; }
 }
+
+/* ===== Editable answer fields ===== */
+[contenteditable="true"] { outline:none; cursor:text; -webkit-user-modify:read-write-plaintext-only; }
+[contenteditable="true"]:hover { background:rgba(200,150,10,0.05); }
+[contenteditable="true"]:focus { background:rgba(200,150,10,0.08); box-shadow:0 0 0 2px var(--gold) inset; border-radius:4px; }
+.answer-line[contenteditable="true"] { padding:2px 6px; font-size:13px; line-height:22px; color:var(--white); font-family:'Noto Sans KR',sans-serif; white-space:pre-wrap; }
+.work-box .wb-content { position:absolute; top:24px; left:10px; right:10px; bottom:8px; overflow-y:auto; font-size:12.5px; line-height:1.6; color:var(--white); white-space:pre-wrap; }
+td[contenteditable="true"] { min-width:60px; }
+.blank-fill { display:inline-block; min-width:32px; border-bottom:1px solid rgba(0,0,0,0.35); text-align:center; padding:0 4px; margin-right:2px; font-family:'Space Mono',monospace; font-size:12.5px; font-weight:700; color:var(--white); text-transform:uppercase; }
+.blank-fill[contenteditable="true"]:hover { background:rgba(200,150,10,0.06); }
+.blank-fill[contenteditable="true"]:focus { background:rgba(200,150,10,0.08); box-shadow:0 0 0 2px var(--gold) inset; border-radius:4px; }
+.q-opts.selectable li { cursor:pointer; border-radius:8px; padding:4px 8px; transition:background 0.12s, color 0.12s; }
+.q-opts.selectable li:hover { background:rgba(200,150,10,0.07); }
+.q-opts.selectable li.selected { background:rgba(0,137,123,0.10); font-weight:700; }
+.q-opts.selectable li.selected::before { content:'●  '; color:var(--teal); }
+.autosave-note { font-size:9px; color:var(--dim); text-align:center; margin-top:10px; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+.autosave-note .reset-link { color:var(--gold); cursor:pointer; text-decoration:underline; }
+@media print {
+  [contenteditable="true"]:focus, [contenteditable="true"]:hover { box-shadow:none; background:none; }
+  .q-opts.selectable li:hover { background:none; }
+  .q-opts.selectable li.selected { background:none; }
+  .autosave-note { display:none; }
+}
 </style>
 </head>
 <body>
@@ -99,14 +122,14 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">1.</span> <strong>State</strong> the formula for price elasticity of demand (PED). <span class="marks">[1]</span><span class="tier-band band-easy">Easy</span></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">2.</span> <strong>Define</strong> price elasticity of demand in words (not just the formula), then <strong>explain</strong> why the value is normally negative for a downward-sloping demand curve, even though we usually discuss it using its absolute (ignore-the-sign) value. <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="section-tag">Calculation Skill</div>
@@ -114,18 +137,18 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">3.</span> A bus company raises the price of a ticket from $4 to $5. Quantity demanded falls from 300 to 220 tickets per day. <strong>Calculate</strong> PED, showing every step of your working (% change in Qd, % change in P, then the ratio), and <strong>comment</strong> on what the value means. <span class="marks">[5]</span><span class="tier-band band-med">Medium</span></div>
-    <div class="work-box"><span class="wb-tag">Show working</span></div>
+    <div class="work-box"><span class="wb-tag">Show working</span><div class="wb-content" contenteditable="true" spellcheck="false"></div></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">4.</span> Fill in the five-value vocabulary table with the correct term and one real-world example good for each PED range.</div>
     <table class="data-table">
       <tr><th>|PED| value</th><th>Term</th><th>Example good</th></tr>
-      <tr><td>0 (vertical curve)</td><td></td><td></td></tr>
-      <tr><td>between 0 and 1</td><td></td><td></td></tr>
-      <tr><td>exactly 1</td><td></td><td></td></tr>
-      <tr><td>greater than 1</td><td></td><td></td></tr>
-      <tr><td>infinite (horizontal curve)</td><td></td><td></td></tr>
+      <tr><td>0 (vertical curve)</td><td contenteditable="true" spellcheck="false"></td><td contenteditable="true" spellcheck="false"></td></tr>
+      <tr><td>between 0 and 1</td><td contenteditable="true" spellcheck="false"></td><td contenteditable="true" spellcheck="false"></td></tr>
+      <tr><td>exactly 1</td><td contenteditable="true" spellcheck="false"></td><td contenteditable="true" spellcheck="false"></td></tr>
+      <tr><td>greater than 1</td><td contenteditable="true" spellcheck="false"></td><td contenteditable="true" spellcheck="false"></td></tr>
+      <tr><td>infinite (horizontal curve)</td><td contenteditable="true" spellcheck="false"></td><td contenteditable="true" spellcheck="false"></td></tr>
     </table>
     <div class="marks" style="display:block;margin-top:8px">[5]</div>
   </div>
@@ -148,7 +171,7 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">6.</span> A market stall sells scarves for $10 and sells 50 per week (revenue = $500). The seller raises the price to $13 and quantity demanded falls to 30 per week. <strong>Calculate</strong> the new revenue, <strong>calculate</strong> PED for this change, and <strong>explain</strong> why revenue moved the way it did, linking your explanation to the PED value. <span class="marks">[6]</span><span class="tier-band band-hard">Challenging</span></div>
-    <div class="work-box"><span class="wb-tag">Show working</span></div>
+    <div class="work-box"><span class="wb-tag">Show working</span><div class="wb-content" contenteditable="true" spellcheck="false"></div></div>
   </div>
 
   <div class="section-tag">Determinants &amp; PES</div>
@@ -156,37 +179,37 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">7.</span> Name and briefly explain THREE determinants of PED. For each, state whether it tends to push PED toward more elastic or more inelastic. <span class="marks">[6]</span><span class="tier-band band-med">Medium</span></div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">8.</span> A furniture manufacturer raises the price of chairs from $80 to $100. Quantity supplied rises from 400 to 480 units per month. <strong>Calculate</strong> PES, showing full working, and <strong>state</strong> which term (from the same five-value vocabulary, applied to supply) describes this value. <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
-    <div class="work-box"><span class="wb-tag">Show working</span></div>
+    <div class="work-box"><span class="wb-tag">Show working</span><div class="wb-content" contenteditable="true" spellcheck="false"></div></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">9.</span> [IB enrichment] Income elasticity of demand (YED) for a good is calculated as −0.6. <strong>Identify</strong> whether this is a normal or inferior good, and <strong>explain</strong> what a negative YED means about how quantity demanded responds when incomes rise. <span class="marks">[3]</span><span class="tier-band band-hard">Challenging</span><span class="tier-band ib-tag">IB enrichment</span></div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">10.</span> [IB HL enrichment] A government places a tax on a good with very inelastic demand. <strong>Explain</strong>, without a full calculation, why buyers are likely to end up paying most of the tax rather than sellers. <span class="marks">[3]</span><span class="tier-band band-hard">Challenging</span><span class="tier-band ib-tag">IB HL enrichment</span></div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="extended-box">
     <div class="etag">Extended Response · exam-style</div>
     <div class="q-text"><strong>11.</strong> "A firm should always raise its price if it wants to earn more revenue." Using the concept of price elasticity of demand, <strong>discuss</strong> whether this statement is true, referring to at least TWO different types of good in your answer. <span class="marks">[8]</span></div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
-    <div class="answer-line"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="answer-key">
@@ -205,6 +228,199 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
   </div>
 
   <div class="footer">M1L3 · Economics Academy · Stoic Edu</div>
+  <div class="autosave-note">Your typed answers autosave in this browser on this device · Press Enter on a blank line to add another line · <span class="reset-link" id="resetAnswersBtn">Clear my answers</span></div>
 </div>
+
+<script>
+(function(){
+  var STORAGE_KEY = 'stoic-edu-workbook::' + location.pathname;
+  var EXTRAS_KEY = STORAGE_KEY + '::extras';
+  var SELECT_KEY = STORAGE_KEY + '::selected';
+
+  function each(list, fn){ Array.prototype.forEach.call(list, fn); }
+
+  function allFields(){
+    return document.querySelectorAll('.answer-line[contenteditable="true"], .wb-content[contenteditable="true"], td[contenteditable="true"], .blank-fill[contenteditable="true"]');
+  }
+
+  function focusEnd(el){
+    el.focus();
+    try {
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } catch(e) {}
+  }
+
+  function saveAnswers(){
+    var data = {};
+    each(allFields(), function(el){ data[el.dataset.fieldId] = el.textContent; });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+  function loadAnswers(){
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      each(allFields(), function(el){
+        if (saved[el.dataset.fieldId] !== undefined) el.textContent = saved[el.dataset.fieldId];
+      });
+    } catch(e) {}
+  }
+
+  function getExtrasOf(anchorEl){
+    var id = anchorEl.dataset.anchorId;
+    var result = [];
+    var node = anchorEl.nextElementSibling;
+    while (node && node.classList && node.classList.contains('answer-line') && !node.dataset.anchorId &&
+           node.dataset.fieldId && node.dataset.fieldId.indexOf(id + '_x') === 0) {
+      result.push(node);
+      node = node.nextElementSibling;
+    }
+    return result;
+  }
+
+  function saveExtras(){
+    var counts = {};
+    each(document.querySelectorAll('.answer-line[data-anchor-id]'), function(anchorEl){
+      var n = getExtrasOf(anchorEl).length;
+      if (n > 0) counts[anchorEl.dataset.anchorId] = n;
+    });
+    try { localStorage.setItem(EXTRAS_KEY, JSON.stringify(counts)); } catch(e) {}
+  }
+
+  function attachAnswerLine(el){
+    el.addEventListener('input', saveAnswers);
+    el.addEventListener('keydown', function(ev){
+      if (ev.key === 'Enter') {
+        ev.preventDefault();
+        addLineAfter(el);
+      } else if (ev.key === 'Backspace' && el.dataset.fieldId.indexOf('_x') > -1 && el.textContent === '') {
+        ev.preventDefault();
+        removeLine(el);
+      }
+    });
+  }
+
+  function newLine(fieldId){
+    var el = document.createElement('div');
+    el.className = 'answer-line';
+    el.setAttribute('contenteditable', 'true');
+    el.setAttribute('spellcheck', 'false');
+    el.dataset.fieldId = fieldId;
+    attachAnswerLine(el);
+    return el;
+  }
+
+  function addLineAfter(el){
+    var anchorId = el.dataset.anchorId || el.dataset.fieldId.split('_x')[0];
+    var anchorEl = document.querySelector('.answer-line[data-anchor-id="' + anchorId + '"]');
+    var newIdx = getExtrasOf(anchorEl).length;
+    var lineEl = newLine(anchorId + '_x' + newIdx);
+    el.parentNode.insertBefore(lineEl, el.nextSibling);
+    focusEnd(lineEl);
+    saveExtras();
+    saveAnswers();
+  }
+
+  function removeLine(el){
+    var anchorId = el.dataset.fieldId.split('_x')[0];
+    var anchorEl = document.querySelector('.answer-line[data-anchor-id="' + anchorId + '"]');
+    var prev = el.previousElementSibling;
+    el.parentNode.removeChild(el);
+    each(getExtrasOf(anchorEl), function(node, i){ node.dataset.fieldId = anchorId + '_x' + i; });
+    if (prev) focusEnd(prev);
+    saveExtras();
+    saveAnswers();
+  }
+
+  // ----- Selectable multiple-choice / "circle it" option lists -----
+  function initSelectableLists(){
+    each(document.querySelectorAll('.q-opts.selectable'), function(ul, ulIdx){
+      var ulId = 'sel' + ulIdx;
+      ul.dataset.selId = ulId;
+      var items = ul.querySelectorAll('li');
+      each(items, function(li){
+        li.addEventListener('click', function(){
+          var already = li.classList.contains('selected');
+          each(items, function(other){ other.classList.remove('selected'); });
+          if (!already) li.classList.add('selected');
+          saveSelections();
+        });
+      });
+    });
+  }
+  function saveSelections(){
+    var data = {};
+    each(document.querySelectorAll('.q-opts.selectable'), function(ul){
+      var items = ul.querySelectorAll('li');
+      var sel = -1;
+      each(items, function(li, i){ if (li.classList.contains('selected')) sel = i; });
+      data[ul.dataset.selId] = sel;
+    });
+    try { localStorage.setItem(SELECT_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+  function loadSelections(){
+    try {
+      var saved = JSON.parse(localStorage.getItem(SELECT_KEY) || '{}');
+      each(document.querySelectorAll('.q-opts.selectable'), function(ul){
+        var idx = saved[ul.dataset.selId];
+        if (idx === undefined || idx < 0) return;
+        var items = ul.querySelectorAll('li');
+        if (items[idx]) items[idx].classList.add('selected');
+      });
+    } catch(e) {}
+  }
+
+  // Tag original answer-line blanks as stable anchors.
+  each(document.querySelectorAll('.answer-line[contenteditable="true"]'), function(el, i){
+    el.dataset.anchorId = 'a' + i;
+    el.dataset.fieldId = 'a' + i;
+  });
+
+  // Recreate any extra lines a student had added previously, from localStorage.
+  var extraCounts = {};
+  try { extraCounts = JSON.parse(localStorage.getItem(EXTRAS_KEY) || '{}'); } catch(e) {}
+  each(document.querySelectorAll('.answer-line[data-anchor-id]'), function(anchorEl){
+    var id = anchorEl.dataset.anchorId;
+    var count = extraCounts[id] || 0;
+    var ref = anchorEl;
+    for (var i = 0; i < count; i++) {
+      var lineEl = newLine(id + '_x' + i);
+      ref.parentNode.insertBefore(lineEl, ref.nextSibling);
+      ref = lineEl;
+    }
+  });
+
+  each(document.querySelectorAll('.answer-line[data-anchor-id]'), attachAnswerLine);
+
+  var autoIdx = 0;
+  each(document.querySelectorAll('.wb-content[contenteditable="true"], td[contenteditable="true"], .blank-fill[contenteditable="true"]'), function(el){
+    el.dataset.fieldId = 'g' + (autoIdx++);
+    el.addEventListener('input', saveAnswers);
+  });
+
+  initSelectableLists();
+  loadAnswers();
+  loadSelections();
+
+  var resetBtn = document.getElementById('resetAnswersBtn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function(){
+      if (confirm('Clear all typed answers and selections on this page? This also removes any extra lines you added.')) {
+        each(document.querySelectorAll('.answer-line[data-field-id*="_x"]'), function(el){ el.parentNode.removeChild(el); });
+        each(document.querySelectorAll('.answer-line[data-anchor-id], .wb-content[contenteditable="true"], td[contenteditable="true"], .blank-fill[contenteditable="true"]'), function(el){ el.textContent = ''; });
+        each(document.querySelectorAll('.q-opts.selectable li.selected'), function(li){ li.classList.remove('selected'); });
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(EXTRAS_KEY);
+          localStorage.removeItem(SELECT_KEY);
+        } catch(e) {}
+      }
+    });
+  }
+})();
+</script>
 </body>
 </html>

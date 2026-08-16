@@ -433,7 +433,7 @@ drawCover();
 const CMDS = [
   {key:'define', lbl:'Define', ans:'<strong>Define average total cost.</strong> Average total cost (ATC) is total cost divided by the quantity produced — the cost of producing one typical unit, ATC = TC ÷ Q.'},
   {key:'calculate', lbl:'Calculate', ans:'<strong>Calculate profit if TR = $500 and TC = $350.</strong> Profit = TR − TC = 500 − 350 = <strong>$150</strong>. Always show the formula, the substitution, AND the final labelled answer for full working marks.'},
-  {key:'compare', lbl:'Compare', ans:'<strong>Compare a competitive market and a monopoly.</strong> A competitive market has many sellers, pushing price down and choice up; a monopoly has one seller, who can sustain a higher price and offers less choice. A strong "compare" answer states BOTH sides for each point, not just one market\\'s features.'}
+  {key:'compare', lbl:'Compare', ans:'<strong>Compare a competitive market and a monopoly.</strong> A competitive market has many sellers, pushing price down and choice up; a monopoly has one seller, who can sustain a higher price and offers less choice. A strong "compare" answer states BOTH sides for each point, not just one market\'s features.'}
 ];
 let cmdActive = 0;
 const cmdTabs = document.getElementById('cmdTabs');
@@ -575,10 +575,10 @@ setAdapter('igcse', document.querySelector('.adapter-tab.igcse'));
 // ============ QUIZ ============
 const QUIZ = [
   { q:'If Total Cost = $350 and Quantity = 100 cookies, what is Average Total Cost?', opts:['$0.35','$3.50','$35.00'], correct:1, explain:'ATC = TC ÷ Q = 350 ÷ 100 = $3.50.' },
-  { q:'Which of these is an INTERNAL economy of scale?', opts:['A firm buys inputs more cheaply because it orders in bulk','A whole local industry shares a skilled labour pool','The government subsidises the firm\\'s rent'], correct:0, explain:'Internal economies come from the FIRM\\'S OWN growth (like bulk-buying power). The shared labour pool is an EXTERNAL economy — it benefits every firm in the area, not just one.' },
-  { q:'A supermarket chain buys the dairy farm that supplies its milk. This is a ___ merger.', opts:['Horizontal','Vertical','Conglomerate'], correct:1, explain:'The supermarket and the farm sit at different stages of the SAME supply chain (retail + raw material supplier) — that\\'s a vertical merger.' },
+  { q:'Which of these is an INTERNAL economy of scale?', opts:['A firm buys inputs more cheaply because it orders in bulk','A whole local industry shares a skilled labour pool','The government subsidises the firm\'s rent'], correct:0, explain:'Internal economies come from the FIRM\'S OWN growth (like bulk-buying power). The shared labour pool is an EXTERNAL economy — it benefits every firm in the area, not just one.' },
+  { q:'A supermarket chain buys the dairy farm that supplies its milk. This is a ___ merger.', opts:['Horizontal','Vertical','Conglomerate'], correct:1, explain:'The supermarket and the farm sit at different stages of the SAME supply chain (retail + raw material supplier) — that\'s a vertical merger.' },
   { q:'Compared to a competitive market, a monopoly market typically has...', opts:['Lower price and more choice','Higher price and less choice','No meaningful difference at all'], correct:1, explain:'With no rival sellers pushing price down or forcing variety, a monopoly can sustain a higher price and typically offers less choice than a competitive market.' },
-  { q:'[IB HL] In the "lemons" problem, asymmetric information means...', opts:['Both buyer and seller know the same amount about the product','The seller knows more about the product\\'s true quality than the buyer','The government knows more than both the buyer and the seller'], correct:1, explain:'The seller (e.g. of a used car) usually knows the vehicle\\'s true condition far better than the buyer — this information gap is what can drive good products out of the market.' }
+  { q:'[IB HL] In the "lemons" problem, asymmetric information means...', opts:['Both buyer and seller know the same amount about the product','The seller knows more about the product\'s true quality than the buyer','The government knows more than both the buyer and the seller'], correct:1, explain:'The seller (e.g. of a used car) usually knows the vehicle\'s true condition far better than the buyer — this information gap is what can drive good products out of the market.' }
 ];
 let quizIdx = 0, quizScoreVal = 0, quizInited = false;
 function initQuiz() {

@@ -464,8 +464,8 @@ const SPEC_ITEMS = [
   {name:'Insulin (medicine)', side:'stiff', why:'No substitute exists — a person needs it to stay alive.'},
   {name:'A specific soda brand', side:'stretchy', why:'Plenty of other sodas taste almost the same.'},
   {name:'Salt', side:'stiff', why:'You use very little of it and there is no real substitute, so price barely changes behaviour.'},
-  {name:'A ride to a friend\\'s birthday party', side:'stretchy', why:'You could walk, bike, or get a different ride instead.'},
-  {name:'Your only bus route to school', side:'stiff', why:'If there\\'s no other way to get to school, you\\'ll pay almost any reasonable fare.'}
+  {name:'A ride to a friend\'s birthday party', side:'stretchy', why:'You could walk, bike, or get a different ride instead.'},
+  {name:'Your only bus route to school', side:'stiff', why:'If there\'s no other way to get to school, you\'ll pay almost any reasonable fare.'}
 ];
 const specGrid = document.getElementById('specCards');
 SPEC_ITEMS.forEach((it,i) => {
@@ -531,7 +531,7 @@ updatePx('candy',100); updatePx('water',100);
 // ============ s5: DETERMINANTS ============
 const DETERMINANTS = [
   {emoji:'🔀', lbl:'Lots of substitutes', desc:'Many similar products to switch to.'},
-  {emoji:'🎈', lbl:'It\\'s a luxury, not a need', desc:'You can easily live without it.'},
+  {emoji:'🎈', lbl:'It\'s a luxury, not a need', desc:'You can easily live without it.'},
   {emoji:'💰', lbl:'Big chunk of your money', desc:'A price rise really hurts your wallet.'},
   {emoji:'⏳', lbl:'You have time to shop around', desc:'No rush means more chances to compare.'},
   {emoji:'🚫', lbl:'No substitutes exist', desc:'This one makes a good STIFF, not stretchy!'}
@@ -552,9 +552,9 @@ DETERMINANTS.forEach((s,i) => {
 
 // ============ s6: RAPID ROUND ============
 const RR_ROUNDS = [
-  { text: 'Gasoline for your family\\'s only car', answer: false, why: 'You still need to get to work/school — demand barely reacts to price in the short run. STIFF.' },
+  { text: 'Gasoline for your family\'s only car', answer: false, why: 'You still need to get to work/school — demand barely reacts to price in the short run. STIFF.' },
   { text: 'A specific brand of soda when 5 others taste the same', answer: true, why: 'Tons of substitutes — buyers switch brands fast. STRETCHY.' },
-  { text: 'A haircut at your only nearby barber', answer: false, why: 'Few alternatives nearby and it\\'s a small part of your budget — price barely changes behaviour. STIFF.' },
+  { text: 'A haircut at your only nearby barber', answer: false, why: 'Few alternatives nearby and it\'s a small part of your budget — price barely changes behaviour. STIFF.' },
   { text: 'A concert ticket for a show with 20 other similar concerts that week', answer: true, why: 'Many similar events compete for the same money — STRETCHY.' },
   { text: 'Insulin for someone who needs it to live', answer: false, why: 'No substitute, life-or-death — about as STIFF (inelastic) as it gets.' }
 ];
@@ -596,7 +596,7 @@ function renderQuiz() {
   const prog = document.getElementById('quizProgress').children;
   for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
   if (quizIdx >= QUIZ.length) {
-    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\\'ve mastered stretchy vs stiff! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\'ve mastered stretchy vs stiff! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
     document.getElementById('quizNextBtn').style.display = 'none';
     return;
   }

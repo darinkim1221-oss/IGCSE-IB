@@ -434,7 +434,7 @@ function hireBaker() {
 const FIRM_CARDS = [
   {name:'A family-owned wheat farm', sector:'Primary', owner:'Private', why:'Growing raw materials (wheat) is a PRIMARY-sector activity, and a family farm is PRIVATELY owned.'},
   {name:'A cookie factory that bakes and packages cookies', sector:'Secondary', owner:'Private', why:'Turning raw ingredients into a finished product is a SECONDARY-sector activity — manufacturing.'},
-  {name:'A public city library', sector:'Tertiary', owner:'Public', why:'Providing a service (lending books) is TERTIARY-sector, and it\\'s owned and run by the government — PUBLIC.'},
+  {name:'A public city library', sector:'Tertiary', owner:'Public', why:'Providing a service (lending books) is TERTIARY-sector, and it\'s owned and run by the government — PUBLIC.'},
   {name:'A privately-owned hair salon', sector:'Tertiary', owner:'Private', why:'A haircut is a SERVICE (tertiary), and the salon is owned by a private individual or company — PRIVATE.'},
   {name:'A national postal service run by the government', sector:'Tertiary', owner:'Public', why:'Delivering mail is a SERVICE (tertiary), run and owned by the government — PUBLIC.'},
   {name:'A copper mine owned by a private company', sector:'Primary', owner:'Private', why:'Extracting raw materials (copper) is PRIMARY-sector, and this mine is owned by a private company — PRIVATE.'}
@@ -454,9 +454,9 @@ FIRM_CARDS.forEach((it) => {
 
 // ============ s3: MERGER SORT ============
 const MERGE_DEALS = [
-  {name:'Two rival cookie factories in the same town decide to merge into one company.', correct:'H', why:'Both firms make the SAME product at the SAME stage — that\\'s a HORIZONTAL merger.'},
-  {name:'The cookie factory buys the flour mill that supplies its ingredients.', correct:'V', why:'The factory is merging with a business at a DIFFERENT stage of the same supply chain (its supplier) — that\\'s a VERTICAL merger.'},
-  {name:'The cookie factory buys a company that makes toy trucks — a totally different product.', correct:'C', why:'These two businesses have nothing to do with each other\\'s product — that\\'s a CONGLOMERATE merger.'}
+  {name:'Two rival cookie factories in the same town decide to merge into one company.', correct:'H', why:'Both firms make the SAME product at the SAME stage — that\'s a HORIZONTAL merger.'},
+  {name:'The cookie factory buys the flour mill that supplies its ingredients.', correct:'V', why:'The factory is merging with a business at a DIFFERENT stage of the same supply chain (its supplier) — that\'s a VERTICAL merger.'},
+  {name:'The cookie factory buys a company that makes toy trucks — a totally different product.', correct:'C', why:'These two businesses have nothing to do with each other\'s product — that\'s a CONGLOMERATE merger.'}
 ];
 const mergeGrid = document.getElementById('mergeCards');
 MERGE_DEALS.forEach((d,i) => {
@@ -489,9 +489,9 @@ function updateMono(val) {
   document.getElementById('monoQtyBar').style.height = Math.max(6, qty) + 'px';
   document.getElementById('monoProfitBar').style.height = Math.min(64, Math.max(4, profit*0.6)) + 'px';
   const out = document.getElementById('monoOut');
-  if (val == 0) out.textContent = 'Slide the price up — you\\'re the only seller in town, so buyers have nowhere else to go... but they can always just buy less.';
+  if (val == 0) out.textContent = 'Slide the price up — you\'re the only seller in town, so buyers have nowhere else to go... but they can always just buy less.';
   else if (val < 50) out.innerHTML = 'Price is climbing and profit is going up — but a few thirsty kids are starting to just walk away instead of paying.';
-  else out.innerHTML = '<strong style="color:var(--red)">Price is high and fewer cups are selling.</strong> With NO competitor to keep you honest, you can charge more than a fair market would allow — that\\'s the cost of a <strong>monopoly</strong> to buyers.';
+  else out.innerHTML = '<strong style="color:var(--red)">Price is high and fewer cups are selling.</strong> With NO competitor to keep you honest, you can charge more than a fair market would allow — that\'s the cost of a <strong>monopoly</strong> to buyers.';
 }
 
 // ============ s5: LEMONS TEASER ============
@@ -507,7 +507,7 @@ function buyBike() {
   } else {
     lemonCount++;
     bikeEl.textContent = '🚲💥';
-    resultEl.innerHTML = '<strong style="color:var(--red)">It\\'s a "lemon"!</strong> Broken brakes, squeaky wheels — the seller knew, but you couldn\\'t tell until you paid. This is called <strong>asymmetric information</strong>: the seller knows more than the buyer.';
+    resultEl.innerHTML = '<strong style="color:var(--red)">It\'s a "lemon"!</strong> Broken brakes, squeaky wheels — the seller knew, but you couldn\'t tell until you paid. This is called <strong>asymmetric information</strong>: the seller knows more than the buyer.';
   }
   document.getElementById('peachCount').textContent = peachCount;
   document.getElementById('lemonCount').textContent = lemonCount;
@@ -519,7 +519,7 @@ const RR_ROUNDS = [
   { text: 'Turning raw milk into cheese is a secondary-sector activity.', answer: true, why: 'Manufacturing a raw material into a finished product is exactly what the secondary sector does. TRUE.' },
   { text: 'A monopoly (only one seller) usually means LOWER prices for buyers.', answer: false, why: 'With no competitor to keep them in check, a monopolist can usually charge MORE, not less. FALSE.' },
   { text: 'A horizontal merger is when two companies making the SAME kind of product join together.', answer: true, why: 'Exactly — horizontal means same product, same stage of production. TRUE.' },
-  { text: 'When a seller knows more about a product\\'s quality than the buyer does, that\\'s called asymmetric information.', answer: true, why: 'Right — "asymmetric" means unequal, and here the information about quality is unequal between buyer and seller. TRUE.' }
+  { text: 'When a seller knows more about a product\'s quality than the buyer does, that\'s called asymmetric information.', answer: true, why: 'Right — "asymmetric" means unequal, and here the information about quality is unequal between buyer and seller. TRUE.' }
 ];
 let rrIdx = 0;
 function renderRR() {
@@ -546,7 +546,7 @@ const QUIZ = [
   { q:'What is a horizontal merger?', opts:['Two companies making the SAME kind of product join together','A company buys its own supplier','A company buys a totally unrelated business'], correct:0, explain:'Horizontal = same product, same stage — like two cookie factories merging.' },
   { q:'Why can a monopolist (the only seller in town) usually charge a higher price?', opts:['Because the government forces them to','Because buyers have no other seller to switch to','Because their costs are always higher'], correct:1, explain:'With zero competition, buyers who still want the product have nowhere else to go — so the seller has more power over price.' },
   { q:'A copper mine belongs to which sector?', opts:['Primary — extracting raw materials','Secondary — manufacturing','Tertiary — providing a service'], correct:0, explain:'Digging raw materials (like copper) out of the ground is a primary-sector activity.' },
-  { q:'You buy a used bike and only find out it\\'s broken AFTER paying, even though the seller knew. This is an example of...', opts:['A merger','A subsidy','Asymmetric information'], correct:2, explain:'Asymmetric information means one side of a trade (here, the seller) knows more than the other — a real problem in markets like used goods.' }
+  { q:'You buy a used bike and only find out it\'s broken AFTER paying, even though the seller knew. This is an example of...', opts:['A merger','A subsidy','Asymmetric information'], correct:2, explain:'Asymmetric information means one side of a trade (here, the seller) knows more than the other — a real problem in markets like used goods.' }
 ];
 let quizIdx = 0, quizScoreVal = 0, quizInited = false;
 function initQuiz() {
@@ -559,7 +559,7 @@ function renderQuiz() {
   const prog = document.getElementById('quizProgress').children;
   for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
   if (quizIdx >= QUIZ.length) {
-    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\\'ve mastered firms and scale! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\'ve mastered firms and scale! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
     document.getElementById('quizNextBtn').style.display = 'none';
     return;
   }

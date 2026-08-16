@@ -444,15 +444,15 @@ function produceMore() {
     fVerdict.innerHTML = '<strong style="color:var(--gold)">Profit keeps climbing.</strong> The factory never sees a bill for the river.';
   }
   if (factory.riverHealth <= 30) {
-    rVerdict.innerHTML = '<strong style="color:var(--red)">The village is paying a huge price</strong> — fewer fish, dirtier water — for a decision it never made. That\\'s a <strong>negative externality</strong>.';
+    rVerdict.innerHTML = '<strong style="color:var(--red)">The village is paying a huge price</strong> — fewer fish, dirtier water — for a decision it never made. That\'s a <strong>negative externality</strong>.';
   } else if (factory.riverHealth <= 65) {
-    rVerdict.innerHTML = 'Fish are disappearing and the water looks worse — the village is already paying a cost the factory doesn\\'t see on its books.';
+    rVerdict.innerHTML = 'Fish are disappearing and the water looks worse — the village is already paying a cost the factory doesn\'t see on its books.';
   }
 }
 
 // ============ s2: SPECTRUM SORT ============
 const SPEC_ITEMS = [
-  {name:'A beekeeper\\'s bees pollinate the neighbor\\'s crops for free', side:'pos', why:'The neighbor gets bigger harvests without paying the beekeeper a cent — a spillover BENEFIT.'},
+  {name:'A beekeeper\'s bees pollinate the neighbor\'s crops for free', side:'pos', why:'The neighbor gets bigger harvests without paying the beekeeper a cent — a spillover BENEFIT.'},
   {name:'Factory smoke drifts over the town', side:'neg', why:'The town breathes dirtier air and pays a health cost the factory never billed for — a spillover COST.'},
   {name:'A neighbor plants a beautiful garden everyone enjoys walking past', side:'pos', why:'The whole street enjoys the view for free — a spillover BENEFIT nobody paid for.'},
   {name:'Loud late-night construction noise', side:'neg', why:'Neighbors lose sleep and pay a real cost (tiredness, stress) they never agreed to — a spillover COST.'},
@@ -525,7 +525,7 @@ function debatePick(side) {
   if (side === 'yes') {
     out.innerHTML = '<strong style="color:var(--teal)">YES side:</strong> a tax makes the "bad" choice more expensive, so fewer people buy it — and the government collects money that could pay for things like health campaigns.';
   } else {
-    out.innerHTML = '<strong style="color:var(--red)">NO side:</strong> candy isn\\'t dangerous like cigarettes, a tax mostly hits families who can least afford it, and people might just drive further to buy it tax-free anyway.';
+    out.innerHTML = '<strong style="color:var(--red)">NO side:</strong> candy isn\'t dangerous like cigarettes, a tax mostly hits families who can least afford it, and people might just drive further to buy it tax-free anyway.';
   }
 }
 
@@ -554,8 +554,8 @@ const RR_ROUNDS = [
   { text: 'A factory dumps chemicals in a river for free', answer: true, why: 'A cost is dumped onto people who never agreed to it — a classic negative externality. MARKET FAILURE.' },
   { text: 'Ten bakeries compete nearby and prices stay fair', answer: false, why: 'Lots of competition keeps things working well for buyers — no failure here. WORKING FINE.' },
   { text: 'One company owns the only water pipe in town and charges sky-high prices', answer: true, why: 'No competition means the seller can overcharge — a monopoly problem. MARKET FAILURE.' },
-  { text: 'A free public fireworks show — but almost nobody wants to chip in to pay for it', answer: true, why: 'Nobody can be stopped from watching even if they didn\\'t pay — the free-rider problem for a public good. MARKET FAILURE.' },
-  { text: 'A farmer\\'s market where lots of buyers and sellers trade fruit freely', answer: false, why: 'Many buyers, many sellers, nobody forced — the market is working as it should. WORKING FINE.' }
+  { text: 'A free public fireworks show — but almost nobody wants to chip in to pay for it', answer: true, why: 'Nobody can be stopped from watching even if they didn\'t pay — the free-rider problem for a public good. MARKET FAILURE.' },
+  { text: 'A farmer\'s market where lots of buyers and sellers trade fruit freely', answer: false, why: 'Many buyers, many sellers, nobody forced — the market is working as it should. WORKING FINE.' }
 ];
 let rrIdx = 0;
 function renderRR() {
@@ -578,7 +578,7 @@ renderRR();
 
 // ============ QUIZ ============
 const QUIZ = [
-  { q:'A factory pollutes a river and never pays for the damage. What is this called?', opts:['A negative externality — a cost spilling onto people who didn\\'t choose it','A subsidy','A free-rider problem'], correct:0, explain:'When a decision creates a cost for someone outside the deal, that unpaid cost is a negative externality.' },
+  { q:'A factory pollutes a river and never pays for the damage. What is this called?', opts:['A negative externality — a cost spilling onto people who didn\'t choose it','A subsidy','A free-rider problem'], correct:0, explain:'When a decision creates a cost for someone outside the deal, that unpaid cost is a negative externality.' },
   { q:'Why is a public fireworks show hard for a private company to sell tickets to?', opts:['Fireworks are too expensive to make','Nobody can be stopped from watching, so people can enjoy it without paying — the free-rider problem','Fireworks are illegal'], correct:1, explain:'A public good is hard to exclude people from — everyone can enjoy it whether they paid or not, so some people "free-ride."' },
   { q:'A government puts a tax on candy to reduce how much people buy. This is an example of...', opts:['A public good','A tool to shrink a "bad" behaviour by making it more expensive','A free-rider problem'], correct:1, explain:'Taxing a good raises its price, which — for most goods — reduces the amount people buy.' },
   { q:'Getting vaccinated protects other people too, not just you. This is an example of a...', opts:['Negative externality','Positive externality — a spillover benefit', 'Market with no failure at all'], correct:1, explain:'A benefit that spills onto people beyond the person making the choice is a positive externality.' },
@@ -595,7 +595,7 @@ function renderQuiz() {
   const prog = document.getElementById('quizProgress').children;
   for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
   if (quizIdx >= QUIZ.length) {
-    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\\'ve mastered market failure! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\'ve mastered market failure! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
     document.getElementById('quizNextBtn').style.display = 'none';
     return;
   }

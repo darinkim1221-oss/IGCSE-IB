@@ -226,7 +226,7 @@ function renderFinal() {
   const finalDiff = Math.abs(q - s);
   let tier, msg;
   if (balancedAt !== null) { tier = 'Market Master 🏆'; msg = `You found balance by round ${balancedAt+1} — that's the equilibrium price, found with no one "in charge" of it.`; }
-  else if (finalDiff <= 2) { tier = 'Close Call 👍'; msg = 'Almost balanced — a couple more rounds and you\\'d have nailed the equilibrium.'; }
+  else if (finalDiff <= 2) { tier = 'Close Call 👍'; msg = 'Almost balanced — a couple more rounds and you\'d have nailed the equilibrium.'; }
   else { tier = 'Room to Grow 🌱'; msg = 'Still a shortage or surplus at the end — replay and watch the queue/shelf pattern more closely.'; }
   card.innerHTML = `
     <div class="phase-tag">Result</div>

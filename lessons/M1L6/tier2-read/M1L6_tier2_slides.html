@@ -435,7 +435,7 @@ renderCmd();
 // ============ s2 MCQ WARM-UP ============
 const MCQS = [
   {lbl:'Q1', q:'A rise in income causes consumers to buy MORE of a good at every price. This is best shown as:', opts:['A movement along the demand curve','A rightward shift of the whole demand curve','A movement along the supply curve'], correct:1, why:'A non-price factor (income) changed, so the whole curve shifts — this is NOT a movement along it.'},
-  {lbl:'Q2', q:'A factory\\'s average cost per unit FALLS as it hires more workers, then eventually RISES again. The rising part is called:', opts:['Economies of scale','Diseconomies of scale','A price floor'], correct:1, why:'Diseconomies of scale = average cost rising again once a firm has grown past its efficient size.'},
+  {lbl:'Q2', q:'A factory\'s average cost per unit FALLS as it hires more workers, then eventually RISES again. The rising part is called:', opts:['Economies of scale','Diseconomies of scale','A price floor'], correct:1, why:'Diseconomies of scale = average cost rising again once a firm has grown past its efficient size.'},
   {lbl:'Q3', q:'Which best describes a monopoly market compared to a competitive one?', opts:['Lower price, more choice','Higher price, less choice','Identical price and choice'], correct:1, why:'With no rival sellers, a monopolist can typically sustain a higher price and offers less choice.'}
 ];
 let mcqActive = 0;
@@ -457,7 +457,7 @@ renderMcq();
 const EVAL_STEPS = [
   {n:'1. Claim', d:'State the point directly: "A merger between two rival bakeries could raise prices for consumers."'},
   {n:'2. Analysis', d:'Explain the mechanism with theory or data: fewer competing firms means less pressure to keep prices low, and the merged firm gains more market power over price.'},
-  {n:'3. Counter', d:'Give the other side: "However, the merger could also LOWER prices, if combining production creates economies of scale that reduce the firm\\'s average cost enough to pass savings on."'},
+  {n:'3. Counter', d:'Give the other side: "However, the merger could also LOWER prices, if combining production creates economies of scale that reduce the firm\'s average cost enough to pass savings on."'},
   {n:'4. Judgement', d:'Reach a supported conclusion: "The outcome likely depends on how much market power the merger creates versus how much cost saving it delivers — a merger between two SMALL rivals is more likely to lower price than one between two already-dominant firms."'}
 ];
 document.getElementById('evalGrid').innerHTML = EVAL_STEPS.map(s => `<div class="obj-card"><strong>${s.n}</strong>${s.d}</div>`).join('');
@@ -465,8 +465,8 @@ document.getElementById('evalGrid').innerHTML = EVAL_STEPS.map(s => `<div class=
 // ============ s7 IB DISCUSS STRUCTURE ============
 const IB_TABS = [
   {key:'two-sides', lbl:'Two Sides', ans:'A "discuss" response opens by identifying BOTH sides of the issue before developing either one — e.g. "A price ceiling on rent could help tenants afford housing, but could also reduce the supply of rental housing available." Naming both sides up front signals structure to the examiner from sentence one.'},
-  {key:'judgement', lbl:'Supported Judgement', ans:'The response closes with a judgement that is explicitly SUPPORTED by the analysis above it — not just asserted. "On balance, the policy is more likely to help if the ceiling is set close to the current market rent" is supported; "so overall it\\'s a good policy" is not.'},
-  {key:'minib', lbl:'Mini Part (b)', ans:'IB\\'s short data-response extended question ("mini Part (b)") asks for a compact version of this same structure — a few sentences, not a full essay — so this module\\'s evaluation paragraph is exactly the right length and shape to practise for it.'}
+  {key:'judgement', lbl:'Supported Judgement', ans:'The response closes with a judgement that is explicitly SUPPORTED by the analysis above it — not just asserted. "On balance, the policy is more likely to help if the ceiling is set close to the current market rent" is supported; "so overall it\'s a good policy" is not.'},
+  {key:'minib', lbl:'Mini Part (b)', ans:'IB\'s short data-response extended question ("mini Part (b)") asks for a compact version of this same structure — a few sentences, not a full essay — so this module\'s evaluation paragraph is exactly the right length and shape to practise for it.'}
 ];
 let ibActive = 0;
 const ibTabsEl = document.getElementById('ibTabs');
@@ -548,7 +548,7 @@ setAdapter('igcse', document.querySelector('.adapter-tab.igcse'));
 
 // ============ QUIZ ============
 const QUIZ = [
-  { q:'A price rise causes quantity demanded to fall only slightly. This demand is best described as...', opts:['Elastic','Inelastic','Shifted'], correct:1, explain:'Quantity barely responds to the price change — that\\'s inelastic demand.' },
+  { q:'A price rise causes quantity demanded to fall only slightly. This demand is best described as...', opts:['Elastic','Inelastic','Shifted'], correct:1, explain:'Quantity barely responds to the price change — that\'s inelastic demand.' },
   { q:'"Discuss whether monopolies are always bad for consumers." A Band 1 answer typically...', opts:['Covers both sides with a supported judgement','Is one-sided with little development','Uses a diagram with no explanation'], correct:1, explain:'Band 1 responses are one-sided and undeveloped — Band 3 responses cover both sides and close with a supported judgement.' },
   { q:'In the Claim → Analysis → Counter → Judgement structure, the "Counter" step is where you...', opts:['Restate the claim in different words','Give the OTHER side of the argument','Define key terms'], correct:1, explain:'The Counter step presents the opposing point, which the Judgement step then weighs against the original claim.' },
   { q:'A 2-mark calculation question with no working shown, but a correct final answer, usually earns...', opts:['Full marks, always','Partial or full credit depending on the scheme — working is safer','Zero marks, no exceptions'], correct:1, explain:'Mark schemes usually split marks between method and answer — showing working protects marks even if the final number is wrong.' },
