@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework Workbook — The Economic Problem (Tier 2) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:8px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.meta-strip { display:flex; gap:8px; margin:14px 0 28px; flex-wrap:wrap; }
+.pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:var(--blue); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 11px; border-radius:20px; text-transform:uppercase; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:28px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:30px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:14px; }
+.q-block { margin-bottom:22px; page-break-inside:avoid; }
+.q-num { font-family:'Space Mono',monospace; font-size:11px; color:var(--gold); font-weight:700; margin-right:6px; }
+.q-text { font-size:14px; line-height:1.7; margin-bottom:8px; }
+.marks { font-family:'Space Mono',monospace; font-size:10px; color:var(--teal); font-weight:700; }
+.q-opts { list-style:none; padding-left:6px; }
+.q-opts li { font-size:13px; color:var(--white); padding:4px 0; }
+.q-opts li::before { content:'○  '; color:var(--dim); }
+.answer-line { border-bottom:1px solid rgba(0,0,0,0.18); height:26px; margin-bottom:4px; }
+.tier-band { display:inline-block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1px; text-transform:uppercase; padding:2px 8px; border-radius:10px; margin-left:8px; }
+.band-easy { background:rgba(0,137,123,0.1); color:var(--teal); }
+.band-med { background:rgba(200,150,10,0.12); color:var(--gold); }
+.band-hard { background:rgba(229,57,53,0.1); color:var(--red); }
+.diagram-box { width:100%; height:220px; background-image:linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size:22px 22px; border:1px solid rgba(0,0,0,0.2); border-radius:4px; position:relative; margin-top:8px; }
+.graph-axis-x { position:absolute; bottom:-20px; left:0; right:0; text-align:center; font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; }
+.graph-axis-y { position:absolute; top:50%; left:-64px; transform:rotate(-90deg); font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; width:150px; text-align:center; }
+.data-table { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:8px; }
+.data-table th, .data-table td { padding:7px 10px; border:1px solid rgba(0,0,0,0.1); text-align:left; }
+.data-table th { background:var(--card); font-family:'Space Mono',monospace; font-size:10px; text-transform:uppercase; color:var(--blue); }
+.extended-box { background:linear-gradient(135deg,rgba(13,45,82,0.05),rgba(13,45,82,0.01)); border:1px solid rgba(13,45,82,0.15); border-radius:12px; padding:16px 20px; margin-top:10px; }
+.extended-box .etag { font-family:'Space Mono',monospace; font-size:10px; color:var(--blue); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+
+.answer-key { margin-top:50px; padding-top:24px; border-top:3px dashed var(--gold); page-break-before:always; }
+.ak-title { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--gold); margin-bottom:16px; }
+.ak-item { font-size:13px; line-height:1.7; margin-bottom:12px; }
+.ak-item strong { color:var(--teal); }
+.ak-item .why { color:var(--dim); }
+.ms-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--red); }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+@media print {
+  body { background:#fff; }
+  .page { box-shadow:none; padding:0; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 1 · Microeconomics — Lesson 1</div>
+      <div class="k-title">The Economic Problem</div>
+      <div class="k-sub">Homework Workbook · Tier 2 — Read the Map (Ages 13–15)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="meta-strip">
+    <div class="pill">9 questions</div>
+    <div class="pill">+ 1 extended response</div>
+    <div class="pill">~30 min</div>
+    <div class="pill">Mixed IGCSE / IB skills</div>
+  </div>
+  <div class="cc-chips">
+    <span class="cc-chip">Scarcity</span><span class="cc-chip">Opportunity Cost</span>
+    <span class="cc-chip">Factors of Production</span><span class="cc-chip">PPC</span>
+    <span class="cc-chip">Economic Systems</span><span class="cc-chip">Positive vs Normative</span>
+  </div>
+
+  <div class="section-tag">Foundations</div>
+  <div class="big-title">AO1 command terms — precise definitions</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">1.</span> <strong>State</strong> the definition of <em>scarcity</em>. <span class="marks">[1]</span><span class="tier-band band-easy">Easy</span></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">2.</span> <strong>Define</strong> <em>opportunity cost</em>, then apply your definition to a real choice you made this week. <span class="marks">[3]</span><span class="tier-band band-easy">Easy</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">3.</span> Complete the table: name each factor of production's reward, and give ONE example of a cause of a change in its quantity or quality. <span class="marks">[8]</span><span class="tier-band band-med">Medium</span></div>
+    <table class="data-table">
+      <tr><th>Factor</th><th>Reward</th><th>One cause of quantity/quality change</th></tr>
+      <tr><td>Land</td><td></td><td></td></tr>
+      <tr><td>Labour</td><td></td><td></td></tr>
+      <tr><td>Capital</td><td></td><td></td></tr>
+      <tr><td>Enterprise</td><td></td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="section-tag">Diagram Skill</div>
+  <div class="big-title">Production Possibilities Curve</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">4.</span> On the axes below, sketch a PPC for an economy producing Consumer Goods (x-axis) and Capital Goods (y-axis). Mark and label: <strong>Point A</strong> (on the curve), <strong>Point B</strong> (inside the curve), <strong>Point C</strong> (outside the curve). <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
+    <div style="margin:26px 0 30px 76px;position:relative;max-width:600px">
+      <div class="diagram-box">
+        <div class="graph-axis-y">Capital Goods</div>
+        <div class="graph-axis-x">Consumer Goods</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">5.</span> <strong>Explain</strong> what a movement from Point A to Point B on your diagram represents, and what an outward shift of the whole curve represents. <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="section-tag">Applying the Concepts</div>
+  <div class="big-title">Systems, statements &amp; the circular flow</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">6.</span> Complete the table comparing the three resource-allocation questions across economic systems. <span class="marks">[6]</span><span class="tier-band band-med">Medium</span></div>
+    <table class="data-table">
+      <tr><th></th><th>Market</th><th>Planned</th><th>Mixed</th></tr>
+      <tr><td>Who decides <em>what</em> to produce?</td><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">7.</span> For each statement, write <strong>P</strong> for Positive or <strong>N</strong> for Normative, and explain your reasoning for statement (c) in one sentence. <span class="marks">[4]</span><span class="tier-band band-easy">Easy</span></div>
+    <ul class="q-opts" style="list-style:none;padding-left:0">
+      <li>____ (a) North Korea's economy is centrally planned.</li>
+      <li>____ (b) A mixed economy is the fairest system.</li>
+      <li>____ (c) If minimum wage rises, unemployment among low-skilled workers will increase.</li>
+    </ul>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">8.</span> In the 2-sector circular flow model, <strong>identify</strong> the flow that moves from firms to households in the factor market, and the flow that moves from households to firms in the goods market. <span class="marks">[2]</span><span class="tier-band band-easy">Easy</span><span class="tier-band" style="background:rgba(13,45,82,0.08);color:var(--blue)">IB enrichment</span></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">9.</span> A government must choose between building a hospital and building a highway with the same $500 million budget. It builds the highway. <strong>Explain</strong> the opportunity cost of this decision, and suggest ONE stakeholder group most affected by the choice. <span class="marks">[4]</span><span class="tier-band band-hard">Challenging</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="extended-box">
+    <div class="etag">Extended Response · exam-style</div>
+    <div class="q-text"><strong>10.</strong> "No economic system can ever fully solve the problem of scarcity." <strong>Explain</strong> why this statement is true, referring to at least TWO economic systems in your answer. <span class="marks">[6]</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="answer-key">
+    <div class="ak-title">Answer Key &amp; Mark Scheme Notes</div>
+    <div class="ak-item"><strong>1.</strong> Scarcity: the condition where finite/limited resources are insufficient to satisfy infinite/unlimited human wants. <span class="ms-tag">[1 mark for a complete, precise definition — accept close paraphrase]</span></div>
+    <div class="ak-item"><strong>2.</strong> Opportunity cost: the value of the next-best alternative foregone when a choice is made. <span class="why">[1 mark definition] + [2 marks for a correctly applied real example that clearly names both the choice made and the next-best alternative given up]</span></div>
+    <div class="ak-item"><strong>3.</strong> Land→Rent (e.g. discovery of new mineral deposits changes quantity); Labour→Wages (e.g. training/education changes quality); Capital→Interest (e.g. investment in new machinery changes quantity); Enterprise→Profit (e.g. improved business education changes quality). <span class="why">[1 mark per correct reward ×4, 1 mark per plausible cause ×4]</span></div>
+    <div class="ak-item"><strong>4.</strong> A bowed-outward (concave to origin) curve; A anywhere on the curve; B anywhere inside (underutilisation of resources); C anywhere outside (currently unattainable). <span class="why">[1 mark correct curve shape, 1 mark each for correctly placed A/B/C]</span></div>
+    <div class="ak-item"><strong>5.</strong> A→B: a movement along/inside the curve — represents underutilised resources or a choice to produce less of both goods than possible (not itself opportunity cost unless comparing two points ON the curve). An outward shift: economic growth — the economy's productive capacity has increased (e.g. more/better factors of production, new technology). <span class="why">[Accept: movement along the curve itself, e.g. A to another on-curve point, represents opportunity cost — award marks for correct reasoning even if framing differs slightly]</span></div>
+    <div class="ak-item"><strong>6.</strong> Market: individual producers/consumers via price signals. Planned: the government/central authority. Mixed: both — government sets some, market decides the rest. <span class="why">[2 marks per column for a correct, distinct mechanism]</span></div>
+    <div class="ak-item"><strong>7.</strong> (a) P — verifiable fact about how North Korea's economy is organised. (b) N — contains a value judgement ("fairest"). (c) P — it is a testable claim about cause and effect, even though economists might disagree on the size of the effect; testability (not certainty) makes it positive. <span class="why">[1 mark each + 1 mark for a reasoning sentence on (c) that correctly identifies "testable/verifiable" as the criterion, not "true"]</span></div>
+    <div class="ak-item"><strong>8.</strong> Factors market, firms→households: <strong>income</strong> (wages, rent, interest, profit) flows to households in exchange for factors of production. Goods market, households→firms: <strong>spending</strong> (consumption expenditure) flows to firms in exchange for goods and services. <span class="why">[1 mark each]</span></div>
+    <div class="ak-item"><strong>9.</strong> The opportunity cost is the hospital that was not built — specifically the healthcare capacity/services foregone. Most-affected stakeholder: accept any well-justified group, e.g. patients/lower-income citizens who rely on public healthcare (as opposed to commuters/businesses who benefit from the highway). <span class="why">[2 marks for correctly identifying the foregone alternative in specific terms, not just "the other option"; 2 marks for a stakeholder with justification]</span></div>
+    <div class="ak-item"><strong>10.</strong> Band 3 (5–6 marks) answers should: define scarcity briefly, then explain that a market system still leaves some wants unmet because resources go to those with purchasing power (not all wants); a planned system still leaves wants unmet because a central authority cannot perfectly know or satisfy every want, and is constrained by the same finite factors of production; a strong answer notes both systems face the SAME underlying constraint — finite factors of production versus infinite wants — they merely allocate the scarcity differently, they do not eliminate it. Band 2 (3–4): one system explained well, second underdeveloped. Band 1 (1–2): describes systems without linking back to scarcity as the persistent constraint.</div>
+  </div>
+
+  <div class="footer">M1L1 · Economics Academy · Stoic Edu</div>
+</div>
+</body>
+</html>

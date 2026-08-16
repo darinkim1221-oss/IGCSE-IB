@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework Workbook — Module 1 Mock Exam (Tier 2) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:8px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.meta-strip { display:flex; gap:8px; margin:14px 0 28px; flex-wrap:wrap; }
+.pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:var(--blue); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 11px; border-radius:20px; text-transform:uppercase; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:28px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:30px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:14px; }
+.q-block { margin-bottom:22px; page-break-inside:avoid; }
+.q-num { font-family:'Space Mono',monospace; font-size:11px; color:var(--gold); font-weight:700; margin-right:6px; }
+.q-text { font-size:14px; line-height:1.7; margin-bottom:8px; }
+.marks { font-family:'Space Mono',monospace; font-size:10px; color:var(--teal); font-weight:700; }
+.q-opts { list-style:none; padding-left:6px; }
+.q-opts li { font-size:13px; color:var(--white); padding:4px 0; }
+.q-opts li::before { content:'○  '; color:var(--dim); }
+.answer-line { border-bottom:1px solid rgba(0,0,0,0.18); height:26px; margin-bottom:4px; }
+.work-box { background:var(--card); border:1px dashed rgba(0,0,0,0.18); border-radius:8px; height:96px; margin-top:6px; position:relative; }
+.work-box .wb-tag { position:absolute; top:6px; left:10px; font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); text-transform:uppercase; letter-spacing:1px; }
+.tier-band { display:inline-block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1px; text-transform:uppercase; padding:2px 8px; border-radius:10px; margin-left:8px; }
+.band-easy { background:rgba(0,137,123,0.1); color:var(--teal); }
+.band-med { background:rgba(200,150,10,0.12); color:var(--gold); }
+.band-hard { background:rgba(229,57,53,0.1); color:var(--red); }
+.ib-tag { background:rgba(13,45,82,0.08); color:var(--blue); }
+.data-table { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:8px; }
+.data-table th, .data-table td { padding:7px 10px; border:1px solid rgba(0,0,0,0.1); text-align:left; }
+.data-table th { background:var(--card); font-family:'Space Mono',monospace; font-size:10px; text-transform:uppercase; color:var(--blue); }
+.extended-box { background:linear-gradient(135deg,rgba(13,45,82,0.05),rgba(13,45,82,0.01)); border:1px solid rgba(13,45,82,0.15); border-radius:12px; padding:16px 20px; margin-top:10px; }
+.extended-box .etag { font-family:'Space Mono',monospace; font-size:10px; color:var(--blue); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+.sample-ans { background:var(--card); border-radius:8px; padding:10px 14px; font-size:12.5px; color:var(--dim); line-height:1.7; margin-top:8px; }
+.sample-ans .sa-tag { font-family:'Space Mono',monospace; font-size:9px; color:var(--red); text-transform:uppercase; letter-spacing:1px; display:block; margin-bottom:4px; }
+
+.answer-key { margin-top:50px; padding-top:24px; border-top:3px dashed var(--gold); page-break-before:always; }
+.ak-title { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--gold); margin-bottom:16px; }
+.ak-item { font-size:13px; line-height:1.7; margin-bottom:12px; }
+.ak-item strong { color:var(--teal); }
+.ak-item .why { color:var(--dim); }
+.ms-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--red); }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+@media print {
+  body { background:#fff; }
+  .page { box-shadow:none; padding:0; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 1 · Microeconomics — Lesson 6</div>
+      <div class="k-title">Module 1 Mock Exam: Evaluation &amp; Exam Craft</div>
+      <div class="k-sub">Homework Workbook · Tier 2 — Read the Map (Ages 13–15)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="meta-strip">
+    <div class="pill">Timed mock format</div>
+    <div class="pill">10 questions</div>
+    <div class="pill">+ 1 extended response</div>
+    <div class="pill">~40 min</div>
+    <div class="pill">Self-mark against the key</div>
+  </div>
+  <div class="cc-chips">
+    <span class="cc-chip">Whole-Module Synthesis</span><span class="cc-chip">Levels of Response</span>
+    <span class="cc-chip">Evaluation Paragraph</span><span class="cc-chip">IB "Discuss" Structure (IB)</span>
+  </div>
+
+  <div class="section-tag">Section A — Multiple Choice (1 mark each)</div>
+  <div class="big-title">Whole-module warm-up</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">1.</span> A rise in the price of coffee (with nothing else changing) causes a: <span class="marks">[1]</span><span class="tier-band band-easy">Easy</span></div>
+    <ul class="q-opts">
+      <li>A. Movement along the demand curve for coffee</li>
+      <li>B. Shift of the whole demand curve for coffee</li>
+      <li>C. Shift of the supply curve for coffee</li>
+      <li>D. Change in consumer tastes</li>
+    </ul>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">2.</span> A government sets a legal MINIMUM price for milk, above the market equilibrium, to protect dairy farmers. This is a price: <span class="marks">[1]</span><span class="tier-band band-easy">Easy</span></div>
+    <ul class="q-opts">
+      <li>A. Ceiling</li>
+      <li>B. Floor</li>
+      <li>C. Subsidy</li>
+      <li>D. Tax</li>
+    </ul>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">3.</span> Two rival cinema chains in the same country merge into one company. This is a: <span class="marks">[1]</span><span class="tier-band band-easy">Easy</span></div>
+    <ul class="q-opts">
+      <li>A. Horizontal merger</li>
+      <li>B. Vertical merger</li>
+      <li>C. Conglomerate merger</li>
+      <li>D. Price ceiling</li>
+    </ul>
+  </div>
+
+  <div class="section-tag">Section B — Short Answer (command-term precision)</div>
+  <div class="big-title">Say it the way an examiner rewards</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">4.</span> <strong>Define</strong> "opportunity cost" and <strong>define</strong> "quantity demanded," then <strong>explain</strong>, in one sentence, why economists insist on the phrase "quantity demanded" rather than just "demand" when describing a response to a price change. <span class="marks">[3]</span><span class="tier-band band-med">Medium</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">5.</span> A student writes: "When the price goes up, demand goes down." <strong>Explain</strong> why this sentence is imprecise, and <strong>rewrite</strong> it using correct economic wording. <span class="marks">[2]</span><span class="tier-band band-med">Medium</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="section-tag">Section C — Data Response</div>
+  <div class="big-title">Sunrise Bakery: a sales tax on cupcakes</div>
+
+  <div class="q-block">
+    <div class="q-text">Sunrise Bakery sells cupcakes. The table shows quantity sold per day before and after the government introduces a $0.50 sales tax on every cupcake, which the bakery passes on by raising its price.</div>
+    <table class="data-table">
+      <tr><th></th><th>Price ($)</th><th>Quantity sold (per day)</th></tr>
+      <tr><td>Before the tax</td><td>2.00</td><td>200</td></tr>
+      <tr><td>After the tax</td><td>2.40</td><td>176</td></tr>
+    </table>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">6.</span> (a) <strong>Calculate</strong> the percentage change in price and the percentage change in quantity demanded. (b) <strong>Calculate</strong> the price elasticity of demand (PED) for cupcakes, showing your working. (c) <strong>Classify</strong> this demand as elastic or inelastic. <span class="marks">[5]</span><span class="tier-band band-hard">Challenging</span></div>
+    <div class="work-box"><span class="wb-tag">Working</span></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">7.</span> <strong>Explain</strong> how the sales tax affects Sunrise Bakery's cost per cupcake, and <strong>explain</strong> what this data tells us about who ends up bearing more of the burden of the tax — the bakery or its customers. <span class="marks">[4]</span><span class="tier-band band-hard">Challenging</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">8.</span> <strong>Discuss</strong> ONE reason the government might choose to tax cupcakes and ONE reason bakery owners might object, referring to the data above. <span class="marks">[4]</span><span class="tier-band band-hard">Challenging</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="section-tag">Section D — Levels of Response Practice</div>
+  <div class="big-title">Spot the band, then upgrade it</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">9.</span> Below is a Band 1 answer to the question: "Discuss whether a price ceiling on rental housing helps tenants." <strong>Identify</strong> THREE specific improvements that would move it into Band 3. <span class="marks">[3]</span><span class="tier-band band-hard">Challenging</span></div>
+    <div class="sample-ans"><span class="sa-tag">Band 1 sample answer</span>"A price ceiling helps tenants because it makes rent cheaper. This is good for renters. So price ceilings are good."</div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="section-tag">Section E — IB Enrichment</div>
+  <div class="big-title">"To what extent" — a supported judgement in one sentence</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">10.</span> [IB] Respond to the command "<strong>To what extent</strong> do price controls help consumers?" with ONE sentence that states a clear, SUPPORTED judgement (not a full essay) — it must name a condition under which your judgement holds. <span class="marks">[3]</span><span class="tier-band band-hard">Challenging</span><span class="tier-band ib-tag">IB enrichment</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="extended-box">
+    <div class="etag">Extended Response · mock exam · Evaluate</div>
+    <div class="q-text"><strong>11.</strong> <strong>Evaluate</strong> whether a monopoly is always harmful to consumers. Structure your answer as CLAIM → ANALYSIS → COUNTER → JUDGEMENT, referring to at least THREE concepts from this module (e.g. price, choice/variety, economies of scale, barriers to entry, government intervention). <span class="marks">[8]</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="answer-key">
+    <div class="ak-title">Answer Key &amp; Mark Scheme Notes</div>
+    <div class="ak-item"><strong>1.</strong> A — Movement along the demand curve. <span class="ms-tag">[1 mark]</span></div>
+    <div class="ak-item"><strong>2.</strong> B — Price floor. <span class="ms-tag">[1 mark]</span></div>
+    <div class="ak-item"><strong>3.</strong> A — Horizontal merger. <span class="ms-tag">[1 mark]</span></div>
+    <div class="ak-item"><strong>4.</strong> Opportunity cost: the next best alternative given up when a choice is made. Quantity demanded: the specific amount of a good buyers are willing and able to buy at a given price. "Quantity demanded" (not just "demand") is used because "demand" refers to the WHOLE relationship/curve between price and quantity, while a price change only moves buyers along that same curve — using "demand" for both would blur a movement with a shift. <span class="why">[1 mark each definition, 1 mark for the precision explanation]</span></div>
+    <div class="ak-item"><strong>5.</strong> It is imprecise because it implies the whole demand relationship ("demand") has changed, when in fact only the QUANTITY DEMANDED has changed in response to a price movement along the same curve. Correct version: "When the price goes up, the quantity demanded goes down (a movement along the demand curve)." <span class="why">[1 mark for identifying the shift/movement confusion, 1 mark for a correctly worded rewrite]</span></div>
+    <div class="ak-item"><strong>6.</strong> (a) % change in price = (2.40−2.00)/2.00 × 100 = <strong>+20%</strong>. % change in quantity = (176−200)/200 × 100 = <strong>−12%</strong>. (b) PED = % change in Qd ÷ % change in P = −12 ÷ 20 = <strong>−0.6</strong> (magnitude 0.6). (c) Since the magnitude is less than 1, demand for cupcakes is <strong>inelastic</strong>. <span class="why">[1 mark %ΔP, 1 mark %ΔQd, 2 marks PED with correct method + answer, 1 mark correct elastic/inelastic classification consistent with the student's own PED value]</span></div>
+    <div class="ak-item"><strong>7.</strong> The $0.50 tax raises the bakery's cost per cupcake sold (a tax is a cost the firm must pay per unit, just like the Market Day sales-tax event). The bakery passed on $0.40 of the $0.50 tax to customers (price rose by $0.40, from $2.00 to $2.40) and absorbed the remaining $0.10 itself — since demand is inelastic, the bakery could pass on MOST of the tax without losing many customers, so consumers end up bearing the larger share of the burden. <span class="why">[2 marks correctly explaining the cost increase, 2 marks correctly reasoning from the data that consumers bear more of the burden because demand is inelastic]</span></div>
+    <div class="ak-item"><strong>8.</strong> Government reason (accept any reasonable, e.g.): raising revenue to fund public services, or discouraging excessive sugar consumption for public health. Bakery owner objection (accept any reasonable, e.g.): the tax raises their costs and, even though they passed most of it on, they still lost some sales (200→176) and absorbed part of the cost themselves, squeezing profit. <span class="why">[2 marks per reason: 1 for a valid reason, 1 for linking it explicitly to the data/scenario]</span></div>
+    <div class="ak-item"><strong>9.</strong> Accept any THREE of: (1) define what a price ceiling is precisely, rather than assuming the reader knows; (2) add ANALYSIS — explain the mechanism (a ceiling below equilibrium price causes excess demand/a shortage, since landlords supply less at the lower price while more tenants want housing); (3) add a COUNTER — some tenants benefit (those who get housing at the lower price) while others are worse off (those who can't find any housing at all due to the shortage, or face lower-quality maintained units); (4) end with a JUDGEMENT that is CONDITIONAL rather than absolute (e.g. "it helps SOME tenants who secure housing, but may harm others through reduced availability — so it is not simply 'good'"). <span class="why">[1 mark per valid, specific improvement named — must describe what Band 1 is missing, not just restate the answer]</span></div>
+    <div class="ak-item"><strong>10.</strong> Accept any answer with a clear conditional judgement, e.g.: "Price controls help consumers most when the shortage/surplus they create is small relative to the fairness or affordability gain, but harm consumers when the resulting shortage (ceiling) or surplus (floor) is severe enough to outweigh that benefit." <span class="why">[1 mark clear judgement stated, 1 mark judgement is genuinely conditional (not a flat yes/no), 1 mark condition named is economically valid]</span></div>
+    <div class="ak-item"><strong>11.</strong> <strong>Band 3 (6–8 marks):</strong> CLAIM (e.g. "a monopoly is not automatically harmful — its effect on consumers depends on how it uses its market power"); ANALYSIS (a monopoly can charge a higher price and offer less choice than a competitive market, since there is no rival forcing price down or variety up — link to price/choice concepts); COUNTER (a monopoly can also achieve economies of scale that a fragmented competitive market cannot, potentially lowering costs and, if the government regulates it or a price ceiling is imposed, prices too; some monopolies invest heavily in innovation because guaranteed long-run profit funds R&amp;D); JUDGEMENT (a supported conclusion such as "a monopoly is harmful when barriers to entry are high and it is unregulated, but can benefit consumers when its scale economies are passed on or intervention constrains its pricing power"). <strong>Band 2 (3–5):</strong> names relevant concepts (price, choice, economies of scale) but the four-part structure is incomplete — e.g. no real counter-argument, or a judgement that is just a restated claim. <strong>Band 1 (1–2):</strong> a one-sided assertion ("monopolies are bad because they charge too much") with no named economic concept, no counter, and no conditional judgement.</div>
+  </div>
+
+  <div class="footer">M1L6 · Economics Academy · Stoic Edu</div>
+</div>
+</body>
+</html>

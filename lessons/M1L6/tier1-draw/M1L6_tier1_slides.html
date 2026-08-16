@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 Finale: One Market, One Story | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif;
+  overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center;
+}
+#slide-frame {
+  position:relative; width:960px; height:540px; background:var(--bg);
+  border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0;
+}
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide {
+  position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center;
+  align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none;
+  transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box;
+}
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%),
+             radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%);
+  pointer-events:none;
+}
+#nav {
+  position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100;
+  background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border);
+  border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg {
+  position:absolute; inset:0;
+  background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size:48px 48px; pointer-events:none;
+}
+.tag {
+  display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold);
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px;
+  margin-bottom:8px; text-transform:uppercase;
+}
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(26px,4vw,44px); line-height:1.05; margin-bottom:14px; color:var(--white); }
+.btn {
+  background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px;
+  letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s;
+}
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+@keyframes floatIcon { 0%,100%{transform:translateY(0);opacity:0.85;} 50%{transform:translateY(-6px);opacity:1;} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.story-scene { position:relative; z-index:2; width:260px; height:190px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; }
+.story-row { display:flex; align-items:center; gap:10px; animation:fadeUp 0.6s ease 0.4s backwards; }
+.story-emoji { font-size:40px; animation:floatIcon 2.4s ease-in-out infinite; }
+.story-lbl { color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(30px,5vw,50px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:380px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 HOOK ===== */
+#s0 { text-align:center; }
+.hook-question { font-family:'Bebas Neue',sans-serif; font-size:clamp(20px,3.2vw,36px); line-height:1.15; letter-spacing:1px; margin-bottom:18px; max-width:800px; }
+.hook-question span { color:var(--gold); }
+.hook-scene { display:flex; gap:24px; margin:10px 0; }
+.hook-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:16px 24px; text-align:center; }
+.hook-emoji { font-size:34px; }
+.hook-lbl { font-family:'Bebas Neue',sans-serif; font-size:16px; margin-top:6px; }
+.hook-sub { font-size:11px; color:var(--dim); margin-top:2px; max-width:180px; }
+.hook-reveal { font-size:14px; color:var(--teal); opacity:0; animation:fadeUp 0.8s ease 1.2s forwards; margin-top:10px; }
+
+/* ===== s1: STORY MAP ===== */
+#s1 { flex-direction:column; gap:10px; }
+.spec-cards { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:840px; }
+.spec-card { background:var(--card); border:2px solid rgba(0,0,0,0.06); border-radius:12px; padding:9px 14px; font-size:12px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; }
+.spec-card:hover { border-color:var(--gold); }
+.spec-card.done { border-color:var(--teal); background:rgba(0,137,123,0.08); }
+.spec-hint { font-size:11px; color:var(--dim); text-align:center; margin-top:4px; min-height:44px; max-width:720px; line-height:1.5; }
+
+/* ===== s2: CONCEPT CONNECTION ===== */
+#s2 { flex-direction:column; gap:10px; }
+.merge-cards { display:flex; flex-direction:column; gap:8px; max-width:760px; width:100%; }
+.merge-card { background:var(--card); border:2px solid rgba(0,0,0,0.06); border-radius:12px; padding:10px 16px; font-size:12.5px; cursor:pointer; }
+.merge-card:hover { border-color:var(--gold); }
+.merge-btns { display:flex; gap:6px; margin-top:6px; flex-wrap:wrap; }
+.merge-btn { font-family:'Space Mono',monospace; font-size:9.5px; padding:4px 9px; border-radius:6px; border:1px solid rgba(0,0,0,0.15); background:#fff; cursor:pointer; }
+.merge-btn.active { border-color:var(--blue); color:var(--blue); font-weight:700; background:rgba(13,45,82,0.05); }
+.merge-out { font-size:11px; color:var(--dim); margin-top:4px; min-height:18px; line-height:1.5; }
+
+/* ===== s3: MISCONCEPTION CLINIC ===== */
+#s3 { flex-direction:column; gap:10px; }
+
+/* ===== s4: KC SORT ===== */
+#s4 { flex-direction:column; gap:10px; }
+.kc-chip-row { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; max-width:820px; }
+.kc-chip { background:var(--card); border:2px solid rgba(0,0,0,0.06); border-radius:20px; padding:8px 16px; font-size:12px; font-weight:700; color:var(--blue); cursor:pointer; transition:all 0.2s; }
+.kc-chip:hover { border-color:var(--gold); }
+.kc-chip.done { border-color:var(--teal); background:rgba(0,137,123,0.08); }
+.kc-hint { font-size:11px; color:var(--dim); text-align:center; margin-top:6px; min-height:44px; max-width:700px; line-height:1.5; }
+.kc-legend { display:flex; gap:10px; justify-content:center; margin-top:4px; }
+.kc-legend span { font-family:'Space Mono',monospace; font-size:9.5px; padding:3px 9px; border-radius:10px; }
+
+/* ===== s5: BUZZER ROUND ===== */
+#s5 { flex-direction:column; gap:16px; }
+.rr-arena { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:20px 30px; max-width:680px; width:100%; text-align:center; }
+
+/* ===== s6: MEET MARKET DAY ===== */
+#s6 { flex-direction:column; gap:12px; text-align:center; }
+.role-row { display:flex; gap:16px; margin:8px 0; flex-wrap:wrap; justify-content:center; }
+.role-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:14px 20px; width:200px; }
+.role-emoji { font-size:30px; }
+.role-lbl { font-family:'Bebas Neue',sans-serif; font-size:16px; margin-top:4px; color:var(--blue); }
+.role-sub { font-size:11px; color:var(--dim); margin-top:4px; line-height:1.5; }
+
+/* ===== quiz reused ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:18px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left">
+    <div class="story-scene">
+      <div class="story-row"><span class="story-emoji">🧩</span><span class="story-lbl">5 CONCEPTS</span></div>
+      <div class="story-row"><span class="story-emoji">🔗</span><span class="story-lbl">ONE STORY</span></div>
+    </div>
+  </div>
+  <div class="cover-right">
+    <div class="cover-module">Module 1 · Microeconomics — Lesson 6</div>
+    <div class="cover-title">Module 1 Finale:<br><span>One Market, One Story</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">You've built lemonade stands, dodged price ceilings, and negotiated mergers. Now connect every idea into one story — then prove it at Market Day.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Micro Synthesis</span>
+        <span class="cc-chip">Concept Connections</span>
+        <span class="cc-chip">Misconceptions</span>
+        <span class="cc-chip">Market Day</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 10–12</div>
+      <div class="cover-pill">Interactive</div>
+      <div class="cover-pill">45 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0: HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="hook-question">You've explored SIX big ideas this module.<br>Can you connect them into <span>ONE story</span>?</div>
+  <div class="hook-scene">
+    <div class="hook-card"><div class="hook-emoji">🧩</div><div class="hook-lbl">5 Lessons</div><div class="hook-sub">scarcity → prices → elasticity → government → firms</div></div>
+    <div class="hook-card"><div class="hook-emoji">🔗</div><div class="hook-lbl">1 Story</div><div class="hook-sub">every concept connects to the next</div></div>
+  </div>
+  <div class="hook-reveal">👇 Let's map the whole journey...</div>
+</section>
+
+<!-- ============ s1: STORY MAP ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Concept Map</div>
+    <div class="big-title">Tap Each Chapter to Recap It</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Five lessons, one connected story of how markets work.</p>
+  </div>
+  <div class="spec-cards" id="storyCards"></div>
+  <div class="spec-hint" id="storyHint">Tap a chapter above to recap what it taught you.</div>
+</section>
+
+<!-- ============ s2: CONCEPT CONNECTION ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Connect the Dots</div>
+    <div class="big-title">Which Concept Does Each Scene Match?</div>
+    <p style="font-size:11px;color:var(--dim);max-width:640px">Read each mini-scene, guess the concept, then check your answer.</p>
+  </div>
+  <div class="merge-cards" id="connectCards"></div>
+</section>
+
+<!-- ============ s3: MISCONCEPTION CLINIC ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Misconception Clinic</div>
+    <div class="big-title">True or False? Fix the Mix-Up</div>
+    <p style="font-size:11px;color:var(--dim);max-width:640px">These are the traps students fall into most often. Tap TRUE or FALSE, then read the fix.</p>
+  </div>
+  <div class="merge-cards" id="clinicCards"></div>
+</section>
+
+<!-- ============ s4: KC SORT ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Key Concepts</div>
+    <div class="big-title">Sort Each Idea Into Its Big Concept</div>
+    <p style="font-size:11px;color:var(--dim);max-width:640px">Every idea you've studied connects to Efficiency, Choice, or Interdependence. Tap a word to see which.</p>
+    <div class="kc-legend">
+      <span style="background:rgba(0,137,123,0.1);color:var(--teal)">EFFICIENCY</span>
+      <span style="background:rgba(200,150,10,0.12);color:var(--gold)">CHOICE</span>
+      <span style="background:rgba(13,45,82,0.08);color:var(--blue)">INTERDEPENDENCE</span>
+    </div>
+  </div>
+  <div class="kc-chip-row" id="kcChips"></div>
+  <div class="kc-hint" id="kcHint">Tap a word above to see which Key Concept it belongs to.</div>
+</section>
+
+<!-- ============ s5: BUZZER ROUND ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Quiz-Show Bonus Round</div>
+    <div class="big-title">Buzz In! True or False?</div>
+  </div>
+  <div class="rr-arena">
+    <div class="game-question" id="buzzRoundLbl" style="font-size:12px;color:var(--dim);margin-bottom:8px">Round 1 of 5</div>
+    <div class="game-scenario" id="buzzScenario" style="font-family:'Bebas Neue',sans-serif;font-size:19px;min-height:70px">Loading...</div>
+    <div class="answer-options" style="display:flex;gap:16px;justify-content:center">
+      <button class="ans-btn" style="background:rgba(0,137,123,0.08);border:2px solid var(--teal);color:var(--teal);font-family:'Bebas Neue',sans-serif;font-size:16px;padding:10px 22px;border-radius:12px;cursor:pointer" onclick="buzzAnswer(true)">TRUE</button>
+      <button class="ans-btn" style="background:rgba(229,57,53,0.08);border:2px solid var(--red);color:var(--red);font-family:'Bebas Neue',sans-serif;font-size:16px;padding:10px 22px;border-radius:12px;cursor:pointer" onclick="buzzAnswer(false)">FALSE</button>
+    </div>
+    <div class="nudge-feedback" id="buzzFeedback" style="min-height:30px;font-size:12px;color:var(--dim);margin-top:8px"></div>
+  </div>
+</section>
+
+<!-- ============ s6: MEET MARKET DAY ============ -->
+<section class="slide" id="s6">
+  <div class="grid-bg"></div>
+  <div class="tag">Coming Up</div>
+  <div class="big-title">Get Ready for Market Day!</div>
+  <p style="font-size:12px;color:var(--dim);max-width:680px;line-height:1.7">Today YOU become a market. Run a stall, face a "government" that levies taxes and sets price rules, and watch one lucky stall win the Monopoly Licence. Every twist maps back to a concept you just reviewed.</p>
+  <div class="role-row">
+    <div class="role-card"><div class="role-emoji">🏪</div><div class="role-lbl">Stallholder</div><div class="role-sub">Set your price, deal with taxes, and try to earn the most profit.</div></div>
+    <div class="role-card"><div class="role-emoji">🏛️</div><div class="role-lbl">Government</div><div class="role-sub">Levy taxes, set price rules, and hand out the Monopoly Licence.</div></div>
+    <div class="role-card"><div class="role-emoji">🙋</div><div class="role-lbl">Customer</div><div class="role-sub">Decide what to buy as prices and rules keep changing.</div></div>
+  </div>
+  <div class="hook-reveal" style="opacity:1;animation:none">👉 Open the Market Day game to play!</div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">How well did you connect it all? 🧠</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const QUIZ_SLIDE_IDX = 8;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ s1: STORY MAP ============
+const STORY_CHAPTERS = [
+  {name:'🌍 Scarcity & Choice (L1)', recap:'Resources are limited, so every choice has an OPPORTUNITY COST — what you give up to get something else.'},
+  {name:'⚖️ Demand & Supply (L2)', recap:'Prices are the signal where buyers\\' demand and sellers\\' supply meet at EQUILIBRIUM.'},
+  {name:'📈 Elasticity (L3)', recap:'Some prices barely change how much people buy (INELASTIC); others change it a lot (ELASTIC) — it depends how badly buyers need the item.'},
+  {name:'🏛️ Government & Market Failure (L4)', recap:'Governments step in with TAXES, SUBSIDIES, and PRICE CONTROLS when free markets create problems like externalities.'},
+  {name:'🏭 Firms & Scale (L5)', recap:'Growing bigger can make costs fall (ECONOMIES OF SCALE) — but grow too much and costs can rise again. MERGERS and MONOPOLIES change market power.'}
+];
+const storyGrid = document.getElementById('storyCards');
+STORY_CHAPTERS.forEach((it) => {
+  const c = document.createElement('div');
+  c.className = 'spec-card';
+  c.textContent = it.name;
+  c.onclick = () => {
+    document.querySelectorAll('#storyCards .spec-card').forEach(x=>x.classList.remove('done'));
+    c.classList.add('done');
+    document.getElementById('storyHint').innerHTML = `<strong style="color:var(--teal)">${it.name}:</strong> ${it.recap}`;
+  };
+  storyGrid.appendChild(c);
+});
+
+// ============ s2: CONCEPT CONNECTION ============
+const CONNECT_SCENES = [
+  {name:'An ice-cream truck raises its price on the hottest day of summer, and people still buy almost the same amount.', opts:['Inelastic Demand','Elastic Demand','Price Ceiling'], correct:0, why:'On a scorching day buyers want ice cream badly enough that a price rise barely changes how much they buy — that\\'s INELASTIC demand.'},
+  {name:'The government caps rent prices so more families can afford housing — but landlords start pulling apartments off the market.', opts:['Subsidy','Price Ceiling','Merger'], correct:1, why:'A legal MAXIMUM price is a price ceiling; it can cause shortages when sellers pull back supply.'},
+  {name:'A cookie factory hires more bakers and the cost per cookie drops.', opts:['Diseconomies of Scale','Elasticity','Economies of Scale'], correct:2, why:'Cost per unit FALLING as a business grows is the definition of economies of scale.'},
+  {name:'Two rival bakeries making the same kind of bread combine into one company.', opts:['Horizontal Merger','Vertical Merger','Price Floor'], correct:0, why:'Same product, same stage of production — that\\'s a HORIZONTAL merger.'},
+  {name:'A factory pollutes a river and nearby fishers lose income, even though they weren\\'t part of the sale.', opts:['Scarcity','Externality','Elasticity'], correct:1, why:'A side-effect that hits someone outside the original deal is an EXTERNALITY.'}
+];
+const connectGrid = document.getElementById('connectCards');
+CONNECT_SCENES.forEach((d,i) => {
+  const box = document.createElement('div');
+  box.className = 'merge-card';
+  box.innerHTML = `${d.name}
+    <div class="merge-btns">${d.opts.map((o,oi)=>`<button class="merge-btn" onclick="pickConnect(${i},${oi},this)">${o}</button>`).join('')}</div>
+    <div class="merge-out" id="connectOut${i}"></div>`;
+  connectGrid.appendChild(box);
+});
+function pickConnect(i, choice, el) {
+  const d = CONNECT_SCENES[i];
+  el.parentElement.querySelectorAll('.merge-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  const out = document.getElementById('connectOut'+i);
+  const correct = choice === d.correct;
+  out.innerHTML = (correct ? '<strong style="color:var(--teal)">✓ Correct!</strong> ' : '<strong style="color:var(--red)">Not quite.</strong> ') + d.why;
+}
+
+// ============ s3: MISCONCEPTION CLINIC ============
+const CLINIC_ITEMS = [
+  {name:'"When the price of an item changes, the whole demand CURVE shifts to a new position."', correct:'F', why:'A price change causes a MOVEMENT ALONG the same demand curve — the curve itself only SHIFTS when something else changes, like income or tastes.'},
+  {name:'"\\'Price rises, so demand falls\\' is the correct way to describe a price change."', correct:'F', why:'Economists say QUANTITY DEMANDED falls (a movement along the curve), not that "demand" falls — demand means the whole relationship, not one quantity.'},
+  {name:'"Cost and price mean the same thing."', correct:'F', why:'COST is what it takes a firm to make something. PRICE is what a buyer pays for it. A firm sets price based on cost plus the profit it wants.'},
+  {name:'"A tax on a good with INELASTIC demand raises more government revenue than a tax on a good with elastic demand."', correct:'T', why:'Because buyers of inelastic goods keep buying almost the same quantity even after a tax, the revenue collected tends to be higher and more predictable.'}
+];
+const clinicGrid = document.getElementById('clinicCards');
+CLINIC_ITEMS.forEach((d,i) => {
+  const box = document.createElement('div');
+  box.className = 'merge-card';
+  box.innerHTML = `${d.name}
+    <div class="merge-btns">
+      <button class="merge-btn" onclick="pickClinic(${i},'T',this)">TRUE</button>
+      <button class="merge-btn" onclick="pickClinic(${i},'F',this)">FALSE</button>
+    </div>
+    <div class="merge-out" id="clinicOut${i}"></div>`;
+  clinicGrid.appendChild(box);
+});
+function pickClinic(i, choice, el) {
+  const d = CLINIC_ITEMS[i];
+  el.parentElement.querySelectorAll('.merge-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  const out = document.getElementById('clinicOut'+i);
+  const correct = choice === d.correct;
+  out.innerHTML = (correct ? '<strong style="color:var(--teal)">✓ Correct!</strong> ' : '<strong style="color:var(--red)">Not quite.</strong> ') + d.why;
+}
+
+// ============ s4: KC SORT ============
+const KC_WORDS = [
+  {name:'Opportunity Cost', bucket:'Choice', why:'Every decision to use a scarce resource one way means giving up another — the essence of CHOICE.'},
+  {name:'Equilibrium Price', bucket:'Interdependence', why:'Price emerges from buyers AND sellers interacting together — no one sets it alone.'},
+  {name:'Price Elasticity', bucket:'Choice', why:'Elasticity measures how much buyers CHANGE their choices when price moves.'},
+  {name:'Externality', bucket:'Interdependence', why:'An externality means one person\\'s choice spills over and affects OTHERS who weren\\'t part of the deal.'},
+  {name:'Economies of Scale', bucket:'Efficiency', why:'Producing more at a lower cost per unit is a textbook EFFICIENCY gain.'},
+  {name:'Subsidy', bucket:'Interdependence', why:'A subsidy changes how government, sellers, and buyers all interact with each other.'},
+  {name:'Merger', bucket:'Efficiency', why:'Firms often merge hoping to combine resources and produce more efficiently together.'},
+  {name:'Scarcity', bucket:'Choice', why:'Because resources are scarce, every person and society must CHOOSE how to use them.'}
+];
+const KC_COLORS = {Efficiency:'var(--teal)', Choice:'var(--gold)', Interdependence:'var(--blue)'};
+const kcGrid = document.getElementById('kcChips');
+KC_WORDS.forEach((it) => {
+  const c = document.createElement('div');
+  c.className = 'kc-chip';
+  c.textContent = it.name;
+  c.onclick = () => {
+    document.querySelectorAll('#kcChips .kc-chip').forEach(x=>x.classList.remove('done'));
+    c.classList.add('done');
+    document.getElementById('kcHint').innerHTML = `<strong style="color:${KC_COLORS[it.bucket]}">${it.name} → ${it.bucket}</strong><br>${it.why}`;
+  };
+  kcGrid.appendChild(c);
+});
+
+// ============ s5: BUZZER ROUND ============
+const BUZZ_ROUNDS = [
+  { text: 'A price FLOOR set BELOW the equilibrium price would have no effect on the market.', answer: true, why: 'A floor only "binds" when it\\'s set ABOVE equilibrium. Set below equilibrium, the market just settles at its normal price anyway. TRUE.' },
+  { text: 'Opportunity cost is the money you actually spend on a purchase.', answer: false, why: 'Opportunity cost is the NEXT BEST alternative you give up — not the money spent. FALSE.' },
+  { text: 'A monopoly is a market with only ONE seller.', answer: true, why: 'Exactly — "mono" means one. TRUE.' },
+  { text: 'Goods with many close substitutes tend to have INELASTIC demand.', answer: false, why: 'The opposite! Easy substitutes mean buyers can switch away fast, so demand tends to be ELASTIC. FALSE.' },
+  { text: 'Diseconomies of scale means a business has grown so large that its average cost per unit starts rising.', answer: true, why: 'Right — past a certain size, crowding and coordination problems can push average cost back up. TRUE.' }
+];
+let buzzIdx = 0;
+function renderBuzz() {
+  if (buzzIdx >= BUZZ_ROUNDS.length) {
+    document.getElementById('buzzRoundLbl').textContent = 'Complete!';
+    document.getElementById('buzzScenario').textContent = '🌟 You\\'ve connected the whole module — ready for Market Day!';
+    return;
+  }
+  document.getElementById('buzzRoundLbl').textContent = 'Round ' + (buzzIdx+1) + ' of ' + BUZZ_ROUNDS.length;
+  document.getElementById('buzzScenario').textContent = BUZZ_ROUNDS[buzzIdx].text;
+  document.getElementById('buzzFeedback').textContent = '';
+}
+function buzzAnswer(choice) {
+  const r = BUZZ_ROUNDS[buzzIdx];
+  document.getElementById('buzzFeedback').innerHTML = (choice===r.answer ? '<strong style="color:var(--teal)">✓ Correct.</strong> ' : '<strong style="color:var(--red)">✗ Not quite.</strong> ') + r.why;
+  buzzIdx++;
+  setTimeout(renderBuzz, 2200);
+}
+renderBuzz();
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'A farmer decides to grow wheat instead of corn on his one field. What is the OPPORTUNITY COST of this decision?', opts:['The money he spends on wheat seeds','The corn he could have grown instead','The price of wheat at the market'], correct:1, explain:'Opportunity cost = the next best alternative given up — here, the corn he didn\\'t grow.' },
+  { q:'When people\\'s INCOME rises and they now buy more of a good at every price, what happens to the demand curve?', opts:['It shifts to the right','It stays the same and only price moves along it','It shifts to the left'], correct:0, explain:'A change in a non-price factor like income shifts the WHOLE curve, not just a point on it.' },
+  { q:'A 20% rise in the price of insulin (a medicine some people need to survive) causes almost no drop in quantity bought. This demand is...', opts:['Elastic','Inelastic','Perfectly elastic'], correct:1, explain:'Buyers barely change how much they buy despite the price rise — that\\'s inelastic demand.' },
+  { q:'A government sets a MINIMUM wage above the market equilibrium wage. What is this an example of?', opts:['A price ceiling','A price floor','A subsidy'], correct:1, explain:'A price floor is a legal MINIMUM price — setting it above equilibrium is exactly what a minimum wage does.' },
+  { q:'Two children\\'s shoe companies merge into one bigger company that still only makes children\\'s shoes. This is a...', opts:['Vertical merger','Conglomerate merger','Horizontal merger'], correct:2, explain:'Same product, same stage of production = horizontal merger.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\\'ve mastered the whole module! 🏆' : 'Nice work — review any tricky ones and head to Market Day!'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework Workbook — Firms, Costs & Market Power (Tier 2) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:8px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.meta-strip { display:flex; gap:8px; margin:14px 0 28px; flex-wrap:wrap; }
+.pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:var(--blue); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 11px; border-radius:20px; text-transform:uppercase; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:28px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:30px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:14px; }
+.q-block { margin-bottom:22px; page-break-inside:avoid; }
+.q-num { font-family:'Space Mono',monospace; font-size:11px; color:var(--gold); font-weight:700; margin-right:6px; }
+.q-text { font-size:14px; line-height:1.7; margin-bottom:8px; }
+.marks { font-family:'Space Mono',monospace; font-size:10px; color:var(--teal); font-weight:700; }
+.q-opts { list-style:none; padding-left:6px; }
+.q-opts li { font-size:13px; color:var(--white); padding:4px 0; }
+.q-opts li::before { content:'○  '; color:var(--dim); }
+.answer-line { border-bottom:1px solid rgba(0,0,0,0.18); height:26px; margin-bottom:4px; }
+.work-box { background:var(--card); border:1px dashed rgba(0,0,0,0.18); border-radius:8px; height:96px; margin-top:6px; position:relative; }
+.work-box .wb-tag { position:absolute; top:6px; left:10px; font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); text-transform:uppercase; letter-spacing:1px; }
+.tier-band { display:inline-block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1px; text-transform:uppercase; padding:2px 8px; border-radius:10px; margin-left:8px; }
+.band-easy { background:rgba(0,137,123,0.1); color:var(--teal); }
+.band-med { background:rgba(200,150,10,0.12); color:var(--gold); }
+.band-hard { background:rgba(229,57,53,0.1); color:var(--red); }
+.ib-tag { background:rgba(13,45,82,0.08); color:var(--blue); }
+.diagram-box { width:100%; height:200px; background-image:linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size:22px 22px; border:1px solid rgba(0,0,0,0.2); border-radius:4px; position:relative; margin-top:8px; }
+.graph-axis-x { position:absolute; bottom:-20px; left:0; right:0; text-align:center; font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; }
+.graph-axis-y { position:absolute; top:50%; left:-64px; transform:rotate(-90deg); font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; width:150px; text-align:center; }
+.data-table { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:8px; }
+.data-table th, .data-table td { padding:7px 10px; border:1px solid rgba(0,0,0,0.1); text-align:left; }
+.data-table th { background:var(--card); font-family:'Space Mono',monospace; font-size:10px; text-transform:uppercase; color:var(--blue); }
+.extended-box { background:linear-gradient(135deg,rgba(13,45,82,0.05),rgba(13,45,82,0.01)); border:1px solid rgba(13,45,82,0.15); border-radius:12px; padding:16px 20px; margin-top:10px; }
+.extended-box .etag { font-family:'Space Mono',monospace; font-size:10px; color:var(--blue); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+
+.answer-key { margin-top:50px; padding-top:24px; border-top:3px dashed var(--gold); page-break-before:always; }
+.ak-title { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--gold); margin-bottom:16px; }
+.ak-item { font-size:13px; line-height:1.7; margin-bottom:12px; }
+.ak-item strong { color:var(--teal); }
+.ak-item .why { color:var(--dim); }
+.ms-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--red); }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+@media print {
+  body { background:#fff; }
+  .page { box-shadow:none; padding:0; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 1 · Microeconomics — Lesson 5</div>
+      <div class="k-title">Firms, Costs &amp; Market Power</div>
+      <div class="k-sub">Homework Workbook · Tier 2 — Read the Map (Ages 13–15)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="meta-strip">
+    <div class="pill">10 questions</div>
+    <div class="pill">+ 1 extended response</div>
+    <div class="pill">~35 min</div>
+    <div class="pill">Mixed IGCSE / IB skills</div>
+  </div>
+  <div class="cc-chips">
+    <span class="cc-chip">Cost &amp; Revenue</span><span class="cc-chip">Economies of Scale</span>
+    <span class="cc-chip">Mergers</span><span class="cc-chip">Competitive vs. Monopoly</span>
+    <span class="cc-chip">Asymmetric Information (IB)</span>
+  </div>
+
+  <div class="section-tag">Foundations</div>
+  <div class="big-title">AO1 command terms — precise definitions</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">1.</span> <strong>Define</strong> average total cost (ATC) and <strong>state</strong> the formula used to calculate it. <span class="marks">[2]</span><span class="tier-band band-easy">Easy</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="section-tag">Calculation Skill — Show Your Working</div>
+  <div class="big-title">Cost &amp; revenue calculations</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">2.</span> A workshop produces <strong>Q = 80 units/day</strong>. Fixed costs = <strong>$400/day</strong>. Variable costs = <strong>$240/day</strong>. <strong>Calculate</strong> AFC, AVC, and ATC, showing your working for each. <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
+    <div class="work-box"><span class="wb-tag">Working</span></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">3.</span> The workshop in Q2 sells each unit for <strong>$9.00</strong>. <strong>Calculate</strong> Total Revenue, Average Revenue, and Profit, showing your working for each. <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
+    <div class="work-box"><span class="wb-tag">Working</span></div>
+  </div>
+
+  <div class="section-tag">Diagram Skill — Drawing REQUIRED at IGCSE (newly explicit 2027–29)</div>
+  <div class="big-title">The ATC diagram</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">4.</span> Sketch a U-shaped average total cost (ATC) curve against quantity. Label the falling arm (economies of scale), the minimum point (Q at minimum efficient scale), and the rising arm (diseconomies of scale). <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
+    <div style="margin:26px 0 30px 76px;position:relative;max-width:600px">
+      <div class="diagram-box">
+        <div class="graph-axis-y">Cost/Price ($)</div>
+        <div class="graph-axis-x">Quantity</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">5.</span> <strong>Explain</strong>, with ONE original example each, the difference between an internal economy of scale and an external economy of scale. <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="section-tag">Firm Growth &amp; Structure</div>
+  <div class="big-title">Mergers, and small vs. large firms</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">6.</span> Match each merger type to the correct real-world example by writing the correct letter next to each type.</div>
+    <table class="data-table">
+      <tr><th>Merger Type</th><th>Match (A–C)</th></tr>
+      <tr><td>Horizontal</td><td></td></tr>
+      <tr><td>Vertical</td><td></td></tr>
+      <tr><td>Conglomerate</td><td></td></tr>
+    </table>
+    <div class="q-text" style="margin-top:8px;font-size:12.5px;color:var(--dim)">A. An airline buys a hotel chain. &nbsp; B. A supermarket chain buys the dairy farm that supplies its milk. &nbsp; C. Two rival film studios merge into one.</div>
+    <div class="marks" style="display:block;margin-top:8px">[3]</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">7.</span> Complete the table: give ONE advantage of being a small firm and ONE advantage of being a large firm for each factor listed. <span class="marks">[6]</span><span class="tier-band band-hard">Challenging</span></div>
+    <table class="data-table">
+      <tr><th>Factor</th><th>Small Firm Advantage</th><th>Large Firm Advantage</th></tr>
+      <tr><td>Cost per unit</td><td></td><td></td></tr>
+      <tr><td>Flexibility</td><td></td><td></td></tr>
+      <tr><td>Access to finance</td><td></td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="section-tag">Market Structure</div>
+  <div class="big-title">Competitive markets vs. monopoly — no diagrams/formal theory required at IGCSE</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">8.</span> <strong>Compare</strong> a competitive market and a monopoly market on THREE features: price, choice/variety, and long-run profit. Structure your answer so each feature covers both market types. <span class="marks">[6]</span><span class="tier-band band-hard">Challenging</span></div>
+    <table class="data-table">
+      <tr><th>Feature</th><th>Competitive Market</th><th>Monopoly</th></tr>
+      <tr><td>Price</td><td></td><td></td></tr>
+      <tr><td>Choice/Variety</td><td></td><td></td></tr>
+      <tr><td>Long-run profit</td><td></td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="section-tag">Beyond Two Extremes — IB Enrichment</div>
+  <div class="big-title">Market structure spectrum &amp; asymmetric information</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">9.</span> [IB enrichment] <strong>Order</strong> these four market structures from MOST competitive to LEAST competitive: monopoly, oligopoly, perfect competition, monopolistic competition. <span class="marks">[4]</span><span class="tier-band band-hard">Challenging</span><span class="tier-band ib-tag">IB enrichment</span></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">10.</span> [IB enrichment] <strong>Explain</strong>, using the concept of asymmetric information, why a used-car buyer who cannot tell a good car ("peach") from a bad one ("lemon") might end up driving good-quality cars out of the market. <span class="marks">[4]</span><span class="tier-band band-hard">Challenging</span><span class="tier-band ib-tag">IB enrichment</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="extended-box">
+    <div class="etag">Extended Response · exam-style</div>
+    <div class="q-text"><strong>11.</strong> <strong>Analyse</strong> whether a small independent bakery should merge with a rival bakery (horizontal merger) in order to reduce its average total cost. Structure your answer as CLAIM → EVIDENCE → LINK, referring to at least one relevant economic concept from this lesson (e.g. economies/diseconomies of scale, ATC, merger type, market power). <span class="marks">[8]</span></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+    <div class="answer-line"></div>
+  </div>
+
+  <div class="answer-key">
+    <div class="ak-title">Answer Key &amp; Mark Scheme Notes</div>
+    <div class="ak-item"><strong>1.</strong> Average total cost is the cost of producing one typical unit of output — total cost divided by the quantity produced. Formula: ATC = TC ÷ Q. <span class="ms-tag">[1 mark for correct definition, 1 mark for correct formula]</span></div>
+    <div class="ak-item"><strong>2.</strong> AFC = FC ÷ Q = 400 ÷ 80 = <strong>$5.00</strong>. AVC = VC ÷ Q = 240 ÷ 80 = <strong>$3.00</strong>. ATC = TC ÷ Q = (400+240) ÷ 80 = 640 ÷ 80 = <strong>$8.00</strong> (note ATC = AFC + AVC as a check: 5.00+3.00=8.00). <span class="why">[1 mark AFC correct with working, 1 mark AVC correct with working, 2 marks ATC correct with working (1 for method, 1 for final answer)]</span></div>
+    <div class="ak-item"><strong>3.</strong> TR = P × Q = 9.00 × 80 = <strong>$720</strong>. AR = TR ÷ Q = 720 ÷ 80 = <strong>$9.00</strong> (always equals price). Profit = TR − TC = 720 − 640 = <strong>$80</strong>. <span class="why">[1 mark TR correct with working, 1 mark AR correct with working, 2 marks Profit correct with working]</span></div>
+    <div class="ak-item"><strong>4.</strong> A U-shaped curve: starts high at low Q, falls to a minimum point, then rises again. The falling (left) arm labelled "economies of scale," the lowest point labelled "Q(MES)" (minimum efficient scale) with a dashed line down to the quantity axis, and the rising (right) arm labelled "diseconomies of scale." <span class="why">[1 mark correct U-shape, 1 mark falling arm correctly labelled, 1 mark Q(MES) correctly identified, 1 mark rising arm correctly labelled]</span></div>
+    <div class="ak-item"><strong>5.</strong> An <strong>internal economy of scale</strong> arises from a single firm's own growth — e.g. a large supermarket chain negotiates bulk-buying discounts with suppliers that a small independent shop cannot access. An <strong>external economy of scale</strong> is available to EVERY firm in an industry because the whole industry has grown in one area — e.g. a tech hub where many software firms cluster together and all benefit from a shared pool of locally trained programmers. <span class="why">[2 marks internal, correctly defined + original example; 2 marks external, correctly defined + original example]</span></div>
+    <div class="ak-item"><strong>6.</strong> Horizontal → C (two rival film studios merge). Vertical → B (supermarket buys its milk supplier). Conglomerate → A (airline buys a hotel chain). <span class="ms-tag">[1 mark per correct match]</span></div>
+    <div class="ak-item"><strong>7.</strong> Cost per unit — Small: lower overheads and no layers of bureaucracy to fund. Large: economies of scale spread fixed costs over more output, lowering ATC. Flexibility — Small: can adapt quickly to local tastes or a changing trend. Large: can absorb short-term shocks and diversify across products/markets. Access to finance — Small: owner-financed, faster decisions, fewer approvals. Large: easier access to bank loans and outside investment due to size and track record. <span class="why">[1 mark per correct, reasonable cell — 6 cells total]</span></div>
+    <div class="ak-item"><strong>8.</strong> Price — Competitive: pushed toward the lowest sustainable level by rival sellers. Monopoly: can be set higher, limited mainly by what demand will bear. Choice/Variety — Competitive: high, as sellers differentiate to attract customers. Monopoly: low — one seller, take it or leave it. Long-run profit — Competitive: competed down toward normal levels as new sellers enter if profit is attractive. Monopoly: can persist above normal levels because barriers to entry block rival firms from competing it away. <span class="why">[2 marks per feature: 1 for correct competitive-market side, 1 for correct monopoly side]</span></div>
+    <div class="ak-item"><strong>9.</strong> Most to least competitive: <strong>Perfect competition → Monopolistic competition → Oligopoly → Monopoly.</strong> <span class="ms-tag">[1 mark per correctly placed structure, or full marks for the fully correct order]</span></div>
+    <div class="ak-item"><strong>10.</strong> The seller knows the car's true condition, but the buyer cannot verify it before purchase — this is asymmetric information. Because buyers can't distinguish good cars from bad ones, they will only be willing to pay an AVERAGE price reflecting the mix of quality in the whole market. This average price undervalues genuinely good cars, so owners of good cars are unwilling to sell at that price and exit the market, while owners of bad cars are happy to sell at (or above) their car's true worth. Over time, this can leave the market dominated by lower-quality cars — a market failure driven entirely by the information gap, not by cost or price controls. <span class="why">[1 mark correct definition of asymmetric information applied to the scenario, 1 mark explaining the average-price mechanism, 2 marks explaining how good sellers are driven out, leaving a market of "lemons"]</span></div>
+    <div class="ak-item"><strong>11.</strong> Band 3 (6–8 marks): a clear CLAIM (e.g. "the bakery should consider merging IF it is currently operating below its minimum efficient scale"), EVIDENCE (reference to the ATC curve — merging combines output and can spread fixed costs like ovens and rent over more units, lowering ATC via a horizontal merger's shared economies of scale) and a LINK back to the question (explicitly stating that the benefit depends on where the bakery currently sits on its ATC curve — if it is already near or past its Q(MES), merging risks pushing it into diseconomies of scale instead, so the answer is conditional, not automatic). Band 2 (3–5): correct concept named (economies of scale, ATC, merger type) but the claim-evidence-link chain is incomplete, or the answer doesn't explicitly link back to the bakery scenario. Band 1 (1–2): a one-sentence assertion with no named economic concept or diagram/data reference.</div>
+  </div>
+
+  <div class="footer">M1L5 · Economics Academy · Stoic Edu</div>
+</div>
+</body>
+</html>

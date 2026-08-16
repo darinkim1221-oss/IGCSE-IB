@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firms, Costs & Market Power | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif; overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center; }
+#slide-frame { position:relative; width:960px; height:540px; background:var(--bg); border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0; }
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none; transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box; }
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%); pointer-events:none; }
+#nav { position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border); border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
+.tag { display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; }
+.tag.ib { background:rgba(13,45,82,0.08); border-color:rgba(13,45,82,0.2); color:var(--blue); }
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,3.6vw,40px); line-height:1.05; margin-bottom:14px; color:var(--white); }
+.btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.cov-diagram { position:relative; z-index:2; width:260px; height:220px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(28px,4.6vw,48px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:360px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 hook ===== */
+#s0 { text-align:center; }
+.hyp-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 26px; max-width:640px; margin-top:10px; }
+.hyp-lbl { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; }
+.hyp-text { font-size:13px; color:var(--dim); line-height:1.7; margin-top:6px; }
+
+/* ===== s1 command term drill ===== */
+#s1 { flex-direction:column; gap:12px; }
+.cmd-tabs { display:flex; gap:8px; }
+.cmd-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
+.cmd-tab.active { background:var(--gold); color:#fff; }
+.cmd-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 24px; max-width:740px; width:100%; min-height:110px; }
+.cmd-answer { font-size:13.5px; line-height:1.8; color:var(--white); }
+.cmd-answer strong { color:var(--blue); }
+
+/* ===== s2 cost/revenue table ===== */
+#s2 { flex-direction:column; gap:10px; }
+.calc-scenario { font-size:12.5px; color:var(--dim); max-width:760px; text-align:center; line-height:1.6; }
+.calc-table { width:100%; max-width:640px; border-collapse:collapse; font-size:12.5px; background:var(--card); border-radius:12px; overflow:hidden; }
+.calc-table th { background:var(--blue); color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:7px 12px; text-align:left; }
+.calc-table td { padding:7px 12px; border-bottom:1px solid rgba(0,0,0,0.08); color:var(--white); }
+.calc-table tr:last-child td { border-bottom:none; }
+.calc-table td.formula { font-family:'Space Mono',monospace; color:var(--dim); font-size:11px; }
+.calc-table td.val { font-weight:700; color:var(--gold2); text-align:right; }
+
+/* ===== s3 ATC diagram ===== */
+#s3 { flex-direction:column; gap:10px; }
+.atc-wrap { display:flex; gap:22px; max-width:860px; width:100%; align-items:center; }
+.atc-graph { flex:1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:10px; }
+.atc-legend { width:280px; font-size:11.5px; color:var(--dim); line-height:1.8; }
+.atc-legend strong { color:var(--blue); }
+
+/* ===== s4/s7/s9/s10 tab panels (shared) ===== */
+#s4, #s7, #s9, #s10 { flex-direction:column; gap:10px; }
+.pes-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:13px; padding:7px 18px; border-radius:20px; cursor:pointer; }
+.pes-tab.active { background:var(--teal); color:#fff; }
+.pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:820px; width:100%; min-height:150px; font-size:12.5px; line-height:1.8; color:var(--white); }
+.pes-panel strong { color:var(--blue); }
+
+/* ===== s5 objectives grid ===== */
+#s5 { flex-direction:column; gap:12px; }
+.obj-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; max-width:800px; }
+.obj-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px 16px; font-size:12px; color:var(--white); line-height:1.6; }
+.obj-card strong { color:var(--blue); display:block; font-size:13px; margin-bottom:3px; }
+
+/* ===== s6 types of firms table ===== */
+#s6 { flex-direction:column; gap:10px; }
+.firm-table { width:100%; max-width:800px; border-collapse:collapse; font-size:12px; background:var(--card); border-radius:12px; overflow:hidden; }
+.firm-table th { background:var(--blue); color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:7px 12px; text-align:left; }
+.firm-table td { padding:7px 12px; border-bottom:1px solid rgba(0,0,0,0.08); color:var(--white); vertical-align:top; }
+.firm-table tr:last-child td { border-bottom:none; }
+
+/* ===== s8 competitive vs monopoly ===== */
+#s8 { flex-direction:column; gap:10px; }
+.mkt-table { width:100%; max-width:800px; border-collapse:collapse; font-size:12px; background:var(--card); border-radius:12px; overflow:hidden; }
+.mkt-table th { background:var(--blue); color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:7px 12px; text-align:left; }
+.mkt-table td { padding:7px 12px; border-bottom:1px solid rgba(0,0,0,0.08); color:var(--white); }
+.mkt-table tr:last-child td { border-bottom:none; }
+
+/* ===== adapter ===== */
+#s-adapter { flex-direction:column; gap:10px; }
+.adapter-tabs { display:flex; gap:8px; margin-bottom:4px; }
+.adapter-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 22px; border-radius:20px; cursor:pointer; }
+.adapter-tab.active.igcse { background:var(--teal); color:#fff; }
+.adapter-tab.active.ib { background:var(--blue); color:#fff; }
+.adapter-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 26px; max-width:760px; width:100%; font-size:13px; line-height:1.8; color:var(--white); }
+.adapter-panel strong { color:var(--blue); }
+
+/* ===== quiz ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:17px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left"><canvas id="coverCanvas" width="260" height="220" class="cov-diagram"></canvas></div>
+  <div class="cover-right">
+    <div class="cover-module">Module 1 · Microeconomics — Lesson 5</div>
+    <div class="cover-title">Firms, Costs &amp;<br><span>Market Power</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">Where does profit come from, why do some firms want to get huge, and is one seller always worse for us than many? Build the cost/revenue toolkit, draw the ATC diagram to exam standard, and compare market structures.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Cost &amp; Revenue</span><span class="cc-chip">Economies of Scale</span>
+        <span class="cc-chip">Mergers</span><span class="cc-chip">Market Structure (HL)</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 13–15</div>
+      <div class="cover-pill">IGCSE + IB</div>
+      <div class="cover-pill">55 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0 HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="tag">Hypothesis</div>
+  <div class="big-title" style="max-width:780px;text-align:center">Profit isn't a mystery number — it's what's left after every cost of production is subtracted from every unit of revenue.</div>
+  <div class="hyp-box">
+    <div class="hyp-lbl">TEST IT</div>
+    <div class="hyp-text">If this is true, we should be able to CALCULATE it from raw numbers, not just describe it in words. Today: the full cost/revenue toolkit with working shown, the ATC diagram drawn to exam standard, why firms grow (and when growth backfires), mergers, and how competitive markets differ from a monopoly.</div>
+  </div>
+</section>
+
+<!-- ============ s1 COMMAND TERM DRILL ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">AO1/AO2 Precision</div>
+    <div class="big-title">Same Concept, Different Command Word</div>
+  </div>
+  <div class="cmd-tabs" id="cmdTabs"></div>
+  <div class="cmd-box"><div class="cmd-answer" id="cmdAnswer"></div></div>
+</section>
+
+<!-- ============ s2 COST/REVENUE CALCULATION ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">AO2 — Show Your Working</div>
+    <div class="big-title">Cost &amp; Revenue: Full Calculation</div>
+  </div>
+  <div class="calc-scenario">Sunrise Bakery bakes <strong>Q = 100 cookies/day</strong>. Fixed costs (rent, oven lease) = <strong>$200/day</strong>. Variable costs (flour, sugar, labour) = <strong>$150/day</strong>. Each cookie sells for <strong>$5.00</strong>.</div>
+  <table class="calc-table">
+    <tr><th>Term</th><th>Formula</th><th>Value</th></tr>
+    <tr><td>Total Cost (TC)</td><td class="formula">FC + VC = 200 + 150</td><td class="val">$350</td></tr>
+    <tr><td>Average Fixed Cost (AFC)</td><td class="formula">FC ÷ Q = 200 ÷ 100</td><td class="val">$2.00</td></tr>
+    <tr><td>Average Variable Cost (AVC)</td><td class="formula">VC ÷ Q = 150 ÷ 100</td><td class="val">$1.50</td></tr>
+    <tr><td>Average Total Cost (ATC)</td><td class="formula">TC ÷ Q = 350 ÷ 100</td><td class="val">$3.50</td></tr>
+    <tr><td>Total Revenue (TR)</td><td class="formula">P × Q = 5.00 × 100</td><td class="val">$500</td></tr>
+    <tr><td>Average Revenue (AR)</td><td class="formula">TR ÷ Q = 500 ÷ 100 (= Price)</td><td class="val">$5.00</td></tr>
+    <tr><td>Profit</td><td class="formula">TR − TC = 500 − 350</td><td class="val" style="color:var(--teal)">$150</td></tr>
+  </table>
+</section>
+
+<!-- ============ s3 ATC DIAGRAM ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Drawing REQUIRED at IGCSE (newly explicit 2027–29)</div>
+    <div class="big-title">The Average Total Cost (ATC) Diagram</div>
+  </div>
+  <div class="atc-wrap">
+    <div class="atc-graph"><canvas id="atcCanvas" width="440" height="200"></canvas></div>
+    <div class="atc-legend">
+      <strong>Falling arm (left):</strong> economies of scale — average cost falls as output rises, because fixed costs are spread over more units and the firm gains efficiencies.<br><br>
+      <strong>Q(MES):</strong> the minimum efficient scale — the output level where ATC is lowest.<br><br>
+      <strong>Rising arm (right):</strong> diseconomies of scale — average cost rises again past Q(MES), often due to management/coordination problems in an oversized firm.
+    </div>
+  </div>
+</section>
+
+<!-- ============ s4 ECONOMIES/DISECONOMIES ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Internal vs. External</div>
+    <div class="big-title">Economies &amp; Diseconomies of Scale</div>
+  </div>
+  <div class="pes-tabs" id="ecTabs"></div>
+  <div class="pes-panel" id="ecPanel"></div>
+</section>
+
+<!-- ============ s5 OBJECTIVES OF FIRMS ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Not Every Firm Wants the Same Thing</div>
+    <div class="big-title">Objectives of Firms</div>
+  </div>
+  <div class="obj-grid" id="objGrid"></div>
+</section>
+
+<!-- ============ s6 TYPES OF FIRMS ============ -->
+<section class="slide" id="s6">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Sector, Ownership &amp; Size</div>
+    <div class="big-title">Types of Firms: Small vs. Large</div>
+  </div>
+  <table class="firm-table">
+    <tr><th>Factor</th><th>Small Firm Advantage</th><th>Large Firm Advantage</th></tr>
+    <tr><td>Cost per unit</td><td>Lower overheads; no bureaucracy</td><td>Economies of scale lower ATC</td></tr>
+    <tr><td>Flexibility</td><td>Adapts fast to local tastes/trends</td><td>Can absorb shocks; diversify risk</td></tr>
+    <tr><td>Finance</td><td>Owner-financed, fewer approvals needed</td><td>Easier access to loans/investment</td></tr>
+    <tr><td>Market power</td><td>Must compete on service/niche</td><td>Can influence price, negotiate with suppliers</td></tr>
+  </table>
+</section>
+
+<!-- ============ s7 MERGERS ============ -->
+<section class="slide" id="s7">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Growth by Joining Forces</div>
+    <div class="big-title">Merger Types: Real Cases</div>
+  </div>
+  <div class="pes-tabs" id="mergeTabs"></div>
+  <div class="pes-panel" id="mergePanel"></div>
+</section>
+
+<!-- ============ s8 COMPETITIVE VS MONOPOLY ============ -->
+<section class="slide" id="s8">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">No diagrams/formal theory required at IGCSE</div>
+    <div class="big-title">Competitive Markets vs. Monopoly</div>
+  </div>
+  <table class="mkt-table">
+    <tr><th>Feature</th><th>Competitive Market (many sellers)</th><th>Monopoly (one seller)</th></tr>
+    <tr><td>Price</td><td>Pushed toward the lowest sustainable level</td><td>Can be set higher — limited only by demand</td></tr>
+    <tr><td>Choice/Variety</td><td>High — sellers differentiate to win customers</td><td>Low — one seller, take it or leave it</td></tr>
+    <tr><td>Quality incentive</td><td>Strong — lose customers to rivals if quality drops</td><td>Weaker — fewer alternatives for customers to switch to</td></tr>
+    <tr><td>Profit (long run)</td><td>Competed down toward normal levels</td><td>Can persist — barriers to entry block rivals</td></tr>
+  </table>
+</section>
+
+<!-- ============ s9 FIRMS & PRODUCTION ============ -->
+<section class="slide" id="s9">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Inputs, Not Just Outputs</div>
+    <div class="big-title">Firms &amp; Production</div>
+  </div>
+  <div class="pes-tabs" id="prodTabs"></div>
+  <div class="pes-panel" id="prodPanel"></div>
+</section>
+
+<!-- ============ s10 HL ENRICHMENT ============ -->
+<section class="slide" id="s10">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag ib">IB HL Enrichment — not required at IGCSE</div>
+    <div class="big-title">Beyond Two Extremes</div>
+  </div>
+  <div class="pes-tabs" id="hlTabs"></div>
+  <div class="pes-panel" id="hlPanel"></div>
+</section>
+
+<!-- ============ EXAM ADAPTER SLOT ============ -->
+<section class="slide" id="s-adapter">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Exam Adapter Slot</div>
+    <div class="big-title">Same Skill — Different Exam</div>
+  </div>
+  <div class="adapter-tabs">
+    <button class="adapter-tab active igcse" onclick="setAdapter('igcse',this)">IGCSE</button>
+    <button class="adapter-tab" onclick="setAdapter('ib',this)">IB</button>
+  </div>
+  <div class="adapter-panel" id="adapterPanel"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">Costs &amp; Market Power Check</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const QUIZ_SLIDE_IDX = 13;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+  if (slides[cur].id === 's3') drawATC();
+  if (slides[cur].id === 's-cover') drawCover();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ COVER DIAGRAM (mini ATC curve) ============
+function drawCover() {
+  const c = document.getElementById('coverCanvas'); const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,260,220);
+  ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(30,10); ctx.lineTo(30,190); ctx.lineTo(240,190); ctx.stroke();
+  ctx.strokeStyle='#f5c842'; ctx.lineWidth=2.5;
+  ctx.beginPath();
+  const cx=135, minY=165, a=0.0022;
+  for (let x=40; x<=230; x+=4) {
+    const y = Math.max(20, minY - a*(x-cx)*(x-cx));
+    if (x===40) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  ctx.fillStyle='#f5c842'; ctx.font='bold 11px sans-serif'; ctx.fillText('ATC', 195, 55);
+  ctx.strokeStyle='rgba(255,255,255,0.5)'; ctx.setLineDash([4,3]);
+  ctx.beginPath(); ctx.moveTo(cx,minY); ctx.lineTo(cx,190); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#fff'; ctx.font='9px monospace'; ctx.fillText('Q(MES)', cx-22, 202);
+}
+drawCover();
+
+// ============ s1 COMMAND TERM DRILL ============
+const CMDS = [
+  {key:'define', lbl:'Define', ans:'<strong>Define average total cost.</strong> Average total cost (ATC) is total cost divided by the quantity produced — the cost of producing one typical unit, ATC = TC ÷ Q.'},
+  {key:'calculate', lbl:'Calculate', ans:'<strong>Calculate profit if TR = $500 and TC = $350.</strong> Profit = TR − TC = 500 − 350 = <strong>$150</strong>. Always show the formula, the substitution, AND the final labelled answer for full working marks.'},
+  {key:'compare', lbl:'Compare', ans:'<strong>Compare a competitive market and a monopoly.</strong> A competitive market has many sellers, pushing price down and choice up; a monopoly has one seller, who can sustain a higher price and offers less choice. A strong "compare" answer states BOTH sides for each point, not just one market\\'s features.'}
+];
+let cmdActive = 0;
+const cmdTabs = document.getElementById('cmdTabs');
+CMDS.forEach((c,i) => {
+  const b = document.createElement('button');
+  b.className = 'cmd-tab' + (i===0?' active':'');
+  b.textContent = c.lbl;
+  b.onclick = () => { cmdActive=i; document.querySelectorAll('.cmd-tab').forEach(t=>t.classList.remove('active')); b.classList.add('active'); renderCmd(); };
+  cmdTabs.appendChild(b);
+});
+function renderCmd() { document.getElementById('cmdAnswer').innerHTML = CMDS[cmdActive].ans + `<div style="margin-top:10px;font-size:11px;color:var(--dim)">Notice how answer length and depth changes with the command word — this is examined discipline, not decoration.</div>`; }
+renderCmd();
+
+// ============ s3 ATC DIAGRAM ============
+function drawATC() {
+  const c = document.getElementById('atcCanvas'); if (!c) return; const ctx = c.getContext('2d');
+  const w=440,h=200;
+  ctx.clearRect(0,0,w,h);
+  ctx.strokeStyle='rgba(90,106,128,0.4)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(40,10); ctx.lineTo(40,190); ctx.lineTo(430,190); ctx.stroke();
+  ctx.fillStyle='#5a6a80'; ctx.font='10px monospace';
+  ctx.fillText('Quantity (Q) →', 330, 200-4);
+  ctx.save(); ctx.translate(16,120); ctx.rotate(-Math.PI/2); ctx.fillText('Cost/Price ($) →',0,0); ctx.restore();
+  // ATC curve
+  ctx.strokeStyle='#c8960a'; ctx.lineWidth=2.5;
+  ctx.beginPath();
+  const cx=240, minY=150, a=0.003;
+  for (let x=60; x<=420; x+=4) {
+    const y = Math.max(35, minY - a*(x-cx)*(x-cx));
+    if (x===60) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  ctx.fillStyle='#c8960a'; ctx.font='bold 12px sans-serif'; ctx.fillText('ATC', 396, 62);
+  // MES dashed line
+  ctx.strokeStyle='rgba(90,106,128,0.5)'; ctx.setLineDash([4,3]); ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(cx,150); ctx.lineTo(cx,190); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#0d2d52'; ctx.beginPath(); ctx.arc(cx,150,4,0,7); ctx.fill();
+  ctx.fillStyle='#5a6a80'; ctx.font='9px monospace'; ctx.fillText('Q(MES)', cx-18, 200-4);
+  // zone labels
+  ctx.fillStyle='#00897b'; ctx.font='bold 10px monospace'; ctx.fillText('economies of scale', 60, 100);
+  ctx.fillStyle='#e53935'; ctx.font='bold 10px monospace'; ctx.fillText('diseconomies of scale', 300, 90);
+}
+drawATC();
+
+// ============ s4 ECONOMIES/DISECONOMIES ============
+const EC_TABS = [
+  {key:'ie', lbl:'Internal Economies', html:`Cost savings that come from a FIRM'S OWN growth: <strong>Purchasing/bulk-buying economies</strong> (buying inputs in bulk at a discount), <strong>Technical economies</strong> (large machinery/production lines only pay off at high output), <strong>Managerial economies</strong> (one finance department serves the whole firm, not each branch separately), <strong>Financial economies</strong> (large firms borrow at lower interest rates).`},
+  {key:'id', lbl:'Internal Diseconomies', html:`Cost RISES that come from a firm becoming too large internally: <strong>Communication problems</strong> (information gets lost or distorted across layers of management), <strong>Coordination difficulties</strong> (harder to keep departments aligned), <strong>Worker alienation</strong> (large, impersonal workplaces can reduce motivation and output per worker).`},
+  {key:'ee', lbl:'External Economies', html:`Cost savings available to EVERY firm in an industry because the whole industry (not just one firm) has grown in one location: a shared skilled local labour pool, specialist local suppliers, better transport links built for the whole industrial cluster, shared research/training infrastructure.`},
+  {key:'ed', lbl:'External Diseconomies', html:`Cost rises that hit every firm in a region as an industry over-grows: congestion raising transport costs, competition for scarce local labour pushing wages up for everyone, rising local land/rent prices as demand for industrial space increases.`}
+];
+let ecActive = 0;
+const ecTabsEl = document.getElementById('ecTabs');
+EC_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { ecActive=i; document.querySelectorAll('#ecTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderEc(); };
+  ecTabsEl.appendChild(b);
+});
+function renderEc() { document.getElementById('ecPanel').innerHTML = EC_TABS[ecActive].html; }
+renderEc();
+
+// ============ s5 OBJECTIVES ============
+const OBJECTIVES = [
+  {n:'Profit Maximisation', d:'The classic assumption: the firm chooses output/price to make the largest possible profit. Common in owner-run and shareholder-driven firms under competitive pressure.'},
+  {n:'Growth', d:'The firm prioritises expanding market share or size — sometimes even accepting lower short-term profit — to build long-term market power or survive competition.'},
+  {n:'Survival', d:'In a crisis (a new competitor, a recession), a firm may cut price toward cost just to keep operating and keep customers, prioritising staying open over maximising profit.'},
+  {n:'Social Welfare', d:'Public-sector or mission-driven firms (e.g. a public transport operator) may aim to serve the community well rather than maximise profit — accepting a lower or zero profit target.'}
+];
+document.getElementById('objGrid').innerHTML = OBJECTIVES.map(o => `<div class="obj-card"><strong>${o.n}</strong>${o.d}</div>`).join('');
+
+// ============ s7 MERGERS ============
+const MERGE_TABS = [
+  {key:'horiz', lbl:'Horizontal', html:`Two firms at the <strong>SAME stage of production, making the SAME type of product</strong>, join together. <strong>Real-world type:</strong> two film studios merging (e.g. Disney acquiring Pixar) — both make and distribute films.<br><br><strong>Why:</strong> increase market share, reduce competition, gain economies of scale by combining production.`},
+  {key:'vert', lbl:'Vertical', html:`Two firms at <strong>DIFFERENT stages of the SAME supply chain</strong> join together. <strong>Real-world type:</strong> a supermarket chain buying the dairy farm that supplies its milk — supermarket (retail) + farm (raw material).<br><br><strong>Why:</strong> secure supply, cut out a middleman's profit margin, gain more control over quality and cost.`},
+  {key:'cong', lbl:'Conglomerate', html:`Two firms in <strong>UNRELATED industries</strong> join together. <strong>Real-world type:</strong> an airline buying a hotel chain — different products, different markets, no shared supply chain.<br><br><strong>Why:</strong> diversify risk — if one industry has a bad year, the other may not, spreading the combined firm's exposure to a single market's ups and downs.`}
+];
+let mergeActive = 0;
+const mergeTabsEl = document.getElementById('mergeTabs');
+MERGE_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { mergeActive=i; document.querySelectorAll('#mergeTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderMerge(); };
+  mergeTabsEl.appendChild(b);
+});
+function renderMerge() { document.getElementById('mergePanel').innerHTML = MERGE_TABS[mergeActive].html; }
+renderMerge();
+
+// ============ s9 FIRMS & PRODUCTION ============
+const PROD_TABS = [
+  {key:'demand', lbl:'Factor Demand', html:`Firms don't demand labour or capital for its own sake — they demand it because of what it can PRODUCE (a "derived demand"). If demand for a firm's product rises, its demand for the workers and machinery that make that product rises too — and falls if product demand falls.`},
+  {key:'intensity', lbl:'Labour- vs. Capital-Intensive', html:`A <strong>labour-intensive</strong> firm relies mainly on workers relative to machinery (e.g. a hand-made craft workshop) — flexible, but output is capped by how many people can be hired and trained. A <strong>capital-intensive</strong> firm relies mainly on machinery relative to workers (e.g. an automated bottling plant) — high upfront cost, but can produce large volumes at low marginal cost once built.`},
+  {key:'productivity', lbl:'Production vs. Productivity', html:`<strong>Production</strong> is the TOTAL output a firm makes. <strong>Productivity</strong> is output PER WORKER (or per unit of input) — a measure of efficiency, not just volume. A firm can increase production by simply hiring more workers, but only increases productivity by getting MORE out of each worker or machine — often through investment (better tools, training), which is why investment is closely linked to rising productivity over time.`}
+];
+let prodActive = 0;
+const prodTabsEl = document.getElementById('prodTabs');
+PROD_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { prodActive=i; document.querySelectorAll('#prodTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderProd(); };
+  prodTabsEl.appendChild(b);
+});
+function renderProd() { document.getElementById('prodPanel').innerHTML = PROD_TABS[prodActive].html; }
+renderProd();
+
+// ============ s10 HL ENRICHMENT ============
+const HL_TABS = [
+  {key:'spectrum', lbl:'Market Structure Spectrum', html:`Real markets sit along a SPECTRUM between two extremes, not just "competitive OR monopoly": <strong>Perfect competition</strong> (many small firms, identical product, no single firm sets price) → <strong>Monopolistic competition</strong> (many firms, slightly different/branded products, some price-setting power) → <strong>Oligopoly</strong> (a few large firms dominate, highly interdependent pricing decisions) → <strong>Monopoly</strong> (one firm, maximum price-setting power). IGCSE tests competitive-vs-monopoly qualitatively; IB HL formalises the full spectrum with cost/revenue models for each point.`},
+  {key:'lemons', lbl:'Asymmetric Information', html:`When one side of a transaction knows more than the other, markets can misbehave. The classic case: a used-car (or used-bike) market where SELLERS know a vehicle's true condition but BUYERS don't. If buyers can't tell good cars ("peaches") from bad ones ("lemons"), they'll only pay an AVERAGE price — which undervalues good cars and overvalues bad ones. Sellers of good cars exit the market, leaving mostly lemons — a market failure driven purely by an information gap, not by cost or price controls. This is IB HL content (2.10); IGCSE does not require the formal model.`}
+];
+let hlActive = 0;
+const hlTabsEl = document.getElementById('hlTabs');
+HL_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { hlActive=i; document.querySelectorAll('#hlTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderHl(); };
+  hlTabsEl.appendChild(b);
+});
+function renderHl() { document.getElementById('hlPanel').innerHTML = HL_TABS[hlActive].html; }
+renderHl();
+
+// ============ EXAM ADAPTER ============
+const ADAPTER = {
+  igcse: `<strong>AO2 numerical questions with working; competitive-vs-monopoly structured comparison:</strong> command words <em>calculate, compare, suggest</em>. Every calculation question awards marks for the formula, the correct substitution, AND the final labelled answer — never skip straight to the number. For comparison questions, structure your answer point-by-point (e.g. price, choice, profit) covering BOTH market types for each point, not one market fully then the other.<br><br><strong>Practice move:</strong> always show working for cost/revenue questions, even when you're confident of the answer — partial credit exists for correct method even with an arithmetic slip.`,
+  ib: `<strong>AO2 apply theory to a firm scenario; 'analyse' paragraph — claim → evidence → link:</strong> given a real or hypothetical firm scenario, apply the cost/revenue and market-structure concepts to explain what's actually happening and why, rather than reciting definitions in isolation.<br><br><strong>Practice move:</strong> structure every "analyse" paragraph as CLAIM (state the point) → EVIDENCE (data, diagram, or example from the scenario) → LINK (explicitly connect the evidence back to the claim and the question asked). This three-step chain is the foundation "analyse" answers you'll build on all the way to "evaluate" later in the course.`
+};
+function setAdapter(k, el) {
+  document.querySelectorAll('.adapter-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('adapterPanel').innerHTML = ADAPTER[k];
+}
+setAdapter('igcse', document.querySelector('.adapter-tab.igcse'));
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'If Total Cost = $350 and Quantity = 100 cookies, what is Average Total Cost?', opts:['$0.35','$3.50','$35.00'], correct:1, explain:'ATC = TC ÷ Q = 350 ÷ 100 = $3.50.' },
+  { q:'Which of these is an INTERNAL economy of scale?', opts:['A firm buys inputs more cheaply because it orders in bulk','A whole local industry shares a skilled labour pool','The government subsidises the firm\\'s rent'], correct:0, explain:'Internal economies come from the FIRM\\'S OWN growth (like bulk-buying power). The shared labour pool is an EXTERNAL economy — it benefits every firm in the area, not just one.' },
+  { q:'A supermarket chain buys the dairy farm that supplies its milk. This is a ___ merger.', opts:['Horizontal','Vertical','Conglomerate'], correct:1, explain:'The supermarket and the farm sit at different stages of the SAME supply chain (retail + raw material supplier) — that\\'s a vertical merger.' },
+  { q:'Compared to a competitive market, a monopoly market typically has...', opts:['Lower price and more choice','Higher price and less choice','No meaningful difference at all'], correct:1, explain:'With no rival sellers pushing price down or forcing variety, a monopoly can sustain a higher price and typically offers less choice than a competitive market.' },
+  { q:'[IB HL] In the "lemons" problem, asymmetric information means...', opts:['Both buyer and seller know the same amount about the product','The seller knows more about the product\\'s true quality than the buyer','The government knows more than both the buyer and the seller'], correct:1, explain:'The seller (e.g. of a used car) usually knows the vehicle\\'s true condition far better than the buyer — this information gap is what can drive good products out of the market.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect — cost, merger and market-power logic locked in! 🏆' : 'Solid — revisit any missed slide before the workbook.'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Notebook — The Cookie Factory (Tier 1) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:16px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.flow-strip { font-size:11px; color:var(--dim); background:var(--card); border-radius:10px; padding:10px 16px; margin-bottom:20px; font-family:'Space Mono',monospace; }
+.toc { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:30px; }
+.toc a { font-size:10px; text-decoration:none; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); padding:4px 10px; border-radius:20px; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:34px; scroll-margin-top:20px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:12px; }
+.p { font-size:13.5px; line-height:1.8; color:var(--white); margin-bottom:10px; }
+.p strong { color:var(--blue); }
+.list { font-size:13px; line-height:1.9; color:var(--white); padding-left:20px; margin-bottom:10px; }
+.kc-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+.kc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.obj-item { font-size:13px; line-height:1.8; padding:6px 0 6px 26px; position:relative; }
+.obj-item::before { content:'✓'; color:var(--teal); position:absolute; left:0; font-weight:700; }
+
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:12px 18px; font-size:12.5px; color:var(--dim); line-height:1.7; margin:12px 0; }
+.tip-box strong { color:var(--gold); }
+.warn-box { border-left:3px solid var(--red); background:rgba(229,57,53,0.05); border-radius:0 10px 10px 0; padding:12px 18px; font-size:12.5px; color:var(--dim); line-height:1.7; margin:12px 0; }
+.warn-box strong { color:var(--red); }
+
+.diagram-note { display:flex; gap:16px; background:var(--card); border-radius:14px; padding:16px 18px; margin-bottom:12px; }
+.diagram-note .dn-icon { font-size:26px; flex-shrink:0; }
+.diagram-note .dn-text { font-size:12.5px; color:var(--dim); line-height:1.7; }
+.diagram-note .dn-text strong { color:var(--white); }
+
+table.glossary { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:8px; }
+table.glossary td { padding:8px 10px; border-bottom:1px solid rgba(0,0,0,0.08); vertical-align:top; }
+table.glossary td:first-child { font-weight:700; color:var(--blue); width:170px; }
+
+.takeaway-box { background:linear-gradient(135deg,rgba(0,137,123,0.08),rgba(0,137,123,0.02)); border:1px solid rgba(0,137,123,0.25); border-radius:12px; padding:16px 20px; margin-top:10px; }
+.takeaway-box .tk-title { font-family:'Bebas Neue',sans-serif; font-size:16px; color:var(--teal); margin-bottom:8px; }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 1 · Microeconomics — Lesson 5</div>
+      <div class="k-title">The Cookie Factory: Big, Bigger, Chaos</div>
+      <div class="k-sub">Teacher Notebook · Tier 1 — Draw the Map (Ages 10–12)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="flow-strip">SUGGESTED FLOW (45 min) — Hook (5) → Hire-a-baker live demo (8) → Firm sort: sector &amp; ownership (6) → Merger negotiation round (7) → Lemonade monopoly role play (6) → Used-bikes "lemons" teaser (5) → Rapid round bonus (4) → Reflection (4)</div>
+  <div class="toc">
+    <a href="#obj">Objectives</a><a href="#kc">Key Concepts</a><a href="#notes">Teaching Notes</a>
+    <a href="#viz">Visuals</a><a href="#worked">Worked Example</a><a href="#misc">Misconceptions</a>
+    <a href="#reflect">Reflection</a><a href="#ext">Extensions</a><a href="#resources">Resources</a>
+  </div>
+
+  <div class="section-tag" id="obj">Learning Objectives</div>
+  <div class="big-title">By the end, students can…</div>
+  <div class="obj-item">explain why hiring more workers can make each item cheaper to produce (economies of scale), and why that can reverse past a certain size (diseconomies of scale)</div>
+  <div class="obj-item">classify a business by sector (primary, secondary, tertiary) and by ownership (private, public)</div>
+  <div class="obj-item">distinguish horizontal, vertical, and conglomerate mergers using concrete examples</div>
+  <div class="obj-item">describe how price and choice change when a market has only ONE seller (a monopoly) compared to many sellers</div>
+  <div class="obj-item">explain, in plain language, why a buyer can't always tell a good product from a bad one before buying — and name this "asymmetric information"</div>
+  <div class="obj-item">give one reason growing a business helps, and one reason growing too much can hurt</div>
+
+  <div class="section-tag" id="kc">Key Concepts &amp; the IB Lens</div>
+  <div class="kc-row"><span class="kc-chip">Efficiency (primary)</span><span class="kc-chip">Choice (primary)</span><span class="kc-chip">Interdependence (primary)</span></div>
+  <div class="p">This lesson is students' first encounter with the FIRM as an economic actor with its own decisions to make — how big to grow, whether to merge, how much power a seller has over price. Every activity is built to let students feel the underlying pattern (a felt U-shaped cost curve, a felt loss of choice under monopoly, a felt information gap in the bike game) before any formal vocabulary or diagram is attached. That sequencing directly seeds the Tier 2 ATC diagram, the competitive-vs-monopoly comparison table, and the IB HL market-structure spectrum and asymmetric-information content — students who've felt "the factory got too crowded" or "I couldn't tell if that bike was a lemon" have a much stronger anchor for the formal treatment later.</div>
+
+  <div class="section-tag" id="notes">Detailed Teaching Notes</div>
+  <div class="big-title">Feel the curve before you name it</div>
+  <div class="p">Open with the hook question — "hiring more bakers makes each cookie cheaper... so should a factory just keep hiring forever?" — and let students guess before revealing anything. Most will instinctively say "yes, more workers = better," which sets up the reversal perfectly.</div>
+  <div class="p">The <strong>hire-a-baker live demo</strong> (slide s1) is the core teaching device: each click hires one more baker, and students watch average cost per cookie fall, bottom out, then rise again as a "factory floor" crowding meter fills up and the verdict text shifts from "economies of scale" to "sweet spot" to "diseconomies of scale — chaos." Do not skip past the moment the cost starts rising again — pause and ask "why would MORE workers make things more expensive per cookie?" before revealing the answer (crowding, workers getting in each other's way, harder to manage).</div>
+  <div class="p">The <strong>firm sort</strong> (slide s2) covers six real businesses spanning all three sectors and both ownership types — deliberately including a public-sector tertiary example (national postal service) alongside a private-sector one (hair salon), since students often default to assuming "tertiary = private."</div>
+  <div class="p">The <strong>merger negotiation round</strong> (slide s3) presents three distinct real-feeling scenarios so students practice telling horizontal, vertical, and conglomerate mergers apart by REASONING about the relationship between the two firms (same product? same supply chain? unrelated?) rather than memorising a definition cold.</div>
+  <div class="p">The <strong>lemonade monopoly role play</strong> (slide s4) lets students personally raise the price of the only lemonade stand in town and watch customers drop off — a direct, felt introduction to a monopolist's pricing power and its limits (raise the price too far and you lose customers entirely, which is itself a useful preview of demand responding to price).</div>
+  <div class="p">The <strong>used-bikes "lemons" teaser</strong> (slide s5) is intentionally light-touch: a 50/50 random outcome (a "peach" or a "lemon") that names "asymmetric information" explicitly on a bad outcome, without attempting the full IB HL treatment. Its only job is to plant the seed.</div>
+  <div class="p">Run the standalone <strong>Cookie Factory game</strong> (companion file) as an in-class centerpiece or homework kickoff. It extends the live-demo mechanic into a scored, round-based simulation with a genuine strategic decision point: partway through, a rival factory offers a horizontal merger, and accepting can push the player either right into the efficient zone OR straight into an overcrowded, loss-making one, depending on how big the player already is — directly reinforcing that a merger is just another fast way to change size, and size alone doesn't guarantee a better outcome.</div>
+  <div class="p">Close with the <strong>rapid round</strong> (slide s6, five true/false statements covering scale, sectors, mergers, monopoly, and asymmetric information) as consolidation — strong for cold-calling since answers are quick to justify aloud.</div>
+
+  <div class="section-tag" id="viz">Visuals &amp; Diagrams</div>
+  <div class="diagram-note">
+    <div class="dn-icon">🍪</div>
+    <div class="dn-text"><strong>The factory-floor crowding meter:</strong> a bar that fills as bakers are hired, paired with the live average-cost number — a felt, non-formal preview of the U-shaped average total cost (ATC) curve. No formal ATC diagram with labelled axes is drawn at this tier; that is explicitly Tier 2 content (newly explicit at IGCSE 2027–2029), where it will be built to exam standard.</div>
+  </div>
+  <div class="tip-box"><strong>Tip:</strong> if a student says "a bigger factory is always a better factory," redirect to the crowding meter and ask "what happens on the factory floor once it's TOO full of bakers?" — let them discover diseconomies of scale as a natural consequence of overcrowding, not an arbitrary rule.</div>
+
+  <div class="section-tag" id="worked">Worked Example</div>
+  <div class="p"><strong>Story:</strong> "A one-baker cookie stall sells slowly and each cookie costs a lot to make, because the oven and the rent are being paid for by almost nobody. The owner hires four more bakers — suddenly the oven is always full and each cookie gets much cheaper to bake. Excited, the owner keeps hiring… but by baker number twelve, the kitchen is so crowded that bakers are bumping into each other, ovens are double-booked, and mistakes pile up. Each cookie is now MORE expensive to make than it was at baker number five." Walk through why: the first few hires spread fixed costs (economies of scale); the later hires create crowding costs that outweigh the savings (diseconomies of scale) — this is exactly the shape the Cookie Factory game and live demo are built to let students discover for themselves.</div>
+
+  <div class="section-tag" id="misc">Common Misconceptions</div>
+  <div class="warn-box"><strong>"Hiring more workers always makes a business more efficient."</strong> Fix: point to the live demo's crowding meter and the moment average cost starts climbing again — efficiency gains from size have a limit, past which the same growth becomes a cost.</div>
+  <div class="warn-box"><strong>"A merger is automatically a good idea because the company gets bigger."</strong> Fix: use the Cookie Factory game's merger event — accepting when the factory is already near its efficient size can push it straight into an overcrowded, loss-making zone. Bigger is not automatically better.</div>
+  <div class="warn-box"><strong>"If there's only one seller, they can charge literally any price they want."</strong> Fix: use the lemonade role play — raise the price too far and customers walk away entirely. A monopolist has real pricing power, but it isn't unlimited; customers can still say no.</div>
+
+  <div class="section-tag" id="reflect">Think Like an Economist</div>
+  <div class="p">Prompt for open discussion or journaling: "Think of a group project, sports team, or club you've been part of that grew bigger over time. Did adding more people make things run BETTER, WORSE, or both — at different points? What made the difference?"</div>
+
+  <div class="section-tag" id="ext">Extension Activities</div>
+  <div class="list">
+    <li><strong>Sector &amp; ownership hunt:</strong> with a family member, name three businesses near your home and classify each by sector and ownership.</li>
+    <li><strong>Design your own merger:</strong> invent two fictional companies and describe a horizontal, a vertical, AND a conglomerate merger each of them could make — explain the difference each time.</li>
+    <li><strong>Monopoly spotting:</strong> think of one product or service where you or your family have only ONE realistic seller to choose from. What would change if a second seller suddenly showed up?</li>
+  </div>
+
+  <div class="section-tag" id="resources">Teaching Resources</div>
+  <div class="big-title">Kid-Friendly Glossary</div>
+  <table class="glossary">
+    <tr><td>Economies of scale</td><td>When growing bigger makes each item cheaper to produce, because fixed costs are spread over more output.</td></tr>
+    <tr><td>Diseconomies of scale</td><td>When growing TOO big makes each item more expensive again, often due to crowding or harder management.</td></tr>
+    <tr><td>Merger</td><td>When two firms join together to become one. Horizontal = same product; Vertical = same supply chain, different stage; Conglomerate = unrelated businesses.</td></tr>
+    <tr><td>Monopoly</td><td>A market with only ONE seller, who has more power over price than a seller in a market with many competitors.</td></tr>
+    <tr><td>Asymmetric information</td><td>When one side of a deal (often the seller) knows more about a product than the other side (the buyer).</td></tr>
+  </table>
+  <div class="takeaway-box">
+    <div class="tk-title">Key Takeaways</div>
+    <div class="p" style="margin-bottom:0">1. Growing bigger can make each item cheaper to produce (economies of scale) — but only up to a point, after which it can make things more expensive again (diseconomies of scale). 2. Firms differ by sector (primary/secondary/tertiary) and ownership (private/public). 3. Mergers combine firms in different ways — horizontal, vertical, or conglomerate — each with a different logic. 4. A monopoly (one seller) has more power over price than a firm in a competitive market, but customers can still walk away. 5. Buyers and sellers don't always know the same amount about a product — this asymmetric information is the seed of the "lemons" problem explored more formally at Tier 2 and IB HL.</div>
+  </div>
+
+  <div class="footer">M1L5 · Economics Academy · Stoic Edu</div>
+</div>
+</body>
+</html>

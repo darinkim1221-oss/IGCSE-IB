@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Notebook — Firms, Costs & Market Power (Tier 2) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:16px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.flow-strip { font-size:11px; color:var(--dim); background:var(--card); border-radius:10px; padding:10px 16px; margin-bottom:20px; font-family:'Space Mono',monospace; }
+.toc { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:30px; }
+.toc a { font-size:10px; text-decoration:none; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); padding:4px 10px; border-radius:20px; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:34px; scroll-margin-top:20px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:12px; }
+.p { font-size:13.5px; line-height:1.8; color:var(--white); margin-bottom:10px; }
+.p strong { color:var(--blue); }
+.list { font-size:13px; line-height:1.9; color:var(--white); padding-left:20px; margin-bottom:10px; }
+.kc-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+.kc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.obj-item { font-size:13px; line-height:1.8; padding:6px 0 6px 26px; position:relative; }
+.obj-item::before { content:'✓'; color:var(--teal); position:absolute; left:0; font-weight:700; }
+.obj-item .ao-tag { font-family:'Space Mono',monospace; font-size:9px; color:var(--gold); margin-left:6px; }
+
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:12px 18px; font-size:12.5px; color:var(--dim); line-height:1.7; margin:12px 0; }
+.tip-box strong { color:var(--gold); }
+.warn-box { border-left:3px solid var(--red); background:rgba(229,57,53,0.05); border-radius:0 10px 10px 0; padding:12px 18px; font-size:12.5px; color:var(--dim); line-height:1.7; margin:12px 0; }
+.warn-box strong { color:var(--red); }
+
+.diagram-note { display:flex; gap:16px; background:var(--card); border-radius:14px; padding:16px 18px; margin-bottom:12px; }
+.diagram-note .dn-icon { font-size:26px; flex-shrink:0; }
+.diagram-note .dn-text { font-size:12.5px; color:var(--dim); line-height:1.7; }
+.diagram-note .dn-text strong { color:var(--white); }
+
+table.glossary { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:8px; }
+table.glossary td { padding:8px 10px; border-bottom:1px solid rgba(0,0,0,0.08); vertical-align:top; }
+table.glossary td:first-child { font-weight:700; color:var(--blue); width:170px; }
+
+.adapter-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:10px; }
+.adapter-card { border:1px solid var(--border); border-radius:12px; padding:14px 16px; }
+.adapter-card .a-tag { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+.adapter-card.igcse .a-tag { color:var(--teal); }
+.adapter-card.ib .a-tag { color:var(--blue); }
+.adapter-card .p { font-size:12.5px; margin-bottom:6px; }
+
+.takeaway-box { background:linear-gradient(135deg,rgba(0,137,123,0.08),rgba(0,137,123,0.02)); border:1px solid rgba(0,137,123,0.25); border-radius:12px; padding:16px 20px; margin-top:10px; }
+.takeaway-box .tk-title { font-family:'Bebas Neue',sans-serif; font-size:16px; color:var(--teal); margin-bottom:8px; }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 1 · Microeconomics — Lesson 5</div>
+      <div class="k-title">Firms, Costs &amp; Market Power</div>
+      <div class="k-sub">Teacher Notebook · Tier 2 — Read the Map (Ages 13–15)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="flow-strip">SUGGESTED FLOW (55 min) — Hook (4) → AO1/AO2 command-term drill: cost &amp; revenue (5) → Cost/revenue calculation table (6) → ATC diagram (8) → Economies/diseconomies of scale (6) → Objectives of firms (4) → Types of firms: small vs. large (5) → Mergers with real cases (6) → Competitive vs. monopoly (5) → Firms &amp; production (5) → HL enrichment: spectrum &amp; asymmetric info (4) → Exam Adapter Slot (3) → Quiz (4)</div>
+  <div class="toc">
+    <a href="#obj">Objectives</a><a href="#kc">Key Concepts</a><a href="#notes">Teaching Notes</a>
+    <a href="#viz">Visuals</a><a href="#worked">Worked Example</a><a href="#misc">Misconceptions</a>
+    <a href="#adapter">Exam Adapter</a><a href="#ext">Extensions</a><a href="#resources">Resources</a>
+  </div>
+
+  <div class="section-tag" id="obj">Learning Objectives</div>
+  <div class="big-title">By the end, students can…</div>
+  <div class="obj-item">define and calculate TC, ATC, FC, AFC, VC, AVC, TR, and AR from raw data, showing full working <span class="ao-tag">AO1/AO2</span></div>
+  <div class="obj-item">draw and correctly label the ATC diagram, identifying the minimum efficient scale and the economies/diseconomies zones <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">distinguish internal from external economies and diseconomies of scale, with original examples <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">name the four objectives a firm may pursue (profit maximisation, growth, survival, social welfare) and identify which applies to a given scenario <span class="ao-tag">AO1/AO2</span></div>
+  <div class="obj-item">classify firms by sector and ownership, and compare advantages of small vs. large firms <span class="ao-tag">AO1/AO2</span></div>
+  <div class="obj-item">distinguish horizontal, vertical, and conglomerate mergers using real-world cases <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">compare a competitive market and a monopoly on price, choice, and long-run profit, without formal diagrams or theory <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">[IB HL] place market structures on the perfect-competition-to-monopoly spectrum and explain the asymmetric-information "lemons" problem</div>
+
+  <div class="section-tag" id="kc">Key Concepts &amp; the IB Lens</div>
+  <div class="kc-row"><span class="kc-chip">Efficiency (primary)</span><span class="kc-chip">Choice (primary)</span><span class="kc-chip">Interdependence (primary)</span></div>
+  <div class="p">M1L5 is the course's first formal treatment of the FIRM as a decision-making unit — where M1L4 asked "does the market get it right?", M1L5 asks "how does the firm itself behave, and what does that do to price, choice, and quality for everyone else?" This lesson also carries this course's first sustained numerical fluency requirement outside elasticity (M1L3) — cost and revenue calculations with working shown are now examined discipline, not optional extra. The ATC diagram is flagged in the wiki as <strong>newly explicit at IGCSE 2027–2029</strong> — treat it with the same "drawing-REQUIRED" seriousness as the four M1L4 intervention diagrams. The competitive-vs-monopoly content is explicitly qualitative at IGCSE (no diagrams/formal theory) — the full market-structure spectrum and its cost/revenue models are IB HL content only, seeded here as enrichment.</div>
+
+  <div class="section-tag" id="notes">Detailed Teaching Notes</div>
+  <div class="big-title">From calculation to diagram to market structure</div>
+  <div class="p">Open with the hook framed as a testable hypothesis (slide s0): "profit isn't a mystery number — it's what's left after every cost of production is subtracted from every unit of revenue." This reframes the lesson as building a calculation toolkit, not memorising a definition list. Run the command-term drill (slide s1) across <em>Define / Calculate / Compare</em> before the full worked table appears — students should see that "calculate" demands formula + substitution + labelled final answer, not just a number.</div>
+  <div class="p">The <strong>cost &amp; revenue calculation table</strong> (slide s2) walks TC, AFC, AVC, ATC, TR, AR, and profit from one consistent bakery scenario. Insist students verify ATC = AFC + AVC as a self-check — this catches most arithmetic slips before they compound into a wrong profit figure.</div>
+  <div class="p">The <strong>ATC diagram</strong> (slide s3) is this lesson's newly-explicit-at-IGCSE drawing skill. Drill the sequence every time: (1) draw a U-shaped curve against quantity; (2) label the falling (left) arm as economies of scale; (3) mark the lowest point as Q(MES) — minimum efficient scale — with a dashed line to the quantity axis; (4) label the rising (right) arm as diseconomies of scale. The single most common mark-loss is students drawing a straight downward-sloping cost curve (confusing it with a demand curve) rather than a genuine U-shape — check this explicitly before independent practice.</div>
+  <div class="p">The <strong>economies/diseconomies of scale tabs</strong> (slide s4) split the concept into four cells students often blur together: internal economies (a firm's OWN bulk-buying, technical, managerial, or financial advantages of size), internal diseconomies (communication/coordination problems inside an oversized single firm), external economies (advantages available to EVERY firm because a whole industry has clustered in one area — a shared skilled labour pool, specialist local suppliers), and external diseconomies (congestion, rising local wages/rents as a whole industry over-grows in one place). The internal/external distinction is the one worth testing explicitly — many students correctly describe an economy of scale but misattribute it as internal when it is actually industry-wide (external).</div>
+  <div class="p">The <strong>objectives of firms</strong> slide (s5) deliberately unsettles the default assumption that every firm simply maximises profit — introduce growth, survival, and social welfare as equally real objectives with concrete triggers (a new competitor forcing a survival-pricing decision; a public transport operator prioritising service over profit).</div>
+  <div class="p">The <strong>types of firms</strong> slide (s6) reviews sector (primary/secondary/tertiary) and ownership (private/public) from Tier 1's firm sort, then adds the small-vs-large advantage table — push students to see this as trade-offs, not a "large firms are always better" narrative.</div>
+  <div class="p">The <strong>mergers</strong> tabs (slide s7) use concrete, recognisable-type cases for each merger type — same-industry same-stage (horizontal), same-supply-chain different-stage (vertical), and unrelated-industry (conglomerate). Push students to justify the classification by REASONING about the relationship between the two firms, not by memorising the example itself, since exam questions will use unfamiliar firms.</div>
+  <div class="p">The <strong>competitive vs. monopoly comparison</strong> (slide s8) is explicitly qualitative at this tier — no demand/supply diagram or formal profit-maximisation model is drawn. Keep the comparison to price, choice/variety, and long-run profit, structured so BOTH market types are addressed for each feature (the "compare" command-word discipline).</div>
+  <div class="p">The <strong>firms &amp; production</strong> tabs (slide s9) introduce factor demand as "derived demand" (firms want labour/capital because of what it produces, not for its own sake), the labour-vs-capital-intensive distinction, and the production-vs-productivity distinction — the last of these is worth emphasising since students often conflate "producing more" (production) with "producing more efficiently" (productivity).</div>
+  <div class="p">The <strong>HL enrichment</strong> tabs (slide s10) are clearly tagged as beyond IGCSE — the market-structure spectrum extends the competitive-vs-monopoly binary into perfect competition/monopolistic competition/oligopoly/monopoly, and the asymmetric-information "lemons" problem previews IB HL 2.10. Treat both as a teaser, not a full treatment — the goal is familiarity, not mastery, at this tier.</div>
+
+  <div class="section-tag" id="viz">Visuals &amp; Diagrams</div>
+  <div class="diagram-note">
+    <div class="dn-icon">📉</div>
+    <div class="dn-text"><strong>The ATC diagram:</strong> a single U-shaped curve against quantity — falling arm (economies of scale), a labelled minimum point Q(MES), rising arm (diseconomies of scale). This is the lesson's one required diagram; unlike M1L4's four D/S-based diagrams, it plots a cost curve alone (no separate demand curve needed).</div>
+  </div>
+  <div class="tip-box"><strong>Tip:</strong> the wiki flags this diagram as "newly explicit" at IGCSE 2027–2029 — if any legacy materials or past-paper practice from before this syllabus revision are used alongside this lesson, double-check they don't imply the ATC diagram was previously optional. Treat it as core, examined content going forward.</div>
+
+  <div class="section-tag" id="worked">Worked Example</div>
+  <div class="p"><strong>Exam-style prompt:</strong> "A small bakery is considering a horizontal merger with a rival bakery to reduce its average total cost. Explain whether this is likely to succeed." Model: (1) identify where the bakery currently sits on its ATC curve — if it is still on the FALLING arm (below Q(MES)), merging to combine output can genuinely lower ATC by spreading fixed costs (economies of scale); (2) if it is already AT or PAST Q(MES), merging risks pushing combined output into the RISING arm (diseconomies of scale) instead; (3) conclude that the answer is conditional on the firm's current position on the ATC curve, not automatic — this is the exact CLAIM → EVIDENCE → LINK structure required in workbook Q11.</div>
+
+  <div class="section-tag" id="misc">Common Misconceptions</div>
+  <div class="warn-box"><strong>"A bigger firm always has lower average costs."</strong> Fix: point to the rising arm of the ATC diagram — diseconomies of scale are a real, examinable phenomenon, not a hypothetical edge case. Growth only lowers ATC up to Q(MES).</div>
+  <div class="warn-box"><strong>"AR and Price are different numbers."</strong> Fix: for a firm selling all output at one price, AR = TR ÷ Q = (P × Q) ÷ Q = P — they are numerically identical. AR only diverges from price when a firm price-discriminates, which is beyond this lesson's scope.</div>
+  <div class="warn-box"><strong>"A monopoly can charge literally any price it wants."</strong> Fix: a monopolist has real pricing power, but customers can still refuse to buy — demand still constrains the profit-maximising price, it just constrains it less tightly than in a competitive market.</div>
+
+  <div class="section-tag" id="adapter">Exam Adapter Slot</div>
+  <div class="big-title">Source: Wiki §7 drip map, row M1 L5 ("Analysis")</div>
+  <div class="p">Skill focus this lesson: <strong>cost/revenue calculations; advantages/disadvantages table; competitive vs. monopoly comparison.</strong> Command terms in play: <em>calculate, compare, suggest.</em></div>
+  <div class="adapter-grid">
+    <div class="adapter-card igcse">
+      <div class="a-tag">IGCSE (AO2)</div>
+      <div class="p">Numerical questions with working; competitive-vs-monopoly structured comparison. Every calculation question awards marks for the formula, the correct substitution, AND the final labelled answer — never award full credit for a bare final number with no method shown.</div>
+      <div class="p" style="color:var(--dim);font-size:11.5px">Practice move: give students raw FC/VC/Q/P data with no formulas provided and have them derive TC, ATC, TR, and profit independently, checking their own work with the ATC = AFC + AVC identity.</div>
+    </div>
+    <div class="adapter-card ib">
+      <div class="a-tag">IB (AO2)</div>
+      <div class="p">Apply theory to a firm scenario; "analyse" paragraph — claim → evidence → link. Given a real or hypothetical firm scenario, students apply cost/revenue and market-structure concepts to explain what's happening and why, rather than reciting definitions in isolation.</div>
+      <div class="p" style="color:var(--dim);font-size:11.5px">Practice move: for any firm decision studied this lesson (merge? grow? which objective to pursue?), require an explicit CLAIM → EVIDENCE → LINK structure — this is the exact scaffold used in workbook Q11 and is the foundation for "evaluate" later in the course.</div>
+    </div>
+  </div>
+
+  <div class="section-tag" id="ext">Extension Activities</div>
+  <div class="list">
+    <li><strong>Real firm cost hunt:</strong> research a real small business (local or online) and estimate its likely fixed and variable costs, then calculate a rough ATC for a plausible output level.</li>
+    <li><strong>Merger case study:</strong> find a real recent merger in the news and classify it as horizontal, vertical, or conglomerate, explaining your reasoning from the two firms' actual business activities.</li>
+    <li><strong>[IB HL] Spectrum mapping:</strong> pick four real markets you interact with (e.g. smartphone manufacturers, your local corner shop, national electricity supply, a specific soft drink brand) and place each on the perfect-competition-to-monopoly spectrum, justifying your placement.</li>
+  </div>
+
+  <div class="section-tag" id="resources">Teaching Resources</div>
+  <div class="big-title">Exam-Precise Glossary</div>
+  <table class="glossary">
+    <tr><td>Total cost (TC)</td><td>Fixed costs plus variable costs — the full cost of producing a given output. TC = FC + VC.</td></tr>
+    <tr><td>Average total cost (ATC)</td><td>The cost of producing one typical unit — TC ÷ Q. Falls (economies of scale) then rises (diseconomies of scale) as output grows.</td></tr>
+    <tr><td>Economies of scale</td><td>Falling average cost as output/size increases, up to the minimum efficient scale (Q(MES)).</td></tr>
+    <tr><td>Diseconomies of scale</td><td>Rising average cost as output/size increases beyond Q(MES), often from management/coordination problems.</td></tr>
+    <tr><td>Merger (horizontal/vertical/conglomerate)</td><td>Two firms joining into one — same product/stage (horizontal), same supply chain different stage (vertical), or unrelated industries (conglomerate).</td></tr>
+    <tr><td>Monopoly</td><td>A market with a single dominant seller, able to sustain a higher price and offer less choice than a competitive market.</td></tr>
+    <tr><td>Asymmetric information</td><td>[IB HL] When one side of a transaction (often the seller) knows more than the other, which can drive good-quality products out of a market.</td></tr>
+  </table>
+  <div class="takeaway-box">
+    <div class="tk-title">Key Takeaways</div>
+    <div class="p" style="margin-bottom:0">1. Cost and revenue calculations (TC, ATC, FC, AFC, VC, AVC, TR, AR) must show full working — the formula and substitution earn marks even before the final answer. 2. The ATC diagram is drawing-REQUIRED at IGCSE (newly explicit 2027–2029) — a genuine U-shape with a labelled Q(MES), not a straight line. 3. Economies and diseconomies of scale each split into internal (firm-specific) and external (industry-wide) causes — don't let students blur the two. 4. Mergers combine firms in three distinct ways (horizontal/vertical/conglomerate), each with a different underlying logic. 5. Competitive-vs-monopoly comparison is qualitative at IGCSE (price, choice, profit) — the full formal market-structure spectrum and asymmetric-information model are IB HL enrichment only.</div>
+  </div>
+
+  <div class="footer">M1L5 · Economics Academy · Stoic Edu — Teacher Notebook</div>
+</div>
+</body>
+</html>

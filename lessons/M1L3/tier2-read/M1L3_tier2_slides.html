@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elasticity: Measuring Responsiveness | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif; overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center; }
+#slide-frame { position:relative; width:960px; height:540px; background:var(--bg); border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0; }
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none; transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box; }
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%); pointer-events:none; }
+#nav { position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border); border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
+.tag { display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; }
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,3.6vw,40px); line-height:1.05; margin-bottom:14px; color:var(--white); }
+.btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.ped-diagram { position:relative; z-index:2; width:260px; height:220px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(30px,5vw,52px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:360px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 hook ===== */
+#s0 { text-align:center; }
+.hyp-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 26px; max-width:640px; margin-top:10px; }
+.hyp-lbl { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; }
+.hyp-text { font-size:13px; color:var(--dim); line-height:1.7; margin-top:6px; }
+
+/* ===== s1 command term drill ===== */
+#s1 { flex-direction:column; gap:12px; }
+.cmd-tabs { display:flex; gap:8px; }
+.cmd-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
+.cmd-tab.active { background:var(--gold); color:#fff; }
+.cmd-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 24px; max-width:700px; width:100%; min-height:110px; }
+.cmd-answer { font-size:13.5px; line-height:1.8; color:var(--white); }
+.cmd-answer strong { color:var(--blue); }
+
+/* ===== s2 calculation walkthrough ===== */
+#s2 { flex-direction:column; gap:10px; }
+.calc-wrap { display:flex; gap:22px; max-width:860px; width:100%; align-items:flex-start; }
+.calc-scenario { width:260px; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 18px; font-size:12.5px; line-height:1.8; color:var(--dim); }
+.calc-scenario strong { color:var(--white); }
+.calc-steps { flex:1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; }
+.calc-line { font-family:'Space Mono',monospace; font-size:12.5px; color:var(--dim); padding:5px 0; opacity:0.25; transition:opacity 0.3s; }
+.calc-line.show { opacity:1; color:var(--white); }
+.calc-line strong { color:var(--blue); }
+.calc-final { font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--teal); margin-top:6px; }
+
+/* ===== s3 five-value ===== */
+#s3 { flex-direction:column; gap:10px; }
+.pv-wrap { display:flex; gap:22px; max-width:860px; width:100%; align-items:center; }
+.pv-graph { flex:1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:10px; }
+.pv-tabs { width:240px; display:flex; flex-direction:column; gap:6px; }
+.pv-tab { background:#fff; border:1px solid rgba(0,0,0,0.1); border-radius:10px; padding:7px 12px; font-size:11.5px; cursor:pointer; color:var(--dim); }
+.pv-tab.active { border-color:var(--blue); background:rgba(13,45,82,0.06); color:var(--blue); font-weight:700; }
+.pv-legend { font-size:11px; color:var(--dim); line-height:1.6; margin-top:4px; }
+
+/* ===== s4 revenue link ===== */
+#s4 { flex-direction:column; gap:10px; }
+.rev-wrap { display:flex; gap:22px; max-width:860px; width:100%; align-items:center; }
+.rev-graph { flex:1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:10px; }
+.rev-controls { width:250px; }
+.rev-readout { font-size:12px; color:var(--dim); line-height:1.8; margin-top:8px; }
+.rev-readout strong { color:var(--white); }
+
+/* ===== s5 determinants ===== */
+#s5 { flex-direction:column; gap:12px; }
+.det-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; max-width:800px; }
+.det-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:9px 11px; font-size:11px; color:var(--white); }
+.det-card strong { color:var(--blue); display:block; font-size:11.5px; margin-bottom:2px; }
+
+/* ===== s6 PES ===== */
+#s6 { flex-direction:column; gap:10px; }
+.pes-tabs { display:flex; gap:8px; }
+.pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
+.pes-tab.active { background:var(--teal); color:#fff; }
+.pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:800px; width:100%; min-height:170px; }
+
+/* ===== s7 IB enrichment ===== */
+#s7 { flex-direction:column; gap:10px; }
+.ib-tabs { display:flex; gap:8px; }
+.ib-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
+.ib-tab.active { background:var(--blue); color:#fff; }
+.ib-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:800px; width:100%; min-height:170px; font-size:12.5px; line-height:1.8; color:var(--white); }
+.ib-panel strong { color:var(--blue); }
+
+/* ===== adapter ===== */
+#s-adapter { flex-direction:column; gap:10px; }
+.adapter-tabs { display:flex; gap:8px; margin-bottom:4px; }
+.adapter-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 22px; border-radius:20px; cursor:pointer; }
+.adapter-tab.active.igcse { background:var(--teal); color:#fff; }
+.adapter-tab.active.ib { background:var(--blue); color:#fff; }
+.adapter-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 26px; max-width:760px; width:100%; font-size:13px; line-height:1.8; color:var(--white); }
+.adapter-panel strong { color:var(--blue); }
+
+/* ===== quiz ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:17px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left"><canvas id="coverCanvas" width="260" height="220" class="ped-diagram"></canvas></div>
+  <div class="cover-right">
+    <div class="cover-module">Module 1 · Microeconomics — Lesson 3</div>
+    <div class="cover-title">Elasticity:<br><span>Measuring Responsiveness</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">Not every price change hits every good the same way. Learn to calculate exactly how responsive buyers and sellers really are — and why it matters for firms and governments alike.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">PED</span><span class="cc-chip">PES</span>
+        <span class="cc-chip">Revenue Rule</span><span class="cc-chip">Tax Incidence</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 13–15</div>
+      <div class="cover-pill">IGCSE + IB</div>
+      <div class="cover-pill">55 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0 HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="tag">Hypothesis</div>
+  <div class="big-title" style="max-width:780px;text-align:center">Raising a price can sometimes make a firm LESS money — and elasticity tells you exactly when.</div>
+  <div class="hyp-box">
+    <div class="hyp-lbl">TEST IT</div>
+    <div class="hyp-text">If this is true, we should be able to calculate, in advance, exactly how a price change will move a firm's total revenue — without guessing. That number is the price elasticity of demand (PED). Today: the formula, the five-value vocabulary, and the single most-tested application in this topic — the revenue rule.</div>
+  </div>
+</section>
+
+<!-- ============ s1 COMMAND TERM DRILL ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">AO1 Precision</div>
+    <div class="big-title">Same Concept, Different Command Word</div>
+  </div>
+  <div class="cmd-tabs" id="cmdTabs"></div>
+  <div class="cmd-box"><div class="cmd-answer" id="cmdAnswer"></div></div>
+</section>
+
+<!-- ============ s2 CALCULATION WALKTHROUGH ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Show Your Working</div>
+    <div class="big-title">Calculating PED, Step by Step</div>
+  </div>
+  <div class="calc-wrap">
+    <div class="calc-scenario">
+      <strong>Scenario</strong><br>
+      The price of a train ticket rises from <strong>$10</strong> to <strong>$12</strong>.<br>
+      Quantity demanded falls from <strong>100</strong> to <strong>70</strong> tickets/day.<br><br>
+      <button class="btn" style="font-size:12px;padding:7px 16px" onclick="calcNext()">Next Step →</button>
+    </div>
+    <div class="calc-steps" id="calcSteps"></div>
+  </div>
+</section>
+
+<!-- ============ s3 FIVE-VALUE VOCABULARY ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">The Five-Value Vocabulary</div>
+    <div class="big-title">From Perfectly Inelastic to Perfectly Elastic</div>
+  </div>
+  <div class="pv-wrap">
+    <div class="pv-graph"><canvas id="pvCanvas" width="440" height="230"></canvas></div>
+    <div class="pv-tabs" id="pvTabs"></div>
+  </div>
+</section>
+
+<!-- ============ s4 REVENUE LINK ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">The Most-Tested Application</div>
+    <div class="big-title">PED &amp; Total Revenue</div>
+  </div>
+  <div class="rev-wrap">
+    <div class="rev-graph"><canvas id="revCanvas" width="440" height="230"></canvas></div>
+    <div class="rev-controls">
+      <button class="pv-tab active" style="display:block;width:100%;margin-bottom:6px" onclick="setRevMode('elastic',this)">Elastic good, price ↑</button>
+      <button class="pv-tab" style="display:block;width:100%;margin-bottom:6px" onclick="setRevMode('inelastic',this)">Inelastic good, price ↑</button>
+      <div class="rev-readout" id="revReadout"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s5 DETERMINANTS OF PED ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Why Does PED Vary?</div>
+    <div class="big-title">Determinants of Price Elasticity of Demand</div>
+  </div>
+  <div class="det-grid" id="detGrid"></div>
+</section>
+
+<!-- ============ s6 PES ============ -->
+<section class="slide" id="s6">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">The Seller's Side</div>
+    <div class="big-title">Price Elasticity of Supply (PES)</div>
+  </div>
+  <div class="pes-tabs" id="pesTabs"></div>
+  <div class="pes-panel" id="pesPanel"></div>
+</section>
+
+<!-- ============ s7 IB ENRICHMENT ============ -->
+<section class="slide" id="s7">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">IB Enrichment</div>
+    <div class="big-title">Beyond PED &amp; PES</div>
+  </div>
+  <div class="ib-tabs" id="ibTabs"></div>
+  <div class="ib-panel" id="ibPanel"></div>
+</section>
+
+<!-- ============ EXAM ADAPTER SLOT ============ -->
+<section class="slide" id="s-adapter">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Exam Adapter Slot</div>
+    <div class="big-title">Same Skill — Different Exam</div>
+  </div>
+  <div class="adapter-tabs">
+    <button class="adapter-tab active igcse" onclick="setAdapter('igcse',this)">IGCSE</button>
+    <button class="adapter-tab" onclick="setAdapter('ib',this)">IB</button>
+  </div>
+  <div class="adapter-panel" id="adapterPanel"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">Calculation &amp; Interpretation Check</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const QUIZ_SLIDE_IDX = 10;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+  if (slides[cur].id === 's3') drawPV();
+  if (slides[cur].id === 's4') drawRev();
+  if (slides[cur].id === 's-cover') drawCover();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ COVER DIAGRAM ============
+function drawCover() {
+  const c = document.getElementById('coverCanvas'); const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,260,220);
+  ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(30,10); ctx.lineTo(30,190); ctx.lineTo(240,190); ctx.stroke();
+  // steep (inelastic) line
+  ctx.strokeStyle='#00c9a7'; ctx.lineWidth=2.5;
+  ctx.beginPath(); ctx.moveTo(90,20); ctx.lineTo(120,180); ctx.stroke();
+  ctx.fillStyle='#00c9a7'; ctx.font='10px monospace'; ctx.fillText('STIFF', 96, 16);
+  // flat (elastic) line
+  ctx.strokeStyle='#f5c842'; ctx.lineWidth=2.5;
+  ctx.beginPath(); ctx.moveTo(40,60); ctx.lineTo(230,150); ctx.stroke();
+  ctx.fillStyle='#f5c842'; ctx.fillText('STRETCHY', 170, 145);
+}
+drawCover();
+
+// ============ s1 COMMAND TERM DRILL ============
+const CMDS = [
+  {key:'define', lbl:'Define', ans:'<strong>Define price elasticity of demand.</strong> PED measures the responsiveness of quantity demanded to a change in price, calculated as %change in quantity demanded ÷ %change in price.'},
+  {key:'state', lbl:'State', ans:'<strong>State the formula for PED.</strong> PED = %ΔQd / %ΔP.'},
+  {key:'describe', lbl:'Describe', ans:'<strong>Describe what a PED value of -0.3 means.</strong> Demand is price inelastic: a 1% rise in price causes quantity demanded to fall by only 0.3% — buyers barely react.'}
+];
+let cmdActive = 0;
+const cmdTabs = document.getElementById('cmdTabs');
+CMDS.forEach((c,i) => {
+  const b = document.createElement('button');
+  b.className = 'cmd-tab' + (i===0?' active':'');
+  b.textContent = c.lbl;
+  b.onclick = () => { cmdActive=i; document.querySelectorAll('.cmd-tab').forEach(t=>t.classList.remove('active')); b.classList.add('active'); renderCmd(); };
+  cmdTabs.appendChild(b);
+});
+function renderCmd() { document.getElementById('cmdAnswer').innerHTML = CMDS[cmdActive].ans + `<div style="margin-top:10px;font-size:11px;color:var(--dim)">Notice how answer length and depth changes with the command word — this is examined discipline, not decoration.</div>`; }
+renderCmd();
+
+// ============ s2 CALCULATION WALKTHROUGH ============
+const CALC_STEPS = [
+  `<span class="calc-line"><strong>Step 1 — Formula:</strong> PED = %ΔQd ÷ %ΔP</span>`,
+  `<span class="calc-line"><strong>Step 2 — %ΔQd:</strong> (70 − 100) ÷ 100 × 100 = <strong>−30%</strong></span>`,
+  `<span class="calc-line"><strong>Step 3 — %ΔP:</strong> (12 − 10) ÷ 10 × 100 = <strong>+20%</strong></span>`,
+  `<span class="calc-line"><strong>Step 4 — Divide:</strong> PED = −30% ÷ 20% = <strong>−1.5</strong></span>`,
+  `<span class="calc-line"><strong>Step 5 — Interpret (ignore the sign, use the size):</strong> |PED| = 1.5 &gt; 1 → demand is <strong>price ELASTIC</strong>.</span>`,
+  `<span class="calc-line"><strong>Step 6 — Implication:</strong> Since demand is elastic, this price rise will REDUCE total revenue — quantity fell proportionally more than price rose.</span>`
+];
+let calcIdx = 0;
+const calcStepsEl = document.getElementById('calcSteps');
+function renderCalc() {
+  calcStepsEl.innerHTML = CALC_STEPS.map((s,i) => s.replace('class="calc-line"', `class="calc-line${i<=calcIdx?' show':''}"`)).join('');
+  if (calcIdx >= CALC_STEPS.length-1) calcStepsEl.innerHTML += `<div class="calc-final">Full working shown ✓ — this is exactly the "show your working, interpret, state the implication" structure examiners require.</div>`;
+}
+function calcNext() { calcIdx = Math.min(CALC_STEPS.length-1, calcIdx+1); renderCalc(); }
+renderCalc();
+
+// ============ s3 FIVE-VALUE VOCABULARY ============
+const PV_MODES = [
+  {key:'peri', lbl:'Perfectly Inelastic (PED=0)', legend:'Quantity demanded does not change AT ALL as price changes — a vertical demand curve. Extremely rare in reality (e.g. a life-saving drug with a fixed dose need).'},
+  {key:'inelastic', lbl:'Inelastic (0<PED<1)', legend:'Quantity demanded changes proportionally LESS than price — a steep curve. E.g. petrol in the short run.'},
+  {key:'unitary', lbl:'Unitary (PED=1)', legend:'Quantity demanded changes by exactly the same % as price — total revenue stays constant as price changes.'},
+  {key:'elastic', lbl:'Elastic (PED>1)', legend:'Quantity demanded changes proportionally MORE than price — a flatter curve. E.g. one brand of soda among many.'},
+  {key:'pes', lbl:'Perfectly Elastic (PED=∞)', legend:'Any price rise above the going rate causes quantity demanded to fall to ZERO — a horizontal demand curve. Approximated by a single small firm in a perfectly competitive market.'}
+];
+let pvMode = 0;
+const pvTabsEl = document.getElementById('pvTabs');
+PV_MODES.forEach((m,i) => {
+  const b = document.createElement('button');
+  b.className = 'pv-tab' + (i===0?' active':'');
+  b.textContent = m.lbl;
+  b.onclick = () => { pvMode=i; document.querySelectorAll('.pv-tab').forEach(t=>t.classList.remove('active')); b.classList.add('active'); drawPV(); };
+  pvTabsEl.appendChild(b);
+});
+function drawPV() {
+  const c = document.getElementById('pvCanvas'); if (!c) return; const ctx = c.getContext('2d');
+  const w=440,h=230,pad=40;
+  ctx.clearRect(0,0,w,h);
+  ctx.strokeStyle='rgba(90,106,128,0.4)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(pad,10); ctx.lineTo(pad,h-pad); ctx.lineTo(w-10,h-pad); ctx.stroke();
+  ctx.fillStyle='#5a6a80'; ctx.font='10px monospace';
+  ctx.fillText('Quantity →', w-70, h-12); ctx.save(); ctx.translate(14,50); ctx.rotate(-Math.PI/2); ctx.fillText('Price →',0,0); ctx.restore();
+  ctx.strokeStyle='#0d2d52'; ctx.lineWidth=2.5; ctx.beginPath();
+  const m = PV_MODES[pvMode].key;
+  if (m === 'peri') { ctx.moveTo(pad+120,20); ctx.lineTo(pad+120,h-pad-10); }
+  else if (m === 'inelastic') { ctx.moveTo(pad+80,20); ctx.lineTo(pad+160,h-pad-10); }
+  else if (m === 'unitary') { ctx.moveTo(pad+20,20); ctx.moveTo(pad+30,h-pad-100); for(let x=pad+30;x<w-30;x+=2){ const q=x-pad; const p=(h-pad-10)-3500/(q+20); ctx.lineTo(x, Math.max(20,Math.min(h-pad-10,p))); } }
+  else if (m === 'elastic') { ctx.moveTo(pad+15,60); ctx.lineTo(w-30,h-pad-40); }
+  else { ctx.moveTo(pad+15,90); ctx.lineTo(w-30,90); }
+  ctx.stroke();
+  ctx.fillStyle='#0d2d52'; ctx.font='bold 12px sans-serif'; ctx.fillText('D', w-40, m==='pes'?85:(h-pad-16));
+  document.getElementById('pvLegendHolder');
+  // legend text placed under tabs via separate element
+  const legendEl = document.querySelector('.pv-legend') || (() => { const d=document.createElement('div'); d.className='pv-legend'; document.getElementById('pvTabs').appendChild(d); return d; })();
+  legendEl.textContent = PV_MODES[pvMode].legend;
+}
+drawPV();
+
+// ============ s4 REVENUE LINK ============
+let revMode = 'elastic';
+function setRevMode(m, el) { revMode = m; document.querySelectorAll('#s4 .pv-tab').forEach(b=>b.classList.remove('active')); el.classList.add('active'); drawRev(); }
+function drawRev() {
+  const c = document.getElementById('revCanvas'); if (!c) return; const ctx = c.getContext('2d');
+  const w=440,h=230,pad=40;
+  ctx.clearRect(0,0,w,h);
+  ctx.strokeStyle='rgba(90,106,128,0.4)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(pad,10); ctx.lineTo(pad,h-pad); ctx.lineTo(w-10,h-pad); ctx.stroke();
+  let oldP, oldQ, newP, newQ, readout;
+  if (revMode === 'elastic') {
+    oldP=60; oldQ=180; newP=100; newQ=60;
+    readout = `<strong>Elastic good (PED &gt; 1):</strong> price rises from $6 to $10 (+67%), quantity falls from 60 to 20 units/day (−67%... exaggerated for illustration).<br><br>Old revenue = $6 × 60 = <strong>$360</strong><br>New revenue = $10 × 20 = <strong>$200</strong><br><span style="color:var(--red)">Revenue FALLS — the price rise costs the firm money.</span>`;
+  } else {
+    oldP=60; oldQ=170; newP=100; newQ=150;
+    readout = `<strong>Inelastic good (PED &lt; 1):</strong> price rises from $6 to $10 (+67%), quantity falls only slightly from 60 to 55 units/day.<br><br>Old revenue = $6 × 60 = <strong>$360</strong><br>New revenue = $10 × 55 = <strong>$550</strong><br><span style="color:var(--teal)">Revenue RISES — buyers keep buying almost regardless of price.</span>`;
+  }
+  // old rectangle
+  ctx.fillStyle = 'rgba(200,150,10,0.18)';
+  ctx.fillRect(pad, h-pad-oldP*0.55, oldQ*0.9, oldP*0.55);
+  // new rectangle outline
+  ctx.strokeStyle = revMode==='elastic' ? '#e53935' : '#00897b'; ctx.lineWidth = 2.5;
+  ctx.strokeRect(pad, h-pad-newP*0.55, newQ*0.9, newP*0.55);
+  ctx.fillStyle = '#5a6a80'; ctx.font = '10px monospace';
+  ctx.fillText('Shaded = old revenue (P×Q) · Outline = new revenue', pad, 20);
+  document.getElementById('revReadout').innerHTML = readout;
+}
+drawRev();
+
+// ============ s5 DETERMINANTS OF PED ============
+const PED_DETS = [
+  {n:'Number of substitutes', d:'More close substitutes → more elastic. Fewer/none → more inelastic.'},
+  {n:'Necessity vs luxury', d:'Necessities tend to be inelastic; luxuries tend to be elastic.'},
+  {n:'% of income spent', d:'A bigger share of the budget → more elastic (price rises really hurt).'},
+  {n:'Time period', d:'Demand becomes MORE elastic over time as buyers find substitutes/adjust habits.'},
+  {n:'Habit / addiction', d:'Addictive goods (e.g. tobacco) tend to be inelastic even at high income shares.'},
+  {n:'Breadth of definition', d:'"Food" is inelastic; "one brand of cereal" is elastic — narrower definition, more substitutes.'}
+];
+document.getElementById('detGrid').innerHTML = PED_DETS.map(d => `<div class="det-card"><strong>${d.n}</strong>${d.d}</div>`).join('');
+
+// ============ s6 PES ============
+const PES_TABS = [
+  {key:'define', lbl:'Definition & Formula', html:`<strong>Price elasticity of supply (PES)</strong> measures the responsiveness of quantity supplied to a change in price.<br><br><strong>PES = %ΔQs ÷ %ΔP</strong><br><br>Unlike PED, PES is (almost) always positive — supply curves slope upward, so price and quantity supplied move in the same direction.`},
+  {key:'calc', lbl:'Worked Calculation', html:`A rise in price from $4 to $5 (+25%) causes quantity supplied to rise from 200 to 280 units (+40%).<br><br>PES = 40% ÷ 25% = <strong>1.6</strong><br><br>Since PES &gt; 1, supply is <strong>elastic</strong> — sellers can ramp up production proportionally more than the price rose.`},
+  {key:'values', lbl:'Five-Value Interpretation', html:`Same structure as PED, but always ≥ 0:<br>• PES = 0 → perfectly inelastic (fixed supply, e.g. original artwork)<br>• 0 &lt; PES &lt; 1 → inelastic<br>• PES = 1 → unitary<br>• PES &gt; 1 → elastic<br>• PES = ∞ → perfectly elastic (constant-cost industry, flat supply curve)`},
+  {key:'dets', lbl:'Determinants', html:`<strong>Time to produce/respond:</strong> longer production time → less elastic (short-run supply is often steep).<br><strong>Spare capacity:</strong> unused factories/machines → more elastic.<br><strong>Ease of storage:</strong> storable goods → more elastic (can release stock quickly).<br><strong>Mobility of factors of production:</strong> factors that switch easily between uses → more elastic.`}
+];
+let pesActive = 0;
+const pesTabsEl = document.getElementById('pesTabs');
+PES_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { pesActive=i; document.querySelectorAll('.pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderPes(); };
+  pesTabsEl.appendChild(b);
+});
+function renderPes() { document.getElementById('pesPanel').innerHTML = `<div style="font-size:13px;line-height:1.8;color:var(--white)">${PES_TABS[pesActive].html}</div>`; }
+renderPes();
+
+// ============ s7 IB ENRICHMENT ============
+const IB_TABS = [
+  {key:'yed', lbl:'YED (Income Elasticity)', html:`<strong>YED = %ΔQd ÷ %ΔIncome</strong><br><br>Unlike PED, the SIGN of YED is the whole point:<br>• <strong>YED &gt; 0 (positive):</strong> Normal good — demand rises as income rises (most goods).<br>• <strong>YED &lt; 0 (negative):</strong> Inferior good — demand FALLS as income rises (e.g. instant noodles, as people switch to better alternatives once they can afford to).<br><br>IB note: this is IB-only — YED does not appear in the IGCSE 0455 syllabus.`},
+  {key:'tax', lbl:'Tax Incidence (IB HL)', html:`<strong>Who really pays a tax?</strong> The statutory payer (who hands the tax to the government) is often NOT who bears the true economic cost.<br><br>When demand is more <strong>inelastic</strong> than supply, buyers absorb most of the tax burden (they can't easily avoid buying, so the price they pay rises close to the full tax). When demand is more <strong>elastic</strong> than supply, sellers absorb more of the burden (buyers walk away if price rises much, so sellers must keep price low and eat the cost).<br><br>Full incidence-split calculation is HL-level; SL and IGCSE only need the qualitative direction of the argument.`}
+];
+let ibActive = 0;
+const ibTabsEl = document.getElementById('ibTabs');
+IB_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'ib-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { ibActive=i; document.querySelectorAll('.ib-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderIb(); };
+  ibTabsEl.appendChild(b);
+});
+function renderIb() { document.getElementById('ibPanel').innerHTML = IB_TABS[ibActive].html; }
+renderIb();
+
+// ============ EXAM ADAPTER ============
+const ADAPTER = {
+  igcse: `<strong>AO2 "calculate and comment" structure (2–3 marks):</strong> show full working (the formula, the substituted numbers, the answer), then a short comment interpreting the value (elastic/inelastic) and what it means for the firm or government.<br><br><strong>Practice move:</strong> for every calculation question, insist on the 3-line structure: Formula → Substitution → Answer + one-sentence comment. Partial credit is awarded for correct working even with an arithmetic slip — never skip straight to the final number.`,
+  ib: `<strong>AO4 calculation technique — the value → implication chain:</strong> IB Paper 3 rewards not just a correct number but a clear chain from the calculated value to a stated implication for a specific stakeholder (a firm deciding whether to raise price, or a government choosing what to tax).<br><br><strong>Practice move:</strong> after every PED/PES/YED calculation, require one extra sentence: "Because PED = [value], a firm/government should therefore ___" — this is the exact chain IB markschemes look for.`
+};
+function setAdapter(k, el) {
+  document.querySelectorAll('.adapter-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('adapterPanel').innerHTML = ADAPTER[k];
+}
+setAdapter('igcse', document.querySelector('.adapter-tab.igcse'));
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'Price rises 10%, quantity demanded falls 25%. What is PED, and what does it mean?', opts:['PED = -2.5, elastic','PED = -0.4, inelastic','PED = 2.5, perfectly inelastic'], correct:0, explain:'PED = -25% ÷ 10% = -2.5. |PED| > 1, so demand is elastic — buyers reacted proportionally more than the price change.' },
+  { q:'If PED = 0.3, and a firm raises its price, total revenue will...', opts:['Fall','Rise','Stay exactly the same'], correct:1, explain:'PED < 1 means demand is inelastic — quantity falls proportionally less than price rises, so revenue rises.' },
+  { q:'A good with MANY close substitutes is likely to have PED that is...', opts:['Close to 0 (inelastic)','Large / elastic','Impossible to calculate'], correct:1, explain:'More substitutes make it easy for buyers to switch away, producing a larger (more elastic) PED value.' },
+  { q:'YED for an inferior good (e.g. instant noodles) is...', opts:['Positive','Negative','Always exactly 1'], correct:1, explain:'Inferior goods see demand FALL as income rises — a negative YED, the defining feature of this IB-only concept.' },
+  { q:'[IB HL] If demand is much more inelastic than supply, a new tax on a good is mostly paid by...', opts:['The government','Sellers','Buyers'], correct:2, explain:'Inelastic demand means buyers can\\'t easily avoid the good, so they end up absorbing most of the tax through a higher price.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect — calculation technique locked in! 🏆' : 'Solid — review the revenue rule slide for any misses.'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>

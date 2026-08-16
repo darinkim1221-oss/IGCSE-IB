@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demand, Supply &amp; the Price Puzzle | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif;
+  overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center;
+}
+#slide-frame {
+  position:relative; width:960px; height:540px; background:var(--bg);
+  border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0;
+}
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide {
+  position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center;
+  align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none;
+  transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box;
+}
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%),
+             radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%);
+  pointer-events:none;
+}
+#nav {
+  position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100;
+  background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border);
+  border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg {
+  position:absolute; inset:0;
+  background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size:48px 48px; pointer-events:none;
+}
+.tag {
+  display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold);
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px;
+  margin-bottom:8px; text-transform:uppercase;
+}
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(26px,4vw,44px); line-height:1.05; margin-bottom:14px; color:var(--white); }
+.btn {
+  background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px;
+  letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s;
+}
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.stall-scene { position:relative; z-index:2; width:260px; height:220px; }
+.st-stand { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); width:200px; height:110px; }
+.st-roof { width:0; height:0; border-left:105px solid transparent; border-right:105px solid transparent; border-bottom:34px solid var(--gold); animation:fadeUp 0.6s ease 0.3s backwards; }
+.st-roof::after { content:''; position:absolute; top:34px; left:-100px; width:200px; height:6px; background:#e0c250; }
+.st-table { position:absolute; top:40px; left:0; width:200px; height:70px; background:linear-gradient(180deg,#c8a85c,#a5793a); border-radius:6px; animation:fadeUp 0.6s ease 0.45s backwards; }
+.st-items { position:absolute; top:48px; left:20px; display:flex; gap:10px; font-size:26px; animation:fadeUp 0.6s ease 0.6s backwards; }
+.st-tag { position:absolute; top:96px; left:20px; background:#fff; color:#0d2d52; font-family:'Space Mono',monospace; font-size:11px; padding:3px 10px; border-radius:4px; font-weight:700; animation:fadeUp 0.6s ease 0.75s backwards; }
+.st-people { position:absolute; bottom:0; left:-40px; display:flex; gap:6px; font-size:22px; animation:fadeUp 0.6s ease 0.85s backwards; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(32px,5vw,54px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:360px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 HOOK ===== */
+#s0 { text-align:center; }
+.hook-question { font-family:'Bebas Neue',sans-serif; font-size:clamp(22px,3.4vw,38px); line-height:1.15; letter-spacing:1px; margin-bottom:18px; max-width:780px; }
+.hook-question span { color:var(--gold); }
+.sneaker-scene { display:flex; gap:24px; margin:10px 0; }
+.sneaker-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:16px 24px; text-align:center; }
+.sneaker-emoji { font-size:34px; }
+.sneaker-lbl { font-family:'Bebas Neue',sans-serif; font-size:18px; margin-top:6px; }
+.sneaker-sub { font-size:11px; color:var(--dim); margin-top:2px; }
+.hook-reveal { font-size:14px; color:var(--teal); opacity:0; animation:fadeUp 0.8s ease 1.2s forwards; margin-top:10px; }
+
+/* ===== s1: PIT MARKET SIM ===== */
+#s1 { flex-direction:column; gap:10px; }
+.pit-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:16px 26px; max-width:760px; width:100%; }
+.pit-round-lbl { font-family:'Space Mono',monospace; font-size:11px; color:var(--dim); text-align:center; margin-bottom:8px; }
+.pit-cols { display:flex; gap:20px; }
+.pit-col { flex:1; }
+.pit-col-lbl { font-family:'Bebas Neue',sans-serif; font-size:15px; margin-bottom:6px; text-align:center; }
+.pit-col.buyers .pit-col-lbl { color:var(--blue); }
+.pit-col.sellers .pit-col-lbl { color:var(--gold); }
+.pit-card { background:#fff; border:2px solid rgba(0,0,0,0.1); border-radius:10px; padding:8px 10px; margin-bottom:6px; font-size:12px; cursor:pointer; transition:all 0.2s; display:flex; justify-content:space-between; }
+.pit-card:hover { border-color:var(--gold); }
+.pit-card.matched { opacity:0.35; pointer-events:none; }
+.pit-price { font-family:'Space Mono',monospace; font-weight:700; }
+.pit-result { text-align:center; margin-top:10px; font-size:13px; min-height:22px; color:var(--teal); }
+.pit-price-track { display:flex; justify-content:center; gap:8px; margin-top:8px; }
+.ppt-dot { font-family:'Space Mono',monospace; font-size:11px; background:#fff; border:1px solid var(--border); border-radius:8px; padding:3px 9px; color:var(--dim); }
+
+/* ===== s2: BUILD THE DEMAND CURVE ===== */
+#s2 { flex-direction:column; gap:10px; }
+.curve-wrap2 { display:flex; gap:26px; align-items:center; max-width:820px; width:100%; }
+.dc-table-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:14px 18px; width:280px; flex-shrink:0; }
+.dc-table { width:100%; border-collapse:collapse; font-size:12px; }
+.dc-table th, .dc-table td { padding:5px 8px; border-bottom:1px solid rgba(0,0,0,0.08); text-align:center; }
+.dc-table th { font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); text-transform:uppercase; }
+.dc-row { cursor:pointer; }
+.dc-row:hover td { color:var(--gold); }
+.dc-row.active td { color:var(--teal); font-weight:700; }
+.dc-graph { flex:1; height:220px; background:var(--card); border:1px solid var(--border); border-radius:16px; position:relative; padding:10px; }
+#dcCanvas { width:100%; height:100%; }
+
+/* ===== s3: WHAT MAKES YOU WANT MORE ===== */
+#s3 { flex-direction:column; gap:12px; }
+.shift-grid { display:flex; gap:14px; max-width:880px; flex-wrap:wrap; justify-content:center; }
+.shift-card { width:190px; background:var(--card); border:2px solid rgba(0,0,0,0.06); border-radius:14px; padding:14px; text-align:center; cursor:pointer; transition:all 0.2s; }
+.shift-card:hover { border-color:var(--gold); transform:translateY(-2px); }
+.shift-card.picked { border-color:var(--teal); background:rgba(0,137,123,0.08); }
+.shift-emoji { font-size:26px; }
+.shift-lbl { font-family:'Bebas Neue',sans-serif; font-size:15px; margin:4px 0; }
+.shift-desc { font-size:10.5px; color:var(--dim); line-height:1.5; }
+.shift-tally { text-align:center; font-family:'Space Mono',monospace; font-size:12px; color:var(--gold); }
+
+/* ===== s4: SHORTAGE OR SURPLUS ===== */
+#s4 { flex-direction:column; gap:16px; }
+.price-slider-box { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 30px; max-width:640px; width:100%; text-align:center; }
+.price-slider-box input[type=range] { width:100%; -webkit-appearance:none; height:6px; background:linear-gradient(90deg,var(--teal),var(--gold),var(--red)); border-radius:3px; outline:none; margin:14px 0; }
+.price-slider-box input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:#fff; border:3px solid var(--blue); cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.2); }
+.price-readout { font-family:'Bebas Neue',sans-serif; font-size:34px; color:var(--blue); }
+.market-visual { display:flex; justify-content:center; gap:40px; margin-top:12px; }
+.mv-col { text-align:center; }
+.mv-emoji-row { font-size:22px; letter-spacing:3px; min-height:30px; }
+.mv-lbl { font-size:11px; color:var(--dim); }
+.market-verdict { font-family:'Bebas Neue',sans-serif; font-size:20px; margin-top:10px; min-height:28px; }
+.market-verdict.shortage { color:var(--red); }
+.market-verdict.surplus { color:var(--gold); }
+.market-verdict.balanced { color:var(--teal); }
+
+/* ===== s5: SUPPLY SIDE Q ===== */
+#s5 { flex-direction:column; gap:16px; }
+.supply-arena { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:20px 30px; max-width:680px; width:100%; text-align:center; }
+
+/* ===== s6: NUDGE GAME ===== */
+#s6 { flex-direction:column; gap:18px; }
+.nudge-scene { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:20px 30px; max-width:700px; width:100%; text-align:center; }
+.nudge-shelf { display:flex; justify-content:center; gap:16px; margin:14px 0; }
+.nudge-item { background:#fff; border:2px solid rgba(0,0,0,0.1); border-radius:12px; padding:12px 16px; cursor:pointer; transition:all 0.2s; }
+.nudge-item:hover { border-color:var(--gold); transform:translateY(-2px); }
+.nudge-item.eyeLevel { border-color:var(--gold); box-shadow:0 0 0 3px rgba(200,150,10,0.15); }
+.nudge-item .ne-emoji { font-size:28px; }
+.nudge-item .ne-lbl { font-size:11px; margin-top:4px; }
+.nudge-feedback { font-size:13px; color:var(--dim); min-height:40px; }
+
+/* ===== quiz reused ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:18px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left">
+    <div class="stall-scene">
+      <div class="st-stand">
+        <div class="st-roof"></div>
+        <div class="st-table"></div>
+        <div class="st-items">👟👟👟</div>
+        <div class="st-tag">$40 → $25</div>
+      </div>
+      <div class="st-people">🧍🧍‍♀️🧍</div>
+    </div>
+  </div>
+  <div class="cover-right">
+    <div class="cover-module">Module 1 · Microeconomics — Lesson 2</div>
+    <div class="cover-title">Demand, Supply &amp;<br><span>The Price Puzzle</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">Nobody is in charge of prices — so how do they know when to move? Run your own market and watch the price find itself.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Demand</span>
+        <span class="cc-chip">Supply</span>
+        <span class="cc-chip">Price Mechanism</span>
+        <span class="cc-chip">Shortage &amp; Surplus</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 10–12</div>
+      <div class="cover-pill">Interactive</div>
+      <div class="cover-pill">45 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0: HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="hook-question">A new sneaker drops. <span>500 people</span> want it.<br>The shop only has <span>50 pairs</span>. What happens next?</div>
+  <div class="sneaker-scene">
+    <div class="sneaker-card"><div class="sneaker-emoji">👟</div><div class="sneaker-lbl">50 pairs</div><div class="sneaker-sub">on the shelf</div></div>
+    <div class="sneaker-card"><div class="sneaker-emoji">🧍‍♂️🧍‍♀️🧍</div><div class="sneaker-lbl">500 buyers</div><div class="sneaker-sub">want one each</div></div>
+  </div>
+  <div class="hook-reveal">👇 Let's run the market ourselves and find out...</div>
+</section>
+
+<!-- ============ s1: PIT MARKET SIM ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Live Simulation</div>
+    <div class="big-title">The Pit Market</div>
+    <p style="font-size:11px;color:var(--dim);max-width:600px">Every buyer has a secret max price. Every seller has a secret min price. Tap a buyer, then a seller, to try a trade — it only works if buyer's price ≥ seller's price!</p>
+  </div>
+  <div class="pit-arena">
+    <div class="pit-round-lbl" id="pitRoundLbl">Trades made: 0</div>
+    <div class="pit-cols">
+      <div class="pit-col buyers"><div class="pit-col-lbl">🙋 Buyers (max price)</div><div id="buyerList"></div></div>
+      <div class="pit-col sellers"><div class="pit-col-lbl">🏪 Sellers (min price)</div><div id="sellerList"></div></div>
+    </div>
+    <div class="pit-result" id="pitResult">Pick one buyer, then one seller.</div>
+    <div class="pit-price-track" id="pitTrack"></div>
+  </div>
+</section>
+
+<!-- ============ s2: BUILD THE DEMAND CURVE ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">From Trades to a Curve</div>
+    <div class="big-title">Your Class's First Demand Curve</div>
+  </div>
+  <div class="curve-wrap2">
+    <div class="dc-table-box">
+      <p style="font-size:11px;color:var(--dim);margin-bottom:6px">Tap a row — as price drops, watch how many people want to buy.</p>
+      <table class="dc-table" id="dcTable"><thead><tr><th>Price</th><th>Buyers</th></tr></thead><tbody></tbody></table>
+    </div>
+    <div class="dc-graph"><canvas id="dcCanvas" width="440" height="200"></canvas></div>
+  </div>
+  <div class="curve-note" style="font-size:11.5px;color:var(--dim);max-width:800px;text-align:center">This is the <strong style="color:var(--gold)">Law of Demand</strong>: when price falls, more people are willing and able to buy — the curve slopes down.</div>
+</section>
+
+<!-- ============ s3: WHAT MAKES YOU WANT MORE ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Beyond Price</div>
+    <div class="big-title">What Else Makes You Want More?</div>
+    <p style="font-size:11px;color:var(--dim)">Tap every card that would make YOU want to buy more sneakers (even at the same price).</p>
+  </div>
+  <div class="shift-grid" id="shiftGrid"></div>
+  <div class="shift-tally" id="shiftTally">0 picked</div>
+</section>
+
+<!-- ============ s4: SHORTAGE OR SURPLUS ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Concert Tickets</div>
+    <div class="big-title">Slide the Price — Watch the Market React</div>
+  </div>
+  <div class="price-slider-box">
+    <div class="price-readout" id="priceReadout">$50</div>
+    <input type="range" id="priceSlider" min="10" max="90" value="50" step="5" oninput="updatePrice(this.value)">
+    <div class="market-visual">
+      <div class="mv-col"><div class="mv-emoji-row" id="ticketsRow">🎫🎫🎫🎫</div><div class="mv-lbl">Tickets for sale</div></div>
+      <div class="mv-col"><div class="mv-emoji-row" id="buyersRow">🙋🙋🙋🙋</div><div class="mv-lbl">Buyers in line</div></div>
+    </div>
+    <div class="market-verdict" id="marketVerdict"></div>
+  </div>
+</section>
+
+<!-- ============ s5: SUPPLY SIDE ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Now Think Like a Seller</div>
+    <div class="big-title">What Would Make YOU Sell More?</div>
+  </div>
+  <div class="supply-arena">
+    <div class="game-question" id="supplyRoundLbl" style="font-size:12px;color:var(--dim);margin-bottom:8px">Round 1 of 4</div>
+    <div class="game-scenario" id="supplyScenario" style="font-family:'Bebas Neue',sans-serif;font-size:22px;min-height:60px">Loading...</div>
+    <div class="answer-options" style="display:flex;gap:16px;justify-content:center">
+      <button class="ans-btn" style="background:rgba(0,0,0,0.03);border:2px solid rgba(0,0,0,0.1);color:var(--white);font-family:'Bebas Neue',sans-serif;font-size:18px;padding:10px 26px;border-radius:12px;cursor:pointer" onclick="supplyAnswer(true)">SELL MORE</button>
+      <button class="ans-btn" style="background:rgba(0,0,0,0.03);border:2px solid rgba(0,0,0,0.1);color:var(--white);font-family:'Bebas Neue',sans-serif;font-size:18px;padding:10px 26px;border-radius:12px;cursor:pointer" onclick="supplyAnswer(false)">SELL LESS</button>
+    </div>
+    <div class="nudge-feedback" id="supplyFeedback" style="min-height:30px;font-size:12px;color:var(--dim);margin-top:8px"></div>
+  </div>
+</section>
+
+<!-- ============ s6: NUDGE GAME ============ -->
+<section class="slide" id="s6">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Bonus: Trick Your Brain</div>
+    <div class="big-title">The Nudge Experiment</div>
+  </div>
+  <div class="nudge-scene">
+    <p style="font-size:12px;color:var(--dim)">A shop wants YOU to pick the healthy snack without banning anything else. Tap the shelf position you'd notice first.</p>
+    <div class="nudge-shelf" id="nudgeShelf"></div>
+    <div class="nudge-feedback" id="nudgeFeedback"></div>
+  </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">How well did you get it? 🧠</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const QUIZ_SLIDE_IDX = 8;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+  if (slides[cur].id === 's2' && !dcDrawn) drawDC();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ s1: PIT MARKET ============
+const BUYERS = [{name:'Ana',max:60},{name:'Ben',max:45},{name:'Cleo',max:35},{name:'Dev',max:25}];
+const SELLERS = [{name:'Fox Co.',min:20},{name:'Milo Mkt.',min:30},{name:'Sana Shop',min:40},{name:'Reo Retail',min:55}];
+let selBuyer = null, selSeller = null, trades = 0;
+const priceHistory = [];
+function renderPit() {
+  document.getElementById('buyerList').innerHTML = BUYERS.map((b,i)=>`<div class="pit-card" data-i="${i}" onclick="pickBuyer(${i})"><span>${b.name}</span><span class="pit-price">$${b.max}</span></div>`).join('');
+  document.getElementById('sellerList').innerHTML = SELLERS.map((s,i)=>`<div class="pit-card" data-i="${i}" onclick="pickSeller(${i})"><span>${s.name}</span><span class="pit-price">$${s.min}</span></div>`).join('');
+}
+function pickBuyer(i) { if (BUYERS[i].done) return; selBuyer = i; tryMatch(); }
+function pickSeller(i) { if (SELLERS[i].done) return; selSeller = i; tryMatch(); }
+function tryMatch() {
+  if (selBuyer === null || selSeller === null) return;
+  const b = BUYERS[selBuyer], s = SELLERS[selSeller];
+  const result = document.getElementById('pitResult');
+  if (b.max >= s.min) {
+    const price = Math.round((b.max + s.min) / 2);
+    b.done = true; s.done = true; trades++;
+    priceHistory.push(price);
+    result.style.color = 'var(--teal)';
+    result.textContent = `✓ Trade! ${b.name} bought from ${s.name} at $${price}.`;
+    document.querySelectorAll(`.pit-card[data-i="${selBuyer}"]`)[0].classList.add('matched');
+    document.querySelectorAll('#sellerList .pit-card')[selSeller].classList.add('matched');
+    document.getElementById('pitTrack').innerHTML += `<div class="ppt-dot">$${price}</div>`;
+  } else {
+    result.style.color = 'var(--red)';
+    result.textContent = `✗ No deal — ${b.name}'s max ($${b.max}) is below ${s.name}'s min ($${s.min}).`;
+  }
+  document.getElementById('pitRoundLbl').textContent = 'Trades made: ' + trades;
+  selBuyer = null; selSeller = null;
+}
+renderPit();
+
+// ============ s2: DEMAND CURVE ============
+const DC_DATA = [ {price:60,buyers:1}, {price:45,buyers:2}, {price:35,buyers:3}, {price:25,buyers:4} ];
+let dcActive = 0, dcDrawn = false;
+const dcTbody = document.querySelector('#dcTable tbody');
+DC_DATA.forEach((d,i) => {
+  const tr = document.createElement('tr');
+  tr.className = 'dc-row' + (i===0?' active':'');
+  tr.innerHTML = `<td>$${d.price}</td><td>${d.buyers}</td>`;
+  tr.onclick = () => { dcActive = i; document.querySelectorAll('.dc-row').forEach(r=>r.classList.remove('active')); tr.classList.add('active'); drawDC(); };
+  dcTbody.appendChild(tr);
+});
+function drawDC() {
+  dcDrawn = true;
+  const c = document.getElementById('dcCanvas');
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height, pad = 30;
+  ctx.clearRect(0,0,w,h);
+  ctx.strokeStyle = 'rgba(90,106,128,0.4)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pad,10); ctx.lineTo(pad,h-pad); ctx.lineTo(w-10,h-pad); ctx.stroke();
+  ctx.fillStyle = '#5a6a80'; ctx.font = '9px monospace';
+  ctx.fillText('Buyers →', w-50, h-10); ctx.save(); ctx.translate(10,40); ctx.rotate(-Math.PI/2); ctx.fillText('Price →', 0,0); ctx.restore();
+  const pts = DC_DATA.map(d => ({ x: pad + (d.buyers/5)*(w-pad-20), y: (h-pad) - (d.price/70)*(h-pad-10) }));
+  ctx.strokeStyle = '#c8960a'; ctx.lineWidth = 3; ctx.beginPath();
+  pts.forEach((p,i) => i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y)); ctx.stroke();
+  pts.forEach((p,i) => {
+    ctx.fillStyle = i===dcActive ? '#00897b' : '#0d2d52';
+    ctx.beginPath(); ctx.arc(p.x,p.y, i===dcActive?6:4, 0, Math.PI*2); ctx.fill();
+  });
+}
+
+// ============ s3: DEMAND SHIFTERS ============
+const SHIFTERS = [
+  {emoji:'💸', lbl:'Price drops', desc:'The sneakers go on sale.'},
+  {emoji:'⭐', lbl:'Gets trendy', desc:'Your favourite streamer wears them.'},
+  {emoji:'👥', lbl:'Friends have them', desc:'Everyone at school already has a pair.'},
+  {emoji:'🎂', lbl:'Birthday money', desc:'You suddenly have more to spend.'},
+  {emoji:'🌧️', lbl:'Rainy season', desc:'Not sneaker weather — you want boots instead.'}
+];
+let shiftPicked = new Set();
+const shiftGrid = document.getElementById('shiftGrid');
+SHIFTERS.forEach((s,i) => {
+  const c = document.createElement('div');
+  c.className = 'shift-card';
+  c.innerHTML = `<div class="shift-emoji">${s.emoji}</div><div class="shift-lbl">${s.lbl}</div><div class="shift-desc">${s.desc}</div>`;
+  c.onclick = () => {
+    if (shiftPicked.has(i)) { shiftPicked.delete(i); c.classList.remove('picked'); }
+    else { shiftPicked.add(i); c.classList.add('picked'); }
+    document.getElementById('shiftTally').textContent = shiftPicked.size + ' picked — each one shifts how much you want, even at the same price!';
+  };
+  shiftGrid.appendChild(c);
+});
+
+// ============ s4: SHORTAGE / SURPLUS ============
+function updatePrice(v) {
+  v = parseInt(v);
+  document.getElementById('priceReadout').textContent = '$' + v;
+  const tickets = 4;
+  const buyers = Math.max(1, Math.round(8 - v/12));
+  document.getElementById('ticketsRow').textContent = '🎫'.repeat(tickets);
+  document.getElementById('buyersRow').textContent = '🙋'.repeat(Math.min(buyers,8));
+  const verdict = document.getElementById('marketVerdict');
+  if (buyers > tickets + 1) { verdict.textContent = '⚠️ SHORTAGE — too many buyers, not enough tickets!'; verdict.className = 'market-verdict shortage'; }
+  else if (buyers < tickets - 1) { verdict.textContent = '📦 SURPLUS — tickets left unsold, price too high!'; verdict.className = 'market-verdict surplus'; }
+  else { verdict.textContent = '✅ BALANCED — buyers and tickets roughly match!'; verdict.className = 'market-verdict balanced'; }
+}
+updatePrice(50);
+
+// ============ s5: SUPPLY SIDE ============
+const SUPPLY_ROUNDS = [
+  { text: 'The price sneakers sell for jumps from $40 to $70.', answer: true, why: 'Higher price = more reward for sellers, so they supply more (Law of Supply).' },
+  { text: 'The cost of leather (a key material) suddenly doubles.', answer: false, why: 'Higher costs eat into profit, so sellers are willing to supply less at the same price.' },
+  { text: 'A factory invents a faster machine that makes shoes cheaper to produce.', answer: true, why: 'Lower production costs mean sellers can profitably supply more.' },
+  { text: 'A new government rule adds an extra tax on every pair sold.', answer: false, why: 'A tax raises the seller\\'s cost per pair, so supply falls at the same price.' }
+];
+let supplyIdx = 0;
+function renderSupply() {
+  if (supplyIdx >= SUPPLY_ROUNDS.length) {
+    document.getElementById('supplyRoundLbl').textContent = 'Complete!';
+    document.getElementById('supplyScenario').textContent = '🌟 You think like a seller now — costs and prices both drive supply.';
+    return;
+  }
+  document.getElementById('supplyRoundLbl').textContent = 'Round ' + (supplyIdx+1) + ' of ' + SUPPLY_ROUNDS.length;
+  document.getElementById('supplyScenario').textContent = SUPPLY_ROUNDS[supplyIdx].text;
+  document.getElementById('supplyFeedback').textContent = '';
+}
+function supplyAnswer(choice) {
+  const r = SUPPLY_ROUNDS[supplyIdx];
+  document.getElementById('supplyFeedback').innerHTML = (choice===r.answer ? '<strong style="color:var(--teal)">✓ Correct.</strong> ' : '<strong style="color:var(--red)">✗ Not quite.</strong> ') + r.why;
+  supplyIdx++;
+  setTimeout(renderSupply, 1800);
+}
+renderSupply();
+
+// ============ s6: NUDGE ============
+const NUDGE_ITEMS = [
+  {emoji:'🍫', lbl:'Candy (low shelf)', eye:false},
+  {emoji:'🥕', lbl:'Veggie snack (eye level)', eye:true},
+  {emoji:'🥤', lbl:'Soda (top shelf)', eye:false}
+];
+const nudgeShelf = document.getElementById('nudgeShelf');
+NUDGE_ITEMS.forEach(it => {
+  const c = document.createElement('div');
+  c.className = 'nudge-item' + (it.eye ? ' eyeLevel' : '');
+  c.innerHTML = `<div class="ne-emoji">${it.emoji}</div><div class="ne-lbl">${it.lbl}</div>`;
+  c.onclick = () => {
+    document.getElementById('nudgeFeedback').innerHTML = it.eye
+      ? '<strong style="color:var(--teal)">Yes!</strong> Shops place items they want you to buy at eye level — a tiny "nudge" that changes choices without banning anything. That\\'s behavioural economics!'
+      : 'Try the middle shelf — shops know eye-level items get picked more often, even if nothing else changes.';
+  };
+  nudgeShelf.appendChild(c);
+});
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'In the Pit Market, a trade only happens when...', opts:['The buyer\\'s max price is at least the seller\\'s min price','The buyer is louder than the seller','Every seller agrees at once'], correct:0, explain:'A deal needs the buyer willing to pay at least as much as the seller needs — that overlap sets the price.' },
+  { q:'The <span>Law of Demand</span> says that as price falls...', opts:['Fewer people want to buy','More people want to buy','Nothing changes'], correct:1, explain:'Lower price → more buyers willing and able to buy — the demand curve slopes downward.' },
+  { q:'500 buyers want a sneaker, but only 50 pairs exist. This is a...', opts:['Surplus','Shortage','Trade-off'], correct:1, explain:'Too many buyers for too few goods at that price = a shortage.' },
+  { q:'A cheaper way to make shoes means sellers can now supply more at the same price. This is a change in...', opts:['Demand','Supply','Opportunity cost'], correct:1, explain:'Lower production costs shift supply — sellers are willing to sell more at every price.' },
+  { q:'Placing a healthy snack at eye level to encourage kids to pick it (without banning candy) is an example of a...', opts:['Tax','Nudge','Shortage'], correct:1, explain:'A nudge changes behaviour through small design choices, not rules or bans — a seed of behavioural economics.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\\'ve cracked the price puzzle! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>

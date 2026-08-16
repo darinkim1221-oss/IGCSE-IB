@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Economic Problem | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif; overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center; }
+#slide-frame { position:relative; width:960px; height:540px; background:var(--bg); border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0; }
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:50px 44px 42px; opacity:0; pointer-events:none; transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box; }
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%); pointer-events:none; }
+#nav { position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border); border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
+.tag { display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; }
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,3.6vw,38px); line-height:1.08; margin-bottom:12px; color:var(--white); }
+.btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:1px; padding:9px 24px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:9px 14px; font-size:11.5px; color:var(--dim); line-height:1.6; }
+.tip-box strong { color:var(--gold); }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.ppc-cover-svg { position:relative; z-index:2; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(34px,5vw,56px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:12.5px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:370px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== HOOK ===== */
+#s0 { text-align:center; }
+.hook-question { font-family:'Bebas Neue',sans-serif; font-size:clamp(22px,3.2vw,38px); line-height:1.15; letter-spacing:1px; margin-bottom:18px; max-width:760px; }
+.hook-question span { color:var(--gold); }
+.hook-vs { display:flex; gap:28px; margin:10px 0; align-items:stretch; }
+.vs-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:14px 26px; box-shadow:0 4px 24px rgba(0,0,0,0.06); text-align:center; flex:1; max-width:300px; position:relative; overflow:hidden; }
+.vs-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; }
+.vs-card.a::after { background:var(--blue); }
+.vs-card.b::after { background:var(--gold); }
+.vs-label { font-family:'Space Mono',monospace; font-size:11px; color:var(--dim); margin-bottom:8px; letter-spacing:2px; text-transform:uppercase; }
+.vs-desc { font-size:12px; color:var(--dim); line-height:1.6; }
+.vs-separator { display:flex; align-items:center; font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--dim); }
+.hook-reveal { font-size:14px; color:var(--teal); opacity:0; animation:fadeUp 0.8s ease 1.2s forwards; letter-spacing:1px; margin-top:12px; }
+
+/* ===== s1: DEFINITIONS ===== */
+#s1 { flex-direction:row; gap:36px; align-items:flex-start; padding-top:56px; }
+.def-col { flex:1; }
+.def-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:11px 16px; margin-bottom:9px; }
+.def-term { font-family:'Bebas Neue',sans-serif; font-size:16px; color:var(--blue); }
+.def-body { font-size:11.5px; color:var(--dim); line-height:1.6; margin-top:2px; }
+.cmd-drill { background:linear-gradient(135deg,rgba(200,150,10,0.08),rgba(200,150,10,0.02)); border:1px solid var(--border); border-radius:12px; padding:12px 16px; }
+.cmd-btn { display:inline-block; margin:3px 4px 3px 0; padding:4px 12px; border-radius:16px; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; background:#fff; border:1px solid rgba(0,0,0,0.12); color:var(--dim); cursor:pointer; text-transform:uppercase; }
+.cmd-btn.active { background:var(--gold); color:#fff; border-color:var(--gold); }
+.cmd-out { font-size:11.5px; color:var(--white); margin-top:8px; min-height:32px; line-height:1.6; }
+
+/* ===== s2: OPPORTUNITY COST STAKEHOLDERS ===== */
+#s2 { flex-direction:column; gap:14px; }
+.stake-tabs { display:flex; gap:8px; margin-bottom:2px; }
+.stake-tab { flex:1; text-align:center; padding:8px; border-radius:10px; background:var(--card); border:2px solid transparent; cursor:pointer; font-family:'Bebas Neue',sans-serif; font-size:14px; color:var(--dim); }
+.stake-tab.active { border-color:var(--gold); color:var(--blue); background:#fff; }
+.stake-panel { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px 22px; max-width:760px; width:100%; font-size:12.5px; color:var(--dim); line-height:1.7; min-height:110px; }
+.stake-panel strong { color:var(--white); }
+
+/* ===== s3: FACTORS TABLE ===== */
+#s3 { flex-direction:column; gap:10px; }
+table.factor-tbl { width:100%; max-width:800px; border-collapse:collapse; font-size:12px; }
+table.factor-tbl th { text-align:left; font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); text-transform:uppercase; letter-spacing:1px; padding:6px 10px; border-bottom:2px solid var(--border); }
+table.factor-tbl td { padding:9px 10px; border-bottom:1px solid rgba(0,0,0,0.06); }
+table.factor-tbl td.f-name { font-family:'Bebas Neue',sans-serif; font-size:15px; color:var(--blue); }
+
+/* ===== s4: PPC DIAGRAM ===== */
+#s4 { flex-direction:row; gap:32px; align-items:center; }
+.ppc-box { flex-shrink:0; }
+.ppc-info { flex:1; }
+.ppc-point-btn { cursor:pointer; }
+.ppc-legend { display:flex; flex-direction:column; gap:8px; margin-top:10px; }
+.ppc-leg-item { display:flex; align-items:center; gap:8px; font-size:11.5px; color:var(--dim); cursor:pointer; padding:5px 8px; border-radius:8px; transition:background 0.2s; }
+.ppc-leg-item:hover, .ppc-leg-item.active { background:rgba(200,150,10,0.08); }
+.ppc-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.ppc-desc { margin-top:10px; font-size:12px; color:var(--white); min-height:44px; line-height:1.6; background:var(--card); border-radius:10px; padding:9px 12px; }
+.ppc-desc strong { color:var(--gold); }
+.ppc-growth-btn { margin-top:8px; }
+
+/* ===== s5: ECONOMIC SYSTEMS COMPARE ===== */
+#s5 { flex-direction:column; gap:10px; }
+.econ-chip-row { display:flex; gap:8px; margin-bottom:2px; }
+.econ-chip { padding:6px 16px; border-radius:20px; background:var(--card); border:1px solid rgba(0,0,0,0.1); font-size:11.5px; cursor:pointer; color:var(--dim); }
+.econ-chip.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+table.sys-tbl { width:100%; max-width:860px; border-collapse:collapse; font-size:11.5px; }
+table.sys-tbl th { text-align:left; font-family:'Space Mono',monospace; font-size:9.5px; color:var(--gold); text-transform:uppercase; letter-spacing:0.5px; padding:5px 8px; border-bottom:2px solid var(--border); }
+table.sys-tbl td { padding:7px 8px; border-bottom:1px solid rgba(0,0,0,0.06); vertical-align:top; color:var(--dim); }
+table.sys-tbl td:first-child { font-family:'Bebas Neue',sans-serif; font-size:14px; color:var(--blue); }
+.sys-example { margin-top:6px; font-size:11.5px; background:var(--card); border-radius:10px; padding:8px 14px; min-height:20px; color:var(--white); }
+.sys-example strong { color:var(--gold); }
+
+/* ===== s6: CIRCULAR FLOW ===== */
+#s6 { flex-direction:row; gap:24px; align-items:center; }
+.cflow-svg-box { flex-shrink:0; }
+.cflow-arrow-path { cursor:pointer; }
+.cflow-legend { flex:1; }
+.cflow-item { padding:7px 10px; border-radius:8px; font-size:11.5px; color:var(--dim); cursor:pointer; margin-bottom:4px; }
+.cflow-item:hover, .cflow-item.active { background:rgba(200,150,10,0.08); color:var(--white); }
+.cflow-item strong { color:var(--gold); }
+.cflow-desc { margin-top:8px; font-size:12px; color:var(--white); background:var(--card); border-radius:10px; padding:10px 14px; min-height:50px; line-height:1.6; }
+
+/* ===== s7: POSITIVE/NORMATIVE GAME ===== */
+#s7 { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
+.game-scenario { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:16px; color:var(--white); margin-bottom:14px; line-height:1.5; min-height:56px; }
+.answer-options { display:flex; gap:14px; justify-content:center; margin-bottom:10px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:17px; padding:9px 24px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:130px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); animation:pop 0.4s ease; }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); animation:shake 0.4s ease; }
+.game-feedback { font-size:12.5px; min-height:20px; font-family:'Space Mono',monospace; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:10px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+/* ===== s-adapter: EXAM ADAPTER SLOT ===== */
+#s-adapter { flex-direction:column; gap:10px; }
+.adapter-tabs { display:flex; gap:8px; }
+.adapter-tab { padding:8px 22px; border-radius:20px; background:var(--card); border:2px solid transparent; cursor:pointer; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:1px; color:var(--dim); }
+.adapter-tab.active.igcse { border-color:var(--blue); color:var(--blue); background:#fff; }
+.adapter-tab.active.ib { border-color:var(--gold); color:var(--gold); background:#fff; }
+.adapter-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 26px; max-width:800px; width:100%; font-size:12.5px; color:var(--dim); line-height:1.75; }
+.adapter-panel strong { color:var(--white); }
+.adapter-panel .ex { display:block; margin-top:8px; font-style:italic; color:var(--teal); }
+.adapter-shared { font-size:11px; color:var(--dim); background:rgba(200,150,10,0.06); border-radius:10px; padding:8px 14px; max-width:800px; }
+
+/* ===== QUIZ ===== */
+#s-quiz { flex-direction:column; gap:20px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:740px; width:100%; text-align:center; }
+.quiz-q { font-size:16px; line-height:1.6; margin-bottom:12px; min-height:24px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:9px 16px; border-radius:10px; cursor:pointer; font-size:12.5px; text-align:left; transition:all 0.2s; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:12px; padding:8px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:11.5px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:15px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left">
+    <svg class="ppc-cover-svg" width="260" height="200" viewBox="0 0 260 200">
+      <line x1="30" y1="170" x2="30" y2="20" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+      <line x1="30" y1="170" x2="240" y2="170" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+      <path d="M 30 20 Q 40 130 240 170" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2.5"/>
+      <circle class="c-bar" cx="110" cy="80" r="5" fill="#e0a800" style="animation-delay:0.3s"/>
+      <circle class="c-bar" cx="150" cy="140" r="5" fill="rgba(255,255,255,0.6)" style="animation-delay:0.45s"/>
+      <circle class="c-bar" cx="190" cy="70" r="5" fill="rgba(255,255,255,0.3)" style="animation-delay:0.6s"/>
+      <text x="130" y="192" fill="rgba(255,255,255,0.4)" font-family="Space Mono" font-size="9">GOOD X</text>
+      <text x="4" y="14" fill="rgba(255,255,255,0.4)" font-family="Space Mono" font-size="9" transform="rotate(0)">GOOD Y</text>
+    </svg>
+  </div>
+  <div class="cover-right">
+    <div class="cover-module">Module 1 · Microeconomics — Lesson 1</div>
+    <div class="cover-title">The Economic<br><span>Problem</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">Precise definitions, the full Production Possibilities Curve, the circular flow, and your first structured "define + explain" answers.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Scarcity</span>
+        <span class="cc-chip">Opportunity Cost</span>
+        <span class="cc-chip">Factors of Production</span>
+        <span class="cc-chip">Economic Systems</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 13–15</div>
+      <div class="cover-pill">Pre-IB</div>
+      <div class="cover-pill">50 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0: HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="hook-question">Could the <span>RICHEST</span> country on Earth ever escape<br><span>SCARCITY</span>?</div>
+  <div class="hook-vs">
+    <div class="vs-card a"><div class="vs-label">Hypothesis A</div><div class="vs-desc">Enough wealth eventually satisfies every want.</div></div>
+    <div class="vs-separator">vs</div>
+    <div class="vs-card b"><div class="vs-desc">Wants expand faster than resources — scarcity is permanent, not temporary.</div><div class="vs-label" style="margin-top:8px">Hypothesis B</div></div>
+  </div>
+  <div class="hook-reveal">👇 Let's define it precisely, then prove it with a diagram.</div>
+</section>
+
+<!-- ============ s1: PRECISE DEFINITIONS ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div class="def-col">
+    <div class="section-tag">AO1 · Command-Word Practice</div>
+    <div class="big-title">Define It Precisely</div>
+    <div class="def-card"><div class="def-term">Scarcity</div><div class="def-body">The condition where finite resources are insufficient to satisfy society's infinite wants.</div></div>
+    <div class="def-card"><div class="def-term">Needs vs. Wants</div><div class="def-body">Needs are essential for survival (food, shelter); wants are desired but not essential.</div></div>
+    <div class="def-card"><div class="def-term">Economic vs. Free Goods</div><div class="def-body">Economic goods are scarce and have an opportunity cost; free goods (e.g. sunlight) have none.</div></div>
+  </div>
+  <div class="def-col">
+    <div class="cmd-drill">
+      <div class="section-tag" style="margin-bottom:6px">Try the command term</div>
+      <div class="cmd-btn active" data-cmd="define" onclick="setCmd(this)">Define</div>
+      <div class="cmd-btn" data-cmd="state" onclick="setCmd(this)">State</div>
+      <div class="cmd-btn" data-cmd="describe" onclick="setCmd(this)">Describe</div>
+      <div class="cmd-out" id="cmdOut"></div>
+    </div>
+    <div class="tip-box" style="margin-top:10px"><strong>IGCSE style:</strong> 1-sentence, precise. <strong>IB style:</strong> 2–3 sentences building to an explanation. Both earn AO1 marks — but length and depth expectations differ.</div>
+  </div>
+</section>
+
+<!-- ============ s2: OPPORTUNITY COST ACROSS STAKEHOLDERS ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Applies to Everyone</div>
+    <div class="big-title">Opportunity Cost — 4 Stakeholders</div>
+  </div>
+  <div class="stake-tabs" id="stakeTabs"></div>
+  <div class="stake-panel" id="stakePanel"></div>
+</section>
+
+<!-- ============ s3: FACTORS OF PRODUCTION TABLE ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">The 4 Factors</div>
+    <div class="big-title">Factors of Production &amp; Their Rewards</div>
+  </div>
+  <table class="factor-tbl">
+    <tr><th>Factor</th><th>Definition</th><th>Reward</th><th>Change in quantity/quality</th></tr>
+    <tr><td class="f-name">Land</td><td>Natural resources used in production</td><td>Rent</td><td>Discovery, depletion, land reclamation</td></tr>
+    <tr><td class="f-name">Labour</td><td>Human effort, physical &amp; mental, in production</td><td>Wages</td><td>Population, education, training, migration</td></tr>
+    <tr><td class="f-name">Capital</td><td>Man-made aids to production (tools, machines, buildings)</td><td>Interest</td><td>Investment, depreciation, technology</td></tr>
+    <tr><td class="f-name">Enterprise</td><td>Risk-taking &amp; organisation of the other 3 factors</td><td>Profit</td><td>Confidence, innovation culture, access to finance</td></tr>
+  </table>
+</section>
+
+<!-- ============ s4: PPC DIAGRAM ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div class="ppc-box">
+    <div class="section-tag">Key Diagram</div>
+    <div class="big-title" style="font-size:20px;margin-bottom:6px">Production Possibilities Curve</div>
+    <svg width="320" height="240" viewBox="0 0 320 240">
+      <line x1="40" y1="200" x2="40" y2="20" stroke="#0d2d52" stroke-width="1.5"/>
+      <line x1="40" y1="200" x2="290" y2="200" stroke="#0d2d52" stroke-width="1.5"/>
+      <text x="150" y="225" font-family="Space Mono" font-size="10" fill="#5a6a80">GOOD X (Consumer goods)</text>
+      <text x="4" y="16" font-family="Space Mono" font-size="10" fill="#5a6a80">GOOD Y</text>
+      <path id="ppcCurve" d="M 40 30 Q 55 150 280 200" fill="none" stroke="#0d2d52" stroke-width="2.5"/>
+      <path id="ppcCurveShift" d="M 40 15 Q 58 130 300 200" fill="none" stroke="#00897b" stroke-width="2" stroke-dasharray="5,4" opacity="0" />
+      <circle class="ppc-point-btn" id="ptA" cx="150" cy="105" r="7" fill="#c8960a" onclick="selectPPC('A')"/>
+      <circle class="ppc-point-btn" id="ptB" cx="130" cy="150" r="7" fill="#5a6a80" onclick="selectPPC('B')"/>
+      <circle class="ppc-point-btn" id="ptC" cx="230" cy="90" r="7" fill="#e53935" onclick="selectPPC('C')"/>
+      <text x="158" y="100" font-family="Bebas Neue" font-size="14" fill="#c8960a">A</text>
+      <text x="112" y="146" font-family="Bebas Neue" font-size="14" fill="#5a6a80">B</text>
+      <text x="238" y="86" font-family="Bebas Neue" font-size="14" fill="#e53935">C</text>
+    </svg>
+    <button class="btn ppc-growth-btn" onclick="toggleGrowth()">Show Economic Growth →</button>
+  </div>
+  <div class="ppc-info">
+    <div class="ppc-legend">
+      <div class="ppc-leg-item" onclick="selectPPC('A')"><div class="ppc-dot" style="background:#c8960a"></div>Point A — on the curve (productively efficient)</div>
+      <div class="ppc-leg-item" onclick="selectPPC('B')"><div class="ppc-dot" style="background:#5a6a80"></div>Point B — inside the curve (inefficient / unemployed resources)</div>
+      <div class="ppc-leg-item" onclick="selectPPC('C')"><div class="ppc-dot" style="background:#e53935"></div>Point C — outside the curve (currently unattainable)</div>
+    </div>
+    <div class="ppc-desc" id="ppcDesc">Click a point to see what it means.</div>
+  </div>
+</section>
+
+<!-- ============ s5: ECONOMIC SYSTEMS COMPARE ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">What / How / For Whom</div>
+    <div class="big-title">Market vs. Planned vs. Mixed</div>
+  </div>
+  <table class="sys-tbl">
+    <tr><th>System</th><th>Who decides?</th><th>Strength</th><th>Weakness</th></tr>
+    <tr><td>Market</td><td>Prices &amp; free trade between buyers/sellers</td><td>Responsive, efficient, rewards innovation</td><td>Can neglect equity &amp; public goods</td></tr>
+    <tr><td>Planned</td><td>A central government/authority</td><td>Can guarantee basic needs, reduce inequality</td><td>Slow to respond, no price signals, incentive problems</td></tr>
+    <tr><td>Mixed</td><td>Markets for most goods, government for others (health, defence)</td><td>Balances efficiency and equity</td><td>Where to draw the line is politically contested</td></tr>
+  </table>
+  <div class="econ-chip-row">
+    <div class="econ-chip active" data-c="US" onclick="setEcon(this)">🇺🇸 United States</div>
+    <div class="econ-chip" data-c="NK" onclick="setEcon(this)">🇰🇵 North Korea</div>
+    <div class="econ-chip" data-c="SG" onclick="setEcon(this)">🇸🇬 Singapore</div>
+  </div>
+  <div class="sys-example" id="sysExample"></div>
+</section>
+
+<!-- ============ s6: CIRCULAR FLOW ============ -->
+<section class="slide" id="s6">
+  <div class="grid-bg"></div>
+  <div class="cflow-svg-box">
+    <div class="section-tag">IB Enrichment</div>
+    <div class="big-title" style="font-size:19px;margin-bottom:6px">2-Sector Circular Flow</div>
+    <svg width="320" height="230" viewBox="0 0 320 230">
+      <rect x="20" y="20" width="110" height="50" rx="10" fill="#0d2d52"/>
+      <text x="75" y="50" text-anchor="middle" fill="#fff" font-family="Bebas Neue" font-size="15">HOUSEHOLDS</text>
+      <rect x="190" y="20" width="110" height="50" rx="10" fill="#c8960a"/>
+      <text x="245" y="50" text-anchor="middle" fill="#fff" font-family="Bebas Neue" font-size="15">FIRMS</text>
+      <path class="cflow-arrow-path" onclick="selectFlow('factors')" d="M 130 35 L 190 35" stroke="#0d2d52" stroke-width="3" marker-end="url(#arrGold)" fill="none"/>
+      <text x="160" y="28" text-anchor="middle" font-family="Space Mono" font-size="8" fill="#0d2d52">factors ▸</text>
+      <path class="cflow-arrow-path" onclick="selectFlow('income')" d="M 190 60 L 130 60" stroke="#00897b" stroke-width="3" marker-end="url(#arrTeal)" fill="none"/>
+      <text x="160" y="76" text-anchor="middle" font-family="Space Mono" font-size="8" fill="#00897b">◂ income</text>
+      <rect x="20" y="160" width="110" height="50" rx="10" fill="#0d2d52"/>
+      <text x="75" y="190" text-anchor="middle" fill="#fff" font-family="Bebas Neue" font-size="15">HOUSEHOLDS</text>
+      <rect x="190" y="160" width="110" height="50" rx="10" fill="#c8960a"/>
+      <text x="245" y="190" text-anchor="middle" fill="#fff" font-family="Bebas Neue" font-size="15">FIRMS</text>
+      <path class="cflow-arrow-path" onclick="selectFlow('spending')" d="M 130 175 L 190 175" stroke="#0d2d52" stroke-width="3" marker-end="url(#arrGold)" fill="none"/>
+      <text x="160" y="168" text-anchor="middle" font-family="Space Mono" font-size="8" fill="#0d2d52">spending ▸</text>
+      <path class="cflow-arrow-path" onclick="selectFlow('goods')" d="M 190 200 L 130 200" stroke="#00897b" stroke-width="3" marker-end="url(#arrTeal)" fill="none"/>
+      <text x="160" y="216" text-anchor="middle" font-family="Space Mono" font-size="8" fill="#00897b">◂ goods/services</text>
+      <defs>
+        <marker id="arrGold" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#0d2d52"/></marker>
+        <marker id="arrTeal" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#00897b"/></marker>
+      </defs>
+    </svg>
+  </div>
+  <div class="cflow-legend">
+    <div class="cflow-item" onclick="selectFlow('factors')"><strong>Factor market (top):</strong> households supply land, labour, capital &amp; enterprise to firms</div>
+    <div class="cflow-item" onclick="selectFlow('income')"><strong>Income:</strong> firms pay rent, wages, interest &amp; profit back to households</div>
+    <div class="cflow-item" onclick="selectFlow('spending')"><strong>Goods market (bottom):</strong> households spend income buying firms' output</div>
+    <div class="cflow-item" onclick="selectFlow('goods')"><strong>Goods/services:</strong> firms supply the goods &amp; services households buy</div>
+    <div class="cflow-desc" id="cflowDesc">Click a flow to see the explanation. This 2-sector model (no government, banks or trade) is IB scaffolding — beyond IGCSE 0455, but essential groundwork for M2 macro.</div>
+  </div>
+</section>
+
+<!-- ============ s7: POSITIVE VS NORMATIVE GAME ============ -->
+<section class="slide" id="s7">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Mini Game</div>
+    <div class="big-title">Positive or Normative?</div>
+  </div>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">POSITIVE</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">NORMATIVE</button>
+    </div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXAM ADAPTER SLOT ============ -->
+<section class="slide" id="s-adapter">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Exam Adapter Slot · 10–15 min</div>
+    <div class="big-title">AO1 Definitions &amp; the First "Explain" Chain</div>
+  </div>
+  <div class="adapter-shared"><strong style="color:var(--white)">Shared skill (both boards):</strong> precise definitions; PPC &amp; circular flow drawn and labelled to exam standard. Command terms: define, state, list, describe.</div>
+  <div class="adapter-tabs">
+    <div class="adapter-tab active igcse" data-b="igcse" onclick="setAdapter(this)">IGCSE 0455</div>
+    <div class="adapter-tab ib" data-b="ib" onclick="setAdapter(this)">IB DP</div>
+  </div>
+  <div class="adapter-panel" id="adapterPanel"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">Check Your Understanding</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const QUIZ_SLIDE_IDX = 10; // s-quiz is the 11th slide (0-indexed 10)
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+}
+document.addEventListener('keydown', e => { if (e.key==='ArrowRight'||e.key===' ') go(1); if (e.key==='ArrowLeft') go(-1); });
+
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word'), prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ s1: COMMAND TERM DRILL ============
+const CMD_OUT = {
+  define: '<strong style="color:var(--gold)">Define:</strong> "Opportunity cost is the next-best alternative forgone when a choice is made."',
+  state: '<strong style="color:var(--gold)">State:</strong> "Opportunity cost."',
+  describe: '<strong style="color:var(--gold)">Describe:</strong> "Opportunity cost is the value of the next-best alternative given up when a choice is made — for example, choosing to build a factory means the farmland that could have been built there is now forgone."'
+};
+function setCmd(el) {
+  document.querySelectorAll('.cmd-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('cmdOut').innerHTML = CMD_OUT[el.dataset.cmd];
+}
+setCmd(document.querySelector('.cmd-btn[data-cmd="define"]'));
+
+// ============ s2: STAKEHOLDER TABS ============
+const STAKEHOLDERS = [
+  {k:'Consumers', text:'A consumer who spends $30 on a concert ticket gives up the <strong>next-best alternative purchase</strong> — perhaps new headphones. Every spending decision carries this trade-off.'},
+  {k:'Workers', text:'A worker who chooses a stable office job over freelancing gives up the <strong>higher potential income and flexibility</strong> freelancing might have offered — the opportunity cost of security.'},
+  {k:'Firms', text:'A firm that invests $1m in new machinery gives up the <strong>next-best use of that capital</strong> — e.g. expanding into a new market, or paying it out as dividends.'},
+  {k:'Governments', text:'A government that spends its budget on healthcare gives up the <strong>next-best alternative spending</strong> — e.g. education or infrastructure. This is why budget debates are, fundamentally, opportunity-cost debates.'}
+];
+const stakeTabs = document.getElementById('stakeTabs');
+STAKEHOLDERS.forEach((s,i) => {
+  const t = document.createElement('div');
+  t.className = 'stake-tab' + (i===0?' active':'');
+  t.textContent = s.k;
+  t.onclick = () => selectStake(i, t);
+  stakeTabs.appendChild(t);
+});
+function selectStake(i, el) {
+  document.querySelectorAll('.stake-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('stakePanel').innerHTML = STAKEHOLDERS[i].text;
+}
+selectStake(0, stakeTabs.children[0]);
+
+// ============ s4: PPC ============
+const PPC_DESC = {
+  A: '<strong>Point A (on the curve):</strong> Productively efficient — all resources are fully and efficiently employed. No more of one good can be produced without giving up some of the other.',
+  B: '<strong>Point B (inside the curve):</strong> Productively inefficient — resources are unemployed or underused. The economy could produce more of BOTH goods without any trade-off, simply by using idle resources.',
+  C: '<strong>Point C (outside the curve):</strong> Currently unattainable with existing resources and technology. It can only be reached if the PPC itself shifts outward — i.e. economic growth.'
+};
+function selectPPC(p) {
+  document.querySelectorAll('.ppc-leg-item').forEach(l => l.classList.remove('active'));
+  document.getElementById('ppcDesc').innerHTML = PPC_DESC[p];
+  event.currentTarget && event.currentTarget.classList && event.currentTarget.classList.add('active');
+}
+let growthShown = false;
+function toggleGrowth() {
+  growthShown = !growthShown;
+  document.getElementById('ppcCurveShift').style.opacity = growthShown ? '1' : '0';
+  if (growthShown) {
+    document.getElementById('ppcDesc').innerHTML = '<strong>Economic growth:</strong> the whole curve shifts outward (dashed teal line) — caused by more/better factors of production (e.g. more capital, improved technology, a larger labour force). Point C, previously unattainable, may now be reachable.';
+  }
+}
+
+// ============ s5: ECONOMIC SYSTEMS ============
+const ECON_EX = {
+  US: '<strong>United States</strong> — predominantly market-based: prices and competition allocate most resources, though government still regulates and provides some public services.',
+  NK: '<strong>North Korea</strong> — a centrally planned economy: the state owns most production and directs what is made, largely bypassing market prices.',
+  SG: '<strong>Singapore</strong> — a mixed economy: highly market-driven and open to trade, but with significant state involvement in housing, healthcare and strategic industries.'
+};
+function setEcon(el) {
+  document.querySelectorAll('.econ-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('sysExample').innerHTML = ECON_EX[el.dataset.c];
+}
+setEcon(document.querySelector('.econ-chip[data-c="US"]'));
+
+// ============ s6: CIRCULAR FLOW ============
+const FLOW_DESC = {
+  factors: 'Households own the four factors of production and supply them to firms via the <strong>factor market</strong> (top row).',
+  income: 'In return, firms pay households <strong>rent, wages, interest and profit</strong> — flowing back as income (top row, reverse direction).',
+  spending: 'Households then spend that income buying output in the <strong>goods market</strong> (bottom row) — this is firms\\' revenue.',
+  goods: 'In return, firms supply the <strong>goods and services</strong> households purchase (bottom row, reverse direction).'
+};
+function selectFlow(k) { document.getElementById('cflowDesc').innerHTML = FLOW_DESC[k]; }
+
+// ============ s7: POSITIVE VS NORMATIVE GAME ============
+const PN_ITEMS = [
+  {text:'If the government raises the minimum wage, unemployment among low-skilled workers will rise.', type:'positive'},
+  {text:'The government should raise the minimum wage to help low-income families.', type:'normative'},
+  {text:'A rise in the price of a good, all else equal, causes quantity demanded to fall.', type:'positive'},
+  {text:'It is unfair that some countries are so much richer than others.', type:'normative'},
+  {text:'North Korea\\'s GDP per capita is lower than South Korea\\'s.', type:'positive'},
+  {text:'Markets are a better way to allocate resources than central planning.', type:'normative'}
+];
+let pnIdx=0, pnScore=0, pnStreak=0;
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🎓 You can now separate testable claims from value judgements — a core AO1/AO3 skill.';
+    return;
+  }
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
+}
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\\'s '+item.type+' — a '+(item.type==='positive'?'testable claim.':'value judgement.'); document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
+}
+renderPN();
+
+// ============ EXAM ADAPTER SLOT ============
+const ADAPTER = {
+  igcse: 'AO1: single, precise Cambridge command-word definitions. Practise: "Define opportunity cost" → one clean sentence, no elaboration needed. Also drill <strong>diagram labelling discipline</strong> — axes, curve, and point labels must be present for full marks on any PPC question.<span class="ex">Practice: "Define the term \\'factors of production\\'." [2 marks]</span>',
+  ib: 'AO1: fuller 2–3 sentence IB-style definitions, PLUS your first \\'explain\\' cause-chain — state the term, then link it to a consequence using \\'because\\' / \\'this means that\\'.<span class="ex">Practice: "Explain why scarcity means every economic choice has an opportunity cost." — state scarcity → link to finite resources → link to the need to choose → name the forgone alternative as the cost.</span>'
+};
+function setAdapter(el) {
+  document.querySelectorAll('.adapter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('adapterPanel').innerHTML = ADAPTER[el.dataset.b];
+}
+setAdapter(document.querySelector('.adapter-tab[data-b="igcse"]'));
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'Which of these best <span>defines</span> scarcity?', opts:['Not having enough money','Finite resources vs. infinite wants','A shortage caused by a price ceiling'], correct:1, explain:'Scarcity is the fundamental condition that finite resources cannot satisfy infinite wants — it exists regardless of a society\\'s wealth.' },
+  { q:'On a PPC, a point <span>inside</span> the curve represents...', opts:['Productive efficiency','Unattainable output','Productive inefficiency — unused resources'], correct:2, explain:'Points inside the curve mean resources are idle or underused — more of both goods could be produced without any trade-off.' },
+  { q:'What causes a PPC to shift <span>outward</span>?', opts:['A movement along the curve','Economic growth — more/better factors of production','A fall in demand'], correct:1, explain:'Only a change in the quantity or quality of resources (or technology) shifts the whole curve — this IS economic growth.' },
+  { q:'"The government should cut taxes" is an example of a...', opts:['Positive statement','Normative statement','Factor of production'], correct:1, explain:'It contains a value judgement ("should") that can\\'t be proven true or false by evidence alone — that makes it normative.' },
+  { q:'In the 2-sector circular flow, households receive income by supplying...', opts:['Factors of production to firms','Goods and services to firms','Taxes to the government'], correct:0, explain:'Households supply land, labour, capital & enterprise via the factor market and receive rent, wages, interest & profit in return.' }
+];
+let quizIdx=0, quizScoreVal=0, quizInited=false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d=document.createElement('div'); d.className='q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length?'Excellent — full AO1 command achieved! 🏆':'Good work — revisit any missed concepts before M1L2.'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `<div class="quiz-q">${item.q}</div><div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div><div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>

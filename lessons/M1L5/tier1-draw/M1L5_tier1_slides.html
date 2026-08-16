@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cookie Factory: Big, Bigger, Chaos | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif;
+  overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center;
+}
+#slide-frame {
+  position:relative; width:960px; height:540px; background:var(--bg);
+  border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0;
+}
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide {
+  position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center;
+  align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none;
+  transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box;
+}
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%),
+             radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%);
+  pointer-events:none;
+}
+#nav {
+  position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100;
+  background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border);
+  border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg {
+  position:absolute; inset:0;
+  background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size:48px 48px; pointer-events:none;
+}
+.tag {
+  display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold);
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px;
+  margin-bottom:8px; text-transform:uppercase;
+}
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(26px,4vw,44px); line-height:1.05; margin-bottom:14px; color:var(--white); }
+.btn {
+  background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px;
+  letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s;
+}
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+@keyframes bakeSteam { 0%,100%{transform:translateY(0);opacity:0.7;} 50%{transform:translateY(-6px);opacity:1;} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.factory-scene { position:relative; z-index:2; width:260px; height:190px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; }
+.factory-row { display:flex; align-items:center; gap:10px; animation:fadeUp 0.6s ease 0.4s backwards; }
+.factory-emoji { font-size:40px; animation:bakeSteam 2.4s ease-in-out infinite; }
+.factory-lbl { color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(30px,5vw,50px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:380px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 HOOK ===== */
+#s0 { text-align:center; }
+.hook-question { font-family:'Bebas Neue',sans-serif; font-size:clamp(20px,3.2vw,36px); line-height:1.15; letter-spacing:1px; margin-bottom:18px; max-width:800px; }
+.hook-question span { color:var(--gold); }
+.hook-scene { display:flex; gap:24px; margin:10px 0; }
+.hook-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:16px 24px; text-align:center; }
+.hook-emoji { font-size:34px; }
+.hook-lbl { font-family:'Bebas Neue',sans-serif; font-size:16px; margin-top:6px; }
+.hook-sub { font-size:11px; color:var(--dim); margin-top:2px; max-width:150px; }
+.hook-reveal { font-size:14px; color:var(--teal); opacity:0; animation:fadeUp 0.8s ease 1.2s forwards; margin-top:10px; }
+
+/* ===== s1: FACTORY DEMO ===== */
+#s1 { flex-direction:column; gap:10px; }
+.rb-arena { display:flex; gap:20px; max-width:820px; width:100%; justify-content:center; }
+.rb-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:16px 22px; width:340px; text-align:center; }
+.rb-title { font-family:'Bebas Neue',sans-serif; font-size:17px; margin-bottom:2px; }
+.rb-sub { font-size:10.5px; color:var(--dim); margin-bottom:8px; }
+.rb-price { font-family:'Space Mono',monospace; font-size:20px; color:var(--blue); margin:6px 0; }
+.rb-buyers { font-size:22px; letter-spacing:3px; min-height:30px; margin-bottom:8px; }
+.rb-meter-track { width:100%; height:14px; background:rgba(0,0,0,0.06); border-radius:8px; overflow:hidden; margin-bottom:8px; }
+.rb-meter-fill { height:100%; border-radius:8px; transition:width 0.4s ease; }
+.rb-meter-lbl { font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; }
+.rb-btn { background:var(--red); color:#fff; border:none; font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:1px; padding:7px 18px; border-radius:20px; cursor:pointer; margin-top:6px; }
+.rb-btn:hover { opacity:0.85; }
+.rb-verdict { font-size:11px; color:var(--dim); min-height:32px; margin-top:6px; line-height:1.5; }
+
+/* ===== s2: FIRM SORT ===== */
+#s2 { flex-direction:column; gap:10px; }
+.spec-cards { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:840px; }
+.spec-card { background:var(--card); border:2px solid rgba(0,0,0,0.06); border-radius:12px; padding:9px 14px; font-size:12px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; }
+.spec-card:hover { border-color:var(--gold); }
+.spec-card.done { border-color:var(--teal); background:rgba(0,137,123,0.08); }
+.spec-hint { font-size:11px; color:var(--dim); text-align:center; margin-top:4px; min-height:40px; max-width:700px; line-height:1.5; }
+
+/* ===== s3: MERGER SORT ===== */
+#s3 { flex-direction:column; gap:10px; }
+.merge-cards { display:flex; flex-direction:column; gap:8px; max-width:720px; width:100%; }
+.merge-card { background:var(--card); border:2px solid rgba(0,0,0,0.06); border-radius:12px; padding:10px 16px; font-size:12.5px; cursor:pointer; }
+.merge-card:hover { border-color:var(--gold); }
+.merge-btns { display:flex; gap:6px; margin-top:6px; }
+.merge-btn { font-family:'Space Mono',monospace; font-size:9.5px; padding:4px 9px; border-radius:6px; border:1px solid rgba(0,0,0,0.15); background:#fff; cursor:pointer; }
+.merge-btn.active { border-color:var(--blue); color:var(--blue); font-weight:700; background:rgba(13,45,82,0.05); }
+.merge-out { font-size:11px; color:var(--dim); margin-top:4px; min-height:18px; line-height:1.5; }
+
+/* ===== s4: LEMONADE MONOPOLY ===== */
+#s4 { flex-direction:column; gap:12px; }
+.tax-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:16px 26px; max-width:600px; width:100%; text-align:center; }
+.tax-card input[type=range] { width:100%; -webkit-appearance:none; height:6px; background:linear-gradient(90deg,var(--teal),var(--gold),var(--red)); border-radius:3px; outline:none; margin:10px 0; }
+.tax-card input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:#fff; border:3px solid var(--blue); cursor:pointer; }
+.tax-readout { font-family:'Space Mono',monospace; font-size:13px; color:var(--blue); }
+.tax-bars { display:flex; gap:20px; justify-content:center; margin-top:10px; }
+.tax-bar-col { text-align:center; }
+.tax-bar-track { height:64px; width:36px; background:rgba(0,0,0,0.04); border-radius:8px; display:flex; align-items:flex-end; justify-content:center; }
+.tax-bar { width:26px; border-radius:6px 6px 0 0; transition:height 0.3s ease; }
+.tax-bar-lbl { font-size:9px; color:var(--dim); margin-top:4px; }
+.debate-out { font-size:11px; color:var(--dim); margin-top:10px; min-height:44px; max-width:640px; line-height:1.5; }
+
+/* ===== s5: LEMONS GAME ===== */
+#s5 { flex-direction:column; gap:10px; }
+.lemon-arena { max-width:700px; width:100%; text-align:center; }
+.lemon-bike { font-size:56px; min-height:70px; }
+.lemon-result { font-size:12px; color:var(--dim); min-height:50px; margin-top:6px; max-width:640px; margin-left:auto; margin-right:auto; line-height:1.6; }
+.lemon-tally { display:flex; gap:16px; justify-content:center; margin-top:6px; font-family:'Space Mono',monospace; font-size:11px; color:var(--dim); }
+
+/* ===== s6: RAPID ROUND ===== */
+#s6 { flex-direction:column; gap:16px; }
+.rr-arena { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:20px 30px; max-width:680px; width:100%; text-align:center; }
+
+/* ===== quiz reused ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:18px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left">
+    <div class="factory-scene">
+      <div class="factory-row"><span class="factory-emoji">🍪</span><span class="factory-lbl">COOKIE FACTORY</span></div>
+      <div class="factory-row"><span class="factory-emoji">🏭</span><span class="factory-lbl">BIG, BIGGER, CHAOS</span></div>
+    </div>
+  </div>
+  <div class="cover-right">
+    <div class="cover-module">Module 1 · Microeconomics — Lesson 5</div>
+    <div class="cover-title">The Cookie Factory:<br><span>Big, Bigger, Chaos</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">Hire more bakers and cookies get cheaper to make — up to a point. Then negotiate a merger, run the only lemonade stand in town, and try your luck buying a mystery used bike.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Costs &amp; Scale</span>
+        <span class="cc-chip">Types of Firms</span>
+        <span class="cc-chip">Mergers</span>
+        <span class="cc-chip">Monopoly</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 10–12</div>
+      <div class="cover-pill">Interactive</div>
+      <div class="cover-pill">45 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0: HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="hook-question">Hiring more bakers makes each cookie <span>cheaper</span> to make.<br>So... should a factory just keep hiring forever?</div>
+  <div class="hook-scene">
+    <div class="hook-card"><div class="hook-emoji">🍪</div><div class="hook-lbl">1 Baker</div><div class="hook-sub">slow, but no one's in anyone's way</div></div>
+    <div class="hook-card"><div class="hook-emoji">🍪🍪🍪</div><div class="hook-lbl">12 Bakers</div><div class="hook-sub">fast... or is it total chaos?</div></div>
+  </div>
+  <div class="hook-reveal">👇 Let's find out by hiring some bakers...</div>
+</section>
+
+<!-- ============ s1: FACTORY DEMO ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Live Demo</div>
+    <div class="big-title">Hire a Baker — Watch the Cost Per Cookie</div>
+    <p style="font-size:11px;color:var(--dim);max-width:600px">Tap "Hire a Baker" again and again. Watch what happens to the cost of baking ONE cookie — and to the factory floor.</p>
+  </div>
+  <div class="rb-arena">
+    <div class="rb-card">
+      <div class="rb-title">💰 Cost Per Cookie</div>
+      <div class="rb-sub">Falls as bakers share the oven &amp; tools... at first.</div>
+      <div class="rb-price" id="bakeCost">$1.00</div>
+      <div class="rb-meter-track"><div class="rb-meter-fill" id="bakeMeter" style="width:70%;background:var(--teal)"></div></div>
+      <div class="rb-meter-lbl">BAKERS HIRED: <span id="bakerCount">1</span></div>
+      <button class="rb-btn" onclick="hireBaker()">Hire a Baker +</button>
+      <div class="rb-verdict" id="bakeVerdict">One baker, one oven — steady but slow.</div>
+    </div>
+    <div class="rb-card">
+      <div class="rb-title">🏭 Factory Floor</div>
+      <div class="rb-sub">More bakers need more space to move around.</div>
+      <div class="rb-buyers" id="floorEmoji">👨‍🍳</div>
+      <div class="rb-meter-track"><div class="rb-meter-fill" id="floorMeter" style="width:8%;background:var(--gold)"></div></div>
+      <div class="rb-meter-lbl">CROWDING</div>
+      <div class="rb-verdict" id="floorVerdict">Plenty of room — everyone has space to work.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s2: FIRM SORT ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Sort the Businesses</div>
+    <div class="big-title">Tap Each Business to Classify It</div>
+    <p style="font-size:11px;color:var(--dim);max-width:640px">Every business has a SECTOR (what stage it works at) and an OWNER type (who owns it).</p>
+  </div>
+  <div class="spec-cards" id="firmCards"></div>
+  <div class="spec-hint" id="firmHint">Tap a business above to see its sector and ownership type.</div>
+</section>
+
+<!-- ============ s3: MERGER SORT ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Merger Negotiation</div>
+    <div class="big-title">Horizontal, Vertical, or Conglomerate?</div>
+    <p style="font-size:11px;color:var(--dim);max-width:640px">Two rival cookie factories are talking business. Guess the merger type for each deal, then check your answer.</p>
+  </div>
+  <div class="merge-cards" id="mergeCards"></div>
+</section>
+
+<!-- ============ s4: LEMONADE MONOPOLY ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Role Play</div>
+    <div class="big-title">The Only Lemonade Stand in Town</div>
+    <p style="font-size:11px;color:var(--dim);max-width:600px">You own the ONLY lemonade stand in town — no competitors. Drag the price up and watch the town react.</p>
+  </div>
+  <div class="tax-card">
+    <input type="range" id="monoSlider" min="0" max="100" value="0" step="10" oninput="updateMono(this.value)">
+    <div class="tax-readout" id="monoReadout">Price: $1.00 per cup</div>
+    <div class="tax-bars">
+      <div class="tax-bar-col"><div class="tax-bar-track"><div class="tax-bar" id="monoQtyBar" style="background:var(--teal);height:60px"></div></div><div class="tax-bar-lbl">Cups sold</div></div>
+      <div class="tax-bar-col"><div class="tax-bar-track"><div class="tax-bar" id="monoProfitBar" style="background:var(--gold);height:20px"></div></div><div class="tax-bar-lbl">Your profit</div></div>
+    </div>
+    <div class="debate-out" id="monoOut">Slide the price up — you're the only seller in town, so buyers have nowhere else to go... but they can always just buy less.</div>
+  </div>
+</section>
+
+<!-- ============ s5: LEMONS TEASER ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Mystery Game</div>
+    <div class="big-title">Buy a Mystery Used Bike</div>
+    <p style="font-size:11px;color:var(--dim);max-width:640px">The seller knows if a bike is great or broken. YOU don't — until after you've paid. Tap to buy one and see what you get!</p>
+  </div>
+  <div class="lemon-arena">
+    <div class="lemon-bike" id="lemonBike">🚲</div>
+    <button class="btn" onclick="buyBike()">Buy a Mystery Bike — $50</button>
+    <div class="lemon-result" id="lemonResult">Every bike costs the same $50 — but not every bike is worth it.</div>
+    <div class="lemon-tally"><span>Great bikes: <span id="peachCount">0</span></span><span>Broken bikes: <span id="lemonCount">0</span></span></div>
+  </div>
+</section>
+
+<!-- ============ s6: RAPID ROUND ============ -->
+<section class="slide" id="s6">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Bonus Round</div>
+    <div class="big-title">Bigger = Better? Quick Guess!</div>
+  </div>
+  <div class="rr-arena">
+    <div class="game-question" id="rrRoundLbl" style="font-size:12px;color:var(--dim);margin-bottom:8px">Round 1 of 5</div>
+    <div class="game-scenario" id="rrScenario" style="font-family:'Bebas Neue',sans-serif;font-size:19px;min-height:70px">Loading...</div>
+    <div class="answer-options" style="display:flex;gap:16px;justify-content:center">
+      <button class="ans-btn" style="background:rgba(0,137,123,0.08);border:2px solid var(--teal);color:var(--teal);font-family:'Bebas Neue',sans-serif;font-size:16px;padding:10px 22px;border-radius:12px;cursor:pointer" onclick="rrAnswer(true)">TRUE</button>
+      <button class="ans-btn" style="background:rgba(229,57,53,0.08);border:2px solid var(--red);color:var(--red);font-family:'Bebas Neue',sans-serif;font-size:16px;padding:10px 22px;border-radius:12px;cursor:pointer" onclick="rrAnswer(false)">FALSE</button>
+    </div>
+    <div class="nudge-feedback" id="rrFeedback" style="min-height:30px;font-size:12px;color:var(--dim);margin-top:8px"></div>
+  </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">How well did you get it? 🧠</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const QUIZ_SLIDE_IDX = 8;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ s1: FACTORY DEMO ============
+// avgCost = 1.00 - 0.09*bakers + 0.009*bakers^2 (U-shaped, minimum around baker 5)
+let bakers = 1;
+function avgCostFor(b) { return Math.max(0.25, 1.00 - 0.09*b + 0.009*b*b); }
+function hireBaker() {
+  bakers = Math.min(12, bakers + 1);
+  const cost = avgCostFor(bakers);
+  const minCost = avgCostFor(5);
+  document.getElementById('bakerCount').textContent = bakers;
+  document.getElementById('bakeCost').textContent = '$' + cost.toFixed(2);
+  document.getElementById('bakeMeter').style.width = Math.min(100, cost/1.0*100) + '%';
+  document.getElementById('floorMeter').style.width = Math.min(100, bakers/12*100) + '%';
+  document.getElementById('floorEmoji').textContent = '👨‍🍳'.repeat(Math.min(6,bakers)) + (bakers>6 ? ' 😵' : '');
+  const bV = document.getElementById('bakeVerdict');
+  const fV = document.getElementById('floorVerdict');
+  if (bakers < 5) {
+    bV.innerHTML = '<strong style="color:var(--teal)">Cost per cookie is FALLING.</strong> More bakers share the oven and tools more efficiently — this is called <strong>economies of scale</strong>.';
+  } else if (bakers === 5) {
+    bV.innerHTML = '<strong style="color:var(--gold)">Lowest cost per cookie!</strong> This factory just found its sweet spot.';
+  } else {
+    bV.innerHTML = '<strong style="color:var(--red)">Cost per cookie is RISING again.</strong> Too many bakers are bumping into each other and slowing everyone down — this is called <strong>diseconomies of scale</strong>.';
+  }
+  if (bakers <= 4) fV.textContent = 'Plenty of room — everyone has space to work.';
+  else if (bakers <= 7) fV.innerHTML = 'Getting busy — bakers are starting to bump into each other.';
+  else fV.innerHTML = '<strong style="color:var(--red)">Total chaos!</strong> Too many bakers, not enough space — mistakes and slowdowns everywhere.';
+}
+
+// ============ s2: FIRM SORT ============
+const FIRM_CARDS = [
+  {name:'A family-owned wheat farm', sector:'Primary', owner:'Private', why:'Growing raw materials (wheat) is a PRIMARY-sector activity, and a family farm is PRIVATELY owned.'},
+  {name:'A cookie factory that bakes and packages cookies', sector:'Secondary', owner:'Private', why:'Turning raw ingredients into a finished product is a SECONDARY-sector activity — manufacturing.'},
+  {name:'A public city library', sector:'Tertiary', owner:'Public', why:'Providing a service (lending books) is TERTIARY-sector, and it\\'s owned and run by the government — PUBLIC.'},
+  {name:'A privately-owned hair salon', sector:'Tertiary', owner:'Private', why:'A haircut is a SERVICE (tertiary), and the salon is owned by a private individual or company — PRIVATE.'},
+  {name:'A national postal service run by the government', sector:'Tertiary', owner:'Public', why:'Delivering mail is a SERVICE (tertiary), run and owned by the government — PUBLIC.'},
+  {name:'A copper mine owned by a private company', sector:'Primary', owner:'Private', why:'Extracting raw materials (copper) is PRIMARY-sector, and this mine is owned by a private company — PRIVATE.'}
+];
+const firmGrid = document.getElementById('firmCards');
+FIRM_CARDS.forEach((it) => {
+  const c = document.createElement('div');
+  c.className = 'spec-card';
+  c.textContent = it.name;
+  c.onclick = () => {
+    document.querySelectorAll('#firmCards .spec-card').forEach(x=>x.classList.remove('done'));
+    c.classList.add('done');
+    document.getElementById('firmHint').innerHTML = `<strong style="color:var(--teal)">Sector: ${it.sector}</strong> &nbsp;·&nbsp; <strong style="color:var(--blue)">Ownership: ${it.owner}</strong><br>${it.why}`;
+  };
+  firmGrid.appendChild(c);
+});
+
+// ============ s3: MERGER SORT ============
+const MERGE_DEALS = [
+  {name:'Two rival cookie factories in the same town decide to merge into one company.', correct:'H', why:'Both firms make the SAME product at the SAME stage — that\\'s a HORIZONTAL merger.'},
+  {name:'The cookie factory buys the flour mill that supplies its ingredients.', correct:'V', why:'The factory is merging with a business at a DIFFERENT stage of the same supply chain (its supplier) — that\\'s a VERTICAL merger.'},
+  {name:'The cookie factory buys a company that makes toy trucks — a totally different product.', correct:'C', why:'These two businesses have nothing to do with each other\\'s product — that\\'s a CONGLOMERATE merger.'}
+];
+const mergeGrid = document.getElementById('mergeCards');
+MERGE_DEALS.forEach((d,i) => {
+  const box = document.createElement('div');
+  box.className = 'merge-card';
+  box.innerHTML = `${d.name}
+    <div class="merge-btns">
+      <button class="merge-btn" onclick="pickMerge(${i},'H',this)">Horizontal</button>
+      <button class="merge-btn" onclick="pickMerge(${i},'V',this)">Vertical</button>
+      <button class="merge-btn" onclick="pickMerge(${i},'C',this)">Conglomerate</button>
+    </div>
+    <div class="merge-out" id="mergeOut${i}"></div>`;
+  mergeGrid.appendChild(box);
+});
+function pickMerge(i, choice, el) {
+  const d = MERGE_DEALS[i];
+  el.parentElement.querySelectorAll('.merge-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  const out = document.getElementById('mergeOut'+i);
+  const correct = choice === d.correct;
+  out.innerHTML = (correct ? '<strong style="color:var(--teal)">✓ Correct!</strong> ' : '<strong style="color:var(--red)">Not quite.</strong> ') + d.why;
+}
+
+// ============ s4: LEMONADE MONOPOLY ============
+function updateMono(val) {
+  const price = 1 + val/20;
+  const qty = Math.max(5, 60 - val*0.5);
+  const profit = (price - 0.3) * qty;
+  document.getElementById('monoReadout').textContent = 'Price: $' + price.toFixed(2) + ' per cup';
+  document.getElementById('monoQtyBar').style.height = Math.max(6, qty) + 'px';
+  document.getElementById('monoProfitBar').style.height = Math.min(64, Math.max(4, profit*0.6)) + 'px';
+  const out = document.getElementById('monoOut');
+  if (val == 0) out.textContent = 'Slide the price up — you\\'re the only seller in town, so buyers have nowhere else to go... but they can always just buy less.';
+  else if (val < 50) out.innerHTML = 'Price is climbing and profit is going up — but a few thirsty kids are starting to just walk away instead of paying.';
+  else out.innerHTML = '<strong style="color:var(--red)">Price is high and fewer cups are selling.</strong> With NO competitor to keep you honest, you can charge more than a fair market would allow — that\\'s the cost of a <strong>monopoly</strong> to buyers.';
+}
+
+// ============ s5: LEMONS TEASER ============
+let peachCount = 0, lemonCount = 0;
+function buyBike() {
+  const isGood = Math.random() > 0.5;
+  const bikeEl = document.getElementById('lemonBike');
+  const resultEl = document.getElementById('lemonResult');
+  if (isGood) {
+    peachCount++;
+    bikeEl.textContent = '🚲✨';
+    resultEl.innerHTML = '<strong style="color:var(--teal)">Great bike!</strong> Smooth ride, no problems — you got lucky this time.';
+  } else {
+    lemonCount++;
+    bikeEl.textContent = '🚲💥';
+    resultEl.innerHTML = '<strong style="color:var(--red)">It\\'s a "lemon"!</strong> Broken brakes, squeaky wheels — the seller knew, but you couldn\\'t tell until you paid. This is called <strong>asymmetric information</strong>: the seller knows more than the buyer.';
+  }
+  document.getElementById('peachCount').textContent = peachCount;
+  document.getElementById('lemonCount').textContent = lemonCount;
+}
+
+// ============ s6: RAPID ROUND ============
+const RR_ROUNDS = [
+  { text: 'A bigger factory ALWAYS has a lower cost per item than a small one.', answer: false, why: 'Only up to a point! Past a certain size, factories can get TOO big and costs start rising again — diseconomies of scale. FALSE.' },
+  { text: 'Turning raw milk into cheese is a secondary-sector activity.', answer: true, why: 'Manufacturing a raw material into a finished product is exactly what the secondary sector does. TRUE.' },
+  { text: 'A monopoly (only one seller) usually means LOWER prices for buyers.', answer: false, why: 'With no competitor to keep them in check, a monopolist can usually charge MORE, not less. FALSE.' },
+  { text: 'A horizontal merger is when two companies making the SAME kind of product join together.', answer: true, why: 'Exactly — horizontal means same product, same stage of production. TRUE.' },
+  { text: 'When a seller knows more about a product\\'s quality than the buyer does, that\\'s called asymmetric information.', answer: true, why: 'Right — "asymmetric" means unequal, and here the information about quality is unequal between buyer and seller. TRUE.' }
+];
+let rrIdx = 0;
+function renderRR() {
+  if (rrIdx >= RR_ROUNDS.length) {
+    document.getElementById('rrRoundLbl').textContent = 'Complete!';
+    document.getElementById('rrScenario').textContent = '🌟 You can spot firm and market tricks like a pro now!';
+    return;
+  }
+  document.getElementById('rrRoundLbl').textContent = 'Round ' + (rrIdx+1) + ' of ' + RR_ROUNDS.length;
+  document.getElementById('rrScenario').textContent = RR_ROUNDS[rrIdx].text;
+  document.getElementById('rrFeedback').textContent = '';
+}
+function rrAnswer(choice) {
+  const r = RR_ROUNDS[rrIdx];
+  document.getElementById('rrFeedback').innerHTML = (choice===r.answer ? '<strong style="color:var(--teal)">✓ Correct.</strong> ' : '<strong style="color:var(--red)">✗ Not quite.</strong> ') + r.why;
+  rrIdx++;
+  setTimeout(renderRR, 2200);
+}
+renderRR();
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'As a factory hires more workers, its cost per item first falls, then eventually rises again. The falling part is called...', opts:['Diseconomies of scale','Economies of scale','A monopoly'], correct:1, explain:'Economies of scale = cost per unit FALLS as a business grows bigger, thanks to sharing tools, space, and effort more efficiently.' },
+  { q:'What is a horizontal merger?', opts:['Two companies making the SAME kind of product join together','A company buys its own supplier','A company buys a totally unrelated business'], correct:0, explain:'Horizontal = same product, same stage — like two cookie factories merging.' },
+  { q:'Why can a monopolist (the only seller in town) usually charge a higher price?', opts:['Because the government forces them to','Because buyers have no other seller to switch to','Because their costs are always higher'], correct:1, explain:'With zero competition, buyers who still want the product have nowhere else to go — so the seller has more power over price.' },
+  { q:'A copper mine belongs to which sector?', opts:['Primary — extracting raw materials','Secondary — manufacturing','Tertiary — providing a service'], correct:0, explain:'Digging raw materials (like copper) out of the ground is a primary-sector activity.' },
+  { q:'You buy a used bike and only find out it\\'s broken AFTER paying, even though the seller knew. This is an example of...', opts:['A merger','A subsidy','Asymmetric information'], correct:2, explain:'Asymmetric information means one side of a trade (here, the seller) knows more than the other — a real problem in markets like used goods.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect! You\\'ve mastered firms and scale! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>

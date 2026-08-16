@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fishing Lake: A Tragedy of the Commons | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Noto Sans KR',sans-serif; color:var(--white);
+  background:linear-gradient(180deg,#bfe3ef 0%,#eaf6f3 40%,#f5f7fa 100%);
+  min-height:100vh; padding:28px 16px 60px;
+}
+.wrap { max-width:780px; margin:0 auto; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px; }
+.hdr-title { font-family:'Bebas Neue',sans-serif; font-size:34px; color:var(--blue); line-height:1; }
+.hdr-title span { color:var(--gold); }
+.hdr-sub { font-size:12px; color:var(--dim); margin-top:6px; max-width:460px; line-height:1.6; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.meta-pills { display:flex; gap:6px; margin-bottom:20px; flex-wrap:wrap; }
+.pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:var(--blue); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 11px; border-radius:20px; text-transform:uppercase; }
+
+.game-card { background:#fff; border-radius:20px; box-shadow:0 10px 40px rgba(13,45,82,0.12); padding:28px 30px; margin-bottom:24px; min-height:340px; }
+.phase-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.phase-title { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--blue); margin-bottom:10px; }
+.phase-body { font-size:13px; color:var(--dim); line-height:1.7; margin-bottom:16px; }
+
+.hud { display:flex; gap:22px; margin-bottom:18px; flex-wrap:wrap; }
+.hud-item { background:var(--card); border-radius:12px; padding:8px 16px; text-align:center; min-width:100px; }
+.hud-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.hud-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+.lake-box { background:linear-gradient(180deg,#d3edf5,#eef8f5); border-radius:16px; padding:16px 20px; text-align:center; margin-bottom:16px; }
+.lake-fish { font-size:26px; letter-spacing:2px; line-height:1.5; min-height:40px; }
+.lake-lbl { font-size:10px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; margin-top:4px; }
+
+.effort-row { display:flex; gap:10px; justify-content:center; margin-bottom:16px; flex-wrap:wrap; }
+.effort-btn { background:#fff; border:2px solid rgba(0,0,0,0.1); font-family:'Bebas Neue',sans-serif; font-size:15px; padding:10px 20px; border-radius:14px; cursor:pointer; text-align:center; min-width:140px; transition:all 0.15s; }
+.effort-btn:hover { border-color:var(--gold); }
+.effort-btn .e-sub { display:block; font-family:'Noto Sans KR',sans-serif; font-size:10px; color:var(--dim); font-weight:400; margin-top:2px; }
+.effort-btn.low { border-color:var(--teal); }
+.effort-btn.med { border-color:var(--gold); }
+.effort-btn.high { border-color:var(--red); }
+
+.round-result { background:var(--card); border-radius:12px; padding:12px 16px; font-size:12px; color:var(--dim); line-height:1.7; margin-bottom:14px; text-align:center; }
+.round-result strong { color:var(--white); }
+
+.act-row { display:flex; justify-content:center; gap:10px; }
+.act-btn { font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:11px 22px; border-radius:20px; cursor:pointer; border:2px solid transparent; transition:all 0.15s; background:var(--gold); color:#fff; }
+.act-btn:hover { background:var(--gold2); }
+.act-btn:disabled { opacity:0.35; cursor:not-allowed; }
+
+.log-box { background:var(--card); border-radius:12px; padding:12px 16px; font-size:11px; color:var(--dim); max-height:110px; overflow-y:auto; margin-top:14px; }
+.log-box div { padding:2px 0; border-bottom:1px dashed rgba(0,0,0,0.06); }
+.log-box div:last-child { border-bottom:none; }
+
+.result-score { font-family:'Bebas Neue',sans-serif; font-size:44px; color:var(--gold); text-align:center; }
+.result-msg { font-size:14px; color:var(--dim); text-align:center; margin:6px 0 18px; line-height:1.6; }
+
+.cta-row { display:flex; justify-content:center; gap:10px; }
+.btn { background:var(--gold); color:#fff; border:none; font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:1px; padding:11px 30px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:var(--gold2); transform:translateY(-2px); box-shadow:0 8px 24px rgba(200,150,10,0.3); }
+.btn.secondary { background:transparent; border:1.5px solid rgba(13,45,82,0.2); color:var(--blue); }
+
+/* ===== TUTOR GUIDE ===== */
+details.tutor { background:#fff; border-radius:16px; padding:6px 24px 22px; box-shadow:0 4px 20px rgba(13,45,82,0.08); }
+details.tutor summary { cursor:pointer; padding:16px 0; font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--blue); letter-spacing:0.5px; list-style:none; display:flex; align-items:center; gap:8px; }
+details.tutor summary::-webkit-details-marker { display:none; }
+details.tutor summary::before { content:'▸'; color:var(--gold); transition:transform 0.2s; }
+details.tutor[open] summary::before { transform:rotate(90deg); }
+.tg-section { margin-bottom:16px; }
+.tg-h { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+.tg-p { font-size:12.5px; color:var(--dim); line-height:1.7; }
+.tg-p strong { color:var(--white); }
+.tg-list { font-size:12.5px; color:var(--dim); line-height:1.9; padding-left:18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div>
+      <div class="hdr-title">The Fishing Lake: <span>A Tragedy of the Commons</span></div>
+      <div class="hdr-sub">M1L4 · Tier 1 game — you share ONE lake with three rival boats nobody controls. Fish it hard and you catch more today — but if everyone fishes hard, the lake can collapse before the season ends. Fish smart, not just greedy.</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="meta-pills">
+    <div class="pill">Ages 10–12</div>
+    <div class="pill">Solo or pairs</div>
+    <div class="pill">10–15 min</div>
+    <div class="pill">No prep needed</div>
+  </div>
+
+  <div class="game-card" id="gameCard"></div>
+
+  <details class="tutor">
+    <summary>🧠 For Tutors — Game Guide &amp; Debrief</summary>
+    <div class="tg-section">
+      <div class="tg-h">What this game teaches</div>
+      <div class="tg-p">The tragedy of the commons through direct consequence, not lecture. The lake is a shared, unowned resource (like the classic "shared bowl of goldfish crackers" version of this activity) — nobody's boat owns the fish until it's caught, so nobody has a personal incentive to hold back. A student who fishes hard every round catches more per round short-term but can wipe out the shared stock, cutting off catches (for themselves AND the rival boats) for the rest of the game. A student who fishes lightly protects the shared stock but earns less each round. There is no single "correct" effort — the lesson is that individually rational short-term choices can add up to a collectively bad outcome unless players adapt.</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Core mechanic</div>
+      <div class="tg-p">Each of 6 rounds, the student picks a fishing effort — Low, Medium, or High — for their own boat. Three rival boats (simulated, not controlled by the student) always take a share of the CURRENT lake stock. After both the player and the rivals catch, the remaining stock regrows by a percentage — but only if enough fish are left to regrow from. If the stock drops too low in a single round, the lake collapses and the game ends early: no more catches for anyone, for the rest of the season.</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Round structure</div>
+      <ul class="tg-list">
+        <li><strong>Briefing:</strong> the shared-lake setup is introduced — one lake, four boats, nobody owns the fish until it's caught.</li>
+        <li><strong>Rounds 1–6:</strong> student picks Low / Medium / High effort each round, sees their catch, the rivals' catch, and the lake's remaining stock immediately, then confirms to move on.</li>
+        <li><strong>Collapse check:</strong> if the stock falls too low after a round's catching, the lake collapses immediately and the game ends early with a "tragedy" ending.</li>
+        <li><strong>Result:</strong> total fish caught by the player, whether the lake survived to the end of the season, and a tier reflecting both.</li>
+      </ul>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Pre-game brief (1 minute)</div>
+      <div class="tg-p">"This lake belongs to everyone and no one. Three other boats are fishing it too, and you can't stop them. Every round, decide how hard to fish — Low, Medium, or High. Fish hard and you catch more today, but the lake needs fish left over to regrow, or it collapses for everybody, including you, for the rest of the season."</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Debrief questions</div>
+      <ul class="tg-list">
+        <li>Did the lake survive all 6 rounds for you? If it collapsed, which round did it happen, and what effort were you using right before?</li>
+        <li>Was there ever a round where fishing HARD felt like the smart move, and a later round where fishing LIGHT felt smarter? What changed?</li>
+        <li>If you owned this lake personally — if it were YOUR private property — would you fish it differently than when it belonged to "everyone"? Why might that be?</li>
+      </ul>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Common misconceptions &amp; fix</div>
+      <div class="tg-p"><strong>"Fishing High every round is always the winning strategy."</strong> Run it and watch the lake collapse by round 3 — the short-term gain doesn't survive contact with the shared, depleting resource. <strong>"The rival boats are the problem, not me."</strong> Point out that the player's own choices add to the SAME shared pool the rivals are drawing from — everyone's individually reasonable choice contributes to the same collective risk, which is the actual definition of the tragedy of the commons.</div>
+    </div>
+    <div class="tg-section">
+      <div class="tg-h">Variants</div>
+      <div class="tg-p"><strong>Simpler:</strong> play with a real shared bowl of goldfish crackers and 3-4 students each "fishing" (grabbing a handful) per round, refilling the bowl by a fixed amount between rounds — a tactile, unplugged version of this same game. <strong>Harder:</strong> introduce a "quota" rule mid-game (e.g., "starting round 4, no boat may take more than 15") and discuss why a government-style rule can fix a tragedy of the commons that individual choice alone could not.</div>
+    </div>
+  </details>
+</div>
+
+<script>
+const MAX_ROUNDS = 6;
+const POOL_MAX = 120;
+const GROWTH_RATE = 0.25;
+const RIVAL_CATCH_RATE = 0.15;
+const COLLAPSE_THRESHOLD = 5;
+const EFFORTS = { low: 8, med: 18, high: 35 };
+
+let round = 0;
+let pool = 100;
+let totalCaught = 0;
+let lakeCollapsed = false;
+let log = [];
+
+const card = document.getElementById('gameCard');
+
+function renderStart() {
+  card.innerHTML = `
+    <div class="phase-tag">Briefing</div>
+    <div class="phase-title">One lake. Four boats. Nobody's in charge. 🎣</div>
+    <div class="phase-body">
+      You share this lake with <strong>three rival boats</strong> you can't control. Nobody owns a fish until it's caught — so nobody has a personal reason to hold back.<br><br>
+      Fish it for <strong>${MAX_ROUNDS} rounds</strong>. Fish hard and catch more today — but leave too few fish behind, and the lake <strong style="color:var(--red)">collapses</strong> for everyone, for the rest of the season.
+    </div>
+    <div class="cta-row"><button class="btn" onclick="startGame()">Head Out to the Lake →</button></div>`;
+}
+
+function startGame() {
+  round = 0; pool = 100; totalCaught = 0; lakeCollapsed = false; log = [];
+  renderRound();
+}
+
+function renderRound() {
+  card.innerHTML = `
+    <div class="phase-tag">Round ${round+1} of ${MAX_ROUNDS}</div>
+    <div class="phase-title">Choose your fishing effort</div>
+    <div class="hud">
+      <div class="hud-item"><div class="hud-num">${round+1}/${MAX_ROUNDS}</div><div class="hud-lbl">Round</div></div>
+      <div class="hud-item"><div class="hud-num">${totalCaught}</div><div class="hud-lbl">Your total catch</div></div>
+    </div>
+    <div class="lake-box">
+      <div class="lake-fish">${fishEmojiRow(pool)}</div>
+      <div class="lake-lbl">Lake stock: ${pool} fish (shared with 3 rival boats)</div>
+    </div>
+    <div class="effort-row">
+      <button class="effort-btn low" onclick="chooseEffort('low')">Low Effort<span class="e-sub">catch ~${EFFORTS.low} · gentle on the lake</span></button>
+      <button class="effort-btn med" onclick="chooseEffort('med')">Medium Effort<span class="e-sub">catch ~${EFFORTS.med} · moderate risk</span></button>
+      <button class="effort-btn high" onclick="chooseEffort('high')">High Effort<span class="e-sub">catch ~${EFFORTS.high} · greedy, risky</span></button>
+    </div>
+    <div class="log-box" id="logBox">${log.length ? log.map(l=>`<div>${l}</div>`).join('') : '<div>No rounds fished yet.</div>'}</div>`;
+}
+
+function fishEmojiRow(stock) {
+  const count = Math.max(0, Math.round(stock / 10));
+  return '🐟'.repeat(Math.min(count, 12)) + (count > 12 ? ' +more' : '');
+}
+
+function chooseEffort(level) {
+  const rivalCatch = Math.round(pool * RIVAL_CATCH_RATE);
+  const desired = EFFORTS[level];
+  const playerCatch = Math.max(0, Math.min(desired, pool - rivalCatch));
+  const totalCatch = playerCatch + rivalCatch;
+  const poolAfterCatch = Math.max(0, pool - totalCatch);
+
+  totalCaught += playerCatch;
+  log.unshift(`Round ${round+1}: you fished <strong>${level.toUpperCase()}</strong> and caught ${playerCatch} · rivals caught ${rivalCatch} · lake left: ${poolAfterCatch}`);
+
+  if (poolAfterCatch <= COLLAPSE_THRESHOLD) {
+    pool = 0;
+    lakeCollapsed = true;
+    renderCollapseResult(playerCatch, rivalCatch);
+    return;
+  }
+
+  pool = Math.min(POOL_MAX, Math.round(poolAfterCatch * (1 + GROWTH_RATE)));
+  round++;
+
+  card.innerHTML = `
+    <div class="phase-tag">Round ${round} result</div>
+    <div class="phase-title">The lake responds</div>
+    <div class="round-result">You caught <strong>${playerCatch} fish</strong> fishing ${level.toUpperCase()}. The 3 rival boats caught <strong>${rivalCatch} fish</strong> combined. After regrowth, the lake now holds <strong>${pool} fish</strong>.</div>
+    <div class="cta-row"><button class="act-btn" onclick="${round >= MAX_ROUNDS ? 'renderFinal()' : 'renderRound()'}">${round >= MAX_ROUNDS ? 'See Season Results →' : 'Next Round →'}</button></div>
+    <div class="log-box" id="logBox">${log.map(l=>`<div>${l}</div>`).join('')}</div>`;
+}
+
+function renderCollapseResult(playerCatch, rivalCatch) {
+  card.innerHTML = `
+    <div class="phase-tag">Collapse — Round ${round+1}</div>
+    <div class="phase-title" style="color:var(--red)">The lake has collapsed. 💀</div>
+    <div class="round-result">You caught ${playerCatch} fish this round, rivals caught ${rivalCatch} — but that left too few fish to regrow. The shared stock has crashed to zero. No boat catches anything for the rest of the season.</div>
+    <div class="cta-row"><button class="act-btn" onclick="renderFinal()">See Season Results →</button></div>
+    <div class="log-box" id="logBox">${log.map(l=>`<div>${l}</div>`).join('')}</div>`;
+}
+
+function renderFinal() {
+  let tier, msg;
+  if (lakeCollapsed) {
+    tier = 'Tragedy of the Commons ⚠️';
+    msg = `The lake collapsed before the season ended. This is the exact pattern economists call the <strong style="color:var(--gold)">tragedy of the commons</strong>: nobody owned the fish, so nobody alone had a reason to fish less — but everyone fishing for their own short-term gain drained the SHARED resource for everybody, including you.`;
+  } else if (totalCaught >= 80) {
+    tier = 'Master of the Commons 🏆';
+    msg = `You caught a strong total AND kept the lake alive for the whole season — likely by fishing harder early when the stock was high, then easing off as it thinned out. That's exactly the adaptive strategy that avoids a tragedy of the commons.`;
+  } else if (totalCaught >= 50) {
+    tier = 'Sustainable Skipper 👍';
+    msg = `The lake survived the whole season under your watch, and you caught a solid total. A slightly bolder early strategy (when the stock was healthiest) might have grown your total even more without risking collapse.`;
+  } else {
+    tier = 'Cautious Fisher 🌱';
+    msg = `The lake survived — nicely done protecting the shared resource — but you left a lot of fish uncaught. Try mixing in more Medium or even High effort rounds early on, while the stock is large, then dropping back to Low as it thins.`;
+  }
+  card.innerHTML = `
+    <div class="phase-tag">Season Result</div>
+    <div class="result-score">${totalCaught} fish</div>
+    <div class="result-msg"><strong style="color:${lakeCollapsed?'var(--red)':'var(--blue)'}">${tier}</strong><br><br>${msg}</div>
+    <div class="cta-row"><button class="btn" onclick="renderStart()">Fish Again</button></div>`;
+}
+
+renderStart();
+</script>
+</body>
+</html>
