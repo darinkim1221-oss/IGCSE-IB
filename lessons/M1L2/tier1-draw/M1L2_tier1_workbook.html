@@ -37,6 +37,10 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
 .answer-line { border-bottom:1px solid rgba(0,0,0,0.18); height:26px; margin-bottom:4px; }
 .match-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:6px; }
 .match-table td { padding:7px 10px; border-bottom:1px solid rgba(0,0,0,0.08); }
+.match-table td:first-child { color:var(--dim); font-family:'Space Mono',monospace; width:30px; }
+.graph-box { width:100%; height:180px; background-image:linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size:24px 24px; border:1px solid rgba(0,0,0,0.2); border-radius:4px; position:relative; margin-top:8px; }
+.graph-axis-x { position:absolute; bottom:-20px; left:0; right:0; text-align:center; font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; }
+.graph-axis-y { position:absolute; top:50%; left:-70px; transform:rotate(-90deg); font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; width:150px; text-align:center; }
 .mission-box { background:linear-gradient(135deg,rgba(200,150,10,0.08),rgba(200,150,10,0.02)); border:1px solid var(--border); border-radius:12px; padding:16px 20px; margin-top:10px; }
 .mission-box .mtag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
 
@@ -55,7 +59,6 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
 [contenteditable="true"]:hover { background:rgba(200,150,10,0.05); }
 [contenteditable="true"]:focus { background:rgba(200,150,10,0.08); box-shadow:0 0 0 2px var(--gold) inset; border-radius:4px; }
 .answer-line[contenteditable="true"] { padding:2px 6px; font-size:13px; line-height:22px; color:var(--white); font-family:'Noto Sans KR',sans-serif; white-space:pre-wrap; }
-.work-box .wb-content { position:absolute; top:24px; left:10px; right:10px; bottom:8px; overflow-y:auto; font-size:12.5px; line-height:1.6; color:var(--white); white-space:pre-wrap; }
 td[contenteditable="true"] { min-width:60px; }
 .blank-fill { display:inline-block; min-width:32px; border-bottom:1px solid rgba(0,0,0,0.35); text-align:center; padding:0 4px; margin-right:2px; font-family:'Space Mono',monospace; font-size:12.5px; font-weight:700; color:var(--white); text-transform:uppercase; }
 .blank-fill[contenteditable="true"]:hover { background:rgba(200,150,10,0.06); }
@@ -90,24 +93,24 @@ td[contenteditable="true"] { min-width:60px; }
     </div>
   </div>
   <div class="meta-strip">
-    <div class="pill">10 questions</div>
+    <div class="pill">8 questions</div>
     <div class="pill">+ 1 family mission</div>
     <div class="pill">~20 min</div>
   </div>
   <div class="cc-chips">
     <span class="cc-chip">Demand</span><span class="cc-chip">Supply</span>
-    <span class="cc-chip">Price Mechanism</span><span class="cc-chip">Shortage &amp; Surplus</span>
+    <span class="cc-chip">Price Mechanism</span><span class="cc-chip">Equilibrium</span>
   </div>
 
   <div class="section-tag">Warm-up</div>
   <div class="big-title">Show what you discovered today</div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">1.</span> In the Pit Market game, when does a trade happen? Circle the best answer.</div>
+    <div class="q-text"><span class="q-num">1.</span> What is <strong>demand</strong>? Circle the best answer.</div>
     <ul class="q-opts selectable">
-      <li>Only when the teacher says so.</li>
-      <li>When the buyer's top price is at least the seller's lowest price.</li>
-      <li>Whenever two people shake hands.</li>
+      <li>How much of something sellers want to sell.</li>
+      <li>How much of something buyers want to buy at a price.</li>
+      <li>How much something costs to make.</li>
     </ul>
   </div>
 
@@ -117,46 +120,52 @@ td[contenteditable="true"] { min-width:60px; }
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">3.</span> A new sneaker has 500 buyers but only 50 pairs. Is this a shortage or a surplus? Explain in one sentence.</div>
+    <div class="q-text"><span class="q-num">3.</span> Match each word to its meaning. Write the correct letter next to each number.</div>
+    <table class="match-table">
+      <tr><td>1</td><td>Demand</td><td contenteditable="true" spellcheck="false"></td><td style="color:var(--dim)">A. Too many buyers, not enough stock</td></tr>
+      <tr><td>2</td><td>Supply</td><td contenteditable="true" spellcheck="false"></td><td style="color:var(--dim)">B. What buyers want to buy</td></tr>
+      <tr><td>3</td><td>Shortage</td><td contenteditable="true" spellcheck="false"></td><td style="color:var(--dim)">C. Too much stock, not enough buyers</td></tr>
+      <tr><td>4</td><td>Surplus</td><td contenteditable="true" spellcheck="false"></td><td style="color:var(--dim)">D. What sellers want to sell</td></tr>
+    </table>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">4.</span> A new sneaker has 500 buyers but only 50 pairs. Is this a shortage or a surplus? Explain in one sentence.</div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">4.</span> Name TWO things (besides price) that could make you want to buy MORE of something.</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="q-text"><span class="q-num">5.</span> For each sentence, write <strong>S</strong> for Shortage or <strong>U</strong> for Surplus.</div>
+    <ul class="q-opts" style="list-style:none;padding-left:0">
+      <li><span class="blank-fill" contenteditable="true" spellcheck="false"></span> A shop has 200 unsold umbrellas after a sunny month.</li>
+      <li><span class="blank-fill" contenteditable="true" spellcheck="false"></span> A concert has 10,000 fans trying to buy 500 tickets.</li>
+      <li><span class="blank-fill" contenteditable="true" spellcheck="false"></span> A bakery sells out of bread by 9am every day.</li>
+      <li><span class="blank-fill" contenteditable="true" spellcheck="false"></span> A toy store still has last year's toy piled up, unsold.</li>
+    </ul>
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">5.</span> True or False: If a shop has way more stock than buyers want, the price usually needs to rise to fix it.</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="q-text"><span class="q-num">6.</span> Draw a bar graph. Draw one bar for how many buyers wanted the new sneaker, and one bar for how many pairs the shop had.</div>
+    <div style="margin:26px 0 30px 80px;position:relative;max-width:600px">
+      <div class="graph-box">
+        <div class="graph-axis-y">Number</div>
+        <div class="graph-axis-x">Buyers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pairs Available</div>
+      </div>
+    </div>
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">6.</span> In Market Rush, what happened to the QUEUE every time you raised the price?</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">7.</span> In Market Rush, what happened to the SHELF (stock) every time you raised the price?</div>
+    <div class="q-text"><span class="q-num">7.</span> Would you rather be a seller when there's a shortage or a surplus? Circle ONE, then give ONE reason.</div>
+    <ul class="q-opts selectable">
+      <li>Shortage</li>
+      <li>Surplus</li>
+    </ul>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">8.</span> A factory finds a cheaper way to make shoes. Would sellers want to sell MORE or LESS at the same price? Why?</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">9.</span> What is a "nudge"? Give an example from the lesson or your own life.</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">10.</span> Nobody is "in charge" of prices, yet they still change. In your own words, explain how a price "knows" when to move.</div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
@@ -171,16 +180,14 @@ td[contenteditable="true"] { min-width:60px; }
 
   <div class="answer-key">
     <div class="ak-title">Answer Key</div>
-    <div class="ak-item"><strong>1.</strong> "When the buyer's top price is at least the seller's lowest price." <span class="why">— That overlap is where a deal becomes possible.</span></div>
+    <div class="ak-item"><strong>1.</strong> "How much of something buyers want to buy at a price." <span class="why">— Demand is about buyers, not sellers or production cost.</span></div>
     <div class="ak-item"><strong>2.</strong> More. <span class="why">— This is the Law of Demand: lower price, more buyers willing and able to buy.</span></div>
-    <div class="ak-item"><strong>3.</strong> Shortage. <span class="why">Accept: "There are far more buyers than pairs available at that price."</span></div>
-    <div class="ak-item"><strong>4.</strong> Accept any two: it becomes trendy, friends have it, you get more money (allowance/birthday), the season changes, an influencer promotes it, etc.</div>
-    <div class="ak-item"><strong>5.</strong> False. <span class="why">— A surplus (too much stock, not enough buyers) usually means the price needs to FALL to attract more buyers and clear the extra stock.</span></div>
-    <div class="ak-item"><strong>6.</strong> The queue shrank — fewer buyers were willing to pay the higher price.</div>
-    <div class="ak-item"><strong>7.</strong> The shelf grew — sellers were willing to offer more stock at the higher price.</div>
+    <div class="ak-item"><strong>3.</strong> 1–B (Demand → what buyers want), 2–D (Supply → what sellers want), 3–A (Shortage → too many buyers), 4–C (Surplus → too much stock).</div>
+    <div class="ak-item"><strong>4.</strong> Shortage. <span class="why">Accept: "There are far more buyers than pairs available at that price."</span></div>
+    <div class="ak-item"><strong>5.</strong> U, S, S, U. <span class="why">— A shortage is too few goods for the buyers who want them; a surplus is too many goods left unsold.</span></div>
+    <div class="ak-item"><strong>6.</strong> Accept any two bars showing many more buyers than pairs available — the key skill is drawing/reading a simple bar graph.</div>
+    <div class="ak-item"><strong>7.</strong> Accept any reasoned answer — check the reason actually matches the choice (e.g. "Shortage, because buyers will pay more" or "Surplus, because I'd rather not run out").</div>
     <div class="ak-item"><strong>8.</strong> MORE — cheaper production costs mean sellers can make a profit even while selling at the same price, so they're willing to supply more.</div>
-    <div class="ak-item"><strong>9.</strong> A nudge is a small design choice that encourages a certain choice without banning anything else — e.g. putting healthy snacks at eye level. Accept any reasonable real-life example.</div>
-    <div class="ak-item"><strong>10.</strong> Sample: "When too many people want to buy at a price, buyers offer more and the price rises; when too much is left unsold, sellers accept less and the price falls. No one plans it — it happens because everyone reacts to what they see (queues, empty shelves, unsold stock)." Accept any answer capturing this self-adjusting idea.</div>
   </div>
 
   <div class="footer">M1L2 · Economics Academy · Stoic Edu</div>

@@ -84,6 +84,34 @@ description: |
 3. **게임/인터랙티브** — 중간에 배치해서 리듬 조절
 4. **Quiz** — 마지막에서 두 번째 또는 마지막
 
+### 🔴 Economics Academy (M1/M2/M3) 고정 슬라이드 구조 — 예외 없음
+
+모든 모듈(M1, M2, M3)의 모든 레슨은 Tier 1과 Tier 2 둘 다 **동일한 9단계 구조**를 따른다.
+개념 이름만 그 레슨의 내용으로 바뀌고, 구조·순서·난이도는 절대 바뀌지 않는다.
+
+1. **Cover** — 개념 chips 포함
+2. **Hook** — 예상을 깨는 질문 (2-way 비교 카드)
+3. **Definitions** — 그 레슨의 핵심 용어 precise definitions (+ command-term drill, Tier 2)
+4. **Concept 1 — interactive diagram/activity** (예: M1L1의 "Opportunity Cost" stakeholder tabs)
+5. **Concept 2 — interactive diagram/activity** (예: M1L1의 "Factors of Production" table)
+6. **Key Concept 3 — 핵심 다이어그램** (예: M1L1의 PPC diagram)
+7. **Positive/Normative game** — 매 레슨 반복되는 미니게임 (문항만 그 레슨 내용으로 교체)
+8. **Exam Adapter Slot** — 그 레슨의 wiki §7 drip-map row 그대로 (IGCSE/IB 두 탭)
+9. **Quiz** — 5문항 권장, 해설 포함
+
+**슬라이드 수 상한 (절대 규칙):** Tier 1 ≤ **10 slides**, Tier 2 ≤ **15 slides** (Cover 포함). 위 9단계를
+넘는 추가 슬라이드가 필요하면 두 단계를 한 슬라이드에 합쳐서라도 상한을 지킨다.
+
+**난이도 기준(reference deck):** `lessons/M1L1/tier1-draw/M1L1_tier1_slides.html` (Tier 1 기준)과
+`lessons/M1L1/tier2-read/M1L1_tier2_slides.html` (Tier 2 기준)이 M1/M2/M3 전 모듈의 난이도 앵커다.
+다른 레슨을 만들거나 고칠 때 이 두 파일을 열어서 문장 길이, 어휘 난이도, 상호작용 복잡도를 직접 비교하고
+맞춘다 — 뒤 레슨(M2, M3)이라고 더 어려워지거나, 앞 레슨보다 쉬워지면 안 된다. 오직 **다루는 개념**만
+깊어진다.
+
+**인터랙티브 최대화:** 정적 텍스트 슬라이드를 최소화한다. Definitions조차 command-term drill 같은
+클릭형 요소를 넣고, Concept 1/2/Key Concept 3는 반드시 클릭·드래그·슬라이더 등 조작 가능한 다이어그램이어야
+한다 (정적 이미지/텍스트 설명만으로 때우지 않는다).
+
 ### Cover 슬라이드 구조
 ```
 [왼쪽 45% — 남색 배경 + 개념 시각화]  [오른쪽 55% — 흰 배경 + 텍스트]

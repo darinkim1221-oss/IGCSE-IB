@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Demand, Supply &amp; Market Equilibrium | Stoic Edu</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
@@ -32,8 +32,9 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,3.6vw,40px); line-height:1.05; margin-bottom:14px; color:var(--white); }
 .btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
 .btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
-.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
 @keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
 
 /* ===== COVER ===== */
 #s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
@@ -60,7 +61,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .hyp-lbl { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; }
 .hyp-text { font-size:13px; color:var(--dim); line-height:1.7; margin-top:6px; }
 
-/* ===== s1 command term drill ===== */
+/* ===== s1: DEFINITIONS (command term drill) ===== */
 #s1 { flex-direction:column; gap:12px; }
 .cmd-tabs { display:flex; gap:8px; }
 .cmd-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
@@ -69,17 +70,8 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .cmd-answer { font-size:13.5px; line-height:1.8; color:var(--white); }
 .cmd-answer strong { color:var(--blue); }
 
-/* ===== s2 full DS diagram ===== */
+/* ===== s2: CONCEPT 1 — DETERMINANTS ===== */
 #s2 { flex-direction:column; gap:10px; }
-.ds-wrap { display:flex; gap:24px; align-items:center; max-width:860px; width:100%; }
-.ds-graph-box { flex:1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:12px; }
-.ds-controls { width:230px; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:14px 18px; }
-.toggle-btn { display:block; width:100%; background:#fff; border:1px solid rgba(0,0,0,0.12); border-radius:20px; padding:8px; font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:1px; cursor:pointer; margin-bottom:8px; color:var(--dim); }
-.toggle-btn.active { background:var(--blue); color:#fff; border-color:var(--blue); }
-.ds-legend { font-size:10.5px; color:var(--dim); line-height:1.7; margin-top:6px; }
-
-/* ===== s3 determinants ===== */
-#s3 { flex-direction:column; gap:10px; }
 .det-tabs { display:flex; gap:8px; }
 .det-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
 .det-tab.active { background:var(--teal); color:#fff; }
@@ -87,8 +79,8 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .det-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:9px 11px; font-size:11px; color:var(--white); }
 .det-card strong { color:var(--blue); display:block; font-size:11.5px; margin-bottom:2px; }
 
-/* ===== s4 schedules+curves ===== */
-#s4 { flex-direction:column; gap:8px; }
+/* ===== s3: CONCEPT 2 — SCHEDULES + CURVES ===== */
+#s3 { flex-direction:column; gap:8px; }
 .sched-wrap { display:flex; gap:22px; max-width:860px; width:100%; align-items:flex-start; }
 .sched-table-box { width:250px; }
 .sched-table { width:100%; border-collapse:collapse; font-size:11.5px; }
@@ -97,32 +89,32 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .eq-row td { color:var(--teal); font-weight:700; }
 .sched-graph { flex:1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:10px; }
 
-/* ===== s5 surplus ===== */
-#s5 { flex-direction:column; gap:8px; }
-.surplus-wrap { display:flex; gap:20px; align-items:center; max-width:820px; width:100%; }
-.surplus-graph { flex:1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:10px; }
-.surplus-controls { width:220px; }
+/* ===== s4: KEY CONCEPT 3 — SHIFT VS MOVEMENT ===== */
+#s4 { flex-direction:column; gap:10px; }
+.ds-wrap { display:flex; gap:24px; align-items:center; max-width:860px; width:100%; }
+.ds-graph-box { flex:1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:12px; }
+.ds-controls { width:230px; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:14px 18px; }
+.toggle-btn { display:block; width:100%; background:#fff; border:1px solid rgba(0,0,0,0.12); border-radius:20px; padding:8px; font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:1px; cursor:pointer; margin-bottom:8px; color:var(--dim); }
+.toggle-btn.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+.ds-legend { font-size:10.5px; color:var(--dim); line-height:1.7; margin-top:6px; }
 
-/* ===== s6 behavioural ===== */
-#s6 { flex-direction:column; gap:12px; }
-.bias-grid { display:flex; gap:16px; max-width:840px; }
-.bias-card { flex:1; background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; cursor:pointer; text-align:center; transition:all 0.2s; }
-.bias-card:hover { border-color:var(--gold); }
-.bias-card.open { background:rgba(0,137,123,0.06); border-color:var(--teal); }
-.bias-icon { font-size:26px; }
-.bias-name { font-family:'Bebas Neue',sans-serif; font-size:16px; margin:4px 0; }
-.bias-detail { font-size:11px; color:var(--dim); line-height:1.6; display:none; text-align:left; margin-top:6px; }
-.bias-card.open .bias-detail { display:block; }
-
-/* ===== s7 chain writer ===== */
-#s7 { flex-direction:column; gap:10px; }
-.chain-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 24px; max-width:760px; width:100%; }
-.chain-steps { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:10px; }
-.chain-step { background:#fff; border:1px solid rgba(0,0,0,0.1); border-radius:10px; padding:8px 12px; font-size:12px; cursor:pointer; }
-.chain-step.picked { border-color:var(--teal); background:rgba(0,137,123,0.08); color:var(--teal); }
-.chain-arrow { color:var(--gold); font-size:14px; }
-.chain-out { margin-top:12px; font-size:12.5px; color:var(--white); line-height:1.7; min-height:40px; }
-.chain-out strong { color:var(--gold); }
+/* ===== s5: POSITIVE/NORMATIVE GAME ===== */
+#s5 { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
+.game-scenario { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:16px; color:var(--white); margin-bottom:14px; line-height:1.5; min-height:56px; }
+.answer-options { display:flex; gap:14px; justify-content:center; margin-bottom:10px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:17px; padding:9px 24px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:130px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); animation:pop 0.4s ease; }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); animation:shake 0.4s ease; }
+.game-feedback { font-size:12.5px; min-height:20px; font-family:'Space Mono',monospace; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:10px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
 
 /* ===== adapter ===== */
 #s-adapter { flex-direction:column; gap:10px; }
@@ -157,7 +149,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 <body>
 <div id="slide-frame">
 
-<!-- ============ COVER ============ -->
+<!-- ============ 1. COVER ============ -->
 <section class="slide active" id="s-cover">
   <div class="cover-left"><canvas id="coverCanvas" width="260" height="220" class="ds-diagram"></canvas></div>
   <div class="cover-right">
@@ -169,7 +161,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
       <div class="cc-label">In this deck</div>
       <div class="cc-chips">
         <span class="cc-chip">D/S Diagram</span><span class="cc-chip">Shift vs Movement</span>
-        <span class="cc-chip">Equilibrium</span><span class="cc-chip">Surplus &amp; Shortage</span>
+        <span class="cc-chip">Equilibrium</span><span class="cc-chip">Determinants</span>
       </div>
     </div>
     <div class="cover-meta">
@@ -180,18 +172,18 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   </div>
 </section>
 
-<!-- ============ s0 HOOK ============ -->
+<!-- ============ 2. HOOK ============ -->
 <section class="slide" id="s0">
   <div class="grid-bg"></div>
   <div class="tag">Hypothesis</div>
   <div class="big-title" style="max-width:760px;text-align:center">A price can adjust without any single person deciding to move it.</div>
   <div class="hyp-box">
     <div class="hyp-lbl">TEST IT</div>
-    <div class="hyp-text">If this is true, we should be able to build a working market — with real trades — using nothing but individual buyers and sellers acting in their own interest, and watch a price emerge on its own. That's exactly what the Pit Market did. Today: the diagram that explains why.</div>
+    <div class="hyp-text">If this is true, we should be able to build a working market — with real trades — using nothing but individual buyers and sellers acting in their own interest, and watch a price emerge on its own. Today: the diagram that explains why.</div>
   </div>
 </section>
 
-<!-- ============ s1 COMMAND TERM DRILL ============ -->
+<!-- ============ 3. DEFINITIONS ============ -->
 <section class="slide" id="s1">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:4px">
@@ -202,8 +194,34 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div class="cmd-box"><div class="cmd-answer" id="cmdAnswer"></div></div>
 </section>
 
-<!-- ============ s2 FULL D/S DIAGRAM ============ -->
+<!-- ============ 4. CONCEPT 1: DETERMINANTS ============ -->
 <section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Full Taxonomy</div>
+    <div class="big-title">What Shifts the Curve?</div>
+  </div>
+  <div class="det-tabs" id="detTabs"></div>
+  <div class="det-grid" id="detGrid"></div>
+</section>
+
+<!-- ============ 5. CONCEPT 2: SCHEDULES + CURVES ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Two Ways to Show the Same Market</div>
+    <div class="big-title">Schedules AND Curves</div>
+  </div>
+  <div class="sched-wrap">
+    <div class="sched-table-box">
+      <table class="sched-table" id="schedTable"></table>
+    </div>
+    <div class="sched-graph"><canvas id="schedCanvas" width="440" height="230"></canvas></div>
+  </div>
+</section>
+
+<!-- ============ 6. KEY CONCEPT 3: SHIFT VS MOVEMENT ============ -->
+<section class="slide" id="s4">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:2px">
     <div class="tag">The Load-Bearing Diagram</div>
@@ -220,76 +238,29 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   </div>
 </section>
 
-<!-- ============ s3 DETERMINANTS ============ -->
-<section class="slide" id="s3">
-  <div class="grid-bg"></div>
-  <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">Full Taxonomy</div>
-    <div class="big-title">What Shifts the Curve?</div>
-  </div>
-  <div class="det-tabs" id="detTabs"></div>
-  <div class="det-grid" id="detGrid"></div>
-</section>
-
-<!-- ============ s4 SCHEDULES + CURVES ============ -->
-<section class="slide" id="s4">
-  <div class="grid-bg"></div>
-  <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">Two Ways to Show the Same Market</div>
-    <div class="big-title">Schedules AND Curves</div>
-  </div>
-  <div class="sched-wrap">
-    <div class="sched-table-box">
-      <table class="sched-table" id="schedTable"></table>
-    </div>
-    <div class="sched-graph"><canvas id="schedCanvas" width="440" height="230"></canvas></div>
-  </div>
-</section>
-
-<!-- ============ s5 SURPLUS (IB enrichment) ============ -->
+<!-- ============ 7. POSITIVE OR NORMATIVE? ============ -->
 <section class="slide" id="s5">
   <div class="grid-bg"></div>
-  <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">IB Enrichment</div>
-    <div class="big-title">Consumer &amp; Producer Surplus</div>
+  <div style="text-align:center">
+    <div class="tag">Mini Game</div>
+    <div class="big-title">Positive or Normative?</div>
   </div>
-  <div class="surplus-wrap">
-    <div class="surplus-graph"><canvas id="surplusCanvas" width="440" height="240"></canvas></div>
-    <div class="surplus-controls">
-      <button class="toggle-btn active" onclick="setSurplusMode('none',this)">Equilibrium only</button>
-      <button class="toggle-btn" onclick="setSurplusMode('cs',this)">Show Consumer Surplus</button>
-      <button class="toggle-btn" onclick="setSurplusMode('ps',this)">Show Producer Surplus</button>
-      <div class="ds-legend">CS = value buyers get beyond what they paid. PS = revenue sellers get beyond their minimum price. Not required at IGCSE.</div>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">POSITIVE</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">NORMATIVE</button>
+    </div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
     </div>
   </div>
 </section>
 
-<!-- ============ s6 BEHAVIOURAL ============ -->
-<section class="slide" id="s6">
-  <div class="grid-bg"></div>
-  <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">IB HL 2.4 Enrichment</div>
-    <div class="big-title">Do Buyers Always Behave "Rationally"?</div>
-    <p style="font-size:11px;color:var(--dim)">Tap each card to explore a challenge to the rational-maximiser assumption.</p>
-  </div>
-  <div class="bias-grid" id="biasGrid"></div>
-</section>
-
-<!-- ============ s7 CAUSE-EFFECT CHAIN ============ -->
-<section class="slide" id="s7">
-  <div class="grid-bg"></div>
-  <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">Writing Practice</div>
-    <div class="big-title">Build a Cause → Effect Chain</div>
-  </div>
-  <div class="chain-box">
-    <p style="font-size:12px;color:var(--dim)">Scenario: A severe drought damages the wheat harvest. Click the steps in the correct order to build your explanation.</p>
-    <div class="chain-steps" id="chainSteps"></div>
-    <div class="chain-out" id="chainOut"></div>
-  </div>
-</section>
-
-<!-- ============ EXAM ADAPTER SLOT ============ -->
+<!-- ============ 8. EXAM ADAPTER SLOT ============ -->
 <section class="slide" id="s-adapter">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:4px">
@@ -303,7 +274,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div class="adapter-panel" id="adapterPanel"></div>
 </section>
 
-<!-- ============ QUIZ ============ -->
+<!-- ============ 9. QUIZ ============ -->
 <section class="slide" id="s-quiz">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:4px">
@@ -340,7 +311,8 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const QUIZ_SLIDE_IDX = 10;
+const GAME_SLIDE_IDX = 6;  // s5 positive/normative
+const QUIZ_SLIDE_IDX = 8;  // s-quiz
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -360,10 +332,10 @@ function goTo(n) {
   dotNav.children[cur].classList.add('active');
   counter.textContent = (cur+1) + ' / ' + slides.length;
   adaptLogo();
+  if (cur === GAME_SLIDE_IDX && !pnInited) initPN();
   if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
-  if (slides[cur].id === 's2') drawDS();
-  if (slides[cur].id === 's4') drawSched();
-  if (slides[cur].id === 's5') drawSurplus();
+  if (slides[cur].id === 's4') drawDS();
+  if (slides[cur].id === 's3') drawSched();
   if (slides[cur].id === 's-cover') drawCover();
 }
 document.addEventListener('keydown', e => {
@@ -396,7 +368,7 @@ function drawCover() {
 }
 drawCover();
 
-// ============ s1 COMMAND TERM DRILL ============
+// ============ s1: DEFINITIONS (COMMAND TERM DRILL) ============
 const CMDS = [
   {key:'define', lbl:'Define', ans:'<strong>Define demand.</strong> Demand is the quantity of a good or service that consumers are willing and able to purchase at a given price over a given period of time.'},
   {key:'state', lbl:'State', ans:'<strong>State the law of demand.</strong> As price falls, quantity demanded rises (ceteris paribus).'},
@@ -414,52 +386,7 @@ CMDS.forEach((c,i) => {
 function renderCmd() { document.getElementById('cmdAnswer').innerHTML = CMDS[cmdActive].ans + `<div style="margin-top:10px;font-size:11px;color:var(--dim)">Notice how answer length and depth changes with the command word — this is examined discipline, not decoration.</div>`; }
 renderCmd();
 
-// ============ s2 D/S DIAGRAM ============
-let dsMode = 'none';
-function setDSMode(m, el) { dsMode = m; document.querySelectorAll('#s2 .toggle-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active');
-  const legends = {
-    none: 'Original demand (D) and supply (S) cross at equilibrium e1. Price P1, Quantity Q1.',
-    movement: 'A price change causes a MOVEMENT ALONG the demand curve (from e1 to a new point on the same D curve) — quantity demanded changes, the curve itself does not move.',
-    shift: 'A non-price determinant (e.g. rising income) causes the ENTIRE demand curve to SHIFT right (D→D1) — a new equilibrium e2 forms at a higher price AND higher quantity.'
-  };
-  document.getElementById('dsLegend').textContent = legends[m];
-  drawDS();
-}
-function drawDS() {
-  const c = document.getElementById('dsCanvas'); if (!c) return; const ctx = c.getContext('2d');
-  const w=480,h=280,pad=40;
-  ctx.clearRect(0,0,w,h);
-  ctx.strokeStyle='rgba(90,106,128,0.4)'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(pad,10); ctx.lineTo(pad,h-pad); ctx.lineTo(w-10,h-pad); ctx.stroke();
-  ctx.fillStyle='#5a6a80'; ctx.font='10px monospace';
-  ctx.fillText('Quantity →', w-70, h-12); ctx.save(); ctx.translate(14,50); ctx.rotate(-Math.PI/2); ctx.fillText('Price →',0,0); ctx.restore();
-  function line(x1,y1,x2,y2,color,dashed) { ctx.strokeStyle=color; ctx.lineWidth=2.5; ctx.setLineDash(dashed?[6,4]:[]); ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke(); ctx.setLineDash([]); }
-  // supply
-  line(pad+20,h-pad-10, w-40,40, '#c8960a', false);
-  ctx.fillStyle='#c8960a'; ctx.font='bold 13px sans-serif'; ctx.fillText('S', w-38, 38);
-  // demand D
-  line(pad+20,40, w-40,h-pad-10, '#0d2d52', false);
-  ctx.fillStyle='#0d2d52'; ctx.fillText('D', w-38, h-pad-10);
-  const e1 = {x:(pad+20+w-40)/2, y:(h-pad-10+40)/2};
-  ctx.fillStyle='#1a2340'; ctx.beginPath(); ctx.arc(e1.x,e1.y,5,0,Math.PI*2); ctx.fill();
-  ctx.fillText('e1', e1.x+8, e1.y-8);
-  if (dsMode === 'movement') {
-    const p2 = {x:e1.x-70, y:e1.y+55};
-    ctx.fillStyle='#e53935'; ctx.beginPath(); ctx.arc(p2.x,p2.y,5,0,Math.PI*2); ctx.fill();
-    ctx.fillText('new point', p2.x+8, p2.y-6);
-    ctx.strokeStyle='#e53935'; ctx.setLineDash([3,3]); ctx.beginPath(); ctx.moveTo(e1.x,e1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke(); ctx.setLineDash([]);
-  }
-  if (dsMode === 'shift') {
-    line(pad+60,40, w, h-pad-10, '#00897b', true);
-    ctx.fillStyle='#00897b'; ctx.fillText('D1', w-4, h-pad-10);
-    const e2 = {x:e1.x+38, y:e1.y-18};
-    ctx.fillStyle='#00897b'; ctx.beginPath(); ctx.arc(e2.x,e2.y,5,0,Math.PI*2); ctx.fill();
-    ctx.fillText('e2', e2.x+8, e2.y-8);
-  }
-}
-drawDS();
-
-// ============ s3 DETERMINANTS ============
+// ============ s2: CONCEPT 1 — DETERMINANTS ============
 const DETS = {
   demand: [
     {n:'Income', d:'Normal goods: ↑income → ↑demand. Inferior goods: ↑income → ↓demand.'},
@@ -492,7 +419,7 @@ function renderDet() {
 }
 renderDet();
 
-// ============ s4 SCHEDULE + GRAPH ============
+// ============ s3: CONCEPT 2 — SCHEDULE + GRAPH ============
 const SCHED = [ {p:10,qd:80,qs:20}, {p:20,qd:60,qs:40}, {p:30,qd:40,qs:60}, {p:40,qd:20,qs:80} ];
 document.getElementById('schedTable').innerHTML = `<tr><th>Price</th><th>Qd</th><th>Qs</th></tr>` + SCHED.map(r => `<tr class="${r.qd===r.qs?'eq-row':''}"><td>$${r.p}</td><td>${r.qd}</td><td>${r.qs}</td></tr>`).join('');
 function drawSched() {
@@ -510,71 +437,90 @@ function drawSched() {
   if (eq) { const p = pt(eq.qd, eq.p); ctx.fillStyle='#00897b'; ctx.beginPath(); ctx.arc(p.x,p.y,5,0,Math.PI*2); ctx.fill(); ctx.font='bold 11px sans-serif'; ctx.fillText('Equilibrium', p.x+8, p.y-6); }
 }
 
-// ============ s5 SURPLUS (CS/PS) ============
-let surplusMode = 'none';
-function setSurplusMode(m, el) { surplusMode = m; document.querySelectorAll('#s5 .toggle-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active'); drawSurplus(); }
-function drawSurplus() {
-  const c = document.getElementById('surplusCanvas'); if (!c) return; const ctx = c.getContext('2d');
-  const w=440,h=240,pad=40;
+// ============ s4: KEY CONCEPT 3 — D/S DIAGRAM ============
+let dsMode = 'none';
+function setDSMode(m, el) { dsMode = m; document.querySelectorAll('#s4 .toggle-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active');
+  const legends = {
+    none: 'Original demand (D) and supply (S) cross at equilibrium e1. Price P1, Quantity Q1.',
+    movement: 'A price change causes a MOVEMENT ALONG the demand curve (from e1 to a new point on the same D curve) — quantity demanded changes, the curve itself does not move.',
+    shift: 'A non-price determinant (e.g. rising income) causes the ENTIRE demand curve to SHIFT right (D→D1) — a new equilibrium e2 forms at a higher price AND higher quantity.'
+  };
+  document.getElementById('dsLegend').textContent = legends[m];
+  drawDS();
+}
+function drawDS() {
+  const c = document.getElementById('dsCanvas'); if (!c) return; const ctx = c.getContext('2d');
+  const w=480,h=280,pad=40;
   ctx.clearRect(0,0,w,h);
   ctx.strokeStyle='rgba(90,106,128,0.4)'; ctx.lineWidth=1;
   ctx.beginPath(); ctx.moveTo(pad,10); ctx.lineTo(pad,h-pad); ctx.lineTo(w-10,h-pad); ctx.stroke();
-  const Dtop={x:pad+15,y:20}, Dbot={x:w-30,y:h-pad-10}, Stop={x:w-30,y:20}, Sbot={x:pad+15,y:h-pad-10};
-  const eq = {x:(pad+15+w-30)/2, y:(20+h-pad-10)/2};
-  if (surplusMode === 'cs') { ctx.fillStyle='rgba(13,45,82,0.18)'; ctx.beginPath(); ctx.moveTo(Dtop.x,Dtop.y); ctx.lineTo(eq.x,eq.y); ctx.lineTo(pad,eq.y); ctx.lineTo(pad,Dtop.y); ctx.closePath(); ctx.fill(); }
-  if (surplusMode === 'ps') { ctx.fillStyle='rgba(200,150,10,0.2)'; ctx.beginPath(); ctx.moveTo(Sbot.x,Sbot.y); ctx.lineTo(eq.x,eq.y); ctx.lineTo(pad,eq.y); ctx.lineTo(pad,Sbot.y); ctx.closePath(); ctx.fill(); }
-  ctx.strokeStyle='#0d2d52'; ctx.lineWidth=2.5; ctx.beginPath(); ctx.moveTo(Dtop.x,Dtop.y); ctx.lineTo(Dbot.x,Dbot.y); ctx.stroke();
-  ctx.strokeStyle='#c8960a'; ctx.lineWidth=2.5; ctx.beginPath(); ctx.moveTo(Sbot.x,Sbot.y); ctx.lineTo(Stop.x,Stop.y); ctx.stroke();
-  ctx.fillStyle='#1a2340'; ctx.beginPath(); ctx.arc(eq.x,eq.y,5,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle='#5a6a80'; ctx.font='10px monospace';
+  ctx.fillText('Quantity →', w-70, h-12); ctx.save(); ctx.translate(14,50); ctx.rotate(-Math.PI/2); ctx.fillText('Price →',0,0); ctx.restore();
+  function line(x1,y1,x2,y2,color,dashed) { ctx.strokeStyle=color; ctx.lineWidth=2.5; ctx.setLineDash(dashed?[6,4]:[]); ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke(); ctx.setLineDash([]); }
+  line(pad+20,h-pad-10, w-40,40, '#c8960a', false);
+  ctx.fillStyle='#c8960a'; ctx.font='bold 13px sans-serif'; ctx.fillText('S', w-38, 38);
+  line(pad+20,40, w-40,h-pad-10, '#0d2d52', false);
+  ctx.fillStyle='#0d2d52'; ctx.fillText('D', w-38, h-pad-10);
+  const e1 = {x:(pad+20+w-40)/2, y:(h-pad-10+40)/2};
+  ctx.fillStyle='#1a2340'; ctx.beginPath(); ctx.arc(e1.x,e1.y,5,0,Math.PI*2); ctx.fill();
+  ctx.fillText('e1', e1.x+8, e1.y-8);
+  if (dsMode === 'movement') {
+    const p2 = {x:e1.x-70, y:e1.y+55};
+    ctx.fillStyle='#e53935'; ctx.beginPath(); ctx.arc(p2.x,p2.y,5,0,Math.PI*2); ctx.fill();
+    ctx.fillText('new point', p2.x+8, p2.y-6);
+    ctx.strokeStyle='#e53935'; ctx.setLineDash([3,3]); ctx.beginPath(); ctx.moveTo(e1.x,e1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke(); ctx.setLineDash([]);
+  }
+  if (dsMode === 'shift') {
+    line(pad+60,40, w, h-pad-10, '#00897b', true);
+    ctx.fillStyle='#00897b'; ctx.fillText('D1', w-4, h-pad-10);
+    const e2 = {x:e1.x+38, y:e1.y-18};
+    ctx.fillStyle='#00897b'; ctx.beginPath(); ctx.arc(e2.x,e2.y,5,0,Math.PI*2); ctx.fill();
+    ctx.fillText('e2', e2.x+8, e2.y-8);
+  }
 }
+drawDS();
 
-// ============ s6 BEHAVIOURAL ============
-const BIASES = [
-  {icon:'🎯', name:'Anchoring', detail:'Buyers judge a price against the first number they see (e.g. a crossed-out "was $100") rather than the item\'s real value.'},
-  {icon:'👥', name:'Herding', detail:'People buy what others are buying, regardless of their own independent assessment — challenges the idea of independent rational choice.'},
-  {icon:'⏳', name:'Present bias', detail:'Consumers overweight immediate rewards over future ones — undermining the assumption that consumers always maximise long-run utility.'}
+// ============ s5: POSITIVE OR NORMATIVE ============
+const PN_ITEMS = [
+  {text:'When the price of a good rises, quantity demanded falls, ceteris paribus.', type:'positive'},
+  {text:'The government should set price ceilings on rent to help renters.', type:'normative'},
+  {text:'A surplus exists when quantity supplied exceeds quantity demanded at the current price.', type:'positive'},
+  {text:'Sneaker resellers who buy at retail and sell at a markup are exploiting fans.', type:'normative'},
+  {text:'A leftward shift in supply, with demand constant, raises the equilibrium price.', type:'positive'},
+  {text:'Everyone should be allowed to buy concert tickets at face value, no matter their income.', type:'normative'}
 ];
-const biasGrid = document.getElementById('biasGrid');
-BIASES.forEach(b => {
-  const c = document.createElement('div');
-  c.className = 'bias-card';
-  c.innerHTML = `<div class="bias-icon">${b.icon}</div><div class="bias-name">${b.name}</div><div class="bias-detail">${b.detail}</div>`;
-  c.onclick = () => c.classList.toggle('open');
-  biasGrid.appendChild(c);
-});
-
-// ============ s7 CAUSE-EFFECT CHAIN ============
-const CHAIN_STEPS = [
-  {n:1, text:'Drought damages the wheat harvest'},
-  {n:2, text:'Supply of wheat falls (S shifts left)'},
-  {n:3, text:'At the old price, a shortage exists'},
-  {n:4, text:'Price rises to a new equilibrium'},
-  {n:5, text:'Quantity traded falls'}
-];
-let chainPicked = [];
-const chainStepsEl = document.getElementById('chainSteps');
-function renderChainSteps() {
-  chainStepsEl.innerHTML = '';
-  const shuffled = [...CHAIN_STEPS].sort(()=>0.5-Math.random());
-  shuffled.forEach(s => {
-    const d = document.createElement('div');
-    d.className = 'chain-step';
-    d.textContent = s.text;
-    d.onclick = () => { if (!chainPicked.includes(s.n)) { chainPicked.push(s.n); d.classList.add('picked'); renderChainOut(); } };
-    chainStepsEl.appendChild(d);
-  });
+let pnIdx=0, pnScore=0, pnStreak=0, pnInited=false;
+function initPN() { pnInited = true; renderPN(); }
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🎓 You can now separate testable claims from value judgements — a core AO1/AO3 skill.';
+    return;
+  }
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
 }
-function renderChainOut() {
-  const ordered = chainPicked.map(n => CHAIN_STEPS.find(s=>s.n===n).text);
-  const correct = JSON.stringify(chainPicked) === JSON.stringify([1,2,3,4,5]);
-  document.getElementById('chainOut').innerHTML = `<strong>Your chain:</strong> ${ordered.join(' → ')}` + (chainPicked.length===5 ? (correct ? ' <span style="color:var(--teal)">✓ Correct explain-chain!</span>' : ' <span style="color:var(--red)">Order needs review — reread cause before effect.</span>') : '');
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\'s '+item.type+' — a '+(item.type==='positive'?'testable claim.':'value judgement.'); document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
 }
-renderChainSteps();
 
 // ============ EXAM ADAPTER ============
 const ADAPTER = {
   igcse: `<strong>P1 MCQ training:</strong> single-best-answer discipline under time pressure; diagram-reading in an MCQ context (identify what a labelled shift represents, without drawing it yourself).<br><br><strong>Practice move:</strong> give 4 similar-looking D/S diagrams and ask "which one shows a fall in supply due to a new tax?" — train elimination, not just recognition.`,
-  ib: `<strong>Explain-paragraph structure:</strong> state the cause → link with an economic mechanism → state the effect on price and quantity → (where relevant) note the effect on stakeholders. Full sentences, not diagram labels alone.<br><br><strong>Practice move:</strong> use the drought scenario from slide 8 (Build a Cause → Effect Chain) as a model IB 'explain' answer — each arrow becomes a linking phrase like "this means that..." or "as a result...".`
+  ib: `<strong>Labelling &amp; explain-paragraph structure:</strong> always use full, exact axis and curve labels (not just letters); state the cause → link with an economic mechanism → state the effect on price and quantity.<br><br><strong>Practice move:</strong> take any determinant from Concept 1 and write one IB-style 'explain' paragraph — cause, mechanism, effect — using a linking phrase like "this means that..." or "as a result...".`
 };
 function setAdapter(k, el) {
   document.querySelectorAll('.adapter-tab').forEach(t=>t.classList.remove('active'));
@@ -588,8 +534,8 @@ const QUIZ = [
   { q:'A rise in the price of coffee (holding all else constant) causes a...', opts:['Movement along the demand curve','Shift of the demand curve','Shift of the supply curve only'], correct:0, explain:'A change in the good\'s OWN price causes a movement along the curve, not a shift — this is the single most-tested distinction.' },
   { q:'A new tax on sugary drinks would most likely...', opts:['Shift supply left','Shift demand right','Cause a movement along supply'], correct:0, explain:'A tax raises production/selling cost, shifting the supply curve left (less supplied at every price).' },
   { q:'At a price above equilibrium, a market experiences a...', opts:['Shortage','Surplus','Perfectly balanced market'], correct:1, explain:'Above equilibrium, quantity supplied exceeds quantity demanded — a surplus, which pushes price back down.' },
-  { q:'Consumer surplus is best defined as...', opts:['The price consumers actually pay','The value consumers get beyond what they paid','The government\'s tax revenue'], correct:1, explain:'CS is the gap between what consumers were willing to pay and what they actually paid — an IB SL enrichment concept.' },
-  { q:'A shopper buys a "limited edition" item mainly because everyone else is buying it. This best illustrates...', opts:['Rational maximisation','Herding behaviour','The law of supply'], correct:1, explain:'Herding challenges the assumption that consumers make fully independent, rational decisions — an IB HL 2.4 seed.' }
+  { q:'"The government should set price ceilings on rent to help renters" is a...', opts:['Positive statement','Normative statement','Determinant of supply'], correct:1, explain:'It contains a value judgement ("should") — testability, not agreement, is what makes a statement positive or normative.' },
+  { q:'Rising consumer income increases demand for a normal good. This is a change in a...', opts:['Determinant of demand','Determinant of supply','Movement along demand'], correct:0, explain:'Income is a non-price determinant of demand — it shifts the whole curve, it does not move a point along it.' }
 ];
 let quizIdx = 0, quizScoreVal = 0, quizInited = false;
 function initQuiz() {
