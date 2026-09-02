@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who Steers the Economy? | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif; overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center; }
+#slide-frame { position:relative; width:960px; height:540px; background:var(--bg); border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0; }
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none; transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box; }
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%); pointer-events:none; }
+#nav { position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border); border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
+.tag { display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; }
+.tag.ib { background:rgba(13,45,82,0.08); border-color:rgba(13,45,82,0.2); color:var(--blue); }
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,3.6vw,40px); line-height:1.05; margin-bottom:14px; color:var(--white); }
+.btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.cov-diagram { position:relative; z-index:2; width:260px; height:220px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,4vw,42px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:370px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 hook ===== */
+#s0 { text-align:center; }
+.hyp-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 26px; max-width:660px; margin-top:10px; }
+.hyp-lbl { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; }
+.hyp-text { font-size:13px; color:var(--dim); line-height:1.7; margin-top:6px; }
+
+/* ===== s1 command term drill ===== */
+#s1 { flex-direction:column; gap:12px; }
+.cmd-tabs { display:flex; gap:8px; }
+.cmd-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
+.cmd-tab.active { background:var(--gold); color:#fff; }
+.cmd-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 24px; max-width:800px; width:100%; min-height:120px; }
+.cmd-answer { font-size:13.5px; line-height:1.8; color:var(--white); }
+.cmd-answer strong { color:var(--blue); }
+
+/* ===== s3 calculator ===== */
+#s3 { flex-direction:column; gap:10px; }
+.calc-scenario { font-size:12.5px; color:var(--dim); max-width:760px; text-align:center; line-height:1.6; }
+.calc-slider-wrap { max-width:640px; width:100%; text-align:center; }
+.calc-slider-wrap input[type=range] { width:100%; -webkit-appearance:none; height:6px; background:linear-gradient(90deg,var(--teal),var(--gold)); border-radius:3px; outline:none; margin:8px 0; }
+.calc-slider-wrap input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:#fff; border:3px solid var(--blue); cursor:pointer; }
+.calc-q-lbl { font-family:'Space Mono',monospace; font-size:12px; color:var(--gold); }
+.calc-table { width:100%; max-width:640px; border-collapse:collapse; font-size:12.5px; background:var(--card); border-radius:12px; overflow:hidden; }
+.calc-table th { background:var(--blue); color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:7px 12px; text-align:left; }
+.calc-table td { padding:7px 12px; border-bottom:1px solid rgba(0,0,0,0.08); color:var(--white); }
+.calc-table tr:last-child td { border-bottom:none; }
+.calc-table td.formula { font-family:'Space Mono',monospace; color:var(--dim); font-size:11px; }
+.calc-table td.val { font-weight:700; color:var(--gold2); text-align:right; }
+
+/* ===== s2/s4/s5/s6/s7 tab panels (shared) ===== */
+#s2, #s4, #s5, #s6, #s7 { flex-direction:column; gap:10px; }
+.pes-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:13px; padding:7px 18px; border-radius:20px; cursor:pointer; }
+.pes-tab.active { background:var(--teal); color:#fff; }
+.pes-tab.active.conflict { background:var(--red); }
+.pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:820px; width:100%; min-height:130px; max-height:250px; overflow-y:auto; font-size:12.5px; line-height:1.8; color:var(--white); }
+.pes-panel strong { color:var(--blue); }
+
+/* ===== s-pn: POSITIVE OR NORMATIVE ===== */
+#s-pn { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
+.game-scenario { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:16px; color:var(--white); margin-bottom:14px; line-height:1.5; min-height:56px; }
+.answer-options { display:flex; gap:14px; justify-content:center; margin-bottom:10px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:17px; padding:9px 24px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:130px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); }
+.game-feedback { font-size:12.5px; min-height:20px; font-family:'Space Mono',monospace; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:10px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+/* ===== adapter ===== */
+#s-adapter { flex-direction:column; gap:10px; }
+.adapter-tabs { display:flex; gap:8px; margin-bottom:4px; }
+.adapter-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 22px; border-radius:20px; cursor:pointer; }
+.adapter-tab.active.igcse { background:var(--teal); color:#fff; }
+.adapter-tab.active.ib { background:var(--blue); color:#fff; }
+.adapter-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 26px; max-width:760px; width:100%; font-size:13px; line-height:1.8; color:var(--white); }
+.adapter-panel strong { color:var(--blue); }
+
+/* ===== quiz ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:17px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left"><canvas id="coverCanvas" width="260" height="220" class="cov-diagram"></canvas></div>
+  <div class="cover-right">
+    <div class="cover-module">Module 2 · Macroeconomics — Lesson 5</div>
+    <div class="cover-title">Who Steers<br><span>the Economy?</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">Six named macro aims, three classic conflicts, and three policy toolkits: fiscal, monetary, and supply-side. Build the full evaluation toolkit for "which policy, and why."</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Macro Aims</span><span class="cc-chip">Fiscal Policy</span>
+        <span class="cc-chip">Monetary Policy</span><span class="cc-chip">Supply-Side Policy</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 13–15</div>
+      <div class="cover-pill">IGCSE + IB</div>
+      <div class="cover-pill">60 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0 HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="section-tag">Hook</div>
+  <div class="big-title">Who Really Steers the Economy?</div>
+  <div class="hyp-box">
+    <div class="hyp-lbl">THINK ABOUT IT</div>
+    <div class="hyp-text">A government spends and taxes. A central bank moves interest rates. New rules can change how easy it is to work or invest. All three can be aimed at the SAME problem — but they work on different timescales, and each one creates a trade-off somewhere else. By the end of this lesson, you'll be able to argue which lever fits which problem, and defend the judgement.</div>
+  </div>
+</section>
+
+<!-- ============ s1: COMMAND TERM DRILL ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">AO1/AO2 Precision</div>
+    <div class="big-title">Same Concept, Different Command Word</div>
+  </div>
+  <div class="cmd-tabs" id="cmdTabs"></div>
+  <div class="cmd-box"><div class="cmd-answer" id="cmdAnswer"></div></div>
+</section>
+
+<!-- ============ s2: MACRO AIMS & CONFLICTS ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Six Named Aims, Three Classic Conflicts</div>
+    <div class="big-title">Macroeconomic Aims &amp; Conflicts</div>
+  </div>
+  <div class="pes-tabs" id="aimsTabs"></div>
+  <div class="pes-panel" id="aimsPanel"></div>
+</section>
+
+<!-- ============ s3: BUDGET DEFICIT/SURPLUS CALCULATOR ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">AO2 — Show Your Working</div>
+    <div class="big-title">The Government Budget</div>
+  </div>
+  <div class="calc-scenario">A government plans to spend <strong>$85 billion</strong> this year. Drag the slider to change expected tax revenue and see whether the budget is in deficit, surplus, or balanced.</div>
+  <div class="calc-slider-wrap">
+    <input type="range" id="budgetSlider" min="60" max="105" value="65" step="1" oninput="updateBudget(this.value)">
+    <div class="calc-q-lbl">Tax revenue = $<span id="budgetVal">65</span>bn</div>
+  </div>
+  <table class="calc-table">
+    <tr><th>Term</th><th>Formula</th><th>Value</th></tr>
+    <tr><td>Government spending</td><td class="formula">given</td><td class="val">$85bn</td></tr>
+    <tr><td>Budget position</td><td class="formula">spending − tax revenue</td><td class="val" id="budgetPosVal">$20bn deficit</td></tr>
+  </table>
+</section>
+
+<!-- ============ s4: TAX CLASSIFICATIONS ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Fiscal Policy</div>
+    <div class="big-title">Classifying Taxes</div>
+  </div>
+  <div class="pes-tabs" id="taxTabs"></div>
+  <div class="pes-panel" id="taxPanel"></div>
+</section>
+
+<!-- ============ s5: MONETARY POLICY ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Monetary Policy</div>
+    <div class="big-title">Three Measures, One Toolkit</div>
+  </div>
+  <div class="pes-tabs" id="monTabs"></div>
+  <div class="pes-panel" id="monPanel"></div>
+</section>
+
+<!-- ============ s6: SUPPLY-SIDE POLICY ============ -->
+<section class="slide" id="s6">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Supply-Side Policy</div>
+    <div class="big-title">The Full Measures List</div>
+  </div>
+  <div class="pes-tabs" id="supplyTabs"></div>
+  <div class="pes-panel" id="supplyPanel"></div>
+</section>
+
+<!-- ============ s7: IB HL ENRICHMENT ============ -->
+<section class="slide" id="s7">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag ib">IB HL Enrichment — not required at IGCSE</div>
+    <div class="big-title">Beyond the Basics</div>
+  </div>
+  <div class="pes-tabs" id="hlTabs"></div>
+  <div class="pes-panel" id="hlPanel"></div>
+</section>
+
+<!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
+<section class="slide" id="s-pn">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Mini Game</div>
+    <div class="big-title">Positive or Normative?</div>
+  </div>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">POSITIVE</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">NORMATIVE</button>
+    </div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXAM ADAPTER SLOT ============ -->
+<section class="slide" id="s-adapter">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Exam Adapter Slot</div>
+    <div class="big-title">Same Skill — Different Exam</div>
+  </div>
+  <div class="adapter-tabs">
+    <button class="adapter-tab active igcse" onclick="setAdapter('igcse',this)">IGCSE</button>
+    <button class="adapter-tab" onclick="setAdapter('ib',this)">IB</button>
+  </div>
+  <div class="adapter-panel" id="adapterPanel"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">Test Your Understanding</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const PN_SLIDE_IDX = 9;
+const QUIZ_SLIDE_IDX = 11;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+  if (cur === PN_SLIDE_IDX && !pnInited) initPN();
+  if (slides[cur].id === 's-cover') drawCover();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ COVER DIAGRAM ============
+function drawCover() {
+  const c = document.getElementById('coverCanvas'); const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,260,220);
+  ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(30,10); ctx.lineTo(30,190); ctx.lineTo(240,190); ctx.stroke();
+  const bars = [{x:55,h:90,lbl:'Fiscal'},{x:120,h:130,lbl:'Monetary'},{x:185,h:60,lbl:'Supply'}];
+  ctx.fillStyle='#f5c842';
+  bars.forEach(b => { ctx.fillRect(b.x,190-b.h,34,b.h); });
+  ctx.font='9px monospace'; ctx.textAlign='center';
+  bars.forEach(b => { ctx.fillStyle='rgba(255,255,255,0.75)'; ctx.fillText(b.lbl, b.x+17, 202); });
+  ctx.textAlign='left';
+}
+drawCover();
+
+// ============ s1 COMMAND TERM DRILL ============
+const CMDS = [
+  {key:'define', lbl:'Define', ans:'<strong>Define fiscal policy.</strong> Fiscal policy is the use of government spending and taxation to influence the economy.'},
+  {key:'calculate', lbl:'Calculate', ans:'<strong>Calculate the budget position if government spending is $80bn and tax revenue is $65bn.</strong> Budget deficit = spending − revenue = $80bn − $65bn = <strong>$15bn deficit</strong> (spending exceeds revenue). Always show the formula, the substitution, AND the labelled answer.'},
+  {key:'comment', lbl:'Comment', ans:'<strong>Comment on whether a budget deficit is always a bad thing.</strong> Not necessarily — a deficit that funds productive investment (e.g. infrastructure) can boost future growth and future tax revenue. However, a persistently large deficit raises concerns about the sustainability of government debt.'}
+];
+let cmdActive = 0;
+const cmdTabs = document.getElementById('cmdTabs');
+CMDS.forEach((c,i) => {
+  const b = document.createElement('button');
+  b.className = 'cmd-tab' + (i===0?' active':'');
+  b.textContent = c.lbl;
+  b.onclick = () => { cmdActive=i; document.querySelectorAll('.cmd-tab').forEach(t=>t.classList.remove('active')); b.classList.add('active'); renderCmd(); };
+  cmdTabs.appendChild(b);
+});
+function renderCmd() { document.getElementById('cmdAnswer').innerHTML = CMDS[cmdActive].ans; }
+renderCmd();
+
+// ============ s2 MACRO AIMS & CONFLICTS ============
+const AIMS_TABS = [
+  {key:'growth', lbl:'Economic Growth', conflict:false, html:`A rise in a country's real GDP over time — the economy producing more goods and services than before.`},
+  {key:'employment', lbl:'Full Employment', conflict:false, html:`Keeping unemployment as low as possible, so as many people who want to work as possible can find a job.`},
+  {key:'prices', lbl:'Stable Prices', conflict:false, html:`Keeping inflation low and steady, so the value of money doesn't erode too fast.`},
+  {key:'bop', lbl:'Balance of Payments', conflict:false, html:`Avoiding a persistent, large gap between what a country earns from abroad and what it spends abroad.`},
+  {key:'redist', lbl:'Redistribution of Income', conflict:false, html:`Reducing the gap between rich and poor, often through progressive taxation and government benefits.`},
+  {key:'env', lbl:'Environmental Sustainability', conflict:false, html:`Pursuing economic activity that doesn't damage the environment for future generations.`},
+  {key:'c1', lbl:'⚡ Employment vs. Prices', conflict:true, html:`<strong>Conflict:</strong> pushing unemployment very low can cause wages — and then prices — to rise faster, as businesses compete for scarce workers.`},
+  {key:'c2', lbl:'⚡ Growth vs. Environment', conflict:true, html:`<strong>Conflict:</strong> faster growth often means more production, more resource use, and more pollution — unless growth is achieved sustainably.`},
+  {key:'c3', lbl:'⚡ Employment vs. BOP', conflict:true, html:`<strong>Conflict:</strong> very low unemployment can mean higher incomes and spending, which can pull in more imports and worsen the balance of payments.`}
+];
+let aimsActive = 0;
+const aimsTabsEl = document.getElementById('aimsTabs');
+AIMS_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'') + (t.conflict?' conflict':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { aimsActive=i; document.querySelectorAll('#aimsTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderAims(); };
+  aimsTabsEl.appendChild(b);
+});
+function renderAims() { document.getElementById('aimsPanel').innerHTML = AIMS_TABS[aimsActive].html; }
+renderAims();
+
+// ============ s3 BUDGET CALCULATOR ============
+function updateBudget(v) {
+  v = Number(v);
+  const spend = 85;
+  const pos = spend - v;
+  document.getElementById('budgetVal').textContent = v;
+  const posEl = document.getElementById('budgetPosVal');
+  if (pos > 0) posEl.textContent = '$' + pos + 'bn deficit';
+  else if (pos < 0) posEl.textContent = '$' + Math.abs(pos) + 'bn surplus';
+  else posEl.textContent = 'Balanced budget';
+}
+
+// ============ s4 TAX CLASSIFICATIONS ============
+const TAX_TABS = [
+  {key:'prop', lbl:'Proportional', html:`Takes the SAME percentage of income from everyone, regardless of how much they earn — e.g. everyone pays 20%.`},
+  {key:'prog', lbl:'Progressive', html:`Takes a BIGGER percentage from higher earners — the more you earn, the higher percentage you pay. Most income tax systems are progressive.`},
+  {key:'regr', lbl:'Regressive', html:`Takes a SMALLER percentage from higher earners — often true of a flat-rate tax on a good, since it takes a bigger share of a lower earner's income than a higher earner's.`},
+  {key:'direct', lbl:'Direct Tax', html:`A tax paid directly by the person or business earning the income — e.g. income tax, corporation tax.`},
+  {key:'indirect', lbl:'Indirect Tax', html:`A tax added to the price of a good or service — e.g. VAT/sales tax — paid indirectly by the buyer at the point of purchase.`}
+];
+let taxActive = 0;
+const taxTabsEl = document.getElementById('taxTabs');
+TAX_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { taxActive=i; document.querySelectorAll('#taxTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderTax(); };
+  taxTabsEl.appendChild(b);
+});
+function renderTax() { document.getElementById('taxPanel').innerHTML = TAX_TABS[taxActive].html; }
+renderTax();
+
+// ============ s5 MONETARY POLICY ============
+const MON_TABS = [
+  {key:'def', lbl:'Definitions', html:`<strong>Money supply</strong> is the total amount of money circulating in an economy. <strong>Monetary policy</strong> is the use of tools like interest rates to influence money supply and spending, in order to serve the macroeconomic aims.`},
+  {key:'rate', lbl:'Interest Rate', html:`The central bank's main tool. Raising rates makes borrowing more expensive, cooling spending and inflation; lowering rates makes borrowing cheaper, boosting spending and growth — but risking inflation if overdone.`},
+  {key:'supply', lbl:'Money Supply', html:`Directly influencing how much money is available in the economy. More money available can boost spending and growth, but too much relative to output can fuel inflation.`},
+  {key:'fx', lbl:'Exchange Rate', html:`A country's currency value can also act as a policy channel — the syllabus expects you to NAME this channel, not model it in detail. A weaker currency can make exports cheaper abroad (supporting growth and jobs) but can raise the price of imports.`}
+];
+let monActive = 0;
+const monTabsEl = document.getElementById('monTabs');
+MON_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { monActive=i; document.querySelectorAll('#monTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderMon(); };
+  monTabsEl.appendChild(b);
+});
+function renderMon() { document.getElementById('monPanel').innerHTML = MON_TABS[monActive].html; }
+renderMon();
+
+// ============ s6 SUPPLY-SIDE POLICY ============
+const SUPPLY_TABS = [
+  {key:'def', lbl:'Definition', html:`Supply-side policy uses measures that increase the economy's PRODUCTIVE CAPACITY — helping it produce more, rather than just managing total demand.`},
+  {key:'edu', lbl:'Education & Training', html:`Improves worker skills and productivity, raising both output and employability — directly supporting growth and full employment.`},
+  {key:'infra', lbl:'Infrastructure Spending', html:`Better roads, ports, and digital networks lower costs for businesses and raise the economy's long-run capacity to produce.`},
+  {key:'labour', lbl:'Labour Market Reforms', html:`Making it easier to hire, or for workers to move between jobs, helps match unemployed people to the jobs businesses actually need filled.`},
+  {key:'tax', lbl:'Lower Direct Taxes', html:`Lower income tax can encourage people to work more hours; lower business (corporation) tax can encourage firms to invest more.`},
+  {key:'dereg', lbl:'Deregulation', html:`Removing unnecessary rules on businesses can lower their costs and encourage new firms to enter a market, increasing competition and output.`},
+  {key:'incent', lbl:'Incentives to Work & Invest', html:`Tax breaks or subsidies that specifically reward extra work or extra investment activity, beyond a general tax cut.`},
+  {key:'priv', lbl:'Privatisation', html:`Transferring state-owned businesses to the private sector, aiming for more efficient, profit-driven management and greater output.`}
+];
+let supplyActive = 0;
+const supplyTabsEl = document.getElementById('supplyTabs');
+SUPPLY_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { supplyActive=i; document.querySelectorAll('#supplyTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderSupply(); };
+  supplyTabsEl.appendChild(b);
+});
+function renderSupply() { document.getElementById('supplyPanel').innerHTML = SUPPLY_TABS[supplyActive].html; }
+renderSupply();
+
+// ============ s7 IB HL ENRICHMENT ============
+const HL_TABS = [
+  {key:'debt', lbl:'Sustainable Government Debt', html:`How much debt a government can safely carry depends on factors like the size of its economy, the interest rate on its debt, and its ability to grow future revenue. Persistently rising debt as a share of GDP is generally seen as unsustainable. Not required at IGCSE 0455; IB content only.`},
+  {key:'mult', lbl:'The Keynesian Multiplier', html:`An initial rise in spending (e.g. government spending) can have a MULTIPLIED effect on total output — each round of new spending becomes someone else's income, part of which they re-spend. Not required at IGCSE 0455 — IB HL introduces the formal multiplier calculation.`}
+];
+let hlActive = 0;
+const hlTabsEl = document.getElementById('hlTabs');
+HL_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { hlActive=i; document.querySelectorAll('#hlTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderHl(); };
+  hlTabsEl.appendChild(b);
+});
+function renderHl() { document.getElementById('hlPanel').innerHTML = HL_TABS[hlActive].html; }
+renderHl();
+
+// ============ s-pn: POSITIVE OR NORMATIVE ============
+const PN_ITEMS = [
+  {text:'A budget deficit occurs when government spending exceeds tax revenue.', type:'positive'},
+  {text:'Governments should always aim for a budget surplus.', type:'normative'},
+  {text:'A progressive tax takes a bigger percentage from higher earners.', type:'positive'},
+  {text:'It is fairer for everyone to pay the exact same percentage of tax.', type:'normative'},
+  {text:'Supply-side policies aim to increase the economy\'s productive capacity.', type:'positive'},
+  {text:'Privatisation is always the best way to make an industry more efficient.', type:'normative'}
+];
+let pnIdx=0, pnScore=0, pnStreak=0, pnInited=false;
+function initPN() { pnInited = true; renderPN(); }
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🎓 You can now separate testable claims from value judgements — a core AO1/AO3 skill.';
+    return;
+  }
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
+}
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\'s '+item.type+' — a '+(item.type==='positive'?'testable claim.':'value judgement.'); document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
+}
+
+// ============ EXAM ADAPTER ============
+const ADAPTER = {
+  igcse: `<strong>IGCSE P2 Section A (data response): define, calculate, comment — using given data on spending, tax, or interest rates.</strong><br><br><strong>Practice move:</strong> always link a named policy back to a specific named macro aim (e.g. "lower interest rates support economic growth by encouraging spending and investment") — examiners reward the explicit link, not just naming the policy.`,
+  ib: `<strong>P2 data-response: evaluate a policy in full — strength, limitation, and a context-dependent judgement.</strong><br><br><strong>Practice move:</strong> never just list a strength and a limitation — finish with a JUDGEMENT that names the condition under which the policy works best (e.g. "monetary policy works best when banks are willing to lend and consumers are confident enough to borrow").`
+};
+function setAdapter(k, el) {
+  document.querySelectorAll('.adapter-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('adapterPanel').innerHTML = ADAPTER[k];
+}
+setAdapter('igcse', document.querySelector('.adapter-tab.igcse'));
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'A government spends $90bn and collects $70bn in tax revenue. What is the budget position?', opts:['$20bn surplus','$20bn deficit','$160bn deficit'], correct:1, explain:'Budget deficit = spending − revenue = $90bn − $70bn = $20bn deficit.' },
+  { q:'Which is the best example of a progressive tax?', opts:['Everyone pays 15% of income','Higher earners pay a higher percentage of income','A flat $5 tax on every purchase'], correct:1, explain:'A progressive tax takes a bigger percentage from those who earn more.' },
+  { q:'Which of these is a supply-side policy?', opts:['Raising interest rates','Investing in worker education and training','Increasing unemployment benefit payments'], correct:1, explain:'Supply-side policies raise the economy\'s productive capacity — better-trained workers are a classic example.' },
+  { q:'Which pair of macro aims is most likely to conflict?', opts:['Full employment and stable prices','Redistribution of income and stable prices','Environmental sustainability and stable prices'], correct:0, explain:'Pushing unemployment very low tends to raise wages and prices, directly conflicting with stable prices.' },
+  { q:'What does the Keynesian multiplier (IB HL) describe?', opts:['A tax rate calculation','An initial spending rise having a multiplied effect on total output','How exchange rates are set'], correct:1, explain:'The multiplier describes how an initial rise in spending circulates through the economy as re-spent income, multiplying its effect on total output.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect — fiscal, monetary, and supply-side policy all locked in! 🏆' : 'Solid — revisit any missed slide before the workbook.'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>
