@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protectionism | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif; overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center; }
+#slide-frame { position:relative; width:960px; height:540px; background:var(--bg); border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0; }
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none; transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box; }
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%); pointer-events:none; }
+#nav { position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border); border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
+.tag { display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; }
+.tag.ib { background:rgba(13,45,82,0.08); border-color:rgba(13,45,82,0.2); color:var(--blue); }
+.tag.low { background:rgba(90,106,128,0.1); border-color:rgba(90,106,128,0.25); color:var(--dim); }
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,3.6vw,40px); line-height:1.05; margin-bottom:14px; color:var(--white); }
+.btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.cov-diagram { position:relative; z-index:2; width:260px; height:220px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(26px,4.2vw,44px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:370px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 hook ===== */
+#s0 { text-align:center; }
+.hyp-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 26px; max-width:660px; margin-top:10px; }
+.hyp-lbl { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; }
+.hyp-text { font-size:13px; color:var(--dim); line-height:1.7; margin-top:6px; }
+
+/* ===== s1 command term drill ===== */
+#s1 { flex-direction:column; gap:12px; }
+.cmd-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.cmd-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
+.cmd-tab.active { background:var(--gold); color:#fff; }
+.cmd-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 24px; max-width:800px; width:100%; min-height:120px; }
+.cmd-answer { font-size:13px; line-height:1.8; color:var(--white); }
+.cmd-answer strong { color:var(--blue); }
+
+/* ===== s2/s3/s5 tab panels ===== */
+#s2, #s3, #s5 { flex-direction:column; gap:10px; }
+.pes-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:12.5px; padding:6px 14px; border-radius:20px; cursor:pointer; }
+.pes-tab.active { background:var(--teal); color:#fff; }
+.pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:820px; width:100%; min-height:150px; max-height:250px; overflow-y:auto; font-size:12.5px; line-height:1.8; color:var(--white); }
+.pes-panel strong { color:var(--blue); }
+
+/* ===== s4 tariff diagram ===== */
+#s4 { flex-direction:column; gap:8px; }
+.diag-toggle { display:flex; gap:8px; }
+.diag-btn { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:13px; padding:6px 18px; border-radius:20px; cursor:pointer; }
+.diag-btn.active { background:var(--blue); color:#fff; }
+.diag-legend { font-size:11px; color:var(--dim); max-width:700px; text-align:center; min-height:34px; }
+.diag-legend strong { color:var(--white); }
+
+/* ===== s-pn: POSITIVE OR NORMATIVE ===== */
+#s-pn { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
+.game-scenario { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:16px; color:var(--white); margin-bottom:14px; line-height:1.5; min-height:56px; }
+.answer-options { display:flex; gap:14px; justify-content:center; margin-bottom:10px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:17px; padding:9px 24px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:130px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); }
+.game-feedback { font-size:12.5px; min-height:20px; font-family:'Space Mono',monospace; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:10px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+/* ===== adapter ===== */
+#s-adapter { flex-direction:column; gap:10px; }
+.adapter-tabs { display:flex; gap:8px; margin-bottom:4px; }
+.adapter-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 22px; border-radius:20px; cursor:pointer; }
+.adapter-tab.active.igcse { background:var(--teal); color:#fff; }
+.adapter-tab.active.ib { background:var(--blue); color:#fff; }
+.adapter-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 26px; max-width:760px; width:100%; font-size:13px; line-height:1.8; color:var(--white); }
+.adapter-panel strong { color:var(--blue); }
+
+/* ===== quiz ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:17px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left"><canvas id="coverCanvas" width="260" height="220" class="cov-diagram"></canvas></div>
+  <div class="cover-right">
+    <div class="cover-module">Module 3 · Global Economics — Lesson 2</div>
+    <div class="cover-title">Protectionism</div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">Every tool of protection, every named reason for using it, and the full D/S diagram showing exactly what a tariff does to price, quantity, and welfare.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Tools of Protection</span><span class="cc-chip">Reasons for Restriction</span>
+        <span class="cc-chip">Tariff Diagram</span><span class="cc-chip">Welfare Areas</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 13–15</div>
+      <div class="cover-pill">IGCSE + IB</div>
+      <div class="cover-pill">55 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0 HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="tag">Hook</div>
+  <div class="big-title">Who Wins, Who Loses, When a Country Blocks Trade?</div>
+  <div class="hyp-box">
+    <div class="hyp-lbl">THINK ABOUT IT</div>
+    <div class="hyp-text">A tariff sounds simple — tax the imports, protect the local jobs. But the full picture involves consumers, domestic producers, the government, AND foreign trading partners, all affected differently, at the same time. Today you'll draw the exact diagram that shows all of it at once.</div>
+  </div>
+</section>
+
+<!-- ============ s1 COMMAND TERM DRILL ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">AO1/AO2 Precision</div>
+    <div class="big-title">Same Concept, Different Command Word</div>
+  </div>
+  <div class="cmd-tabs" id="cmdTabs"></div>
+  <div class="cmd-box"><div class="cmd-answer" id="cmdAnswer"></div></div>
+</section>
+
+<!-- ============ s2: TOOLS OF PROTECTION ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">The Full Toolkit</div>
+    <div class="big-title">Tools of Protection</div>
+  </div>
+  <div class="pes-tabs" id="toolTabs"></div>
+  <div class="pes-panel" id="toolPanel"></div>
+</section>
+
+<!-- ============ s3: REASONS FOR RESTRICTION ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">The Full IGCSE List</div>
+    <div class="big-title">Reasons for Trade Restrictions</div>
+  </div>
+  <div class="pes-tabs" id="reasonTabs"></div>
+  <div class="pes-panel" id="reasonPanel"></div>
+</section>
+
+<!-- ============ s4: TARIFF DIAGRAM ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">AO2 — Draw &amp; Label</div>
+    <div class="big-title">The Tariff Diagram</div>
+  </div>
+  <div class="diag-toggle">
+    <button class="diag-btn active" id="diagBasicBtn" onclick="setDiag(false)">Basic Diagram (IGCSE)</button>
+    <button class="diag-btn" id="diagWelfareBtn" onclick="setDiag(true)">+ Welfare Areas (IB)</button>
+  </div>
+  <canvas id="tariffCanvas" width="620" height="290"></canvas>
+  <div class="diag-legend" id="diagLegend"></div>
+</section>
+
+<!-- ============ s5: CONSEQUENCES ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Beyond the Home Country</div>
+    <div class="big-title">Consequences of Protection</div>
+  </div>
+  <div class="pes-tabs" id="consTabs"></div>
+  <div class="pes-panel" id="consPanel"></div>
+</section>
+
+<!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
+<section class="slide" id="s-pn">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Mini Game</div>
+    <div class="big-title">Positive or Normative?</div>
+  </div>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">POSITIVE</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">NORMATIVE</button>
+    </div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXAM ADAPTER SLOT ============ -->
+<section class="slide" id="s-adapter">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Exam Adapter Slot</div>
+    <div class="big-title">Same Skill — Different Exam</div>
+  </div>
+  <div class="adapter-tabs">
+    <button class="adapter-tab active igcse" onclick="setAdapter('igcse',this)">IGCSE</button>
+    <button class="adapter-tab" onclick="setAdapter('ib',this)">IB</button>
+  </div>
+  <div class="adapter-panel" id="adapterPanel"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">Test Your Understanding</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const PN_SLIDE_IDX = 7;
+const QUIZ_SLIDE_IDX = 9;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+  if (cur === PN_SLIDE_IDX && !pnInited) initPN();
+  if (slides[cur].id === 's-cover') drawCover();
+  if (slides[cur].id === 's4') drawTariff(diagShowWelfare);
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ COVER DIAGRAM ============
+function drawCover() {
+  const c = document.getElementById('coverCanvas'); const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,260,220);
+  ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(30,10); ctx.lineTo(30,190); ctx.lineTo(240,190); ctx.stroke();
+  ctx.strokeStyle='#f5c842'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(30,190); ctx.lineTo(30,60); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(80,190); ctx.lineTo(220,60); ctx.stroke();
+  ctx.strokeStyle='rgba(255,255,255,0.7)'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(60,190); ctx.lineTo(200,60); ctx.stroke();
+  ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(30,130); ctx.lineTo(220,130); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.font='9px monospace'; ctx.fillStyle='rgba(255,255,255,0.75)';
+  ctx.fillText('Tariff raises price →', 60, 122);
+}
+drawCover();
+
+// ============ s1 COMMAND TERM DRILL ============
+const CMDS = [
+  {key:'define', lbl:'Define', ans:'<strong>Define a tariff.</strong> A tariff is a tax placed on imported goods, raising their price to consumers in the importing country.'},
+  {key:'explain', lbl:'Explain', ans:'<strong>Explain why a government might use an import quota rather than a tariff.</strong> A quota gives the government CERTAINTY over the exact quantity of imports allowed, whereas a tariff only makes imports more expensive — the actual quantity imported still depends on how buyers respond to the higher price.'},
+  {key:'comment', lbl:'Comment', ans:'<strong>Comment on whether protectionism benefits a country overall.</strong> It depends who you count: domestic producers and their workers in the protected industry gain, but consumers face higher prices and reduced choice, and trading partners lose export sales — the "overall" effect depends on how these costs and benefits are weighed.'}
+];
+let cmdActive = 0;
+const cmdTabs = document.getElementById('cmdTabs');
+CMDS.forEach((c,i) => {
+  const b = document.createElement('button');
+  b.className = 'cmd-tab' + (i===0?' active':'');
+  b.textContent = c.lbl;
+  b.onclick = () => { cmdActive=i; document.querySelectorAll('#cmdTabs .cmd-tab').forEach(t=>t.classList.remove('active')); b.classList.add('active'); renderCmd(); };
+  cmdTabs.appendChild(b);
+});
+function renderCmd() { document.getElementById('cmdAnswer').innerHTML = CMDS[cmdActive].ans; }
+renderCmd();
+
+// ============ s2: TOOLS OF PROTECTION ============
+const TOOL_TABS = [
+  {key:'tariff', lbl:'Tariff', html:`A tax placed on imported goods, raising their price and making domestic alternatives relatively more attractive.`},
+  {key:'quota', lbl:'Import Quota', html:`A limit on the physical QUANTITY of a good that can be imported, regardless of price. Unlike a tariff, a quota gives certainty over import volume but not over price.`},
+  {key:'subsidy', lbl:'Subsidy', html:`A payment from the government to domestic producers, lowering their costs so they can compete with cheaper imports without raising the price to consumers.`},
+  {key:'embargo', lbl:'Embargo', html:`A complete ban on trade (imports and/or exports) with a particular country or of a particular good — the most extreme form of trade restriction.`},
+  {key:'admin', lbl:'Administrative Barriers', html:`<span class="tag low" style="margin-bottom:4px">LOW DETAIL — one example suffices</span><br>Non-tariff rules that make importing harder in practice — e.g. requiring extensive safety inspections or complex paperwork specifically for foreign goods.`}
+];
+let toolActive = 0;
+const toolTabsEl = document.getElementById('toolTabs');
+TOOL_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { toolActive=i; document.querySelectorAll('#toolTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderTool(); };
+  toolTabsEl.appendChild(b);
+});
+function renderTool() { document.getElementById('toolPanel').innerHTML = TOOL_TABS[toolActive].html; }
+renderTool();
+
+// ============ s3: REASONS FOR RESTRICTION ============
+const REASON_TABS = [
+  {key:'infant', lbl:'Infant Industries', html:`A brand-new domestic industry may need temporary protection from established foreign competitors while it grows large enough to compete on its own.`},
+  {key:'declining', lbl:'Declining Industries', html:`A shrinking domestic industry may be protected temporarily to give workers time to retrain or the industry time to restructure.`},
+  {key:'strategic', lbl:'Strategic Industries', html:`Industries considered essential for national security or self-sufficiency (e.g. food, energy, advanced technology) may be protected so the country isn't overly dependent on others.`},
+  {key:'dumping', lbl:'Anti-Dumping', html:`Protection against "dumping" — when a foreign firm sells goods below their cost of production (often to eliminate competitors) — restrictions can offset this unfair pricing.`},
+  {key:'cadeficit', lbl:'Reducing a Current Account Deficit', html:`Restricting imports can reduce spending on foreign goods, helping to narrow a current account deficit (imports exceeding exports).`},
+  {key:'revenue', lbl:'Raising Tax Revenue', html:`Tariffs directly generate government revenue from every unit of the good imported.`},
+  {key:'demerit', lbl:'Restricting Demerit Goods', html:`Governments may restrict imports of goods considered harmful to consumers or society, to reduce their consumption.`},
+  {key:'env', lbl:'Environmental Sustainability', html:`Restricting imports of goods produced in environmentally damaging ways can encourage cleaner production standards globally.`}
+];
+let reasonActive = 0;
+const reasonTabsEl = document.getElementById('reasonTabs');
+REASON_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { reasonActive=i; document.querySelectorAll('#reasonTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderReason(); };
+  reasonTabsEl.appendChild(b);
+});
+function renderReason() { document.getElementById('reasonPanel').innerHTML = REASON_TABS[reasonActive].html; }
+renderReason();
+
+// ============ s4: TARIFF DIAGRAM ============
+let diagShowWelfare = false;
+function setDiag(showWelfare) {
+  diagShowWelfare = showWelfare;
+  document.getElementById('diagBasicBtn').classList.toggle('active', !showWelfare);
+  document.getElementById('diagWelfareBtn').classList.toggle('active', showWelfare);
+  drawTariff(showWelfare);
+}
+function drawTariff(showWelfare) {
+  const c = document.getElementById('tariffCanvas'); if (!c) return;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,620,290);
+  const x0=80, yAxisTop=30, yAxisBottom=260, xAxisRight=580;
+  // Axes
+  ctx.strokeStyle='#333'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(x0,yAxisTop); ctx.lineTo(x0,yAxisBottom); ctx.lineTo(xAxisRight,yAxisBottom); ctx.stroke();
+  ctx.font='11px sans-serif'; ctx.fillStyle='#5a6a80';
+  ctx.fillText('Price', x0-38, yAxisTop+8);
+  ctx.fillText('Quantity', xAxisRight-32, yAxisBottom+22);
+
+  const Dtop=[100,50], Dbot=[560,240];
+  const Stop=[560,50], Sbot=[100,240];
+  const Pw=200, Pt=170;
+  const QsW=197, QdW=463, QsT=269, QdT=390;
+
+  if (showWelfare) {
+    ctx.fillStyle='rgba(229,57,53,0.28)';
+    ctx.beginPath(); ctx.moveTo(x0,Pw); ctx.lineTo(QdW,Pw); ctx.lineTo(QdT,Pt); ctx.lineTo(x0,Pt); ctx.closePath(); ctx.fill();
+    ctx.fillStyle='rgba(0,137,123,0.28)';
+    ctx.beginPath(); ctx.moveTo(x0,Pw); ctx.lineTo(QsW,Pw); ctx.lineTo(QsT,Pt); ctx.lineTo(x0,Pt); ctx.closePath(); ctx.fill();
+    ctx.fillStyle='rgba(200,150,10,0.35)';
+    ctx.fillRect(QsT,Pt,QdT-QsT,Pw-Pt);
+    ctx.fillStyle='rgba(90,106,128,0.35)';
+    ctx.beginPath(); ctx.moveTo(QsW,Pw); ctx.lineTo(QsT,Pw); ctx.lineTo(QsT,Pt); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(QdT,Pt); ctx.lineTo(QdT,Pw); ctx.lineTo(QdW,Pw); ctx.closePath(); ctx.fill();
+  }
+
+  // Demand & Supply lines
+  ctx.strokeStyle='#0d2d52'; ctx.lineWidth=2.5;
+  ctx.beginPath(); ctx.moveTo(...Dtop); ctx.lineTo(...Dbot); ctx.stroke();
+  ctx.strokeStyle='#00897b'; ctx.lineWidth=2.5;
+  ctx.beginPath(); ctx.moveTo(...Sbot); ctx.lineTo(...Stop); ctx.stroke();
+  ctx.font='bold 12px sans-serif';
+  ctx.fillStyle='#0d2d52'; ctx.fillText('D', Dbot[0]-14, Dbot[1]-4);
+  ctx.fillStyle='#00897b'; ctx.fillText('S', Stop[0]-14, Stop[1]+14);
+
+  // Price lines
+  ctx.setLineDash([4,3]);
+  ctx.strokeStyle='#c8960a'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(x0,Pw); ctx.lineTo(xAxisRight,Pw); ctx.stroke();
+  ctx.strokeStyle='#e53935';
+  ctx.beginPath(); ctx.moveTo(x0,Pt); ctx.lineTo(xAxisRight,Pt); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.font='10px monospace';
+  ctx.textAlign='right';
+  ctx.fillStyle='#c8960a'; ctx.fillText('Pw (world price)', 615, Pw-6);
+  ctx.fillStyle='#e53935'; ctx.fillText('Pw + tariff', 615, Pt-6);
+  ctx.textAlign='left';
+
+  // Quantity markers
+  [[QsW,'Qs(w)'],[QsT,'Qs(t)'],[QdT,'Qd(t)'],[QdW,'Qd(w)']].forEach(([x,lbl]) => {
+    ctx.strokeStyle='rgba(0,0,0,0.15)'; ctx.setLineDash([2,2]); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(x,yAxisBottom); ctx.lineTo(x, x<300?Pw:Pt); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#1a2340'; ctx.font='9px monospace';
+    ctx.save(); ctx.translate(x, yAxisBottom+14); ctx.fillText(lbl, -12, 0); ctx.restore();
+  });
+
+  document.getElementById('diagLegend').innerHTML = showWelfare
+    ? '<strong>Welfare areas (IB):</strong> <span style="color:#e53935">red</span> = consumer surplus loss · <span style="color:#00897b">green</span> = producer surplus gain · <span style="color:#c8960a">gold</span> = government tariff revenue · <span style="color:#5a6a80">grey</span> = deadweight loss (two triangles)'
+    : 'At the world price Pw, imports = Qd(w) − Qs(w). After the tariff raises price to Pw+tariff, domestic supply rises to Qs(t), domestic demand falls to Qd(t), and imports shrink to Qd(t) − Qs(t).';
+}
+drawTariff(false);
+
+// ============ s5: CONSEQUENCES ============
+const CONS_TABS = [
+  {key:'home', lbl:'Home Country', html:`Domestic producers in the protected industry gain higher sales and can retain/create jobs. Consumers face higher prices and less choice. The government may gain tariff revenue. Advantages of restricting free trade must be weighed against these consumer costs.`},
+  {key:'partners', lbl:'Trading Partners', html:`Foreign producers lose export sales and revenue. If the restriction is seen as unfair, trading partners may retaliate with their own restrictions, escalating into a wider trade dispute that can shrink trade for everyone involved.`},
+  {key:'balance', lbl:'Advantages vs. Disadvantages', html:`<strong>Advantages of restricting free trade:</strong> protects domestic jobs and industries, can raise government revenue, supports strategic/national-security goals. <strong>Disadvantages:</strong> higher prices and less choice for consumers, risk of retaliation, reduced overall efficiency compared to free trade, potential harm to international relationships.`}
+];
+let consActive = 0;
+const consTabsEl = document.getElementById('consTabs');
+CONS_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { consActive=i; document.querySelectorAll('#consTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderCons(); };
+  consTabsEl.appendChild(b);
+});
+function renderCons() { document.getElementById('consPanel').innerHTML = CONS_TABS[consActive].html; }
+renderCons();
+
+// ============ s-pn: POSITIVE OR NORMATIVE ============
+const PN_ITEMS = [
+  {text:'A tariff raises the price of an imported good to domestic consumers.', type:'positive'},
+  {text:'Governments should never restrict trade for any reason.', type:'normative'},
+  {text:'An embargo is a complete ban on trade with a country or of a good.', type:'positive'},
+  {text:'Protecting an infant industry is always worth the cost to consumers.', type:'normative'},
+  {text:'A tariff can generate revenue for the government.', type:'positive'},
+  {text:'Free trade is always fairer than protectionism.', type:'normative'}
+];
+let pnIdx=0, pnScore=0, pnStreak=0, pnInited=false;
+function initPN() { pnInited = true; renderPN(); }
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🎓 You can now separate testable claims from value judgements — a core AO1/AO3 skill.';
+    return;
+  }
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
+}
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\'s '+item.type+' — a '+(item.type==='positive'?'testable claim.':'value judgement.'); document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
+}
+
+// ============ EXAM ADAPTER ============
+const ADAPTER = {
+  igcse: `<strong>IGCSE P2: draw and label the tariff diagram; name reasons for restriction using given data.</strong><br><br><strong>Practice move:</strong> when drawing the tariff diagram, always mark FOUR quantities (Qs before, Qs after, Qd after, Qd before) and TWO prices (world price, world price + tariff) — a diagram missing any of these loses marks even if the curves are correctly shaped.`,
+  ib: `<strong>P2: identify and shade the four welfare areas (consumer surplus loss, producer surplus gain, government revenue, deadweight loss).</strong><br><br><strong>Practice move:</strong> deadweight loss is the two SMALL triangles, not the whole shaded region — a common error is shading the entire area between the price lines as "deadweight loss" instead of correctly separating out producer/consumer/government portions first.`
+};
+function setAdapter(k, el) {
+  document.querySelectorAll('.adapter-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('adapterPanel').innerHTML = ADAPTER[k];
+}
+setAdapter('igcse', document.querySelector('.adapter-tab.igcse'));
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'What is an import quota?', opts:['A tax on imports','A limit on the quantity of a good that can be imported','A payment to domestic producers'], correct:1, explain:'A quota restricts quantity directly, unlike a tariff which works through price.' },
+  { q:'On the tariff diagram, what happens to domestic supply when a tariff is added?', opts:['It falls','It rises, since the higher price makes domestic production more profitable','It stays exactly the same'], correct:1, explain:'The tariff raises the price domestic producers receive, so they supply more (a movement along the supply curve).' },
+  { q:'Which reason for trade restriction involves a foreign firm selling below cost?', opts:['Anti-dumping','Infant industry protection','Environmental sustainability'], correct:0, explain:'Anti-dumping restrictions specifically target foreign firms selling below their production cost.' },
+  { q:'In the IB welfare-areas diagram, deadweight loss is represented by...', opts:['The whole shaded region between the two prices','Two small triangles at the outer edges of the shaded region','The government revenue rectangle'], correct:1, explain:'Deadweight loss is specifically the two triangles representing lost efficiency, separate from the consumer/producer/government areas.' },
+  { q:'Which is a genuine consequence of protectionism for TRADING PARTNERS?', opts:['They automatically gain more export sales','They can lose export sales and may retaliate with their own restrictions','They are unaffected by another country\'s tariffs'], correct:1, explain:'A tariff reduces demand for the trading partner\'s exports, and can provoke retaliatory restrictions.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect — protectionism and the tariff diagram all locked in! 🏆' : 'Solid — revisit any missed slide before the workbook.'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>
