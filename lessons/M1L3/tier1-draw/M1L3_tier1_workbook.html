@@ -37,6 +37,9 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
 .answer-line { border-bottom:1px solid rgba(0,0,0,0.18); height:26px; margin-bottom:4px; }
 .match-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:6px; }
 .match-table td { padding:7px 10px; border-bottom:1px solid rgba(0,0,0,0.08); }
+.graph-box { width:100%; height:180px; background-image:linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size:24px 24px; border:1px solid rgba(0,0,0,0.2); border-radius:4px; position:relative; margin-top:8px; }
+.graph-axis-x { position:absolute; bottom:-20px; left:0; right:0; text-align:center; font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; }
+.graph-axis-y { position:absolute; top:50%; left:-70px; transform:rotate(-90deg); font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; width:150px; text-align:center; }
 .mission-box { background:linear-gradient(135deg,rgba(200,150,10,0.08),rgba(200,150,10,0.02)); border:1px solid var(--border); border-radius:12px; padding:16px 20px; margin-top:10px; }
 .mission-box .mtag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
 
@@ -90,7 +93,7 @@ td[contenteditable="true"] { min-width:60px; }
     </div>
   </div>
   <div class="meta-strip">
-    <div class="pill">10 questions</div>
+    <div class="pill">8 questions</div>
     <div class="pill">+ 1 family mission</div>
     <div class="pill">~20 min</div>
   </div>
@@ -103,9 +106,12 @@ td[contenteditable="true"] { min-width:60px; }
   <div class="big-title">Show what you discovered today</div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">1.</span> In your own words, what does it mean for a good to be "stretchy" (in economics: elastic)?</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="q-text"><span class="q-num">1.</span> What does it mean for a good to be "stretchy" (elastic)? Circle the best answer.</div>
+    <ul class="q-opts selectable">
+      <li>It is very expensive.</li>
+      <li>Buyers react a lot to a price change — many switch away if it rises.</li>
+      <li>It never goes on sale.</li>
+    </ul>
   </div>
 
   <div class="q-block">
@@ -120,18 +126,16 @@ td[contenteditable="true"] { min-width:60px; }
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">4.</span> In the Lemonade Elasticity Challenge, which stall could you raise the price on WITHOUT losing many buyers — Candy Corner or Desert Water? Why?</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">5.</span> True or False: Raising the price always makes a seller more money.</div>
+    <div class="q-text"><span class="q-num">4.</span> Which stall could you raise the price on WITHOUT losing many buyers? Circle ONE, then give ONE reason.</div>
+    <ul class="q-opts selectable">
+      <li>Candy Corner</li>
+      <li>Desert Water</li>
+    </ul>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">6.</span> Match each product to STRETCHY or STIFF.</div>
+    <div class="q-text"><span class="q-num">5.</span> Match each product to STRETCHY or STIFF.</div>
     <table class="match-table">
       <tr><td>One brand of chips (many others nearby)</td><td contenteditable="true" spellcheck="false"></td></tr>
       <tr><td>Insulin (life-saving medicine, no substitute)</td><td contenteditable="true" spellcheck="false"></td></tr>
@@ -141,25 +145,27 @@ td[contenteditable="true"] { min-width:60px; }
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">7.</span> Name TWO reasons a good might end up being "stretchy" (easy to give up).</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="q-text"><span class="q-num">6.</span> For each item, write <strong>S</strong> for Stretchy or <strong>T</strong> for Stiff.</div>
+    <ul class="q-opts" style="list-style:none;padding-left:0">
+      <li><span class="blank-fill" contenteditable="true" spellcheck="false"></span> Coffee at your only campus café.</li>
+      <li><span class="blank-fill" contenteditable="true" spellcheck="false"></span> A specific candy bar surrounded by 20 others just like it.</li>
+      <li><span class="blank-fill" contenteditable="true" spellcheck="false"></span> Petrol for your family's only car.</li>
+      <li><span class="blank-fill" contenteditable="true" spellcheck="false"></span> One brand of notebook when the store sells ten similar ones.</li>
+    </ul>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">7.</span> Draw a bar graph. Draw one bar for how many candy buyers stayed after a price rise, and one bar for how many water buyers stayed after the same size price rise.</div>
+    <div style="margin:26px 0 30px 80px;position:relative;max-width:600px">
+      <div class="graph-box">
+        <div class="graph-axis-y">Buyers Remaining</div>
+        <div class="graph-axis-x">Candy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Water</div>
+      </div>
+    </div>
   </div>
 
   <div class="q-block">
     <div class="q-text"><span class="q-num">8.</span> A shop owner raises the price of a stretchy good a lot and total revenue FALLS. Explain why this happens, using the word "buyers" in your answer.</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">9.</span> If you owned a real shop, name ONE product you'd feel safe raising the price on, and ONE you would NOT. Explain your reasoning.</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">10.</span> How could a government use the idea of "stretchy vs stiff" to change what people buy (for example, to get people to smoke less or drive less)?</div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
@@ -174,16 +180,14 @@ td[contenteditable="true"] { min-width:60px; }
 
   <div class="answer-key">
     <div class="ak-title">Answer Key</div>
-    <div class="ak-item"><strong>1.</strong> Accept any answer capturing: buyers react a lot to a price change — if the price goes up even a little, a lot of people stop buying (usually because there are other choices).</div>
+    <div class="ak-item"><strong>1.</strong> "Buyers react a lot to a price change — many switch away if it rises." <span class="why">— Elasticity is about buyer reaction, not price level.</span></div>
     <div class="ak-item"><strong>2.</strong> Few / no. <span class="why">— With no other option, buyers keep buying even when price rises.</span></div>
-    <div class="ak-item"><strong>3.</strong> Sample: "Petrol has few substitutes in the short run (you still need to drive), but people can often postpone or skip a haircut, or few substitutes exist for driving vs. many barbers compete for haircuts, keeping that price steady." Accept reasoning built around substitutes/necessity.</div>
+    <div class="ak-item"><strong>3.</strong> Sample: "Petrol has few substitutes in the short run (you still need to drive), but many barbers compete for haircuts, so that price stays steady." Accept reasoning built around substitutes/necessity.</div>
     <div class="ak-item"><strong>4.</strong> Desert Water — because it has no substitute nearby, buyers keep paying even at a high price. Candy Corner's buyers flee to a competitor the moment price rises.</div>
-    <div class="ak-item"><strong>5.</strong> False. <span class="why">— For a stretchy good, raising price too much can cause so many buyers to leave that total revenue actually falls.</span></div>
-    <div class="ak-item"><strong>6.</strong> Chips: Stretchy. Insulin: Stiff. Salt: Stiff. Trendy toy with copycats: Stretchy.</div>
-    <div class="ak-item"><strong>7.</strong> Accept any two: lots of substitutes exist, it's a luxury not a need, it takes up a big chunk of your money, you have time to shop around.</div>
+    <div class="ak-item"><strong>5.</strong> Chips: Stretchy. Insulin: Stiff. Salt: Stiff. Trendy toy with copycats: Stretchy.</div>
+    <div class="ak-item"><strong>6.</strong> T, S, T, S. <span class="why">— No nearby substitute or a true necessity makes something stiff; many similar options make it stretchy.</span></div>
+    <div class="ak-item"><strong>7.</strong> Accept any two bars showing candy buyers dropping much more sharply than water buyers — the key skill is drawing/reading a simple bar graph.</div>
     <div class="ak-item"><strong>8.</strong> Accept: because so many buyers switch to a substitute or stop buying that the number of buyers falls by MORE than the price rose, so price × quantity (revenue) goes down overall.</div>
-    <div class="ak-item"><strong>9.</strong> Accept any reasonable pair with correct reasoning tied to substitutes/necessity (e.g. "raise price on my only ice-cream stand at the one beach" vs. "not on a candy brand next to five others").</div>
-    <div class="ak-item"><strong>10.</strong> Sample: "A government could raise the price of cigarettes a LOT, because even though smokers may not quit easily at first (stiff in the short run), a big enough price rise over time can push behaviour, especially for stretchier related choices like buying a second car or driving for short trips." Accept any answer connecting a price change to a stretchy/stiff good to encourage or discourage a behaviour.</div>
   </div>
 
   <div class="footer">M1L3 · Economics Academy · Stoic Edu</div>
