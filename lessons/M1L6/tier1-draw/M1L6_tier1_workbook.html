@@ -37,6 +37,9 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
 .answer-line { border-bottom:1px solid rgba(0,0,0,0.18); height:26px; margin-bottom:4px; }
 .match-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:6px; }
 .match-table td { padding:7px 10px; border-bottom:1px solid rgba(0,0,0,0.08); }
+.graph-box { width:100%; height:180px; background-image:linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size:24px 24px; border:1px solid rgba(0,0,0,0.2); border-radius:4px; position:relative; margin-top:8px; }
+.graph-axis-x { position:absolute; bottom:-20px; left:0; right:0; text-align:center; font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; }
+.graph-axis-y { position:absolute; top:50%; left:-70px; transform:rotate(-90deg); font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; width:150px; text-align:center; }
 .mission-box { background:linear-gradient(135deg,rgba(200,150,10,0.08),rgba(200,150,10,0.02)); border:1px solid var(--border); border-radius:12px; padding:16px 20px; margin-top:10px; }
 .mission-box .mtag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
 
@@ -90,7 +93,7 @@ td[contenteditable="true"] { min-width:60px; }
     </div>
   </div>
   <div class="meta-strip">
-    <div class="pill">10 questions</div>
+    <div class="pill">8 questions</div>
     <div class="pill">+ 1 family mission</div>
     <div class="pill">~20 min</div>
     <div class="pill">No exam pressure — just a friendly check</div>
@@ -115,37 +118,16 @@ td[contenteditable="true"] { min-width:60px; }
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">3.</span> True or False: when the PRICE of a good changes, the whole demand curve shifts to a new position. Explain your answer.</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="q-text"><span class="q-num">3.</span> Which statement is TRUE? Circle the best answer.</div>
+    <ul class="q-opts selectable">
+      <li>Cost and price always mean the same thing.</li>
+      <li>Cost is what it takes a firm to make something; price is what a buyer pays for it.</li>
+      <li>Price is always higher than cost, no matter what.</li>
+    </ul>
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">4.</span> A hot day causes an ice-cream stand to raise its price, but people still buy nearly the same amount of ice cream. Is this demand ELASTIC or INELASTIC? Explain in one sentence.</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">5.</span> In the Market Day game, what happened to your stall's cost per cup on the Sales Tax day? What happened on the Subsidy day?</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">6.</span> What is the difference between a price CEILING and a price FLOOR? Give one real-world example of each.</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">7.</span> On the Monopoly Licence day of the game, what changed for your stall if you WON the auction? What changed if you LOST it?</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">8.</span> Match each idea to the KEY CONCEPT it connects to most.</div>
+    <div class="q-text"><span class="q-num">4.</span> Match each idea to the KEY CONCEPT it connects to most.</div>
     <table class="match-table">
       <tr><td>Opportunity cost</td><td contenteditable="true" spellcheck="false"></td></tr>
       <tr><td>Externality (a side-effect on someone outside the deal)</td><td contenteditable="true" spellcheck="false"></td></tr>
@@ -155,13 +137,36 @@ td[contenteditable="true"] { min-width:60px; }
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">9.</span> True or False: "cost" and "price" mean the same thing. Explain your answer.</div>
+    <div class="q-text"><span class="q-num">5.</span> In the Market Day game, what happened to your stall's cost per cup on the Sales Tax day? What happened on the Subsidy day?</div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">10.</span> Which of the six market days in the Market Day game did you find most surprising, and why? Connect your answer to a concept from this module.</div>
+    <div class="q-text"><span class="q-num">6.</span> Draw a bar graph. Draw one bar for your stall's approximate PROFIT on the Free Market day, and one bar for your profit on the Monopoly Licence day (if you won the auction).</div>
+    <div style="margin:26px 0 30px 80px;position:relative;max-width:600px">
+      <div class="graph-box">
+        <div class="graph-axis-y">Profit</div>
+        <div class="graph-axis-x">Free Market &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Monopoly Day</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">7.</span> If you could run your stall on only ONE of the six Market Days again, which would you choose? Circle one, then give ONE reason.</div>
+    <ul class="q-opts selectable">
+      <li>Free Market</li>
+      <li>Sales Tax</li>
+      <li>Subsidy</li>
+      <li>Price Ceiling</li>
+      <li>Price Floor</li>
+      <li>Monopoly Licence Auction</li>
+    </ul>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">8.</span> What is the difference between a price CEILING and a price FLOOR? Give one real-world example of each.</div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
@@ -178,14 +183,12 @@ td[contenteditable="true"] { min-width:60px; }
     <div class="ak-title">Answer Key</div>
     <div class="ak-item"><strong>1.</strong> Accept any reasonable summary that connects the ideas in order, e.g. "Because resources are scarce, people and businesses must choose; those choices meet in markets where prices balance demand and supply; how much quantity changes when price changes is elasticity; sometimes the government steps in with taxes, subsidies, or price rules; and firms decide how big to grow, whether to merge, and how much power they have over price." <span class="why">Full marks for any version that touches scarcity/choice, prices, elasticity, government, and firms in a connected way.</span></div>
     <div class="ak-item"><strong>2.</strong> Opportunity cost. <span class="why">— The next best alternative given up when a choice is made.</span></div>
-    <div class="ak-item"><strong>3.</strong> False. <span class="why">— A price change causes a MOVEMENT ALONG the same demand curve, not a shift. The curve itself only shifts when something else changes, like income or tastes.</span></div>
-    <div class="ak-item"><strong>4.</strong> Inelastic. <span class="why">— Buyers keep buying almost the same amount even though the price rose, which means quantity demanded barely responds to price — the definition of inelastic demand.</span></div>
+    <div class="ak-item"><strong>3.</strong> "Cost is what it takes a firm to make something; price is what a buyer pays for it." <span class="why">A firm sets its price based on cost plus the profit it wants to make.</span></div>
+    <div class="ak-item"><strong>4.</strong> Opportunity cost: Choice. Externality: Interdependence. Economies of scale: Efficiency.</div>
     <div class="ak-item"><strong>5.</strong> On the Sales Tax day, cost per cup went UP (the tax adds to the stall's cost). On the Subsidy day, cost per cup went DOWN (the government payment reduces the stall's cost). <span class="why">A tax and a subsidy move a firm's cost in opposite directions.</span></div>
-    <div class="ak-item"><strong>6.</strong> A price CEILING is a legal MAXIMUM price (e.g. rent control, so landlords can't charge more than a set amount). A price FLOOR is a legal MINIMUM price (e.g. a minimum wage, so employers can't pay less than a set amount). <span class="why">Ceilings protect buyers; floors protect sellers.</span></div>
-    <div class="ak-item"><strong>7.</strong> Winning made you the ONLY legal seller that day — you could usually charge more, since customers who still wanted a cup had nowhere else to go. Losing meant a rival stall held exclusive rights, so most customers went there instead and your stall had a much quieter day. <span class="why">This is the felt experience of being on either side of a monopoly.</span></div>
-    <div class="ak-item"><strong>8.</strong> Opportunity cost: Choice. Externality: Interdependence. Economies of scale: Efficiency.</div>
-    <div class="ak-item"><strong>9.</strong> False. <span class="why">— COST is what it takes a firm to make something (materials, wages, rent). PRICE is what a buyer pays for it. A firm sets its price based on cost plus the profit it wants to make.</span></div>
-    <div class="ak-item"><strong>10.</strong> Accept any reasonable answer that names one of the six days (Free Market, Sales Tax, Subsidy, Price Ceiling, Price Floor, or Monopoly Licence Auction) and correctly connects it to its concept (see the game's Concept Recap for the exact wording).</div>
+    <div class="ak-item"><strong>6.</strong> Accept any two bars showing a HIGHER profit bar for the Monopoly Day than the Free Market day — winning the auction usually let a stall charge more with less competition. The key skill is drawing/reading a simple bar graph.</div>
+    <div class="ak-item"><strong>7.</strong> Accept any reasoned answer — check the reason actually matches the choice (e.g. "Subsidy, because my costs went down and I kept more profit" or "Monopoly Licence Auction, because I was the only seller and could charge more").</div>
+    <div class="ak-item"><strong>8.</strong> A price CEILING is a legal MAXIMUM price (e.g. rent control, so landlords can't charge more than a set amount). A price FLOOR is a legal MINIMUM price (e.g. a minimum wage, so employers can't pay less than a set amount). <span class="why">Ceilings protect buyers; floors protect sellers.</span></div>
   </div>
 
   <div class="footer">M1L6 · Economics Academy · Stoic Edu</div>

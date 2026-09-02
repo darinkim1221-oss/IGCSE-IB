@@ -131,9 +131,32 @@ body {
 .kc-legend { display:flex; gap:10px; justify-content:center; margin-top:4px; }
 .kc-legend span { font-family:'Space Mono',monospace; font-size:9.5px; padding:3px 9px; border-radius:10px; }
 
-/* ===== s5: BUZZER ROUND ===== */
-#s5 { flex-direction:column; gap:16px; }
-.rr-arena { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:20px 30px; max-width:680px; width:100%; text-align:center; }
+/* ===== s-pn: POSITIVE OR NORMATIVE? ===== */
+#s-pn { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:20px 30px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
+.game-scenario { font-family:'Bebas Neue',sans-serif; font-size:19px; color:var(--white); margin-bottom:14px; line-height:1.4; min-height:70px; }
+.answer-options { display:flex; gap:16px; justify-content:center; margin-bottom:10px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:16px; padding:10px 22px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:130px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); animation:pop 0.4s ease; }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); }
+.game-feedback { font-size:12.5px; min-height:20px; font-family:'Space Mono',monospace; color:var(--dim); margin-top:8px; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:10px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+/* ===== s-adapter: EXAM SNEAK PEEK ===== */
+#s-adapter { flex-direction:column; gap:12px; }
+.adapter-tabs { display:flex; gap:8px; }
+.adapter-tab { padding:8px 22px; border-radius:20px; background:var(--card); border:2px solid transparent; cursor:pointer; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:1px; color:var(--dim); }
+.adapter-tab.active.igcse { border-color:var(--blue); color:var(--blue); background:#fff; }
+.adapter-tab.active.ib { border-color:var(--gold); color:var(--gold); background:#fff; }
+.adapter-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 26px; max-width:800px; width:100%; font-size:13px; color:var(--dim); line-height:1.75; }
+.adapter-shared { font-size:11.5px; color:var(--dim); background:rgba(200,150,10,0.06); border-radius:10px; padding:8px 14px; max-width:800px; }
 
 /* ===== s6: MEET MARKET DAY ===== */
 #s6 { flex-direction:column; gap:12px; text-align:center; }
@@ -259,21 +282,25 @@ body {
   <div class="kc-hint" id="kcHint">Tap a word above to see which Key Concept it belongs to.</div>
 </section>
 
-<!-- ============ s5: BUZZER ROUND ============ -->
-<section class="slide" id="s5">
+<!-- ============ s-pn: POSITIVE OR NORMATIVE? ============ -->
+<section class="slide" id="s-pn">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">Quiz-Show Bonus Round</div>
-    <div class="big-title">Buzz In! True or False?</div>
+    <div class="tag">Module Review Game</div>
+    <div class="big-title">Fact or Opinion? Round 2</div>
   </div>
-  <div class="rr-arena">
-    <div class="game-question" id="buzzRoundLbl" style="font-size:12px;color:var(--dim);margin-bottom:8px">Round 1 of 5</div>
-    <div class="game-scenario" id="buzzScenario" style="font-family:'Bebas Neue',sans-serif;font-size:19px;min-height:70px">Loading...</div>
-    <div class="answer-options" style="display:flex;gap:16px;justify-content:center">
-      <button class="ans-btn" style="background:rgba(0,137,123,0.08);border:2px solid var(--teal);color:var(--teal);font-family:'Bebas Neue',sans-serif;font-size:16px;padding:10px 22px;border-radius:12px;cursor:pointer" onclick="buzzAnswer(true)">TRUE</button>
-      <button class="ans-btn" style="background:rgba(229,57,53,0.08);border:2px solid var(--red);color:var(--red);font-family:'Bebas Neue',sans-serif;font-size:16px;padding:10px 22px;border-radius:12px;cursor:pointer" onclick="buzzAnswer(false)">FALSE</button>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">FACT</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">OPINION</button>
     </div>
-    <div class="nudge-feedback" id="buzzFeedback" style="min-height:30px;font-size:12px;color:var(--dim);margin-top:8px"></div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
+    </div>
   </div>
 </section>
 
@@ -289,6 +316,21 @@ body {
     <div class="role-card"><div class="role-emoji">🙋</div><div class="role-lbl">Customer</div><div class="role-sub">Decide what to buy as prices and rules keep changing.</div></div>
   </div>
   <div class="hook-reveal" style="opacity:1;animation:none">👉 Open the Market Day game to play!</div>
+</section>
+
+<!-- ============ EXAM SNEAK PEEK ============ -->
+<section class="slide" id="s-adapter">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Sneak Peek: Test-Day Skills</div>
+    <div class="big-title">How Examiners Talk About This</div>
+  </div>
+  <div class="adapter-shared"><strong style="color:var(--white)">Shared skill (both boards):</strong> next year's tests reward SHOWING your thinking, not just a final answer — and spending more time on questions worth more marks.</div>
+  <div class="adapter-tabs">
+    <div class="adapter-tab active igcse" data-b="igcse" onclick="setAdapter(this)">IGCSE</div>
+    <div class="adapter-tab ib" data-b="ib" onclick="setAdapter(this)">IB</div>
+  </div>
+  <div class="adapter-panel" id="adapterPanel"></div>
 </section>
 
 <!-- ============ QUIZ ============ -->
@@ -328,7 +370,7 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const QUIZ_SLIDE_IDX = 8;
+const QUIZ_SLIDE_IDX = 9;
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -467,32 +509,54 @@ KC_WORDS.forEach((it) => {
   kcGrid.appendChild(c);
 });
 
-// ============ s5: BUZZER ROUND ============
-const BUZZ_ROUNDS = [
-  { text: 'A price FLOOR set BELOW the equilibrium price would have no effect on the market.', answer: true, why: 'A floor only "binds" when it\'s set ABOVE equilibrium. Set below equilibrium, the market just settles at its normal price anyway. TRUE.' },
-  { text: 'Opportunity cost is the money you actually spend on a purchase.', answer: false, why: 'Opportunity cost is the NEXT BEST alternative you give up — not the money spent. FALSE.' },
-  { text: 'A monopoly is a market with only ONE seller.', answer: true, why: 'Exactly — "mono" means one. TRUE.' },
-  { text: 'Goods with many close substitutes tend to have INELASTIC demand.', answer: false, why: 'The opposite! Easy substitutes mean buyers can switch away fast, so demand tends to be ELASTIC. FALSE.' },
-  { text: 'Diseconomies of scale means a business has grown so large that its average cost per unit starts rising.', answer: true, why: 'Right — past a certain size, crowding and coordination problems can push average cost back up. TRUE.' }
+// ============ s-pn: POSITIVE OR NORMATIVE (Fact or Opinion) ============
+const PN_ITEMS = [
+  {text:'A price ceiling set below equilibrium causes a shortage.', type:'positive'},
+  {text:'Rent should always be capped to protect renters.', type:'normative'},
+  {text:'A firm\'s average cost falls as it grows, thanks to economies of scale.', type:'positive'},
+  {text:'Every business should try to grow as big as possible.', type:'normative'},
+  {text:'A monopoly is a market with only one seller.', type:'positive'},
+  {text:'Taxing sugary drinks is the best way to fight obesity.', type:'normative'}
 ];
-let buzzIdx = 0;
-function renderBuzz() {
-  if (buzzIdx >= BUZZ_ROUNDS.length) {
-    document.getElementById('buzzRoundLbl').textContent = 'Complete!';
-    document.getElementById('buzzScenario').textContent = '🌟 You\'ve connected the whole module — ready for Market Day!';
+let pnIdx=0, pnScore=0, pnStreak=0;
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🌟 You can separate FACTS from OPINIONS — ready for Market Day!';
     return;
   }
-  document.getElementById('buzzRoundLbl').textContent = 'Round ' + (buzzIdx+1) + ' of ' + BUZZ_ROUNDS.length;
-  document.getElementById('buzzScenario').textContent = BUZZ_ROUNDS[buzzIdx].text;
-  document.getElementById('buzzFeedback').textContent = '';
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
 }
-function buzzAnswer(choice) {
-  const r = BUZZ_ROUNDS[buzzIdx];
-  document.getElementById('buzzFeedback').innerHTML = (choice===r.answer ? '<strong style="color:var(--teal)">✓ Correct.</strong> ' : '<strong style="color:var(--red)">✗ Not quite.</strong> ') + r.why;
-  buzzIdx++;
-  setTimeout(renderBuzz, 2200);
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\'s '+(item.type==='positive'?'a FACT you could test.':'an OPINION — a value judgement.'); document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
 }
-renderBuzz();
+renderPN();
+
+// ============ EXAM SNEAK PEEK ============
+const ADAPTER = {
+  igcse: 'Read the question TWICE before you start writing. Then show every step of a calculation — one step at a time earns marks even if your final number is off.',
+  ib: 'Structure a longer answer as CLAIM → EVIDENCE → LINK, and always check back that your answer actually addresses the command word used (define, explain, compare, discuss).'
+};
+function setAdapter(el) {
+  document.querySelectorAll('.adapter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('adapterPanel').innerHTML = ADAPTER[el.dataset.b];
+}
+setAdapter(document.querySelector('.adapter-tab[data-b="igcse"]'));
 
 // ============ QUIZ ============
 const QUIZ = [
