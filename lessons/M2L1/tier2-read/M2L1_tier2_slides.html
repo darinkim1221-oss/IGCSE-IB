@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Money, Banking, Households & Workers | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif; overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center; }
+#slide-frame { position:relative; width:960px; height:540px; background:var(--bg); border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0; }
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none; transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box; }
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%); pointer-events:none; }
+#nav { position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border); border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
+.tag { display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; }
+.tag.ib { background:rgba(13,45,82,0.08); border-color:rgba(13,45,82,0.2); color:var(--blue); }
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,3.6vw,40px); line-height:1.05; margin-bottom:14px; color:var(--white); }
+.btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.cov-diagram { position:relative; z-index:2; width:260px; height:220px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(26px,4.2vw,44px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:370px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 hook ===== */
+#s0 { text-align:center; }
+.hyp-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 26px; max-width:660px; margin-top:10px; }
+.hyp-lbl { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; }
+.hyp-text { font-size:13px; color:var(--dim); line-height:1.7; margin-top:6px; }
+
+/* ===== s1 command term drill ===== */
+#s1 { flex-direction:column; gap:12px; }
+.cmd-tabs { display:flex; gap:8px; }
+.cmd-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
+.cmd-tab.active { background:var(--gold); color:#fff; }
+.cmd-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 24px; max-width:800px; width:100%; min-height:120px; }
+.cmd-answer { font-size:13.5px; line-height:1.8; color:var(--white); }
+.cmd-answer strong { color:var(--blue); }
+
+/* ===== s2/s6 tab panels (shared) ===== */
+#s2, #s6 { flex-direction:column; gap:10px; }
+.pes-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:13px; padding:7px 18px; border-radius:20px; cursor:pointer; }
+.pes-tab.active { background:var(--teal); color:#fff; }
+.pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:820px; width:100%; min-height:150px; max-height:270px; overflow-y:auto; font-size:12.5px; line-height:1.8; color:var(--white); }
+.pes-panel strong { color:var(--blue); }
+
+/* ===== s3 interest-rate slider ===== */
+#s3 { flex-direction:column; gap:10px; }
+.rate-slider-wrap { max-width:640px; width:100%; text-align:center; }
+.rate-slider-wrap input[type=range] { width:100%; -webkit-appearance:none; height:6px; background:linear-gradient(90deg,var(--teal),var(--gold)); border-radius:3px; outline:none; margin:8px 0; }
+.rate-slider-wrap input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:#fff; border:3px solid var(--blue); cursor:pointer; }
+.rate-lbl { font-family:'Space Mono',monospace; font-size:12px; color:var(--gold); }
+.rate-bars { display:flex; gap:26px; justify-content:center; align-items:flex-end; height:120px; margin:14px 0; }
+.rate-col { display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; }
+.rate-bar { width:70px; border-radius:8px 8px 0 0; transition:height 0.3s ease; min-height:6px; }
+.rate-bar.save { background:linear-gradient(180deg,var(--teal),#00695c); }
+.rate-bar.borrow { background:linear-gradient(180deg,var(--red),#b71c1c); }
+.rate-col-lbl { font-size:11px; color:var(--dim); margin-top:6px; }
+.rate-col-val { font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--white); }
+.rate-note { font-size:12px; color:var(--dim); max-width:700px; text-align:center; line-height:1.6; }
+
+/* ===== s4 labour market diagram ===== */
+#s4 { flex-direction:column; gap:10px; }
+.lm-wrap { display:flex; gap:22px; max-width:860px; width:100%; align-items:center; }
+.lm-graph { flex:1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:10px; }
+.lm-legend { width:290px; font-size:11.5px; color:var(--dim); line-height:1.8; }
+.lm-legend strong { color:var(--blue); }
+
+/* ===== s-pn: POSITIVE OR NORMATIVE ===== */
+#s-pn { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
+.game-scenario { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:16px; color:var(--white); margin-bottom:14px; line-height:1.5; min-height:56px; }
+.answer-options { display:flex; gap:14px; justify-content:center; margin-bottom:10px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:17px; padding:9px 24px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:130px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); }
+.game-feedback { font-size:12.5px; min-height:20px; font-family:'Space Mono',monospace; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:10px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+/* ===== adapter ===== */
+#s-adapter { flex-direction:column; gap:10px; }
+.adapter-tabs { display:flex; gap:8px; margin-bottom:4px; }
+.adapter-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 22px; border-radius:20px; cursor:pointer; }
+.adapter-tab.active.igcse { background:var(--teal); color:#fff; }
+.adapter-tab.active.ib { background:var(--blue); color:#fff; }
+.adapter-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 26px; max-width:760px; width:100%; font-size:13px; line-height:1.8; color:var(--white); }
+.adapter-panel strong { color:var(--blue); }
+
+/* ===== quiz ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:17px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left"><canvas id="coverCanvas" width="260" height="220" class="cov-diagram"></canvas></div>
+  <div class="cover-right">
+    <div class="cover-module">Module 2 · Macroeconomics — Lesson 1</div>
+    <div class="cover-title">Money, Banking,<br><span>Households &amp; Workers</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">Why does everyone accept a piece of paper as valuable? What does a bank actually do with your money? And why does a footballer earn more than a nurse? Build the labour-market diagram to exam standard.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Money &amp; Banking</span><span class="cc-chip">Household Finance</span>
+        <span class="cc-chip">Wage Determination</span><span class="cc-chip">Minimum Wage</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 13–15</div>
+      <div class="cover-pill">IGCSE + IB</div>
+      <div class="cover-pill">55 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0 HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="tag">Hypothesis</div>
+  <div class="big-title" style="max-width:780px;text-align:center">Money only works because everyone TRUSTS it will still be worth something tomorrow.</div>
+  <div class="hyp-box">
+    <div class="hyp-lbl">TEST IT</div>
+    <div class="hyp-text">If this is true, then anything that loses that trust should stop working as money — and anything that earns it can become money. Today: what money actually needs to work, what a bank does with deposits, how households decide to spend/save/borrow, and the labour-market diagram that explains why wages differ.</div>
+  </div>
+</section>
+
+<!-- ============ s1 COMMAND TERM DRILL ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">AO1/AO2 Precision</div>
+    <div class="big-title">Same Concept, Different Command Word</div>
+  </div>
+  <div class="cmd-tabs" id="cmdTabs"></div>
+  <div class="cmd-box"><div class="cmd-answer" id="cmdAnswer"></div></div>
+</section>
+
+<!-- ============ s2 MONEY & BANKING TABS ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Functions · Characteristics · Institutions</div>
+    <div class="big-title">Money &amp; Banking, Precisely</div>
+  </div>
+  <div class="pes-tabs" id="moneyTabs"></div>
+  <div class="pes-panel" id="moneyPanel"></div>
+</section>
+
+<!-- ============ s3 HOUSEHOLD FINANCE: INTEREST-RATE SLIDER ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Interest-Rate Reasoning</div>
+    <div class="big-title">Spending, Saving &amp; Borrowing</div>
+  </div>
+  <div class="rate-slider-wrap">
+    <input type="range" id="rateSlider" min="0" max="10" value="3" step="0.5" oninput="updateRate(this.value)">
+    <div class="rate-lbl">Interest rate = <span id="rateVal">3</span>%</div>
+  </div>
+  <div class="rate-bars">
+    <div class="rate-col"><div class="rate-col-val" id="saveVal">40</div><div class="rate-bar save" id="saveBar" style="height:40%"></div><div class="rate-col-lbl">💰 Incentive to Save</div></div>
+    <div class="rate-col"><div class="rate-col-val" id="borrowVal">70</div><div class="rate-bar borrow" id="borrowBar" style="height:70%"></div><div class="rate-col-lbl">💳 Incentive to Borrow</div></div>
+  </div>
+  <div class="rate-note">Drag the slider to change the interest rate. A HIGHER rate rewards saving more (higher return) and makes borrowing more costly — a LOWER rate does the reverse. Other influences on a household's choice: <strong style="color:var(--gold)">income, confidence about the future, age, and culture.</strong></div>
+</section>
+
+<!-- ============ s4 LABOUR MARKET DIAGRAM (Key Diagram) ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Drawing REQUIRED at IGCSE (newly explicit 2027–29)</div>
+    <div class="big-title">The Labour Market &amp; Minimum Wage</div>
+  </div>
+  <div class="lm-wrap">
+    <div class="lm-graph"><canvas id="lmCanvas" width="440" height="200"></canvas></div>
+    <div class="lm-legend">
+      <strong>Without a minimum wage:</strong> the labour demand and supply curves for workers cross at an equilibrium wage — every firm that wants a worker at that wage finds one.<br><br>
+      <strong>With a minimum wage above equilibrium:</strong> more people want to work at the higher wage (Qs) than firms want to hire (Qd) — the gap is a labour SURPLUS (unemployment).
+    </div>
+  </div>
+  <button class="btn" onclick="toggleNMW()" style="margin-top:6px">Show Minimum Wage →</button>
+</section>
+
+<!-- ============ s5 WAGE DIFFERENCES / DIVISION OF LABOUR / MOBILITY ============ -->
+<section class="slide" id="s5" style="flex-direction:column;gap:10px">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Why Wages Differ · How Work Is Organised</div>
+    <div class="big-title">Labour Market Topics</div>
+  </div>
+  <div class="pes-tabs" id="labTabs"></div>
+  <div class="pes-panel" id="labPanel"></div>
+</section>
+
+<!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
+<section class="slide" id="s-pn">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Mini Game</div>
+    <div class="big-title">Positive or Normative?</div>
+  </div>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">POSITIVE</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">NORMATIVE</button>
+    </div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXAM ADAPTER SLOT ============ -->
+<section class="slide" id="s-adapter">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Exam Adapter Slot</div>
+    <div class="big-title">Same Skill — Different Exam</div>
+  </div>
+  <div class="adapter-tabs">
+    <button class="adapter-tab active igcse" onclick="setAdapter('igcse',this)">IGCSE</button>
+    <button class="adapter-tab" onclick="setAdapter('ib',this)">IB</button>
+  </div>
+  <div class="adapter-panel" id="adapterPanel"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">Money, Banking &amp; Wages Check</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const PN_SLIDE_IDX = 7;
+const QUIZ_SLIDE_IDX = 9;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+  if (cur === PN_SLIDE_IDX && !pnInited) initPN();
+  if (slides[cur].id === 's4') drawLM();
+  if (slides[cur].id === 's-cover') drawCover();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ COVER DIAGRAM (mini labour-market diagram) ============
+function drawCover() {
+  const c = document.getElementById('coverCanvas'); const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,260,220);
+  ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(30,10); ctx.lineTo(30,190); ctx.lineTo(240,190); ctx.stroke();
+  ctx.strokeStyle='#f5c842'; ctx.lineWidth=2.5;
+  ctx.beginPath(); ctx.moveTo(40,170); ctx.lineTo(220,40); ctx.stroke();
+  ctx.strokeStyle='rgba(255,255,255,0.7)'; ctx.lineWidth=2.5;
+  ctx.beginPath(); ctx.moveTo(40,50); ctx.lineTo(220,160); ctx.stroke();
+  ctx.fillStyle='#f5c842'; ctx.font='bold 11px sans-serif'; ctx.fillText('S', 205, 48);
+  ctx.fillStyle='#fff'; ctx.font='bold 11px sans-serif'; ctx.fillText('D', 205, 168);
+  ctx.fillStyle='#fff'; ctx.font='9px monospace'; ctx.fillText('Workers →', 150, 205);
+}
+drawCover();
+
+// ============ s1 COMMAND TERM DRILL ============
+const CMDS = [
+  {key:'define', lbl:'Define', ans:'<strong>Define money.</strong> Money is anything widely accepted as a medium of exchange, possessing the characteristics of durability, divisibility, portability, scarcity, acceptability and uniformity.'},
+  {key:'explain', lbl:'Explain', ans:'<strong>Explain why a commercial bank can lend out most of the money it holds in deposits.</strong> Only a small fraction of depositors want their cash back on any given day, so the bank keeps a fractional reserve and lends the rest out to earn interest — the source of its profit.'},
+  {key:'compare', lbl:'Compare', ans:'<strong>Compare the roles of a central bank and a commercial bank.</strong> A central bank sets monetary policy, manages the interest rate, and acts as "bank for the banks" — it is not profit-driven. A commercial bank takes deposits from and lends to the public and businesses, and IS profit-driven. A strong "compare" answer states BOTH sides for each point, not just one institution\'s features.'}
+];
+let cmdActive = 0;
+const cmdTabs = document.getElementById('cmdTabs');
+CMDS.forEach((c,i) => {
+  const b = document.createElement('button');
+  b.className = 'cmd-tab' + (i===0?' active':'');
+  b.textContent = c.lbl;
+  b.onclick = () => { cmdActive=i; document.querySelectorAll('.cmd-tab').forEach(t=>t.classList.remove('active')); b.classList.add('active'); renderCmd(); };
+  cmdTabs.appendChild(b);
+});
+function renderCmd() { document.getElementById('cmdAnswer').innerHTML = CMDS[cmdActive].ans + `<div style="margin-top:10px;font-size:11px;color:var(--dim)">Notice how answer length and depth changes with the command word — this is examined discipline, not decoration.</div>`; }
+renderCmd();
+
+// ============ s2 MONEY & BANKING TABS ============
+const MONEY_TABS = [
+  {key:'func', lbl:'Functions of Money', html:`<strong>Medium of exchange:</strong> accepted in exchange for goods/services, replacing barter. <strong>Store of value:</strong> can be saved and still hold purchasing power later. <strong>Unit of account:</strong> lets prices/values be measured and compared on one common scale. <strong>Standard of deferred payment:</strong> allows debts to be agreed now and settled later, in the same unit.`},
+  {key:'char', lbl:'Characteristics of Money', html:`For money to work, it must be: <strong>Durable</strong> (doesn't wear out fast), <strong>Divisible</strong> (splits into smaller units for smaller trades), <strong>Portable</strong> (easy to carry and use), <strong>Scarce</strong> (limited enough to hold value), <strong>Acceptable</strong> (widely trusted), and <strong>Uniform</strong> (each unit identical to the next).`},
+  {key:'central', lbl:'Central Bank', html:`The central bank is the "bank for the banks" — not profit-driven. It issues the currency, sets the base interest rate as its main lever of monetary policy, acts as lender of last resort to commercial banks in a crisis, and regulates the banking system. <em>This lever returns in Lesson 5 as monetary policy.</em>`},
+  {key:'commercial', lbl:'Commercial Bank', html:`A commercial bank is profit-driven. It accepts deposits from households and firms, offers loans and mortgages, and provides everyday banking services (cards, transfers, cheques). Its profit comes mainly from the gap between the (lower) interest it pays savers and the (higher) interest it charges borrowers.`}
+];
+let moneyActive = 0;
+const moneyTabsEl = document.getElementById('moneyTabs');
+MONEY_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { moneyActive=i; document.querySelectorAll('#moneyTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderMoney(); };
+  moneyTabsEl.appendChild(b);
+});
+function renderMoney() { document.getElementById('moneyPanel').innerHTML = MONEY_TABS[moneyActive].html; }
+renderMoney();
+
+// ============ s3 INTEREST-RATE SLIDER ============
+function updateRate(v) {
+  v = Number(v);
+  document.getElementById('rateVal').textContent = v;
+  const save = Math.round(20 + v * 6);
+  const borrow = Math.round(90 - v * 6);
+  document.getElementById('saveVal').textContent = save;
+  document.getElementById('borrowVal').textContent = borrow;
+  document.getElementById('saveBar').style.height = save + '%';
+  document.getElementById('borrowBar').style.height = borrow + '%';
+}
+
+// ============ s4 LABOUR MARKET DIAGRAM ============
+let nmwShown = false;
+function drawLM() {
+  const c = document.getElementById('lmCanvas'); if (!c) return; const ctx = c.getContext('2d');
+  const w=440,h=200;
+  ctx.clearRect(0,0,w,h);
+  ctx.strokeStyle='rgba(90,106,128,0.4)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(40,10); ctx.lineTo(40,190); ctx.lineTo(430,190); ctx.stroke();
+  ctx.fillStyle='#5a6a80'; ctx.font='10px monospace';
+  ctx.fillText('Quantity of Labour →', 300, 200-4);
+  ctx.save(); ctx.translate(16,110); ctx.rotate(-Math.PI/2); ctx.fillText('Wage →',0,0); ctx.restore();
+  // Supply curve (upward)
+  ctx.strokeStyle='#c8960a'; ctx.lineWidth=2.5;
+  ctx.beginPath(); ctx.moveTo(60,170); ctx.lineTo(410,40); ctx.stroke();
+  ctx.fillStyle='#c8960a'; ctx.font='bold 12px sans-serif'; ctx.fillText('S (workers)', 350, 55);
+  // Demand curve (downward)
+  ctx.strokeStyle='#0d2d52'; ctx.lineWidth=2.5;
+  ctx.beginPath(); ctx.moveTo(60,50); ctx.lineTo(410,175); ctx.stroke();
+  ctx.fillStyle='#0d2d52'; ctx.font='bold 12px sans-serif'; ctx.fillText('D (firms)', 350, 190);
+  // Equilibrium point
+  const eqX=235, eqY=110;
+  ctx.fillStyle='#00897b'; ctx.beginPath(); ctx.arc(eqX,eqY,4,0,7); ctx.fill();
+  ctx.fillStyle='#5a6a80'; ctx.font='9px monospace'; ctx.fillText('We', eqX-16, eqY-8);
+  if (nmwShown) {
+    const nmwY = 70;
+    ctx.strokeStyle='#e53935'; ctx.setLineDash([5,4]); ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(40,nmwY); ctx.lineTo(410,nmwY); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#e53935'; ctx.font='bold 10px monospace'; ctx.fillText('Minimum Wage', 300, nmwY-6);
+    // find Qd and Qs at nmwY
+    // Demand line: from (60,50) to (410,175) -> at y=nmwY, x = 60 + (nmwY-50)*(410-60)/(175-50)
+    const qdX = 60 + (nmwY-50)*(410-60)/(175-50);
+    // Supply line: from (60,170) to (410,40) -> at y=nmwY, x = 60 + (nmwY-170)*(410-60)/(40-170)
+    const qsX = 60 + (nmwY-170)*(410-60)/(40-170);
+    ctx.fillStyle='#0d2d52'; ctx.beginPath(); ctx.arc(qdX,nmwY,4,0,7); ctx.fill();
+    ctx.fillStyle='#c8960a'; ctx.beginPath(); ctx.arc(qsX,nmwY,4,0,7); ctx.fill();
+    ctx.strokeStyle='#e53935'; ctx.lineWidth=4;
+    ctx.beginPath(); ctx.moveTo(qdX,nmwY); ctx.lineTo(qsX,nmwY); ctx.stroke();
+    ctx.fillStyle='#e53935'; ctx.font='bold 10px monospace'; ctx.fillText('SURPLUS', (qdX+qsX)/2-24, nmwY+16);
+  }
+}
+drawLM();
+function toggleNMW() { nmwShown = !nmwShown; drawLM(); }
+
+// ============ s5 LABOUR MARKET TOPICS ============
+const LAB_TABS = [
+  {key:'wagediff', lbl:'Why Wages Differ', html:`<strong>Skill level:</strong> rarer, harder-to-acquire skills command a higher wage. <strong>Sector:</strong> pay norms differ across industries even for similar skill levels. <strong>Discrimination:</strong> unequal pay for equally productive work based on a worker's identity, not their output. <strong>Public vs. private:</strong> pay structures and funding differ between government and private employers. <strong>Bargaining strength:</strong> a worker or group with more bargaining power (e.g. rare skills, or [LOW] a trade union) can negotiate a higher wage.`},
+  {key:'occupation', lbl:'Choice of Occupation', html:`Workers choose a job weighing <strong>wage factors</strong> (the pay itself) against <strong>non-wage factors</strong>: job security, working hours, status, job satisfaction, location, and career progression. A lower-paid job with strong non-wage benefits can beat a higher-paid job that lacks them.`},
+  {key:'division', lbl:'Division of Labour', html:`<strong>Division of labour / specialisation:</strong> breaking production into separate tasks, each done by a different worker. <strong>Advantages:</strong> faster output, workers become highly skilled at their task, less time lost switching tasks. <strong>Disadvantages:</strong> repetitive/monotonous work can lower motivation, workers become dependent on each other, and over-specialised skills don't transfer easily to other jobs.`},
+  {key:'mobility', lbl:'Mobility of Labour', html:`<strong>Occupational mobility:</strong> how easily a worker can switch between different types of job — limited by the skills/training a new job requires. <strong>Geographical mobility:</strong> how easily a worker can move location for work — limited by family ties, housing costs, or migration rules. Low mobility of either type can leave workers unemployed in a declining industry/region even while jobs are available elsewhere.`}
+];
+let labActive = 0;
+const labTabsEl = document.getElementById('labTabs');
+LAB_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { labActive=i; document.querySelectorAll('#labTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderLab(); };
+  labTabsEl.appendChild(b);
+});
+function renderLab() { document.getElementById('labPanel').innerHTML = LAB_TABS[labActive].html; }
+renderLab();
+
+// ============ s-pn: POSITIVE OR NORMATIVE ============
+const PN_ITEMS = [
+  {text:'A commercial bank lends out most of the money it holds in deposits.', type:'positive'},
+  {text:'The government should raise the minimum wage every year.', type:'normative'},
+  {text:'A rise in the interest rate tends to increase the incentive to save.', type:'positive'},
+  {text:'Everyone should be paid equally, regardless of their job.', type:'normative'},
+  {text:'A minimum wage set above the equilibrium wage creates a surplus of labour.', type:'positive'},
+  {text:'It is unfair that some workers are paid so much more than others.', type:'normative'}
+];
+let pnIdx=0, pnScore=0, pnStreak=0, pnInited=false;
+function initPN() { pnInited = true; renderPN(); }
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🎓 You can now separate testable claims from value judgements — a core AO1/AO3 skill.';
+    return;
+  }
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
+}
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\'s '+item.type+' — a '+(item.type==='positive'?'testable claim.':'value judgement.'); document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
+}
+
+// ============ EXAM ADAPTER ============
+const ADAPTER = {
+  igcse: `<strong>AO2: draw the minimum-wage diagram with the resulting surplus clearly labelled; 'analyse the effect on workers' (4-mark structured answer):</strong> command words <em>draw, explain, analyse</em>. Draw D/S for labour, add the minimum wage line ABOVE equilibrium, label Qd and Qs at that wage, and shade/label the gap as a surplus of labour (unemployment).<br><br><strong>Practice move:</strong> for any "analyse the effect" question, state the direct effect first (e.g. "some workers who keep their job earn more"), then the knock-on effect (e.g. "but firms demand less labour at the higher wage, so some workers are not hired") — two linked steps, not one.`,
+  ib: `<strong>AO2: build the policy chain — minimum wage → labour market effects → link explicitly to the Equity key concept:</strong> given a policy like a minimum wage, trace the mechanism step by step and connect the outcome back to a named key concept (here, Equity) rather than stopping at the diagram.<br><br><strong>Practice move:</strong> structure the chain as MECHANISM (diagram-based reasoning) → OUTCOME (who gains, who loses) → KEY-CONCEPT LINK ("this raises a genuine equity trade-off between higher pay for employed workers and reduced employment opportunities for others").`
+};
+function setAdapter(k, el) {
+  document.querySelectorAll('.adapter-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('adapterPanel').innerHTML = ADAPTER[k];
+}
+setAdapter('igcse', document.querySelector('.adapter-tab.igcse'));
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'Which of these is a function of money, not a characteristic?', opts:['Divisible','Store of value','Uniform'], correct:1, explain:'Store of value is a FUNCTION (what money does). Divisible and uniform are CHARACTERISTICS (properties money must have to do its job well).' },
+  { q:'Which institution acts as "lender of last resort" to commercial banks?', opts:['Another commercial bank','The central bank','The stock exchange'], correct:1, explain:'The central bank is the "bank for the banks" — it can lend to commercial banks in a crisis, unlike a rival commercial bank.' },
+  { q:'If the interest rate RISES, what typically happens to the incentive to borrow?', opts:['It rises','It falls','It stays exactly the same'], correct:1, explain:'A higher interest rate makes borrowing more expensive, so the incentive to borrow falls — while the incentive to save rises.' },
+  { q:'A minimum wage set ABOVE the equilibrium wage creates a...', opts:['Shortage of labour','Surplus of labour (unemployment)','No change at all'], correct:1, explain:'More people want to work at the higher wage (Qs) than firms want to hire (Qd) — the gap is a labour surplus, i.e. unemployment.' },
+  { q:'A surgeon typically earns more than a cashier mainly because...', opts:['Surgeons work fewer hours','Far fewer people have the rare skill, and that skill is in high demand','Cashiers dislike their job'], correct:1, explain:'A smaller supply of workers with a scarce, high-demand skill pushes the wage up — the same supply-and-demand logic used for goods, applied to labour.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect — money, banking and labour-market logic locked in! 🏆' : 'Solid — revisit any missed slide before the workbook.'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>

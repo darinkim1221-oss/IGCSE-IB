@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework Workbook — Money, Banking, Households & Workers (Tier 2) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:8px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.meta-strip { display:flex; gap:8px; margin:14px 0 28px; flex-wrap:wrap; }
+.pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:var(--blue); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 11px; border-radius:20px; text-transform:uppercase; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:28px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:30px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:14px; }
+.q-block { margin-bottom:22px; page-break-inside:avoid; }
+.q-num { font-family:'Space Mono',monospace; font-size:11px; color:var(--gold); font-weight:700; margin-right:6px; }
+.q-text { font-size:14px; line-height:1.7; margin-bottom:8px; }
+.marks { font-family:'Space Mono',monospace; font-size:10px; color:var(--teal); font-weight:700; }
+.q-opts { list-style:none; padding-left:6px; }
+.q-opts li { font-size:13px; color:var(--white); padding:4px 0; }
+.q-opts li::before { content:'○  '; color:var(--dim); }
+.answer-line { border-bottom:1px solid rgba(0,0,0,0.18); height:26px; margin-bottom:4px; }
+.tier-band { display:inline-block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1px; text-transform:uppercase; padding:2px 8px; border-radius:10px; margin-left:8px; }
+.band-easy { background:rgba(0,137,123,0.1); color:var(--teal); }
+.band-med { background:rgba(200,150,10,0.12); color:var(--gold); }
+.band-hard { background:rgba(229,57,53,0.1); color:var(--red); }
+.diagram-box { width:100%; height:200px; background-image:linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size:22px 22px; border:1px solid rgba(0,0,0,0.2); border-radius:4px; position:relative; margin-top:8px; }
+.graph-axis-x { position:absolute; bottom:-20px; left:0; right:0; text-align:center; font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; }
+.graph-axis-y { position:absolute; top:50%; left:-64px; transform:rotate(-90deg); font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; width:150px; text-align:center; }
+.extended-box { background:linear-gradient(135deg,rgba(13,45,82,0.05),rgba(13,45,82,0.01)); border:1px solid rgba(13,45,82,0.15); border-radius:12px; padding:16px 20px; margin-top:10px; }
+.extended-box .etag { font-family:'Space Mono',monospace; font-size:10px; color:var(--blue); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+
+.answer-key { margin-top:50px; padding-top:24px; border-top:3px dashed var(--gold); page-break-before:always; }
+.ak-title { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--gold); margin-bottom:16px; }
+.ak-item { font-size:13px; line-height:1.7; margin-bottom:12px; }
+.ak-item strong { color:var(--teal); }
+.ak-item .why { color:var(--dim); }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+@media print {
+  body { background:#fff; }
+  .page { box-shadow:none; padding:0; }
+}
+
+/* ===== Editable answer fields ===== */
+[contenteditable="true"] { outline:none; cursor:text; -webkit-user-modify:read-write-plaintext-only; }
+[contenteditable="true"]:hover { background:rgba(200,150,10,0.05); }
+[contenteditable="true"]:focus { background:rgba(200,150,10,0.08); box-shadow:0 0 0 2px var(--gold) inset; border-radius:4px; }
+.answer-line[contenteditable="true"] { padding:2px 6px; font-size:13px; line-height:22px; color:var(--white); font-family:'Noto Sans KR',sans-serif; white-space:pre-wrap; }
+.q-opts.selectable li { cursor:pointer; border-radius:8px; padding:4px 8px; transition:background 0.12s, color 0.12s; }
+.q-opts.selectable li:hover { background:rgba(200,150,10,0.07); }
+.q-opts.selectable li.selected { background:rgba(0,137,123,0.10); font-weight:700; }
+.q-opts.selectable li.selected::before { content:'●  '; color:var(--teal); }
+.autosave-note { font-size:9px; color:var(--dim); text-align:center; margin-top:10px; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+.autosave-note .reset-link { color:var(--gold); cursor:pointer; text-decoration:underline; }
+@media print {
+  [contenteditable="true"]:focus, [contenteditable="true"]:hover { box-shadow:none; background:none; }
+  .q-opts.selectable li:hover { background:none; }
+  .q-opts.selectable li.selected { background:none; }
+  .autosave-note { display:none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 2 · Macroeconomics — Lesson 1</div>
+      <div class="k-title">Money, Banking, Households &amp; Workers</div>
+      <div class="k-sub">Homework Workbook · Tier 2 — Read the Map (Ages 13–15)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="meta-strip">
+    <div class="pill">4 questions</div>
+    <div class="pill">+ 1 extended response</div>
+    <div class="pill">~25 min</div>
+    <div class="pill">Mixed IGCSE / IB skills</div>
+  </div>
+  <div class="cc-chips">
+    <span class="cc-chip">Money &amp; Banking</span><span class="cc-chip">Labour Market</span>
+    <span class="cc-chip">Minimum Wage</span><span class="cc-chip">Wage Differences</span>
+  </div>
+
+  <div class="section-tag">Foundations</div>
+  <div class="big-title">AO1 command terms — precise definitions</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">1.</span> <strong>Define</strong> money, then <strong>state</strong> ONE characteristic it must have and briefly explain why. <span class="marks">[3]</span><span class="tier-band band-easy">Easy</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="section-tag">Diagram Skill — Drawing REQUIRED at IGCSE (newly explicit 2027–29)</div>
+  <div class="big-title">The labour market &amp; minimum wage</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">2.</span> Draw a labour-market diagram (Wage on the vertical axis, Quantity of Labour on the horizontal axis) showing demand for and supply of labour at equilibrium. Add a minimum wage line ABOVE equilibrium, and label the resulting surplus of labour. <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
+    <div style="margin:26px 0 30px 76px;position:relative;max-width:600px">
+      <div class="diagram-box">
+        <div class="graph-axis-y">Wage</div>
+        <div class="graph-axis-x">Quantity of Labour</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-tag">Applying the Concepts</div>
+  <div class="big-title">Banking and wages in practice</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">3.</span> <strong>Explain</strong> why a commercial bank is able to lend out most of the money it holds in deposits, and what could go wrong if too many depositors asked for their cash back at the same time. <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">4.</span> A nurse earns more than a cashier. <strong>Explain</strong> TWO reasons for this wage difference, using the terms "skill level" and "demand and supply of labour" in your answer. <span class="marks">[4]</span><span class="tier-band band-hard">Challenging</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="extended-box">
+    <div class="etag">Extended Response · exam-style</div>
+    <div class="q-text"><strong>5.</strong> <strong>Discuss</strong> whether introducing a national minimum wage is good for workers. Structure your answer as CLAIM → EVIDENCE → LINK, referring to at least one relevant diagram or concept from this lesson (e.g. the labour-market diagram, the resulting surplus, bargaining strength). <span class="marks">[8]</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="answer-key">
+    <div class="ak-title">Answer Key &amp; Mark Scheme Notes</div>
+    <div class="ak-item"><strong>1.</strong> Money is anything widely accepted as payment for goods and services. Example characteristic: it must be SCARCE — if anyone could easily produce more of it, nobody would trust it to hold value. <span class="why">[1 mark definition, 1 mark correct characteristic named, 1 mark for a correct explanation of why that characteristic matters]</span></div>
+    <div class="ak-item"><strong>2.</strong> Upward-sloping supply curve (more workers willing to work as wage rises), downward-sloping demand curve (firms hire fewer workers as wage rises), equilibrium at their crossing point; minimum wage drawn as a horizontal line ABOVE this equilibrium; Qs (quantity of labour supplied) at that wage is greater than Qd (quantity demanded) — the gap labelled as a surplus of labour (unemployment). <span class="why">[1 mark correct D/S shapes, 1 mark correct equilibrium, 1 mark minimum wage line correctly placed above equilibrium, 1 mark surplus correctly identified and labelled]</span></div>
+    <div class="ak-item"><strong>3.</strong> A bank only needs to keep a small fraction of deposits as cash on hand, because on any normal day only a small fraction of depositors want to withdraw — so it lends the rest out to earn interest, which is its main source of profit. If a large number of depositors ALL demand their cash back at once (a "bank run"), the bank may not have enough cash in reserve to pay them all immediately. <span class="why">[2 marks correct explanation of fractional lending, 2 marks correct explanation of the bank-run risk]</span></div>
+    <div class="ak-item"><strong>4.</strong> Skill level: nursing requires years of training, which limits the SUPPLY of qualified workers compared to cashier work, which almost anyone can do with little training. Demand and supply of labour: with a smaller supply of nurses relative to the demand for their skill, the wage is pushed up — cashiers face a much larger available supply relative to demand, keeping their wage lower. <span class="why">[2 marks per correctly explained reason, using the named term correctly]</span></div>
+    <div class="ak-item"><strong>5.</strong> Band 3 (6–8 marks): a clear CLAIM (e.g. "a minimum wage helps SOME workers but not necessarily all"), EVIDENCE (reference to the labour-market diagram — a minimum wage set above equilibrium raises the wage for those who keep their job, but firms demand less labour at that wage, creating a surplus/unemployment) and a LINK back to the question (explicitly stating that whether it is "good for workers" depends on how far above equilibrium the minimum wage is set, and how many workers lose hours or jobs versus how many gain higher pay). Band 2 (3–5): correct concept named (minimum wage, surplus, bargaining power) but the claim-evidence-link chain is incomplete. Band 1 (1–2): a one-sided assertion with no named economic concept or diagram reference.</div>
+  </div>
+
+  <div class="footer">M2L1 · Economics Academy · Stoic Edu</div>
+  <div class="autosave-note">Your typed answers autosave in this browser on this device · Press Enter on a blank line to add another line · <span class="reset-link" id="resetAnswersBtn">Clear my answers</span></div>
+</div>
+
+<script>
+(function(){
+  var STORAGE_KEY = 'stoic-edu-workbook::' + location.pathname;
+  var EXTRAS_KEY = STORAGE_KEY + '::extras';
+  var SELECT_KEY = STORAGE_KEY + '::selected';
+
+  function each(list, fn){ Array.prototype.forEach.call(list, fn); }
+
+  function allFields(){
+    return document.querySelectorAll('.answer-line[contenteditable="true"], .wb-content[contenteditable="true"], td[contenteditable="true"], .blank-fill[contenteditable="true"]');
+  }
+
+  function focusEnd(el){
+    el.focus();
+    try {
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } catch(e) {}
+  }
+
+  function saveAnswers(){
+    var data = {};
+    each(allFields(), function(el){ data[el.dataset.fieldId] = el.textContent; });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+  function loadAnswers(){
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      each(allFields(), function(el){
+        if (saved[el.dataset.fieldId] !== undefined) el.textContent = saved[el.dataset.fieldId];
+      });
+    } catch(e) {}
+  }
+
+  function getExtrasOf(anchorEl){
+    var id = anchorEl.dataset.anchorId;
+    var result = [];
+    var node = anchorEl.nextElementSibling;
+    while (node && node.classList && node.classList.contains('answer-line') && !node.dataset.anchorId &&
+           node.dataset.fieldId && node.dataset.fieldId.indexOf(id + '_x') === 0) {
+      result.push(node);
+      node = node.nextElementSibling;
+    }
+    return result;
+  }
+
+  function saveExtras(){
+    var counts = {};
+    each(document.querySelectorAll('.answer-line[data-anchor-id]'), function(anchorEl){
+      var n = getExtrasOf(anchorEl).length;
+      if (n > 0) counts[anchorEl.dataset.anchorId] = n;
+    });
+    try { localStorage.setItem(EXTRAS_KEY, JSON.stringify(counts)); } catch(e) {}
+  }
+
+  function attachAnswerLine(el){
+    el.addEventListener('input', saveAnswers);
+    el.addEventListener('keydown', function(ev){
+      if (ev.key === 'Enter') {
+        ev.preventDefault();
+        addLineAfter(el);
+      } else if (ev.key === 'Backspace' && el.dataset.fieldId.indexOf('_x') > -1 && el.textContent === '') {
+        ev.preventDefault();
+        removeLine(el);
+      }
+    });
+  }
+
+  function newLine(fieldId){
+    var el = document.createElement('div');
+    el.className = 'answer-line';
+    el.setAttribute('contenteditable', 'true');
+    el.setAttribute('spellcheck', 'false');
+    el.dataset.fieldId = fieldId;
+    attachAnswerLine(el);
+    return el;
+  }
+
+  function addLineAfter(el){
+    var anchorId = el.dataset.anchorId || el.dataset.fieldId.split('_x')[0];
+    var anchorEl = document.querySelector('.answer-line[data-anchor-id="' + anchorId + '"]');
+    var newIdx = getExtrasOf(anchorEl).length;
+    var lineEl = newLine(anchorId + '_x' + newIdx);
+    el.parentNode.insertBefore(lineEl, el.nextSibling);
+    focusEnd(lineEl);
+    saveExtras();
+    saveAnswers();
+  }
+
+  function removeLine(el){
+    var anchorId = el.dataset.fieldId.split('_x')[0];
+    var anchorEl = document.querySelector('.answer-line[data-anchor-id="' + anchorId + '"]');
+    var prev = el.previousElementSibling;
+    el.parentNode.removeChild(el);
+    each(getExtrasOf(anchorEl), function(node, i){ node.dataset.fieldId = anchorId + '_x' + i; });
+    if (prev) focusEnd(prev);
+    saveExtras();
+    saveAnswers();
+  }
+
+  // ----- Selectable multiple-choice / "circle it" option lists -----
+  function initSelectableLists(){
+    each(document.querySelectorAll('.q-opts.selectable'), function(ul, ulIdx){
+      var ulId = 'sel' + ulIdx;
+      ul.dataset.selId = ulId;
+      var items = ul.querySelectorAll('li');
+      each(items, function(li){
+        li.addEventListener('click', function(){
+          var already = li.classList.contains('selected');
+          each(items, function(other){ other.classList.remove('selected'); });
+          if (!already) li.classList.add('selected');
+          saveSelections();
+        });
+      });
+    });
+  }
+  function saveSelections(){
+    var data = {};
+    each(document.querySelectorAll('.q-opts.selectable'), function(ul){
+      var items = ul.querySelectorAll('li');
+      var sel = -1;
+      each(items, function(li, i){ if (li.classList.contains('selected')) sel = i; });
+      data[ul.dataset.selId] = sel;
+    });
+    try { localStorage.setItem(SELECT_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+  function loadSelections(){
+    try {
+      var saved = JSON.parse(localStorage.getItem(SELECT_KEY) || '{}');
+      each(document.querySelectorAll('.q-opts.selectable'), function(ul){
+        var idx = saved[ul.dataset.selId];
+        if (idx === undefined || idx < 0) return;
+        var items = ul.querySelectorAll('li');
+        if (items[idx]) items[idx].classList.add('selected');
+      });
+    } catch(e) {}
+  }
+
+  // Tag original answer-line blanks as stable anchors.
+  each(document.querySelectorAll('.answer-line[contenteditable="true"]'), function(el, i){
+    el.dataset.anchorId = 'a' + i;
+    el.dataset.fieldId = 'a' + i;
+  });
+
+  // Recreate any extra lines a student had added previously, from localStorage.
+  var extraCounts = {};
+  try { extraCounts = JSON.parse(localStorage.getItem(EXTRAS_KEY) || '{}'); } catch(e) {}
+  each(document.querySelectorAll('.answer-line[data-anchor-id]'), function(anchorEl){
+    var id = anchorEl.dataset.anchorId;
+    var count = extraCounts[id] || 0;
+    var ref = anchorEl;
+    for (var i = 0; i < count; i++) {
+      var lineEl = newLine(id + '_x' + i);
+      ref.parentNode.insertBefore(lineEl, ref.nextSibling);
+      ref = lineEl;
+    }
+  });
+
+  each(document.querySelectorAll('.answer-line[data-anchor-id]'), attachAnswerLine);
+
+  var autoIdx = 0;
+  each(document.querySelectorAll('.wb-content[contenteditable="true"], td[contenteditable="true"], .blank-fill[contenteditable="true"]'), function(el){
+    el.dataset.fieldId = 'g' + (autoIdx++);
+    el.addEventListener('input', saveAnswers);
+  });
+
+  initSelectableLists();
+  loadAnswers();
+  loadSelections();
+
+  var resetBtn = document.getElementById('resetAnswersBtn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function(){
+      if (confirm('Clear all typed answers and selections on this page? This also removes any extra lines you added.')) {
+        each(document.querySelectorAll('.answer-line[data-field-id*="_x"]'), function(el){ el.parentNode.removeChild(el); });
+        each(document.querySelectorAll('.answer-line[data-anchor-id], .wb-content[contenteditable="true"], td[contenteditable="true"], .blank-fill[contenteditable="true"]'), function(el){ el.textContent = ''; });
+        each(document.querySelectorAll('.q-opts.selectable li.selected'), function(li){ li.classList.remove('selected'); });
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(EXTRAS_KEY);
+          localStorage.removeItem(SELECT_KEY);
+        } catch(e) {}
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
