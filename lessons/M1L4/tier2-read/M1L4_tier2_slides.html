@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Market Failure & Intervention: Fixing What Markets Miss | Stoic Edu</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
@@ -28,13 +28,13 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .dot.active { background:var(--gold); width:14px; border-radius:3px; }
 .grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
 .tag { display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; }
-.tag.ib { background:rgba(13,45,82,0.08); border-color:rgba(13,45,82,0.2); color:var(--blue); }
 .section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
 .big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,3.6vw,40px); line-height:1.05; margin-bottom:14px; color:var(--white); }
 .btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
 .btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
-.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
 @keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
 
 /* ===== COVER ===== */
 #s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
@@ -61,7 +61,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .hyp-lbl { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; }
 .hyp-text { font-size:13px; color:var(--dim); line-height:1.7; margin-top:6px; }
 
-/* ===== s1 command term drill ===== */
+/* ===== s1: DEFINITIONS (command term drill) ===== */
 #s1 { flex-direction:column; gap:12px; }
 .cmd-tabs { display:flex; gap:8px; }
 .cmd-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
@@ -79,37 +79,31 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .pv-tab.active { border-color:var(--blue); background:rgba(13,45,82,0.06); color:var(--blue); font-weight:700; }
 .pv-legend { font-size:11px; color:var(--dim); line-height:1.6; margin-top:4px; }
 
-/* ===== s4 toolkit cards ===== */
-#s4 { flex-direction:column; gap:12px; }
-.tool-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; max-width:800px; }
-.tool-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px 16px; font-size:12px; color:var(--white); line-height:1.6; }
-.tool-card strong { color:var(--blue); display:block; font-size:13px; margin-bottom:3px; }
-
-/* ===== s5 stakeholder table ===== */
-#s5 { flex-direction:column; gap:10px; }
-.stake-scenario { font-size:12.5px; color:var(--dim); max-width:720px; text-align:center; line-height:1.6; }
-.stake-table { width:100%; max-width:760px; border-collapse:collapse; font-size:12px; background:var(--card); border-radius:12px; overflow:hidden; }
-.stake-table th { background:var(--blue); color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:8px 12px; text-align:left; }
-.stake-table td { padding:8px 12px; border-bottom:1px solid rgba(0,0,0,0.08); color:var(--white); vertical-align:top; }
-.stake-table tr:last-child td { border-bottom:none; }
-
-/* ===== s6 externality/CPR tabs ===== */
-#s6, #s7 { flex-direction:column; gap:10px; }
-.pes-tabs { display:flex; gap:8px; }
-.pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
+/* ===== s4: KEY CONCEPT 3 — FULL TOOLKIT ===== */
+#s4 { flex-direction:column; gap:10px; }
+.pes-tabs { display:flex; gap:6px; flex-wrap:wrap; max-width:800px; }
+.pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:12.5px; padding:6px 14px; border-radius:20px; cursor:pointer; }
 .pes-tab.active { background:var(--teal); color:#fff; }
-.pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:800px; width:100%; min-height:170px; font-size:13px; line-height:1.8; color:var(--white); }
+.pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:800px; width:100%; min-height:140px; font-size:12.5px; line-height:1.75; color:var(--white); }
 .pes-panel strong { color:var(--blue); }
 
-/* ===== s8 discuss scaffold ===== */
-#s8 { flex-direction:column; gap:10px; }
-.discuss-q { font-size:14px; text-align:center; max-width:700px; color:var(--white); font-weight:700; }
-.peel-grid { display:flex; gap:10px; max-width:840px; width:100%; }
-.peel-card { flex:1; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 12px; min-height:150px; }
-.peel-card .plbl { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1.5px; color:var(--gold); text-transform:uppercase; margin-bottom:6px; }
-.peel-card .ptext { font-size:11.5px; line-height:1.6; color:var(--white); }
-.peel-card.for { border-top:3px solid var(--teal); }
-.peel-card.against { border-top:3px solid var(--red); }
+/* ===== s5: POSITIVE/NORMATIVE GAME ===== */
+#s5 { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
+.game-scenario { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:16px; color:var(--white); margin-bottom:14px; line-height:1.5; min-height:56px; }
+.answer-options { display:flex; gap:14px; justify-content:center; margin-bottom:10px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:17px; padding:9px 24px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:130px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); animation:pop 0.4s ease; }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); animation:shake 0.4s ease; }
+.game-feedback { font-size:12.5px; min-height:20px; font-family:'Space Mono',monospace; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:10px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
 
 /* ===== adapter ===== */
 #s-adapter { flex-direction:column; gap:10px; }
@@ -144,19 +138,19 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 <body>
 <div id="slide-frame">
 
-<!-- ============ COVER ============ -->
+<!-- ============ 1. COVER ============ -->
 <section class="slide active" id="s-cover">
   <div class="cover-left"><canvas id="coverCanvas" width="260" height="220" class="cov-diagram"></canvas></div>
   <div class="cover-right">
     <div class="cover-module">Module 1 · Microeconomics — Lesson 4</div>
     <div class="cover-title">Market Failure &amp;<br><span>The Intervention Toolkit</span></div>
     <div class="cover-divider"></div>
-    <div class="cover-tagline">When the price mechanism misses a cost or benefit, governments step in. Learn to draw and interpret the four core intervention diagrams — and to weigh who wins and who loses every time.</div>
+    <div class="cover-tagline">When the price mechanism misses a cost or benefit, governments step in. Learn to draw and interpret the core intervention diagrams — and to weigh who wins and who loses every time.</div>
     <div class="cover-concepts">
       <div class="cc-label">In this deck</div>
       <div class="cc-chips">
         <span class="cc-chip">Price Ceilings/Floors</span><span class="cc-chip">Taxes &amp; Subsidies</span>
-        <span class="cc-chip">Stakeholder Analysis</span><span class="cc-chip">Externalities (IB)</span>
+        <span class="cc-chip">Government Toolkit</span><span class="cc-chip">Market Failure Types</span>
       </div>
     </div>
     <div class="cover-meta">
@@ -167,18 +161,18 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   </div>
 </section>
 
-<!-- ============ s0 HOOK ============ -->
+<!-- ============ 2. HOOK ============ -->
 <section class="slide" id="s0">
   <div class="grid-bg"></div>
   <div class="tag">Hypothesis</div>
   <div class="big-title" style="max-width:780px;text-align:center">Every time a government intervenes in a market, someone gains — and someone loses — even when the goal is fairness.</div>
   <div class="hyp-box">
     <div class="hyp-lbl">TEST IT</div>
-    <div class="hyp-text">If this is true, we should be able to draw exactly what an intervention does to a market — and name, concretely, who is better off and who is worse off. Today: the four diagrams examiners expect you to draw cold (price ceiling, price floor, indirect tax, subsidy), the wider toolkit, stakeholder analysis, and your first two-sided "discuss" paragraph.</div>
+    <div class="hyp-text">If this is true, we should be able to draw exactly what an intervention does to a market — and name, concretely, who is better off and who is worse off. Today: the diagrams examiners expect you to draw cold (price ceiling, price floor, indirect tax, subsidy), and the wider toolkit of market-failure fixes.</div>
   </div>
 </section>
 
-<!-- ============ s1 COMMAND TERM DRILL ============ -->
+<!-- ============ 3. DEFINITIONS ============ -->
 <section class="slide" id="s1">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:4px">
@@ -189,7 +183,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div class="cmd-box"><div class="cmd-answer" id="cmdAnswer"></div></div>
 </section>
 
-<!-- ============ s2 PRICE CEILING / FLOOR ============ -->
+<!-- ============ 4. CONCEPT 1: PRICE CEILING / FLOOR ============ -->
 <section class="slide" id="s2">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:2px">
@@ -202,7 +196,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   </div>
 </section>
 
-<!-- ============ s3 TAX / SUBSIDY ============ -->
+<!-- ============ 5. CONCEPT 2: TAX / SUBSIDY ============ -->
 <section class="slide" id="s3">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:2px">
@@ -215,77 +209,40 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   </div>
 </section>
 
-<!-- ============ s4 WIDER TOOLKIT ============ -->
+<!-- ============ 6. KEY CONCEPT 3: FULL TOOLKIT ============ -->
 <section class="slide" id="s4">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">Beyond the Four Diagrams</div>
-    <div class="big-title">The Wider Government Toolkit</div>
+    <div class="tag">Key Reference</div>
+    <div class="big-title">Market Failure &amp; the Full Toolkit</div>
   </div>
-  <div class="tool-grid" id="toolGrid"></div>
+  <div class="pes-tabs" id="toolTabs"></div>
+  <div class="pes-panel" id="toolPanel"></div>
 </section>
 
-<!-- ============ s5 STAKEHOLDER TABLE ============ -->
+<!-- ============ 7. POSITIVE OR NORMATIVE? ============ -->
 <section class="slide" id="s5">
   <div class="grid-bg"></div>
-  <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">AO2 Structured Analysis</div>
-    <div class="big-title">Stakeholder Analysis: Rent Control</div>
+  <div style="text-align:center">
+    <div class="tag">Mini Game</div>
+    <div class="big-title">Positive or Normative?</div>
   </div>
-  <div class="stake-scenario">A city imposes a <strong>price ceiling on rent</strong>, holding rent well below the free-market equilibrium. Who wins — and who loses?</div>
-  <table class="stake-table">
-    <tr><th>Stakeholder</th><th>Winner / Loser</th><th>Why</th></tr>
-    <tr><td>Existing tenants who keep their flat</td><td style="color:var(--teal);font-weight:700">Winner</td><td>Pay far less rent than the market price for the same flat.</td></tr>
-    <tr><td>Landlords</td><td style="color:var(--red);font-weight:700">Loser</td><td>Earn less rental income; some withdraw flats from the market entirely.</td></tr>
-    <tr><td>Renters searching for a new flat</td><td style="color:var(--red);font-weight:700">Loser</td><td>Face a shortage — fewer flats are offered at the capped price, so many can't find one at all.</td></tr>
-    <tr><td>Government</td><td style="color:var(--dim);font-weight:700">Mixed</td><td>Gains political popularity short-term; may face pressure later as housing quality/quantity falls.</td></tr>
-  </table>
-</section>
-
-<!-- ============ s6 EXTERNALITY & CPR CLASSIFICATION ============ -->
-<section class="slide" id="s6">
-  <div class="grid-bg"></div>
-  <div style="text-align:center;margin-bottom:2px">
-    <div class="tag ib">IB Enrichment — not required at IGCSE</div>
-    <div class="big-title">Classifying Market Failures</div>
-  </div>
-  <div class="pes-tabs" id="mfTabs"></div>
-  <div class="pes-panel" id="mfPanel"></div>
-</section>
-
-<!-- ============ s7 MERIT/DEMERIT/PUBLIC GOODS/MONOPOLY ============ -->
-<section class="slide" id="s7">
-  <div class="grid-bg"></div>
-  <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">Real Policy Cases</div>
-    <div class="big-title">Merit Goods, Demerit Goods &amp; Market Power</div>
-  </div>
-  <div class="pes-tabs" id="caseTabs"></div>
-  <div class="pes-panel" id="casePanel"></div>
-</section>
-
-<!-- ============ s8 DISCUSS PARAGRAPH ============ -->
-<section class="slide" id="s8">
-  <div class="grid-bg"></div>
-  <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">Your First "Discuss"</div>
-    <div class="big-title">Two Sides, No Verdict — Yet</div>
-  </div>
-  <div class="discuss-q">Discuss whether the government should ban single-use plastic bags.</div>
-  <div class="peel-grid">
-    <div class="peel-card for">
-      <div class="plbl">For the ban</div>
-      <div class="ptext">Plastic bags create a <strong>negative externality</strong> — litter and ocean pollution are costs borne by third parties who never chose to buy the bag. A ban removes the externality entirely and forces consumers toward reusable alternatives.</div>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">POSITIVE</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">NORMATIVE</button>
     </div>
-    <div class="peel-card against">
-      <div class="plbl">Against the ban</div>
-      <div class="ptext">A total ban removes consumer choice and may hurt low-income shoppers who relied on free bags. A <strong>tax</strong> (not a ban) could reduce use while still letting the market — and government revenue — function.</div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
     </div>
   </div>
-  <div class="tip-box" style="max-width:800px;margin-top:4px">Notice: this paragraph does <strong>not</strong> reach a final judgement — that "which side wins, and why" move is <strong>evaluate</strong>, introduced later. At M1L4, "examine" means showing you can hold both sides with equal seriousness.</div>
 </section>
 
-<!-- ============ EXAM ADAPTER SLOT ============ -->
+<!-- ============ 8. EXAM ADAPTER SLOT ============ -->
 <section class="slide" id="s-adapter">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:4px">
@@ -299,7 +256,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div class="adapter-panel" id="adapterPanel"></div>
 </section>
 
-<!-- ============ QUIZ ============ -->
+<!-- ============ 9. QUIZ ============ -->
 <section class="slide" id="s-quiz">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:4px">
@@ -336,7 +293,8 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const QUIZ_SLIDE_IDX = 10;
+const GAME_SLIDE_IDX = 6;  // s5 positive/normative
+const QUIZ_SLIDE_IDX = 8;  // s-quiz
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -356,6 +314,7 @@ function goTo(n) {
   dotNav.children[cur].classList.add('active');
   counter.textContent = (cur+1) + ' / ' + slides.length;
   adaptLogo();
+  if (cur === GAME_SLIDE_IDX && !pnInited) initPN();
   if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
   if (slides[cur].id === 's2') drawCeiling();
   if (slides[cur].id === 's3') drawTax();
@@ -396,7 +355,7 @@ function drawCover() {
 }
 drawCover();
 
-// ============ s1 COMMAND TERM DRILL ============
+// ============ s1: DEFINITIONS (COMMAND TERM DRILL) ============
 const CMDS = [
   {key:'define', lbl:'Define', ans:'<strong>Define market failure.</strong> Market failure occurs when the free market, left to itself, fails to allocate scarce resources efficiently — the price mechanism does not produce the socially optimal outcome.'},
   {key:'state', lbl:'State', ans:'<strong>State two causes of market failure.</strong> Externalities (spillover costs or benefits not reflected in price) and the overuse of common pool resources (non-excludable but rival goods).'},
@@ -414,7 +373,7 @@ CMDS.forEach((c,i) => {
 function renderCmd() { document.getElementById('cmdAnswer').innerHTML = CMDS[cmdActive].ans + `<div style="margin-top:10px;font-size:11px;color:var(--dim)">Notice how answer length and depth changes with the command word — this is examined discipline, not decoration.</div>`; }
 renderCmd();
 
-// ============ s2 PRICE CEILING / FLOOR ============
+// ============ s2: PRICE CEILING / FLOOR ============
 const CEIL_MODES = [
   {key:'ceiling', lbl:'Price Ceiling (Maximum Price)', legend:'A legal MAXIMUM price set BELOW equilibrium (e.g. rent control). At the ceiling, Qd > Qs — a persistent SHORTAGE. Non-price rationing (queues, waiting lists, black markets) tends to follow.'},
   {key:'floor', lbl:'Price Floor (Minimum Price)', legend:'A legal MINIMUM price set ABOVE equilibrium (e.g. a minimum wage or farm price support). At the floor, Qs > Qd — a persistent SURPLUS. Governments often must buy/store the surplus or restrict entry.'}
@@ -435,16 +394,14 @@ function drawCeiling() {
   ctx.strokeStyle='rgba(90,106,128,0.4)'; ctx.lineWidth=1;
   ctx.beginPath(); ctx.moveTo(40,10); ctx.lineTo(40,190); ctx.lineTo(430,190); ctx.stroke();
   ctx.fillStyle='#5a6a80'; ctx.font='10px monospace';
-  ctx.fillText('Quantity →', 360, 188+12>200?188:188); ctx.fillText('Quantity →', 355, 200-4);
+  ctx.fillText('Quantity →', 355, 200-4);
   ctx.save(); ctx.translate(16,110); ctx.rotate(-Math.PI/2); ctx.fillText('Price →',0,0); ctx.restore();
-  // D and S lines (shared geometry)
   ctx.strokeStyle='#0d2d52'; ctx.lineWidth=2.5;
-  ctx.beginPath(); ctx.moveTo(60,30); ctx.lineTo(420,180); ctx.stroke(); // D
+  ctx.beginPath(); ctx.moveTo(60,30); ctx.lineTo(420,180); ctx.stroke();
   ctx.fillStyle='#0d2d52'; ctx.font='bold 12px sans-serif'; ctx.fillText('D', 424, 182);
   ctx.strokeStyle='#00897b'; ctx.lineWidth=2.5;
-  ctx.beginPath(); ctx.moveTo(60,180); ctx.lineTo(420,30); ctx.stroke(); // S
+  ctx.beginPath(); ctx.moveTo(60,180); ctx.lineTo(420,30); ctx.stroke();
   ctx.fillStyle='#00897b'; ctx.fillText('S', 424, 34);
-  // equilibrium
   ctx.fillStyle='#c8960a';
   ctx.beginPath(); ctx.arc(240,105,4,0,7); ctx.fill();
   ctx.fillStyle='#5a6a80'; ctx.font='10px monospace'; ctx.fillText('Pe', 246, 102);
@@ -452,12 +409,11 @@ function drawCeiling() {
   const yLine = mode === 'ceiling' ? 150 : 60;
   const xD = mode === 'ceiling' ? 348 : 132;
   const xS = mode === 'ceiling' ? 132 : 348;
-  ctx.strokeStyle = mode === 'ceiling' ? '#e53935' : '#e53935'; ctx.setLineDash([5,4]); ctx.lineWidth=2;
+  ctx.strokeStyle = '#e53935'; ctx.setLineDash([5,4]); ctx.lineWidth=2;
   ctx.beginPath(); ctx.moveTo(40,yLine); ctx.lineTo(430,yLine); ctx.stroke();
   ctx.setLineDash([]);
   ctx.fillStyle='#e53935'; ctx.font='bold 10px monospace';
   ctx.fillText(mode === 'ceiling' ? 'Price ceiling' : 'Price floor', 44, yLine-6);
-  // gap
   const gx1 = Math.min(xD,xS), gx2 = Math.max(xD,xS);
   ctx.fillStyle = 'rgba(229,57,53,0.15)';
   ctx.fillRect(gx1, yLine-5, gx2-gx1, 10);
@@ -466,7 +422,7 @@ function drawCeiling() {
 }
 drawCeiling();
 
-// ============ s3 TAX / SUBSIDY ============
+// ============ s3: TAX / SUBSIDY ============
 const TAX_MODES = [
   {key:'tax', lbl:'Indirect Tax', legend:'An indirect tax shifts SUPPLY up/left by the tax amount (cost of selling rises). New equilibrium: HIGHER price paid by consumers, LOWER quantity traded. The vertical gap between the two supply curves at the new quantity = the tax per unit, split between consumer and producer.'},
   {key:'subsidy', lbl:'Subsidy', legend:'A subsidy shifts SUPPLY down/right (cost of selling falls). New equilibrium: LOWER price paid by consumers, HIGHER quantity traded. The vertical gap between the two supply curves at the new quantity = the subsidy per unit.'}
@@ -488,24 +444,20 @@ function drawTax() {
   ctx.beginPath(); ctx.moveTo(40,10); ctx.lineTo(40,190); ctx.lineTo(430,190); ctx.stroke();
   ctx.fillStyle='#5a6a80'; ctx.font='10px monospace'; ctx.fillText('Quantity →', 355, 200-4);
   ctx.save(); ctx.translate(16,110); ctx.rotate(-Math.PI/2); ctx.fillText('Price →',0,0); ctx.restore();
-  // D line
   ctx.strokeStyle='#0d2d52'; ctx.lineWidth=2.5;
   ctx.beginPath(); ctx.moveTo(60,30); ctx.lineTo(420,180); ctx.stroke();
   ctx.fillStyle='#0d2d52'; ctx.font='bold 12px sans-serif'; ctx.fillText('D', 424, 182);
-  // original S (dashed)
   ctx.strokeStyle='rgba(0,137,123,0.45)'; ctx.setLineDash([5,4]); ctx.lineWidth=2;
   ctx.beginPath(); ctx.moveTo(60,180); ctx.lineTo(420,30); ctx.stroke();
   ctx.setLineDash([]);
   ctx.fillStyle='rgba(0,137,123,0.7)'; ctx.font='10px monospace'; ctx.fillText('S₀', 424, 34);
   const mode = TAX_MODES[taxMode].key;
-  // shifted S1
   ctx.strokeStyle='#00897b'; ctx.lineWidth=2.5;
   ctx.beginPath();
   if (mode === 'tax') { ctx.moveTo(60,155); ctx.lineTo(420,5); }
-  else { ctx.moveTo(60,205>190?190:205); ctx.moveTo(60,190); ctx.lineTo(420,55); }
+  else { ctx.moveTo(60,190); ctx.lineTo(420,55); }
   ctx.stroke();
-  ctx.fillStyle='#00897b'; ctx.fillText('S₁', mode==='tax'?424:424, mode==='tax'?10:58);
-  // equilibria
+  ctx.fillStyle='#00897b'; ctx.fillText('S₁', 424, mode==='tax'?10:58);
   ctx.fillStyle='#c8960a'; ctx.beginPath(); ctx.arc(240,105,3.5,0,7); ctx.fill();
   ctx.fillStyle='#5a6a80'; ctx.font='9px monospace'; ctx.fillText('old eq.', 246,103);
   const newX = mode === 'tax' ? 210 : 270;
@@ -513,7 +465,6 @@ function drawTax() {
   const prodY = mode === 'tax' ? 117.5 : 92.5;
   ctx.fillStyle='#e53935'; ctx.beginPath(); ctx.arc(newX,newY,4,0,7); ctx.fill();
   ctx.fillStyle='#e53935'; ctx.font='bold 9px monospace'; ctx.fillText('new eq.', newX+6,newY);
-  // wedge line
   ctx.strokeStyle='#c8960a'; ctx.lineWidth=2; ctx.setLineDash([3,3]);
   ctx.beginPath(); ctx.moveTo(newX,newY); ctx.lineTo(newX,prodY); ctx.stroke();
   ctx.setLineDash([]);
@@ -522,54 +473,69 @@ function drawTax() {
 }
 drawTax();
 
-// ============ s4 WIDER TOOLKIT ============
-const TOOLS = [
+// ============ s4: KEY CONCEPT 3 — FULL TOOLKIT ============
+const TOOL_TABS = [
   {n:'Regulation / Ban', d:'A rule that limits or forbids an activity outright (e.g. banning leaded petrol, mandating seatbelts). No price change needed — the behaviour is simply made illegal or compulsory.'},
   {n:'Direct Provision', d:'The government produces and provides the good itself, often free at the point of use (e.g. public parks, state schools) — used especially for public goods the market under-provides.'},
   {n:'Quotas', d:'A legal limit on the QUANTITY produced or consumed (e.g. a fishing quota, an import quota) — targets the amount directly rather than the price.'},
-  {n:'Nationalisation / Privatisation', d:'Moving an industry between state and private ownership to change incentives — nationalising a natural monopoly (e.g. water) to control abuse of power, or privatising to increase efficiency.'}
+  {n:'Nationalisation / Privatisation', d:'Moving an industry between state and private ownership to change incentives — nationalising a natural monopoly (e.g. water) to control abuse of power, or privatising to increase efficiency.'},
+  {n:'Merit / Demerit Goods', d:'Merit good: under-consumed if left to the market because buyers undervalue its benefit (e.g. education) — often subsidised. Demerit good: over-consumed because buyers undervalue its cost (e.g. tobacco) — often taxed or regulated.'},
+  {n:'Public Goods', d:'Non-excludable AND non-rival (e.g. a lighthouse, street lighting). The market under-provides these due to the free-rider problem, so government usually provides them directly, funded by taxation.'},
+  {n:'Monopoly / Market Power', d:'A single dominant seller can restrict output and charge a higher price than a competitive market would — market failure through abuse of power. Fixed by competition regulation or price capping.'}
 ];
-document.getElementById('toolGrid').innerHTML = TOOLS.map(t => `<div class="tool-card"><strong>${t.n}</strong>${t.d}</div>`).join('');
-
-// ============ s6 EXTERNALITY & CPR CLASSIFICATION ============
-const MF_TABS = [
-  {key:'ext', lbl:'Externality Types', html:`<strong>Negative production externality:</strong> a factory's pollution harms nearby residents (e.g. river contamination). <strong>Negative consumption externality:</strong> secondhand smoke harms bystanders. <strong>Positive production externality:</strong> a beekeeper's bees pollinate a neighbour's orchard for free. <strong>Positive consumption externality:</strong> getting vaccinated also protects people around you.<br><br>The formal diagram (marginal social cost/benefit vs. marginal private cost/benefit, with a welfare-loss triangle) is <strong>IB-level only</strong> — it is explicitly NOT required at IGCSE, which tests the concept and real-world examples without the D/S welfare-loss graph.`},
-  {key:'cpr', lbl:'Common Pool Resources', html:`A <strong>common pool resource</strong> is non-excludable (can't stop people using it) but RIVAL (one person's use reduces what's left for others) — e.g. an open-access fishing ground, groundwater, the atmosphere's capacity to absorb carbon.<br><br>Because no single user owns it, each has an incentive to overuse it before someone else does — the <strong>"tragedy of the commons."</strong> Left unmanaged, the resource can collapse even though no individual user wants that outcome. Government tools here: quotas, tradable permits, or converting the resource to regulated private/collective ownership.`}
-];
-let mfActive = 0;
-const mfTabsEl = document.getElementById('mfTabs');
-MF_TABS.forEach((t,i) => {
+let toolActive = 0;
+const toolTabsEl = document.getElementById('toolTabs');
+TOOL_TABS.forEach((t,i) => {
   const b = document.createElement('button');
   b.className = 'pes-tab' + (i===0?' active':'');
-  b.textContent = t.lbl;
-  b.onclick = () => { mfActive=i; document.querySelectorAll('#mfTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderMf(); };
-  mfTabsEl.appendChild(b);
+  b.textContent = t.n;
+  b.onclick = () => { toolActive=i; document.querySelectorAll('#toolTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderTool(); };
+  toolTabsEl.appendChild(b);
 });
-function renderMf() { document.getElementById('mfPanel').innerHTML = MF_TABS[mfActive].html; }
-renderMf();
+function renderTool() { document.getElementById('toolPanel').innerHTML = `<strong>${TOOL_TABS[toolActive].n}:</strong> ${TOOL_TABS[toolActive].d}`; }
+renderTool();
 
-// ============ s7 CASES ============
-const CASE_TABS = [
-  {key:'merit', lbl:'Merit / Demerit Goods', html:`<strong>Merit good:</strong> under-consumed if left to the free market because buyers undervalue its future/social benefit (e.g. education, vaccination) — governments often subsidise or directly provide these.<br><strong>Demerit good:</strong> over-consumed because buyers undervalue its future/social cost (e.g. tobacco, sugary drinks) — governments often tax, regulate, or restrict advertising for these.`},
-  {key:'public', lbl:'Public Goods', html:`A pure public good is <strong>non-excludable</strong> (can't stop non-payers using it) AND <strong>non-rival</strong> (one person's use doesn't reduce another's) — e.g. a lighthouse, national defence, street lighting.<br><br>The free market under-provides these because of the <strong>free-rider problem</strong> — so the government typically provides them directly and funds them through taxation rather than a price charged to individual users.`},
-  {key:'mono', lbl:'Monopoly / Market Power', html:`A single dominant seller can restrict output and charge a higher price than a competitive market would allow — a form of market failure through abuse of market power, not an externality.<br><br>Government responses: competition regulation (blocking anti-competitive mergers), price capping for natural monopolies (e.g. utilities), or breaking up a firm found to abuse its dominant position.`}
+// ============ s5: POSITIVE OR NORMATIVE ============
+const PN_ITEMS = [
+  {text:'A price ceiling set below equilibrium creates a shortage.', type:'positive'},
+  {text:'Rent control is unfair to landlords.', type:'normative'},
+  {text:'A demerit good is over-consumed because buyers undervalue its future cost.', type:'positive'},
+  {text:'The government should ban all single-use plastic.', type:'normative'},
+  {text:'A public good is non-excludable and non-rival.', type:'positive'},
+  {text:'Taxing sugary drinks is the best way to fight obesity.', type:'normative'}
 ];
-let caseActive = 0;
-const caseTabsEl = document.getElementById('caseTabs');
-CASE_TABS.forEach((t,i) => {
-  const b = document.createElement('button');
-  b.className = 'pes-tab' + (i===0?' active':'');
-  b.textContent = t.lbl;
-  b.onclick = () => { caseActive=i; document.querySelectorAll('#caseTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderCase(); };
-  caseTabsEl.appendChild(b);
-});
-function renderCase() { document.getElementById('casePanel').innerHTML = CASE_TABS[caseActive].html; }
-renderCase();
+let pnIdx=0, pnScore=0, pnStreak=0, pnInited=false;
+function initPN() { pnInited = true; renderPN(); }
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🎓 You can now separate testable claims from value judgements — a core AO1/AO3 skill.';
+    return;
+  }
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
+}
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\'s '+item.type+' — a '+(item.type==='positive'?'testable claim.':'value judgement.'); document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
+}
 
 // ============ EXAM ADAPTER ============
 const ADAPTER = {
   igcse: `<strong>AO2 structured analysis paragraphs; first Section B short-answer practice (4–6 marks):</strong> build a stakeholder analysis table (identify who wins/who loses and why), and construct 2+ link cause-effect chains (e.g. "tax raises cost of production → supply shifts left → price rises → quantity falls → consumers pay more, producers sell less").<br><br><strong>Practice move:</strong> for intervention diagrams, always label BOTH axes, the shift direction, and the new equilibrium — partial credit is awarded per correctly labelled diagram element even before any written analysis.`,
-  ib: `<strong>AO2 cause-effect-consequence chains; intro to "examine" — two-sided, no final judgement yet:</strong> IB rewards a chain that runs value → mechanism → consequence → (eventually) stakeholder impact, without yet demanding you pick a "winning" side. That final judgement move is "evaluate," introduced later in the course.<br><br><strong>Practice move:</strong> for every intervention, write one FOR chain and one AGAINST chain of equal length and seriousness before moving on — this is exactly the discipline this lesson's "discuss" slide modelled.`
+  ib: `<strong>AO2 cause-effect-consequence chains; intro to "examine" — two-sided, no final judgement yet:</strong> IB rewards a chain that runs value → mechanism → consequence → (eventually) stakeholder impact, without yet demanding you pick a "winning" side. That final judgement move is "evaluate," introduced later in the course.<br><br><strong>Practice move:</strong> for every intervention (e.g. a rent-control price ceiling, or a ban on single-use plastic), write one FOR chain and one AGAINST chain of equal length and seriousness before moving on.`
 };
 function setAdapter(k, el) {
   document.querySelectorAll('.adapter-tab').forEach(t=>t.classList.remove('active'));
@@ -583,8 +549,8 @@ const QUIZ = [
   { q:'A price ceiling set BELOW equilibrium price creates a...', opts:['Surplus','Shortage','No change — quantity stays at Qe'], correct:1, explain:'At the artificially low ceiling price, quantity demanded rises above quantity supplied — a persistent shortage.' },
   { q:'An indirect tax on a good shifts the supply curve...', opts:['Up and to the left','Down and to the right','It shifts the demand curve, not supply'], correct:0, explain:'A tax raises the cost of supplying each unit, so sellers require a higher price at every quantity — supply shifts up/left.' },
   { q:'Which is a pure public good?', opts:['A slice of pizza','A lighthouse','A private tutoring session'], correct:1, explain:'A lighthouse is non-excludable and non-rival — one ship benefiting from its light doesn\'t stop another ship from also benefiting.' },
-  { q:'In the rent-control stakeholder table, who is most clearly a LOSER?', opts:['Existing tenants who keep their flat','Renters still searching for a flat','The mayor, in the short term'], correct:1, explain:'The shortage caused by the ceiling means fewer flats are offered at the capped price — many searching renters can\'t find one at all.' },
-  { q:'[IB] A common pool resource is best described as...', opts:['Excludable and rival','Non-excludable and non-rival','Non-excludable and rival'], correct:2, explain:'Non-excludable (can\'t stop use) but rival (one user\'s catch reduces what\'s left) — this combination is exactly what drives the "tragedy of the commons."' }
+  { q:'A government sets a minimum wage above equilibrium. This is an example of a...', opts:['Price ceiling — a shortage results','Price floor — a surplus (of labour) results','Subsidy'], correct:1, explain:'A minimum wage is a price floor: at a wage above equilibrium, quantity of labour supplied exceeds quantity demanded — unemployment (a labour surplus).' },
+  { q:'"Rent control is unfair to landlords" is a...', opts:['Positive statement','Normative statement','A price-floor diagram'], correct:1, explain:'It contains a value judgement ("unfair") — testability, not agreement, is what makes a statement positive or normative.' }
 ];
 let quizIdx = 0, quizScoreVal = 0, quizInited = false;
 function initQuiz() {

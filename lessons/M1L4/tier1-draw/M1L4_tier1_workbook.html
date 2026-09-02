@@ -37,6 +37,9 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
 .answer-line { border-bottom:1px solid rgba(0,0,0,0.18); height:26px; margin-bottom:4px; }
 .match-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:6px; }
 .match-table td { padding:7px 10px; border-bottom:1px solid rgba(0,0,0,0.08); }
+.graph-box { width:100%; height:180px; background-image:linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size:24px 24px; border:1px solid rgba(0,0,0,0.2); border-radius:4px; position:relative; margin-top:8px; }
+.graph-axis-x { position:absolute; bottom:-20px; left:0; right:0; text-align:center; font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; }
+.graph-axis-y { position:absolute; top:50%; left:-70px; transform:rotate(-90deg); font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; width:150px; text-align:center; }
 .mission-box { background:linear-gradient(135deg,rgba(200,150,10,0.08),rgba(200,150,10,0.02)); border:1px solid var(--border); border-radius:12px; padding:16px 20px; margin-top:10px; }
 .mission-box .mtag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
 
@@ -90,7 +93,7 @@ td[contenteditable="true"] { min-width:60px; }
     </div>
   </div>
   <div class="meta-strip">
-    <div class="pill">10 questions</div>
+    <div class="pill">8 questions</div>
     <div class="pill">+ 1 family mission</div>
     <div class="pill">~20 min</div>
   </div>
@@ -103,9 +106,12 @@ td[contenteditable="true"] { min-width:60px; }
   <div class="big-title">Show what you discovered today</div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">1.</span> In your own words, what does it mean when a factory's pollution is "a cost that spills onto other people"?</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="q-text"><span class="q-num">1.</span> What is a "spillover" (externality)? Circle the best answer.</div>
+    <ul class="q-opts selectable">
+      <li>A price that is too high.</li>
+      <li>A cost or benefit from a decision that lands on someone who wasn't part of making it.</li>
+      <li>Money a government collects from taxes.</li>
+    </ul>
   </div>
 
   <div class="q-block">
@@ -114,24 +120,7 @@ td[contenteditable="true"] { min-width:60px; }
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">3.</span> Why can a shared fishing lake "collapse" even though no single boat WANTS that to happen? Explain in 1–2 sentences.</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">4.</span> In the Fishing Lake game, what happened when you fished at HIGH effort round after round? Why did it happen?</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">5.</span> True or False: If you can enjoy something without paying for it, most people will still choose to pay for it anyway.</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">6.</span> Match each example to POSITIVE or NEGATIVE spillover.</div>
+    <div class="q-text"><span class="q-num">3.</span> Match each example to POSITIVE or NEGATIVE spillover.</div>
     <table class="match-table">
       <tr><td>A beekeeper's bees pollinate the neighbor's crops for free</td><td contenteditable="true" spellcheck="false"></td></tr>
       <tr><td>Factory smoke drifting over a nearby town</td><td contenteditable="true" spellcheck="false"></td></tr>
@@ -141,25 +130,38 @@ td[contenteditable="true"] { min-width:60px; }
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">7.</span> Name TWO tools a government could use to fix a spillover problem or protect a shared resource.</div>
+    <div class="q-text"><span class="q-num">4.</span> Why can a shared fishing lake "collapse" even though no single boat WANTS that to happen? Explain in 1–2 sentences.</div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">8.</span> A city builds a free public park. Explain why some people might choose not to help pay for its upkeep, using the word "free-ride" in your answer.</div>
+    <div class="q-text"><span class="q-num">5.</span> Draw a bar graph. Draw one bar for how many fish were in the river BEFORE the factory started producing, and one bar for how many were left AFTER several rounds of "Produce More."</div>
+    <div style="margin:26px 0 30px 80px;position:relative;max-width:600px">
+      <div class="graph-box">
+        <div class="graph-axis-y">Fish Remaining</div>
+        <div class="graph-axis-x">Before &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; After</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">6.</span> Which tool would you use to fix a factory's water pollution? Circle ONE, then give ONE reason.</div>
+    <ul class="q-opts selectable">
+      <li>Tax the factory for every unit it pollutes</li>
+      <li>Ban the pollution completely</li>
+    </ul>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">7.</span> A city builds a free public park. Explain why some people might choose not to help pay for its upkeep, using the word "free-ride" in your answer.</div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">9.</span> Should candy be taxed like cigarettes? Give ONE argument FOR and ONE argument AGAINST.</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">10.</span> How could a government use taxes, bans, or rules to protect a shared resource like a fishing lake from collapsing?</div>
+    <div class="q-text"><span class="q-num">8.</span> Should candy be taxed like cigarettes? Give ONE argument FOR and ONE argument AGAINST.</div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
@@ -174,16 +176,14 @@ td[contenteditable="true"] { min-width:60px; }
 
   <div class="answer-key">
     <div class="ak-title">Answer Key</div>
-    <div class="ak-item"><strong>1.</strong> Accept any answer capturing: the factory's decision to pollute creates a real cost (dirty water, fewer fish, health problems) for people who never agreed to it and never got paid for it — the cost "spills" outside the factory's own books.</div>
+    <div class="ak-item"><strong>1.</strong> "A cost or benefit from a decision that lands on someone who wasn't part of making it." <span class="why">— An externality spills outside the deal between buyer and seller.</span></div>
     <div class="ak-item"><strong>2.</strong> Positive. <span class="why">— A positive spillover (positive externality) benefits someone who didn't pay for it, like a beautiful garden the whole street enjoys.</span></div>
-    <div class="ak-item"><strong>3.</strong> Sample: "Nobody owns the fish until it's caught, so every boat has a reason to catch as many as it can right now — but if every boat thinks that way at the same time, the shared stock can be wiped out faster than it can regrow." Accept reasoning built around "nobody owns it, so nobody alone holds back."</div>
-    <div class="ak-item"><strong>4.</strong> Fishing HIGH every round catches more per round short-term but drains the shared stock fast — usually causing the lake to collapse within the first few rounds, ending catches for the rest of the season for everyone, including the player.</div>
-    <div class="ak-item"><strong>5.</strong> False. <span class="why">— If nobody can be stopped from enjoying something without paying (like a free public fireworks show), many people will choose to "free-ride" and let others pay instead.</span></div>
-    <div class="ak-item"><strong>6.</strong> Beekeeper's bees: Positive. Factory smoke: Negative. Vaccination: Positive. Litter: Negative.</div>
-    <div class="ak-item"><strong>7.</strong> Accept any two: a tax (make the bad thing more expensive), a subsidy (make the good thing cheaper), a ban or regulation (stop or limit it), direct provision (the government provides it itself), or a quota/rule limiting use of a shared resource.</div>
-    <div class="ak-item"><strong>8.</strong> Accept: because nobody can be stopped from using the park even if they didn't pay, some people "free-ride" — they enjoy the benefit while letting others cover the cost, which can mean the park doesn't get enough money for its upkeep.</div>
-    <div class="ak-item"><strong>9.</strong> Accept any reasonable pair, e.g. FOR: "it would raise money and might reduce how much sugary candy kids eat, protecting health." AGAINST: "candy isn't as dangerous as cigarettes, and a tax mostly hurts families with less money to spend."</div>
-    <div class="ak-item"><strong>10.</strong> Sample: "A government could set a fishing quota (a rule limiting how many fish each boat can catch), tax overfishing to make it more expensive, or ban fishing during certain seasons so the lake has time to regrow." Accept any answer connecting a government tool to protecting a shared, unowned resource from being overused.</div>
+    <div class="ak-item"><strong>3.</strong> Beekeeper's bees: Positive. Factory smoke: Negative. Vaccination: Positive. Litter: Negative.</div>
+    <div class="ak-item"><strong>4.</strong> Sample: "Nobody owns the fish until it's caught, so every boat has a reason to catch as many as it can right now — but if every boat thinks that way at the same time, the shared stock can be wiped out faster than it can regrow." Accept reasoning built around "nobody owns it, so nobody alone holds back."</div>
+    <div class="ak-item"><strong>5.</strong> Accept any two bars showing far fewer fish after several rounds of "Produce More" — the key skill is drawing/reading a simple bar graph.</div>
+    <div class="ak-item"><strong>6.</strong> Accept any reasoned answer — check the reason actually matches the choice (e.g. "Tax, because the factory can keep operating but pays for the damage" or "Ban, because some pollution is too dangerous to allow at any price").</div>
+    <div class="ak-item"><strong>7.</strong> Accept: because nobody can be stopped from using the park even if they didn't pay, some people "free-ride" — they enjoy the benefit while letting others cover the cost, which can mean the park doesn't get enough money for its upkeep.</div>
+    <div class="ak-item"><strong>8.</strong> Accept any reasonable pair, e.g. FOR: "it would raise money and might reduce how much sugary candy kids eat, protecting health." AGAINST: "candy isn't as dangerous as cigarettes, and a tax mostly hurts families with less money to spend."</div>
   </div>
 
   <div class="footer">M1L4 · Economics Academy · Stoic Edu</div>
