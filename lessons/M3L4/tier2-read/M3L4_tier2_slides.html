@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inequality, Poverty & Population | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif; overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center; }
+#slide-frame { position:relative; width:960px; height:540px; background:var(--bg); border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0; }
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none; transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box; }
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%); pointer-events:none; }
+#nav { position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border); border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
+.tag { display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; }
+.tag.ib { background:rgba(13,45,82,0.08); border-color:rgba(13,45,82,0.2); color:var(--blue); }
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(22px,3.4vw,38px); line-height:1.05; margin-bottom:12px; color:var(--white); }
+.btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.cov-diagram { position:relative; z-index:2; width:260px; height:220px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,4vw,40px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:370px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 hook ===== */
+#s0 { text-align:center; }
+.hyp-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 26px; max-width:660px; margin-top:10px; }
+.hyp-lbl { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; }
+.hyp-text { font-size:13px; color:var(--dim); line-height:1.7; margin-top:6px; }
+
+/* ===== s1 command term drill ===== */
+#s1 { flex-direction:column; gap:12px; }
+.cmd-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.cmd-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
+.cmd-tab.active { background:var(--gold); color:#fff; }
+.cmd-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 24px; max-width:800px; width:100%; min-height:120px; }
+.cmd-answer { font-size:13px; line-height:1.8; color:var(--white); }
+.cmd-answer strong { color:var(--blue); }
+
+/* ===== s2/s4/s6/s7 tab panels ===== */
+#s2, #s4, #s6, #s7 { flex-direction:column; gap:8px; }
+.pes-tabs { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; }
+.pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:12px; padding:6px 13px; border-radius:20px; cursor:pointer; }
+.pes-tab.active { background:var(--teal); color:#fff; }
+.pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:14px 20px; max-width:820px; width:100%; min-height:140px; max-height:230px; overflow-y:auto; font-size:12px; line-height:1.75; color:var(--white); }
+.pes-panel strong { color:var(--blue); }
+
+/* ===== s3: population pyramid ===== */
+#s3 { flex-direction:column; gap:8px; }
+.pyr-toggle { display:flex; gap:8px; }
+.pyr-btn { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:13px; padding:6px 16px; border-radius:20px; cursor:pointer; }
+.pyr-btn.active { background:var(--blue); color:#fff; }
+.pyr-note { font-size:11.5px; color:var(--dim); max-width:700px; text-align:center; min-height:30px; }
+
+/* ===== s5: lorenz curve ===== */
+#s5 { flex-direction:column; gap:8px; }
+.lz-toggle { display:flex; gap:8px; }
+.lz-btn { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:12.5px; padding:6px 14px; border-radius:20px; cursor:pointer; }
+.lz-btn.active { background:var(--blue); color:#fff; }
+.lz-note { font-size:11px; color:var(--dim); max-width:700px; text-align:center; min-height:32px; }
+
+/* ===== s-pn ===== */
+#s-pn { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
+.game-scenario { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:16px; color:var(--white); margin-bottom:14px; line-height:1.5; min-height:56px; }
+.answer-options { display:flex; gap:14px; justify-content:center; margin-bottom:10px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:17px; padding:9px 24px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:130px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); }
+.game-feedback { font-size:12.5px; min-height:20px; font-family:'Space Mono',monospace; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:10px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+/* ===== adapter ===== */
+#s-adapter { flex-direction:column; gap:10px; }
+.adapter-tabs { display:flex; gap:8px; margin-bottom:4px; }
+.adapter-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 22px; border-radius:20px; cursor:pointer; }
+.adapter-tab.active.igcse { background:var(--teal); color:#fff; }
+.adapter-tab.active.ib { background:var(--blue); color:#fff; }
+.adapter-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 26px; max-width:760px; width:100%; font-size:13px; line-height:1.8; color:var(--white); }
+.adapter-panel strong { color:var(--blue); }
+
+/* ===== quiz ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:16px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left"><canvas id="coverCanvas" width="260" height="220" class="cov-diagram"></canvas></div>
+  <div class="cover-right">
+    <div class="cover-module">Module 3 · Global Economics — Lesson 4</div>
+    <div class="cover-title">Inequality, Poverty<br><span>&amp; Population</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">How unequal is too unequal — and how would we even measure it? Build the Lorenz curve and Gini coefficient, and analyse population structure with real demographic cases.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Lorenz Curve &amp; Gini</span><span class="cc-chip">Absolute/Relative Poverty</span>
+        <span class="cc-chip">Population Structure</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 13–15</div>
+      <div class="cover-pill">IGCSE + IB</div>
+      <div class="cover-pill">60 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0 HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="tag">Hook</div>
+  <div class="big-title">How Unequal Is Too Unequal?</div>
+  <div class="hyp-box">
+    <div class="hyp-lbl">THINK ABOUT IT</div>
+    <div class="hyp-text">Saying "income is unevenly distributed" is a vague claim until you can actually MEASURE how unequal it is. Today: build the Lorenz curve and Gini coefficient to measure inequality precisely, distinguish absolute from relative poverty, and analyse how a country's whole population structure shifts as it develops.</div>
+  </div>
+</section>
+
+<!-- ============ s1 COMMAND TERM DRILL ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">AO1/AO2 Precision</div>
+    <div class="big-title">Same Concept, Different Command Word</div>
+  </div>
+  <div class="cmd-tabs" id="cmdTabs"></div>
+  <div class="cmd-box"><div class="cmd-answer" id="cmdAnswer"></div></div>
+</section>
+
+<!-- ============ s2: POPULATION DEFINITIONS & OPTIMUM ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Full Detail</div>
+    <div class="big-title">Population: Rates, Reasons &amp; the Optimum</div>
+  </div>
+  <div class="pes-tabs" id="popTabs"></div>
+  <div class="pes-panel" id="popPanel"></div>
+</section>
+
+<!-- ============ s3: POPULATION STRUCTURE ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Real Demographic Cases</div>
+    <div class="big-title">Population Structure Over Time</div>
+  </div>
+  <div class="pyr-toggle">
+    <button class="pyr-btn active" id="pyrYoungBtn" onclick="setPyramid('young')">Young, Growing Population</button>
+    <button class="pyr-btn" id="pyrAgeingBtn" onclick="setPyramid('ageing')">Ageing Population (e.g. Korea, Japan)</button>
+  </div>
+  <canvas id="pyrCanvas" width="560" height="260"></canvas>
+  <div class="pyr-note" id="pyrNote"></div>
+</section>
+
+<!-- ============ s4: POVERTY: DEFINITIONS & CAUSES ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Precise Definitions</div>
+    <div class="big-title">Poverty: Definitions &amp; Causes</div>
+  </div>
+  <div class="pes-tabs" id="povTabs"></div>
+  <div class="pes-panel" id="povPanel"></div>
+</section>
+
+<!-- ============ s5: LORENZ CURVE & GINI ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">AO2 — Draw &amp; Interpret</div>
+    <div class="big-title">The Lorenz Curve &amp; Gini Coefficient</div>
+  </div>
+  <div class="lz-toggle">
+    <button class="lz-btn active" id="lzMoreBtn" onclick="setLorenz('more')">More Equal Country</button>
+    <button class="lz-btn" id="lzLessBtn" onclick="setLorenz('less')">Less Equal Country</button>
+  </div>
+  <canvas id="lzCanvas" width="380" height="260"></canvas>
+  <div class="lz-note" id="lzNote"></div>
+</section>
+
+<!-- ============ s6: REDISTRIBUTION POLICIES ============ -->
+<section class="slide" id="s6">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Full Evaluation</div>
+    <div class="big-title">Redistribution Policies</div>
+  </div>
+  <div class="pes-tabs" id="policyTabs"></div>
+  <div class="pes-panel" id="policyPanel"></div>
+</section>
+
+<!-- ============ s7: IB HL ENRICHMENT ============ -->
+<section class="slide" id="s7">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag ib">IB HL Enrichment — not required at IGCSE</div>
+    <div class="big-title">Beyond the Basics</div>
+  </div>
+  <div class="pes-tabs" id="hlTabs"></div>
+  <div class="pes-panel" id="hlPanel"></div>
+</section>
+
+<!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
+<section class="slide" id="s-pn">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Mini Game</div>
+    <div class="big-title">Positive or Normative?</div>
+  </div>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">POSITIVE</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">NORMATIVE</button>
+    </div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXAM ADAPTER SLOT ============ -->
+<section class="slide" id="s-adapter">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Exam Adapter Slot</div>
+    <div class="big-title">Same Skill — Different Exam</div>
+  </div>
+  <div class="adapter-tabs">
+    <button class="adapter-tab active igcse" onclick="setAdapter('igcse',this)">IGCSE</button>
+    <button class="adapter-tab" onclick="setAdapter('ib',this)">IB</button>
+  </div>
+  <div class="adapter-panel" id="adapterPanel"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">Test Your Understanding</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const PN_SLIDE_IDX = 9;
+const QUIZ_SLIDE_IDX = 11;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+  if (cur === PN_SLIDE_IDX && !pnInited) initPN();
+  if (slides[cur].id === 's-cover') drawCover();
+  if (slides[cur].id === 's3') drawPyramid(pyrMode);
+  if (slides[cur].id === 's5') drawLorenz(lzMode);
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ COVER DIAGRAM ============
+function drawCover() {
+  const c = document.getElementById('coverCanvas'); const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,260,220);
+  ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(30,190); ctx.lineTo(30,20); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(30,190); ctx.lineTo(220,190); ctx.stroke();
+  ctx.setLineDash([3,3]); ctx.strokeStyle='rgba(255,255,255,0.4)';
+  ctx.beginPath(); ctx.moveTo(30,190); ctx.lineTo(220,20); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.strokeStyle='#f5c842'; ctx.lineWidth=2.5;
+  ctx.beginPath();
+  ctx.moveTo(30,190);
+  ctx.quadraticCurveTo(120,170, 220,20);
+  ctx.stroke();
+  ctx.font='9px monospace'; ctx.fillStyle='rgba(255,255,255,0.7)';
+  ctx.fillText('Equality', 150, 90);
+  ctx.fillStyle='#f5c842'; ctx.fillText('Lorenz curve', 90, 175);
+}
+drawCover();
+
+// ============ s1 COMMAND TERM DRILL ============
+const CMDS = [
+  {key:'define', lbl:'Define', ans:'<strong>Define the Gini coefficient.</strong> The Gini coefficient is a single number (0 to 1, or 0 to 100) measuring income inequality — 0 means perfect equality, 1 (or 100) means one person has all the income.'},
+  {key:'explain', lbl:'Explain', ans:'<strong>Explain why a country\'s birth rate might fall as it develops economically.</strong> As countries develop, access to education and family planning improves, more women enter paid work, and children are less needed as economic labour — all of which tend to reduce birth rates.'},
+  {key:'comment', lbl:'Comment', ans:'<strong>Comment on whether a Gini coefficient alone tells the whole story of a country\'s wellbeing.</strong> Not entirely — it measures income inequality only, saying nothing about the AVERAGE level of income, poverty rates, or non-income factors like health and education access.'}
+];
+let cmdActive = 0;
+const cmdTabs = document.getElementById('cmdTabs');
+CMDS.forEach((c,i) => {
+  const b = document.createElement('button');
+  b.className = 'cmd-tab' + (i===0?' active':'');
+  b.textContent = c.lbl;
+  b.onclick = () => { cmdActive=i; document.querySelectorAll('#cmdTabs .cmd-tab').forEach(t=>t.classList.remove('active')); b.classList.add('active'); renderCmd(); };
+  cmdTabs.appendChild(b);
+});
+function renderCmd() { document.getElementById('cmdAnswer').innerHTML = CMDS[cmdActive].ans; }
+renderCmd();
+
+// ============ s2: POPULATION DEFINITIONS & OPTIMUM ============
+const POP_TABS = [
+  {key:'defs', lbl:'Core Definitions', html:`<strong>Birth rate:</strong> babies born per 1,000 people per year. <strong>Death rate:</strong> deaths per 1,000 people per year. <strong>Net migration:</strong> immigration minus emigration. <strong>Immigration:</strong> people moving INTO a country. <strong>Emigration:</strong> people moving OUT of a country.`},
+  {key:'vary', lbl:'Why Rates Vary', html:`Birth/death rates and migration vary with a country's level of economic development, healthcare quality, education access (especially for women), cultural/religious factors, and political stability — richer, more developed countries typically show lower birth AND death rates than less developed ones.`},
+  {key:'optimum', lbl:'Optimum Population', html:`The optimum population is the population size that maximises output (or income) PER PERSON, given a country's resources and technology. Below optimum, adding more people raises output per person (more workers to use existing resources); above optimum, adding more people REDUCES output per person (resources get stretched too thin).`},
+  {key:'effects', lbl:'Effects of Population Change', html:`A GROWING population can mean a larger workforce and market, but also more strain on resources, housing, and infrastructure. A population with a changing AGE structure (e.g. more elderly) shifts the balance between workers and dependents, affecting pensions, healthcare demand, and tax revenue.`}
+];
+let popActive = 0;
+const popTabsEl = document.getElementById('popTabs');
+POP_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { popActive=i; document.querySelectorAll('#popTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderPop(); };
+  popTabsEl.appendChild(b);
+});
+function renderPop() { document.getElementById('popPanel').innerHTML = POP_TABS[popActive].html; }
+renderPop();
+
+// ============ s3: POPULATION STRUCTURE (PYRAMID) ============
+let pyrMode = 'young';
+function setPyramid(mode) {
+  pyrMode = mode;
+  document.getElementById('pyrYoungBtn').classList.toggle('active', mode==='young');
+  document.getElementById('pyrAgeingBtn').classList.toggle('active', mode==='ageing');
+  drawPyramid(mode);
+}
+function drawPyramid(mode) {
+  const c = document.getElementById('pyrCanvas'); if (!c) return;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,560,260);
+  const bands = mode === 'young'
+    ? [90,82,74,66,58,48,38,28,18,10]
+    : [40,44,50,58,66,74,82,88,80,60];
+  const bandH = 22, startY = 20, midX = 280;
+  ctx.font='10px monospace'; ctx.fillStyle='#5a6a80'; ctx.textAlign='center';
+  ctx.fillText(mode==='young' ? 'Age bands: 0-9 (bottom) to 90+ (top)' : 'Age bands: 0-9 (bottom) to 90+ (top)', midX, 250);
+  ctx.textAlign='left';
+  bands.forEach((w, i) => {
+    const y = startY + i*bandH;
+    ctx.fillStyle = i < 3 ? '#00897b' : (i < 7 ? '#c8960a' : '#e53935');
+    ctx.fillRect(midX - w, y, w*2, bandH-3);
+  });
+  document.getElementById('pyrNote').innerHTML = mode === 'young'
+    ? '<strong style="color:var(--white)">A young, growing population</strong> — a wide base of children and young workers supporting fewer elderly dependents. Common in many developing economies.'
+    : '<strong style="color:var(--white)">An ageing population</strong> (e.g. Korea, Japan) — a narrow base (low birth rate) and a wide upper section (people living much longer). Fewer workers must support a growing number of retirees — raising concerns about pensions and healthcare funding.';
+}
+drawPyramid('young');
+
+// ============ s4: POVERTY DEFINITIONS & CAUSES ============
+const POV_TABS = [
+  {key:'absolute', lbl:'Absolute Poverty', html:`Not having enough income to meet basic needs (food, clean water, shelter) — measured against a FIXED standard that doesn't change based on what others around you have.`},
+  {key:'relative', lbl:'Relative Poverty', html:`Having significantly less income than the average (or median) person in your OWN country/society — often defined as below a set percentage (e.g. 60%) of median income. Relative poverty can exist even in wealthy countries.`},
+  {key:'causes', lbl:'Causes of Poverty', html:`<strong>Unemployment:</strong> no income at all. <strong>Low wages:</strong> working but insufficient pay. <strong>Illness:</strong> lost income and/or high medical costs. <strong>Age:</strong> children and the elderly often cannot work. <strong>Environmental factors:</strong> disasters or climate change destroying livelihoods, especially in agriculture-dependent economies.`},
+  {key:'living', lbl:'Reasons for Living-Standard Differences', html:`Living standards and income distribution differ WITHIN a country due to factors like education access, job opportunities, and discrimination. They differ BETWEEN countries due to differences in income levels, productivity, resource endowments, and government policy on redistribution.`}
+];
+let povActive = 0;
+const povTabsEl = document.getElementById('povTabs');
+POV_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { povActive=i; document.querySelectorAll('#povTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderPov(); };
+  povTabsEl.appendChild(b);
+});
+function renderPov() { document.getElementById('povPanel').innerHTML = POV_TABS[povActive].html; }
+renderPov();
+
+// ============ s5: LORENZ CURVE & GINI ============
+let lzMode = 'more';
+function setLorenz(mode) {
+  lzMode = mode;
+  document.getElementById('lzMoreBtn').classList.toggle('active', mode==='more');
+  document.getElementById('lzLessBtn').classList.toggle('active', mode==='less');
+  drawLorenz(mode);
+}
+function drawLorenz(mode) {
+  const c = document.getElementById('lzCanvas'); if (!c) return;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,380,260);
+  const x0=50, y0=230, x1=340, y1=20;
+  ctx.strokeStyle='#333'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(x0,y1); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(x1,y0); ctx.stroke();
+  ctx.font='10px sans-serif'; ctx.fillStyle='#5a6a80';
+  ctx.fillText('% of Population (cumulative)', x0+30, y0+22);
+  ctx.save(); ctx.translate(x0-38,y0-40); ctx.rotate(-Math.PI/2); ctx.fillText('% of Income (cumulative)',0,0); ctx.restore();
+
+  ctx.setLineDash([3,3]); ctx.strokeStyle='rgba(0,0,0,0.3)';
+  ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(x1,y1); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.font='9px monospace'; ctx.fillStyle='rgba(0,0,0,0.4)';
+  ctx.fillText('Perfect equality', x0+140, y0-140);
+
+  const bow = mode === 'more' ? 40 : 90;
+  const ctrlX = x0 + (x1-x0)*0.55;
+  const ctrlY = y0 - (y0-y1)*0.15 + bow*0.3;
+  ctx.fillStyle = mode==='more' ? 'rgba(0,137,123,0.18)' : 'rgba(229,57,53,0.18)';
+  ctx.beginPath();
+  ctx.moveTo(x0,y0);
+  ctx.quadraticCurveTo(ctrlX, ctrlY + bow, x1, y1);
+  ctx.lineTo(x0,y0);
+  ctx.closePath(); ctx.fill();
+
+  ctx.strokeStyle = mode==='more' ? '#00897b' : '#e53935'; ctx.lineWidth=2.5;
+  ctx.beginPath();
+  ctx.moveTo(x0,y0);
+  ctx.quadraticCurveTo(ctrlX, ctrlY + bow, x1, y1);
+  ctx.stroke();
+  ctx.fillStyle = mode==='more' ? '#00897b' : '#e53935';
+  ctx.font='bold 10px sans-serif';
+  ctx.fillText('Lorenz curve', x0+90, y0-30);
+
+  const gini = mode === 'more' ? '0.28 (fairly equal)' : '0.52 (highly unequal)';
+  document.getElementById('lzNote').innerHTML = `The shaded area between the diagonal (perfect equality) and the Lorenz curve represents inequality — the BIGGER this area, the HIGHER the Gini coefficient. Approximate Gini here: <strong style="color:var(--white)">${gini}</strong>.`;
+}
+drawLorenz('more');
+
+// ============ s6: REDISTRIBUTION POLICIES ============
+const POLICY_TABS = [
+  {key:'growth', lbl:'Promote Growth', html:`<strong>Mechanism:</strong> a growing economy creates more jobs and income. <strong>Limitation:</strong> growth alone doesn't guarantee the gains are shared — inequality can rise even during strong growth if gains concentrate among high earners.`},
+  {key:'education', lbl:'Education', html:`<strong>Mechanism:</strong> better education raises future earning potential and can break generational poverty cycles. <strong>Limitation:</strong> takes years to show results, and access itself can be unequal.`},
+  {key:'healthcare', lbl:'Healthcare', html:`<strong>Mechanism:</strong> reduces poverty caused by illness (lost income/medical costs). <strong>Limitation:</strong> requires significant, sustained government spending.`},
+  {key:'benefits', lbl:'State Benefits', html:`<strong>Mechanism:</strong> directly raises the income of those without enough. <strong>Limitation:</strong> can be costly, and critics argue it may reduce incentives to work if not carefully designed.`},
+  {key:'tax', lbl:'Progressive Taxation', html:`<strong>Mechanism:</strong> takes a higher percentage from higher earners, directly narrowing income gaps and funding redistribution (link back to M2L5's fiscal policy). <strong>Limitation:</strong> very high rates can discourage work or investment, or encourage tax avoidance.`},
+  {key:'nmw', lbl:'National Minimum Wage', html:`<strong>Mechanism:</strong> sets a legal wage floor, directly raising the lowest incomes. <strong>Limitation:</strong> if set too high relative to productivity, some argue it could reduce employment in low-wage sectors.`}
+];
+let policyActive = 0;
+const policyTabsEl = document.getElementById('policyTabs');
+POLICY_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { policyActive=i; document.querySelectorAll('#policyTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderPolicy(); };
+  policyTabsEl.appendChild(b);
+});
+function renderPolicy() { document.getElementById('policyPanel').innerHTML = POLICY_TABS[policyActive].html; }
+renderPolicy();
+
+// ============ s7: IB HL ENRICHMENT ============
+const HL_TABS = [
+  {key:'equity', lbl:'The Market\'s Inability to Achieve Equity', html:`Free markets are efficient at allocating resources to their most valued uses, but efficiency does NOT guarantee a fair or equitable distribution of income — a market can be perfectly efficient while still leaving some people with very little. This is why governments often intervene with redistribution policies even when markets are working "correctly." Not required at IGCSE 0455.`},
+  {key:'gender', lbl:'Gender & Population Distribution', html:`Population age/gender structure can also show gender imbalances (e.g. from historical policy or cultural factors in some countries), with effects on future workforce and family structures. This is acknowledged briefly here rather than explored in depth — a low-priority extension topic.`}
+];
+let hlActive = 0;
+const hlTabsEl = document.getElementById('hlTabs');
+HL_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { hlActive=i; document.querySelectorAll('#hlTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderHl(); };
+  hlTabsEl.appendChild(b);
+});
+function renderHl() { document.getElementById('hlPanel').innerHTML = HL_TABS[hlActive].html; }
+renderHl();
+
+// ============ s-pn: POSITIVE OR NORMATIVE ============
+const PN_ITEMS = [
+  {text:'The Gini coefficient measures income inequality on a scale from 0 to 1.', type:'positive'},
+  {text:'Every country should aim for a Gini coefficient of exactly 0.', type:'normative'},
+  {text:'Relative poverty is defined relative to the average income in a country.', type:'positive'},
+  {text:'Progressive taxation is the fairest way to redistribute income.', type:'normative'},
+  {text:'An ageing population means fewer workers relative to elderly dependents.', type:'positive'},
+  {text:'A government should always prioritise reducing inequality over economic growth.', type:'normative'}
+];
+let pnIdx=0, pnScore=0, pnStreak=0, pnInited=false;
+function initPN() { pnInited = true; renderPN(); }
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🎓 You can now separate testable claims from value judgements — a core AO1/AO3 skill.';
+    return;
+  }
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
+}
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\'s '+item.type+' — a '+(item.type==='positive'?'testable claim.':'value judgement.'); document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
+}
+
+// ============ EXAM ADAPTER ============
+const ADAPTER = {
+  igcse: `<strong>IGCSE P2: define absolute/relative poverty; explain causes; comment on a redistribution policy.</strong><br><br><strong>Practice move:</strong> always name a SPECIFIC group affected when discussing poverty causes or policies — "poverty" alone is too vague for full marks.`,
+  ib: `<strong>P2/IA: interpret a Lorenz curve and Gini coefficient from given data; evaluate redistribution policy.</strong><br><br><strong>Practice move:</strong> when comparing two countries' Gini coefficients, always state which is MORE unequal (higher Gini = more inequality) and link it to a plausible cause, not just report the numbers.`
+};
+function setAdapter(k, el) {
+  document.querySelectorAll('.adapter-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('adapterPanel').innerHTML = ADAPTER[k];
+}
+setAdapter('igcse', document.querySelector('.adapter-tab.igcse'));
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'What does a Gini coefficient of 0 represent?', opts:['Complete inequality','Perfect equality','An undefined value'], correct:1, explain:'A Gini of 0 means everyone has exactly the same income — perfect equality.' },
+  { q:'On a Lorenz curve diagram, what does the diagonal line represent?', opts:['The actual income distribution','Perfect equality','Absolute poverty'], correct:1, explain:'The 45-degree diagonal represents a hypothetical perfectly equal distribution.' },
+  { q:'What is the "optimum population"?', opts:['The largest population a country can physically hold','The population size that maximises output per person','The population with the most young people'], correct:1, explain:'Optimum population maximises output/income PER PERSON given available resources.' },
+  { q:'Which best describes relative poverty?', opts:['Not having enough for basic needs anywhere in the world','Having significantly less income than the average person in your own country','Having no savings at all'], correct:1, explain:'Relative poverty is defined against your own country\'s average/median income.' },
+  { q:'Which is a genuine limitation of using progressive taxation to redistribute income?', opts:['It cannot raise any revenue','Very high rates can discourage work or investment','It only affects low earners'], correct:1, explain:'Very high progressive tax rates are sometimes argued to reduce incentives to work or invest.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect — inequality, poverty, and population all locked in! 🏆' : 'Solid — revisit any missed slide before the workbook.'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>
