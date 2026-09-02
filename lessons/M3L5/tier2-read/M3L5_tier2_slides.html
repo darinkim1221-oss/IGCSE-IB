@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Globalisation, Integration & Development | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif; overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center; }
+#slide-frame { position:relative; width:960px; height:540px; background:var(--bg); border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0; }
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none; transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box; }
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%); pointer-events:none; }
+#nav { position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border); border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
+.tag { display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; }
+.tag.ib { background:rgba(13,45,82,0.08); border-color:rgba(13,45,82,0.2); color:var(--blue); }
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(20px,3vw,34px); line-height:1.05; margin-bottom:10px; color:var(--white); }
+.btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.cov-diagram { position:relative; z-index:2; width:260px; height:220px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(22px,3.6vw,36px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:370px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 hook ===== */
+#s0 { text-align:center; }
+.hyp-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 26px; max-width:660px; margin-top:10px; }
+.hyp-lbl { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; }
+.hyp-text { font-size:13px; color:var(--dim); line-height:1.7; margin-top:6px; }
+
+/* ===== s1 command term drill ===== */
+#s1 { flex-direction:column; gap:12px; }
+.cmd-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.cmd-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
+.cmd-tab.active { background:var(--gold); color:#fff; }
+.cmd-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 24px; max-width:800px; width:100%; min-height:120px; }
+.cmd-answer { font-size:13px; line-height:1.8; color:var(--white); }
+.cmd-answer strong { color:var(--blue); }
+
+/* ===== tab-panel slides ===== */
+#s2, #s4, #s5, #s6, #s7, #s9, #s10 { flex-direction:column; gap:8px; }
+.pes-tabs { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; }
+.pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:12px; padding:6px 13px; border-radius:20px; cursor:pointer; }
+.pes-tab.active { background:var(--teal); color:#fff; }
+.pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:14px 20px; max-width:820px; width:100%; min-height:120px; max-height:210px; overflow-y:auto; font-size:12px; line-height:1.75; color:var(--white); }
+.pes-panel strong { color:var(--blue); }
+
+/* ===== s3: development indicators diagram ===== */
+#s3 { flex-direction:column; gap:8px; }
+.dev-toggle { display:flex; gap:8px; }
+.dev-btn { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:13px; padding:6px 16px; border-radius:20px; cursor:pointer; }
+.dev-btn.active { background:var(--blue); color:#fff; }
+.dev-note { font-size:11.5px; color:var(--dim); max-width:700px; text-align:center; min-height:30px; }
+
+/* ===== s8: barriers to development ===== */
+#s8 { flex-direction:column; gap:8px; }
+.cycle-row { display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap; max-width:820px; }
+.cycle-box { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:11px 12px; font-size:11px; font-weight:700; color:var(--blue); text-align:center; width:130px; }
+.cycle-arrow { font-size:16px; color:var(--gold); flex-shrink:0; }
+.cycle-loop { font-size:11px; color:var(--dim); text-align:center; max-width:700px; margin-top:2px; }
+.barrier-tabs { display:flex; gap:6px; margin-top:6px; }
+.barrier-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:11.5px; padding:5px 12px; border-radius:20px; cursor:pointer; }
+.barrier-tab.active { background:var(--teal); color:#fff; }
+.barrier-panel { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:11px 18px; max-width:800px; width:100%; min-height:52px; max-height:70px; overflow-y:auto; font-size:11.5px; line-height:1.65; color:var(--white); }
+
+/* ===== s-pn ===== */
+#s-pn { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
+.game-scenario { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:16px; color:var(--white); margin-bottom:14px; line-height:1.5; min-height:56px; }
+.answer-options { display:flex; gap:14px; justify-content:center; margin-bottom:10px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:17px; padding:9px 24px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:130px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); }
+.game-feedback { font-size:12.5px; min-height:20px; font-family:'Space Mono',monospace; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:10px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+/* ===== adapter ===== */
+#s-adapter { flex-direction:column; gap:10px; }
+.adapter-tabs { display:flex; gap:8px; margin-bottom:4px; }
+.adapter-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 22px; border-radius:20px; cursor:pointer; }
+.adapter-tab.active.igcse { background:var(--teal); color:#fff; }
+.adapter-tab.active.ib { background:var(--blue); color:#fff; }
+.adapter-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 26px; max-width:760px; width:100%; font-size:13px; line-height:1.8; color:var(--white); }
+.adapter-panel strong { color:var(--blue); }
+
+/* ===== quiz ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:16px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left"><canvas id="coverCanvas" width="260" height="220" class="cov-diagram"></canvas></div>
+  <div class="cover-right">
+    <div class="cover-module">Module 3 · Global Economics — Lesson 5</div>
+    <div class="cover-title">Globalisation,<br>Integration<br><span>&amp; Development</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">Why do countries develop at such different speeds — and how does a more connected world change the answer? Growth vs. development, globalisation, and multinational companies.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Growth vs Development</span><span class="cc-chip">Globalisation</span>
+        <span class="cc-chip">MNCs &amp; Sustainability</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 13–15</div>
+      <div class="cover-pill">IGCSE + IB</div>
+      <div class="cover-pill">60 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0: HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="section-tag">Hypothesis</div>
+  <div class="big-title">Two countries have the SAME GDP per person. Do they have the SAME living standards?</div>
+  <div class="hyp-box">
+    <div class="hyp-lbl">THINK BEFORE YOU ANSWER</div>
+    <div class="hyp-text">Country X and Country Y both have a GDP per person of $8,000. But Country X has 82% school enrolment and 74-year life expectancy, while Country Y has 55% school enrolment and 61-year life expectancy. Same income — very different development. Today's lesson explains why income alone never tells the whole story.</div>
+  </div>
+</section>
+
+<!-- ============ s1: COMMAND TERM DRILL ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">AO1/AO2 Precision</div>
+    <div class="big-title">Same Concept, Different Command Word</div>
+  </div>
+  <div class="cmd-tabs" id="cmdTabs"></div>
+  <div class="cmd-box"><div class="cmd-answer" id="cmdAnswer"></div></div>
+</section>
+
+<!-- ============ s2: GROWTH VS DEVELOPMENT & HDI ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Foundations</div>
+    <div class="big-title">Growth vs. Development &amp; the HDI</div>
+  </div>
+  <div class="pes-tabs" id="gdTabs"></div>
+  <div class="pes-panel" id="gdPanel"></div>
+</section>
+
+<!-- ============ s3: DEVELOPMENT INDICATORS DIAGRAM ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Key Diagram — Development Indicators</div>
+    <div class="big-title">Comparing Two Countries, Indicator by Indicator</div>
+  </div>
+  <div class="dev-toggle">
+    <button class="dev-btn active" id="devHighBtn" onclick="setDev('high')">High-Income Example</button>
+    <button class="dev-btn" id="devLowBtn" onclick="setDev('low')">Low-Income Example</button>
+  </div>
+  <canvas id="devCanvas" width="620" height="230"></canvas>
+  <div class="dev-note" id="devNote"></div>
+</section>
+
+<!-- ============ s4: CAUSES OF INTERNATIONAL DEVELOPMENT DIFFERENCES ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">AO1 — Causes</div>
+    <div class="big-title">Why Do Development Levels Differ Between Countries?</div>
+  </div>
+  <div class="pes-tabs" id="causeTabs"></div>
+  <div class="pes-panel" id="causePanel"></div>
+</section>
+
+<!-- ============ s5: GLOBALISATION — DEFINITION & CAUSES OF CHANGE ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">A Connected World</div>
+    <div class="big-title">Globalisation: Definition &amp; Causes of Change</div>
+  </div>
+  <div class="pes-tabs" id="globTabs"></div>
+  <div class="pes-panel" id="globPanel"></div>
+</section>
+
+<!-- ============ s6: EFFECTS OF GLOBALISATION ============ -->
+<section class="slide" id="s6">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">AO2 — Effects</div>
+    <div class="big-title">The Effects of Globalisation</div>
+  </div>
+  <div class="pes-tabs" id="effTabs"></div>
+  <div class="pes-panel" id="effPanel"></div>
+</section>
+
+<!-- ============ s7: MNCs — HOST & HOME ============ -->
+<section class="slide" id="s7">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">AO2 — Two-Sided Analysis</div>
+    <div class="big-title">Multinational Companies: Host &amp; Home</div>
+  </div>
+  <div class="pes-tabs" id="mncTabs"></div>
+  <div class="pes-panel" id="mncPanel"></div>
+</section>
+
+<!-- ============ s8: BARRIERS TO DEVELOPMENT ============ -->
+<section class="slide" id="s8">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Key Diagram — Barriers to Development</div>
+    <div class="big-title">The Poverty Cycle</div>
+  </div>
+  <div class="cycle-row">
+    <div class="cycle-box">Low Income</div><div class="cycle-arrow">→</div>
+    <div class="cycle-box">Low Savings &amp; Investment</div><div class="cycle-arrow">→</div>
+    <div class="cycle-box">Low Productivity</div><div class="cycle-arrow">→</div>
+    <div class="cycle-box">Low Output</div>
+  </div>
+  <div class="cycle-loop">↩ Low output feeds back into low income — this self-reinforcing loop is why some countries stay poor without outside help or a policy shock to break the cycle.</div>
+  <div class="barrier-tabs" id="barrierTabs"></div>
+  <div class="barrier-panel" id="barrierPanel"></div>
+</section>
+
+<!-- ============ s9: SUSTAINABILITY & CLIMATE ECONOMICS ============ -->
+<section class="slide" id="s9">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">A Cross-Cutting Theme</div>
+    <div class="big-title">Sustainability &amp; Climate Economics</div>
+  </div>
+  <div class="pes-tabs" id="susTabs"></div>
+  <div class="pes-panel" id="susPanel"></div>
+</section>
+
+<!-- ============ s10: IB HL ENRICHMENT ============ -->
+<section class="slide" id="s10">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag ib">IB HL Enrichment — not required at IGCSE</div>
+    <div class="big-title">Beyond the Basics</div>
+  </div>
+  <div class="pes-tabs" id="hlTabs"></div>
+  <div class="pes-panel" id="hlPanel"></div>
+</section>
+
+<!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
+<section class="slide" id="s-pn">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Mini Game</div>
+    <div class="big-title">Positive or Normative?</div>
+  </div>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">POSITIVE</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">NORMATIVE</button>
+    </div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXAM ADAPTER SLOT ============ -->
+<section class="slide" id="s-adapter">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Exam Adapter Slot</div>
+    <div class="big-title">Deploying Real-World Evidence</div>
+  </div>
+  <div class="adapter-tabs">
+    <div class="adapter-tab active igcse" data-b="igcse" onclick="setAdapter(this)">IGCSE</div>
+    <div class="adapter-tab ib" data-b="ib" onclick="setAdapter(this)">IB</div>
+  </div>
+  <div class="adapter-panel" id="adapterPanel"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">Test Your Understanding</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const PN_SLIDE_IDX = 12;
+const QUIZ_SLIDE_IDX = 14;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+  if (cur === PN_SLIDE_IDX && !pnInited) initPN();
+  if (slides[cur].id === 's-cover') drawCover();
+  if (slides[cur].id === 's3') drawDev(devMode);
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ COVER DIAGRAM ============
+function drawCover() {
+  const c = document.getElementById('coverCanvas'); const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,260,220);
+  ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(30,195); ctx.lineTo(30,20); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(30,195); ctx.lineTo(230,195); ctx.stroke();
+  const bars = [{x:50,h:150,c:'#00897b',lbl:'GDP'},{x:100,h:130,c:'#c8960a',lbl:'HDI'},{x:150,h:110,c:'#e53935',lbl:'Life Exp.'},{x:200,h:60,c:'#5a6a80',lbl:'School'}];
+  ctx.font='8px monospace'; ctx.textAlign='center';
+  bars.forEach(b => {
+    ctx.fillStyle = b.c;
+    ctx.fillRect(b.x-10, 195-b.h, 20, b.h);
+    ctx.fillStyle='rgba(255,255,255,0.75)';
+    ctx.fillText(b.lbl, b.x, 208);
+  });
+  ctx.textAlign='left';
+  ctx.fillStyle='#f5c842'; ctx.font='9px monospace';
+  ctx.fillText('Development indicators', 40, 14);
+}
+drawCover();
+
+// ============ s1: COMMAND TERM DRILL ============
+const CMDS = [
+  {key:'define', lbl:'Define', ans:'<strong>Define economic development.</strong> Economic development is a broad, multidimensional improvement in people\'s well-being — including health, education, and income — not just an increase in a country\'s output.'},
+  {key:'explain', lbl:'Explain', ans:'<strong>Explain why a country can experience growth without much development.</strong> If GDP rises but the extra income is concentrated among a small group, or is not invested in healthcare and education, average living standards for most people may barely improve even as total output grows.'},
+  {key:'justify', lbl:'Justify', ans:'<strong>Justify which of two development strategies you would recommend for a resource-poor, densely populated country.</strong> A strategy built on education and services (rather than natural-resource exports) is more justifiable here, since it plays to the country\'s actual strengths — a large potential workforce — rather than a resource base it does not have.'}
+];
+let cmdActive = 0;
+const cmdTabs = document.getElementById('cmdTabs');
+CMDS.forEach((c,i) => {
+  const b = document.createElement('button');
+  b.className = 'cmd-tab' + (i===0?' active':'');
+  b.textContent = c.lbl;
+  b.onclick = () => { cmdActive=i; document.querySelectorAll('#cmdTabs .cmd-tab').forEach(t=>t.classList.remove('active')); b.classList.add('active'); renderCmd(); };
+  cmdTabs.appendChild(b);
+});
+function renderCmd() { document.getElementById('cmdAnswer').innerHTML = CMDS[cmdActive].ans; }
+renderCmd();
+
+// ============ s2: GROWTH VS DEVELOPMENT & HDI ============
+const GD_TABS = [
+  {key:'growth', lbl:'Economic Growth', html:`An increase in a country's total output over time, typically measured by the % change in real GDP. Growth is a NECESSARY but not SUFFICIENT condition for development — a country can grow without most people's living standards improving much.`},
+  {key:'development', lbl:'Economic Development', html:`A broader, multidimensional improvement in people's well-being — including health, education, income, and opportunity. Development asks not just "how much is produced?" but "how well are people living?"`},
+  {key:'hdi', lbl:'HDI Components', html:`The <strong>Human Development Index (HDI)</strong> combines three dimensions into a single score from 0 to 1: (1) <strong>Health</strong> — life expectancy at birth; (2) <strong>Education</strong> — mean and expected years of schooling; (3) <strong>Standard of Living</strong> — GNI per capita, adjusted for purchasing power.`},
+  {key:'hdiadv', lbl:'HDI: Adv. &amp; Disadv.', html:`<strong>Advantage:</strong> HDI captures more of what matters for well-being than income alone — two countries with similar GDP per person can have very different HDI scores. <strong>Disadvantage:</strong> HDI still misses inequality within a country, environmental sustainability, and political freedom — a rising national average can hide a very unequal reality underneath.`}
+];
+let gdActive = 0;
+const gdTabsEl = document.getElementById('gdTabs');
+GD_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { gdActive=i; document.querySelectorAll('#gdTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderGd(); };
+  gdTabsEl.appendChild(b);
+});
+function renderGd() { document.getElementById('gdPanel').innerHTML = GD_TABS[gdActive].html; }
+renderGd();
+
+// ============ s3: DEVELOPMENT INDICATORS DIAGRAM ============
+let devMode = 'high';
+function setDev(mode) {
+  devMode = mode;
+  document.getElementById('devHighBtn').classList.toggle('active', mode==='high');
+  document.getElementById('devLowBtn').classList.toggle('active', mode==='low');
+  drawDev(mode);
+}
+function drawDev(mode) {
+  const c = document.getElementById('devCanvas'); if (!c) return;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,620,230);
+  const cats = mode === 'high'
+    ? [{lbl:'GDP/Person', val:'$52,000', h:180},{lbl:'HDI Score', val:'0.91', h:175},{lbl:'Life Expectancy', val:'82 yrs', h:165},{lbl:'Yrs of Schooling', val:'13.5 yrs', h:168}]
+    : [{lbl:'GDP/Person', val:'$1,800', h:24},{lbl:'HDI Score', val:'0.45', h:85},{lbl:'Life Expectancy', val:'61 yrs', h:122},{lbl:'Yrs of Schooling', val:'5 yrs', h:62}];
+  const barW = 90, gap = 60, startX = 65, baseY = 200;
+  ctx.strokeStyle = '#5a6a80'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(30, baseY); ctx.lineTo(600, baseY); ctx.stroke();
+  cats.forEach((cat, i) => {
+    const x = startX + i*(barW+gap);
+    ctx.fillStyle = mode === 'high' ? '#00897b' : '#e53935';
+    ctx.fillRect(x, baseY - cat.h, barW, cat.h);
+    ctx.fillStyle = '#1a2340'; ctx.font = 'bold 13px monospace'; ctx.textAlign = 'center';
+    ctx.fillText(cat.val, x + barW/2, baseY - cat.h - 8);
+    ctx.fillStyle = '#5a6a80'; ctx.font = '10px monospace';
+    ctx.fillText(cat.lbl, x + barW/2, baseY + 16);
+  });
+  ctx.textAlign = 'left';
+  document.getElementById('devNote').innerHTML = mode === 'high'
+    ? '<strong style="color:var(--white)">A high-income example:</strong> high GDP per person is accompanied by a high HDI score, long life expectancy, and many years of schooling — the indicators move TOGETHER.'
+    : '<strong style="color:var(--white)">A low-income example:</strong> a much lower GDP per person comes with a lower HDI, shorter life expectancy, and fewer years of schooling — but notice these indicators are NOT identically low, which is exactly why economists look at more than income alone.';
+}
+drawDev('high');
+
+// ============ s4: CAUSES OF INTERNATIONAL DEVELOPMENT DIFFERENCES ============
+const CAUSE_TABS = [
+  {key:'income', lbl:'Income', html:`Countries with higher average incomes can invest more in infrastructure, healthcare and education, which reinforces higher development over time — a virtuous cycle.`},
+  {key:'productivity', lbl:'Productivity', html:`Higher productivity (output per worker) usually comes with better technology, training and capital, and translates into higher wages and living standards.`},
+  {key:'popgrowth', lbl:'Population Growth', html:`Very high population growth can outpace a country's ability to build schools, hospitals and jobs, spreading limited resources more thinly per person.`},
+  {key:'sector', lbl:'Sector Balance', html:`Economies dominated by low-value primary-sector activity (e.g. subsistence farming) tend to have lower incomes than those with larger secondary (manufacturing) and tertiary (services) sectors.`},
+  {key:'saving', lbl:'Saving &amp; Investment', html:`Higher domestic saving allows more investment in capital and infrastructure, raising future productive capacity — countries with very low savings often struggle to fund this investment themselves.`},
+  {key:'education', lbl:'Education', html:`More years of schooling and better-quality education build a more skilled workforce capable of higher-productivity, higher-paying work.`},
+  {key:'healthcare', lbl:'Healthcare', html:`Better healthcare raises life expectancy and worker productivity, and reduces the economic disruption caused by preventable illness.`},
+  {key:'resources', lbl:'Natural Resources', html:`Resource-rich countries can gain a valuable income boost — but only if that wealth is well-managed; poorly-governed resource wealth can even slow development (the "resource curse").`}
+];
+let causeActive = 0;
+const causeTabsEl = document.getElementById('causeTabs');
+CAUSE_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.innerHTML = t.lbl;
+  b.onclick = () => { causeActive=i; document.querySelectorAll('#causeTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderCause(); };
+  causeTabsEl.appendChild(b);
+});
+function renderCause() { document.getElementById('causePanel').innerHTML = CAUSE_TABS[causeActive].html; }
+renderCause();
+
+// ============ s5: GLOBALISATION — DEFINITION & CAUSES ============
+const GLOB_TABS = [
+  {key:'def', lbl:'Definition', html:`<strong>Globalisation</strong> is the growing economic, social and cultural interconnection of countries worldwide — through trade, investment, migration, and the spread of technology and ideas.`},
+  {key:'trade', lbl:'↓ Trade Restrictions', html:`As tariffs, quotas and other barriers to trade have fallen across many countries (often through trade agreements), goods and services move more freely between borders — a major driver of globalisation.`},
+  {key:'transport', lbl:'↓ Transport Costs', html:`Cheaper, faster shipping and air freight (e.g. standardised container shipping) have made it far more economical to move goods over long distances.`},
+  {key:'comms', lbl:'↓ Communication Costs', html:`The internet and mobile technology let businesses coordinate global supply chains and communicate instantly and cheaply across the world.`},
+  {key:'mnc', lbl:'MNC Movement', html:`Multinational companies expanding operations and investment into new countries have been a major driver of deeper global economic integration.`}
+];
+let globActive = 0;
+const globTabsEl = document.getElementById('globTabs');
+GLOB_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.innerHTML = t.lbl;
+  b.onclick = () => { globActive=i; document.querySelectorAll('#globTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderGlob(); };
+  globTabsEl.appendChild(b);
+});
+function renderGlob() { document.getElementById('globPanel').innerHTML = GLOB_TABS[globActive].html; }
+renderGlob();
+
+// ============ s6: EFFECTS OF GLOBALISATION ============
+const EFF_TABS = [
+  {key:'trade', lbl:'Trade', html:`International trade in goods and services has grown massively, giving consumers access to a wider variety of products, often at lower prices.`},
+  {key:'competition', lbl:'Competition', html:`Domestic firms now compete with firms worldwide — this can drive innovation and efficiency, but can also put smaller local firms out of business.`},
+  {key:'environment', lbl:'Environment', html:`Moving goods and materials globally, and rising production to meet global demand, has increased energy use and carbon emissions worldwide.`},
+  {key:'migration', lbl:'Migration', html:`Globalisation has made it easier for workers to move to where jobs and wages are better, though this can create both opportunity and social tension.`},
+  {key:'income', lbl:'Income Distribution', html:`The gains from globalisation have not been shared evenly — some workers and regions have benefited hugely, while others (e.g. in industries facing new low-cost competition) have lost out.`},
+  {key:'development', lbl:'Economic Development', html:`Globalisation has helped some countries develop rapidly by connecting them to global markets and investment — but has left others behind, especially where infrastructure or institutions are weak.`}
+];
+let effActive = 0;
+const effTabsEl = document.getElementById('effTabs');
+EFF_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { effActive=i; document.querySelectorAll('#effTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderEff(); };
+  effTabsEl.appendChild(b);
+});
+function renderEff() { document.getElementById('effPanel').innerHTML = EFF_TABS[effActive].html; }
+renderEff();
+
+// ============ s7: MNCs — HOST & HOME ============
+const MNC_TABS = [
+  {key:'hostadv', lbl:'Host: Advantages', html:`New jobs, new tax revenue, transfer of technology and skills, and improved infrastructure built to support the new investment.`},
+  {key:'hostdis', lbl:'Host: Disadvantages', html:`Profits often flow back to the home country rather than staying local; MNCs can also out-compete smaller domestic firms and put pressure on local wages, working conditions, or the environment.`},
+  {key:'homeadv', lbl:'Home: Advantages', html:`Access to new markets and often cheaper production, which can boost the profits (and share prices) of the home country's own companies and shareholders.`},
+  {key:'homedis', lbl:'Home: Disadvantages', html:`Jobs and production can move abroad in search of lower costs, potentially reducing domestic employment in the industries affected.`}
+];
+let mncActive = 0;
+const mncTabsEl = document.getElementById('mncTabs');
+MNC_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { mncActive=i; document.querySelectorAll('#mncTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderMnc(); };
+  mncTabsEl.appendChild(b);
+});
+function renderMnc() { document.getElementById('mncPanel').innerHTML = MNC_TABS[mncActive].html; }
+renderMnc();
+
+// ============ s8: BARRIERS TO DEVELOPMENT ============
+const BARRIER_TABS = [
+  {key:'debt', lbl:'Debt Burden', html:`Heavy government debt (often owed to foreign lenders) can force a country to spend a large share of its budget on interest payments, leaving less available for healthcare, education, or infrastructure.`},
+  {key:'institutions', lbl:'Weak Institutions &amp; Conflict', html:`Weak institutions (e.g. corruption, unclear property rights, unstable government) and ongoing conflict discourage both domestic and foreign investment, making it far harder to break out of the poverty cycle.`}
+];
+let barrierActive = 0;
+const barrierTabsEl = document.getElementById('barrierTabs');
+BARRIER_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'barrier-tab' + (i===0?' active':'');
+  b.innerHTML = t.lbl;
+  b.onclick = () => { barrierActive=i; document.querySelectorAll('#barrierTabs .barrier-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderBarrier(); };
+  barrierTabsEl.appendChild(b);
+});
+function renderBarrier() { document.getElementById('barrierPanel').innerHTML = BARRIER_TABS[barrierActive].html; }
+renderBarrier();
+
+// ============ s9: SUSTAINABILITY & CLIMATE ECONOMICS ============
+const SUS_TABS = [
+  {key:'def', lbl:'What Is Sustainability?', html:`Meeting the needs of the present generation without compromising the ability of future generations to meet their own needs — increasingly integrated as a cross-cutting theme across the whole syllabus, not a separate topic.`},
+  {key:'tension', lbl:'Growth vs. the Environment', html:`Economic growth has historically been linked to rising resource use and emissions — creating a real tension between raising living standards today and preserving the environment for the future.`},
+  {key:'policy', lbl:'Policy Responses', html:`Governments can respond with carbon pricing, subsidies for renewable energy, environmental regulation, and international agreements — though these can raise costs for firms and consumers in the short run.`}
+];
+let susActive = 0;
+const susTabsEl = document.getElementById('susTabs');
+SUS_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { susActive=i; document.querySelectorAll('#susTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderSus(); };
+  susTabsEl.appendChild(b);
+});
+function renderSus() { document.getElementById('susPanel').innerHTML = SUS_TABS[susActive].html; }
+renderSus();
+
+// ============ s10: IB HL ENRICHMENT ============
+const HL_TABS = [
+  {key:'ladder', lbl:'The Integration Ladder', html:`Trade blocs deepen in stages: <strong>Preferential Trade Agreement</strong> → <strong>Free Trade Area</strong> → <strong>Customs Union</strong> (common external tariff) → <strong>Common Market</strong> (free movement of labour/capital) → <strong>Monetary Union</strong> (shared currency, e.g. the Eurozone). Not required at IGCSE 0455.`},
+  {key:'institutions', lbl:'WTO / IMF / World Bank', html:`The <strong>World Trade Organization (WTO)</strong> oversees global trade rules and dispute resolution; the <strong>IMF</strong> provides financial stability support and short-term loans; the <strong>World Bank</strong> provides longer-term development financing. None of these institutions are named in the IGCSE 0455 syllabus.`},
+  {key:'strategies', lbl:'Development Strategies (Named)', html:`Named strategies include trade-based strategies (export promotion vs. import substitution), diversification, market-based vs. interventionist approaches, foreign aid, foreign direct investment (FDI), and institutional/governance reform. Not required at IGCSE 0455.`}
+];
+let hlActive = 0;
+const hlTabsEl = document.getElementById('hlTabs');
+HL_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { hlActive=i; document.querySelectorAll('#hlTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderHl(); };
+  hlTabsEl.appendChild(b);
+});
+function renderHl() { document.getElementById('hlPanel').innerHTML = HL_TABS[hlActive].html; }
+renderHl();
+
+// ============ s-pn: POSITIVE OR NORMATIVE ============
+const PN_ITEMS = [
+  {text:'Economic development includes improvements in health and education, not just income.', type:'positive'},
+  {text:'Every country should prioritise growth over environmental protection.', type:'normative'},
+  {text:'A multinational company setting up in a country creates both benefits and costs for that country.', type:'positive'},
+  {text:'Rich countries have a moral duty to help poorer countries develop.', type:'normative'},
+  {text:'The Human Development Index combines health, education and income into one score.', type:'positive'},
+  {text:'Free trade agreements should always be signed, no matter which industry is affected.', type:'normative'}
+];
+let pnIdx=0, pnScore=0, pnStreak=0, pnInited=false;
+function initPN() { pnInited = true; renderPN(); }
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🌟 You can tell a testable claim apart from a value judgement!';
+    return;
+  }
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
+}
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\'s '+item.type+'.'; document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
+}
+
+// ============ EXAM ADAPTER SLOT ============
+const ADAPTER = {
+  igcse: '<strong>Section B extended response (12–16 marks):</strong> compare two countries\' living standards using GDP and HDI data, and recommend a development strategy — a full independent attempt is expected at this stage.',
+  ib: '<strong>IB Paper 1 Part (b) full practice:</strong> "Evaluate whether free trade promotes economic development" — 15 marks, 20 minutes. A real-world example is REQUIRED as evidence — naming a country/policy and stating the relevant fact before linking it back to the argument, not just decorating the paragraph.'
+};
+function setAdapter(el) {
+  document.querySelectorAll('.adapter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('adapterPanel').innerHTML = ADAPTER[el.dataset.b];
+}
+setAdapter(document.querySelector('.adapter-tab[data-b="igcse"]'));
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'What is the key difference between growth and development?', opts:['They are the same thing measured differently','Growth is a rise in output; development is a broader improvement in well-being','Development only happens in rich countries'], correct:1, explain:'Growth is about output (GDP) rising; development includes health, education, and income together — growth alone doesn\'t guarantee it.' },
+  { q:'Which of these is a component of the HDI?', opts:['Life expectancy at birth','The country\'s exchange rate','The size of its current account deficit'], correct:0, explain:'HDI combines health (life expectancy), education (years of schooling), and standard of living (GNI per capita).' },
+  { q:'Name one advantage of an MNC investing in a host country.', opts:['Guaranteed elimination of local competition','New jobs and tax revenue for the host country','Automatic reduction in the host country\'s national debt'], correct:1, explain:'MNCs can bring new jobs, tax revenue, technology transfer, and infrastructure investment to the host country.' },
+  { q:'What does the "poverty cycle" describe?', opts:['A one-time shock that quickly resolves itself','A self-reinforcing loop of low income → low investment → low productivity → low output', 'A cycle that only affects a country\'s exchange rate'], correct:1, explain:'The poverty cycle is a self-reinforcing loop that can trap a country in low development without outside help or a policy shock.' },
+  { q:'Why is a real-world example important in an IB Part (b) answer?', opts:['It is optional decoration to make the essay longer','It is REQUIRED evidence — naming a fact and linking it back to the argument','It replaces the need for any economic theory'], correct:1, explain:'IB Part (b) answers require real-world evidence used as genuine support for the argument, not just theory alone.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect — growth, development, and globalisation all locked in! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>
