@@ -179,6 +179,15 @@ table.sys-tbl td:first-child { font-family:'Bebas Neue',sans-serif; font-size:14
 .quiz-explain strong { color:var(--gold); }
 .quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:54px; color:var(--gold); text-align:center; }
 .quiz-score-msg { font-size:15px; color:var(--dim); text-align:center; margin-top:6px; }
+/* ===== s-news: REAL-WORLD HEADLINES ===== */
+#s-news { flex-direction:column; gap:10px; }
+.news-grid { display:flex; flex-direction:column; gap:8px; max-width:800px; width:100%; max-height:340px; overflow-y:auto; padding-right:4px; }
+.news-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 16px; cursor:pointer; transition:border-color 0.15s; }
+.news-card:hover { border-color:var(--gold); }
+.news-headline { font-family:'Bebas Neue',sans-serif; font-size:15px; color:var(--blue); }
+.news-source { font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.news-out { font-size:11.5px; color:var(--dim); margin-top:6px; line-height:1.6; display:none; }
+.news-out.show { display:block; }
 </style>
 </head>
 <body>
@@ -394,6 +403,17 @@ table.sys-tbl td:first-child { font-family:'Bebas Neue',sans-serif; font-size:14
   </div>
 </section>
 
+<!-- ============ s-news: REAL-WORLD HEADLINES ============ -->
+<section class="slide" id="s-news">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">In the News</div>
+    <div class="big-title">Real-World Headlines</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Tap a headline to see how it connects to this lesson's economics.</p>
+  </div>
+  <div class="news-grid" id="newsGrid"></div>
+</section>
+
 <!-- ============ EXAM ADAPTER SLOT ============ -->
 <section class="slide" id="s-adapter">
   <div class="grid-bg"></div>
@@ -446,7 +466,7 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const QUIZ_SLIDE_IDX = 10; // s-quiz is the 11th slide (0-indexed 10)
+const QUIZ_SLIDE_IDX = 11; // s-quiz is the 12th slide (0-indexed 11)
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -594,6 +614,21 @@ function pnAnswer(choice) {
   setTimeout(renderPN, 1600);
 }
 renderPN();
+
+// ============ s-news: REAL-WORLD HEADLINES ============
+const NEWS_ITEMS = [
+  {headline:'Farmers Warn of Land Shortage as Demand for Housing and Crops Collide', source:'National Business Wire', link:'A real-world scarcity story — land is a finite factor of production, and using it for housing means less is available for farming. This is opportunity cost at a national scale.'},
+  {headline:'Government Weighs Whether to Fund New Hospitals or New Highways', source:'Global Economic Bulletin', link:'Every government budget is a PPC-style choice — spending on one public good is spending NOT available for another, illustrating opportunity cost in real policy.'},
+  {headline:'Economists Clash Over Whether Minimum Wage Hike "Should" Happen', source:'Financial Times Wire', link:'"Should" signals a normative statement — a value judgement that can\'t be proven true or false by data alone, unlike a positive (testable) economic claim.'}
+];
+const newsGrid = document.getElementById('newsGrid');
+NEWS_ITEMS.forEach((n,i) => {
+  const card = document.createElement('div');
+  card.className = 'news-card';
+  card.innerHTML = `<div class="news-headline">"${n.headline}"</div><div class="news-source">${n.source}</div><div class="news-out" id="newsOut${i}">${n.link}</div>`;
+  card.onclick = () => { document.getElementById('newsOut'+i).classList.toggle('show'); };
+  newsGrid.appendChild(card);
+});
 
 // ============ EXAM ADAPTER SLOT ============
 const ADAPTER = {

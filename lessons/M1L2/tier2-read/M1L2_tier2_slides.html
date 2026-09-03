@@ -144,6 +144,15 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .quiz-explain strong { color:var(--gold); }
 .quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
 .quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+/* ===== s-news: REAL-WORLD HEADLINES ===== */
+#s-news { flex-direction:column; gap:10px; }
+.news-grid { display:flex; flex-direction:column; gap:8px; max-width:800px; width:100%; max-height:340px; overflow-y:auto; padding-right:4px; }
+.news-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 16px; cursor:pointer; transition:border-color 0.15s; }
+.news-card:hover { border-color:var(--gold); }
+.news-headline { font-family:'Bebas Neue',sans-serif; font-size:15px; color:var(--blue); }
+.news-source { font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.news-out { font-size:11.5px; color:var(--dim); margin-top:6px; line-height:1.6; display:none; }
+.news-out.show { display:block; }
 </style>
 </head>
 <body>
@@ -260,6 +269,17 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   </div>
 </section>
 
+<!-- ============ s-news: REAL-WORLD HEADLINES ============ -->
+<section class="slide" id="s-news">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">In the News</div>
+    <div class="big-title">Real-World Headlines</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Tap a headline to see how it connects to this lesson's economics.</p>
+  </div>
+  <div class="news-grid" id="newsGrid"></div>
+</section>
+
 <!-- ============ 8. EXAM ADAPTER SLOT ============ -->
 <section class="slide" id="s-adapter">
   <div class="grid-bg"></div>
@@ -312,7 +332,7 @@ const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
 const GAME_SLIDE_IDX = 6;  // s5 positive/normative
-const QUIZ_SLIDE_IDX = 8;  // s-quiz
+const QUIZ_SLIDE_IDX = 9;  // s-quiz
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -516,6 +536,21 @@ function pnAnswer(choice) {
   pnIdx++;
   setTimeout(renderPN, 1600);
 }
+
+// ============ s-news: REAL-WORLD HEADLINES ============
+const NEWS_ITEMS = [
+  {headline:'Coffee Prices Spike After Poor Harvest Hits Global Supply', source:'Global Trade Wire', link:'A classic supply shock — a leftward shift in the supply curve (with demand unchanged) pushes the equilibrium price up and quantity down, exactly as the D/S model predicts.'},
+  {headline:'Sneaker Resale Market Booms as Limited-Edition Drops Sell Out in Minutes', source:'Consumer Affairs Wire', link:'Fixed supply meets high demand — the market clears at a much higher price than the "sticker price," showing how equilibrium price is set by where demand meets available supply.'},
+  {headline:'Retailers Report Empty Shelves as Shoppers Rush to Buy Ahead of Price Rise', source:'National Business Wire', link:'A rightward shift in demand (buying now in anticipation of higher prices later) raises both price and quantity traded at the new equilibrium — demand-side movement in action.'}
+];
+const newsGrid = document.getElementById('newsGrid');
+NEWS_ITEMS.forEach((n,i) => {
+  const card = document.createElement('div');
+  card.className = 'news-card';
+  card.innerHTML = `<div class="news-headline">"${n.headline}"</div><div class="news-source">${n.source}</div><div class="news-out" id="newsOut${i}">${n.link}</div>`;
+  card.onclick = () => { document.getElementById('newsOut'+i).classList.toggle('show'); };
+  newsGrid.appendChild(card);
+});
 
 // ============ EXAM ADAPTER ============
 const ADAPTER = {
