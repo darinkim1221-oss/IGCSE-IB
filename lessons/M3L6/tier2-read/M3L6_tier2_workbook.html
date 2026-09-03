@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework Workbook — Course Finale Mock (Tier 2) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:8px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:30px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.meta-strip { display:flex; gap:8px; margin:14px 0 28px; flex-wrap:wrap; }
+.pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:var(--blue); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 11px; border-radius:20px; text-transform:uppercase; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:28px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:30px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:14px; }
+.q-block { margin-bottom:22px; page-break-inside:avoid; }
+.q-num { font-family:'Space Mono',monospace; font-size:11px; color:var(--gold); font-weight:700; margin-right:6px; }
+.q-text { font-size:14px; line-height:1.7; margin-bottom:8px; }
+.marks { font-family:'Space Mono',monospace; font-size:10px; color:var(--teal); font-weight:700; }
+.q-opts { list-style:none; padding-left:6px; }
+.q-opts li { font-size:13px; color:var(--white); padding:4px 0; }
+.q-opts li::before { content:'○  '; color:var(--dim); }
+.answer-line { border-bottom:1px solid rgba(0,0,0,0.18); height:26px; margin-bottom:4px; }
+.work-box { background:var(--card); border:1px dashed rgba(0,0,0,0.18); border-radius:8px; height:96px; margin-top:6px; position:relative; }
+.work-box .wb-tag { position:absolute; top:6px; left:10px; font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); text-transform:uppercase; letter-spacing:1px; }
+.tier-band { display:inline-block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1px; text-transform:uppercase; padding:2px 8px; border-radius:10px; margin-left:8px; }
+.band-easy { background:rgba(0,137,123,0.1); color:var(--teal); }
+.band-med { background:rgba(200,150,10,0.12); color:var(--gold); }
+.band-hard { background:rgba(229,57,53,0.1); color:var(--red); }
+.data-table { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:8px; }
+.data-table th, .data-table td { padding:7px 10px; border:1px solid rgba(0,0,0,0.1); text-align:left; }
+.data-table th { background:var(--card); font-family:'Space Mono',monospace; font-size:10px; text-transform:uppercase; color:var(--blue); }
+.extended-box { background:linear-gradient(135deg,rgba(13,45,82,0.05),rgba(13,45,82,0.01)); border:1px solid rgba(13,45,82,0.15); border-radius:12px; padding:16px 20px; margin-top:10px; }
+.extended-box .etag { font-family:'Space Mono',monospace; font-size:10px; color:var(--blue); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+.sample-ans { background:var(--card); border-radius:8px; padding:10px 14px; font-size:12.5px; color:var(--dim); line-height:1.7; margin-top:8px; }
+.sample-ans .sa-tag { font-family:'Space Mono',monospace; font-size:9px; color:var(--red); text-transform:uppercase; letter-spacing:1px; display:block; margin-bottom:4px; }
+
+.answer-key { margin-top:50px; padding-top:24px; border-top:3px dashed var(--gold); page-break-before:always; }
+.ak-title { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--gold); margin-bottom:16px; }
+.ak-item { font-size:13px; line-height:1.7; margin-bottom:12px; }
+.ak-item strong { color:var(--teal); }
+.ak-item .why { color:var(--dim); }
+.ms-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--red); }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+@media print {
+  body { background:#fff; }
+  .page { box-shadow:none; padding:0; }
+}
+
+/* ===== Editable answer fields ===== */
+[contenteditable="true"] { outline:none; cursor:text; -webkit-user-modify:read-write-plaintext-only; }
+[contenteditable="true"]:hover { background:rgba(200,150,10,0.05); }
+[contenteditable="true"]:focus { background:rgba(200,150,10,0.08); box-shadow:0 0 0 2px var(--gold) inset; border-radius:4px; }
+.answer-line[contenteditable="true"] { padding:2px 6px; font-size:13px; line-height:22px; color:var(--white); font-family:'Noto Sans KR',sans-serif; white-space:pre-wrap; }
+.work-box .wb-content { position:absolute; top:24px; left:10px; right:10px; bottom:8px; overflow-y:auto; font-size:12.5px; line-height:1.6; color:var(--white); white-space:pre-wrap; }
+td[contenteditable="true"] { min-width:60px; }
+.blank-fill { display:inline-block; min-width:32px; border-bottom:1px solid rgba(0,0,0,0.35); text-align:center; padding:0 4px; margin-right:2px; font-family:'Space Mono',monospace; font-size:12.5px; font-weight:700; color:var(--white); text-transform:uppercase; }
+.blank-fill[contenteditable="true"]:hover { background:rgba(200,150,10,0.06); }
+.blank-fill[contenteditable="true"]:focus { background:rgba(200,150,10,0.08); box-shadow:0 0 0 2px var(--gold) inset; border-radius:4px; }
+.q-opts.selectable li { cursor:pointer; border-radius:8px; padding:4px 8px; transition:background 0.12s, color 0.12s; }
+.q-opts.selectable li:hover { background:rgba(200,150,10,0.07); }
+.q-opts.selectable li.selected { background:rgba(0,137,123,0.10); font-weight:700; }
+.q-opts.selectable li.selected::before { content:'●  '; color:var(--teal); }
+.autosave-note { font-size:9px; color:var(--dim); text-align:center; margin-top:10px; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+.autosave-note .reset-link { color:var(--gold); cursor:pointer; text-decoration:underline; }
+@media print {
+  [contenteditable="true"]:focus, [contenteditable="true"]:hover { box-shadow:none; background:none; }
+  .q-opts.selectable li:hover { background:none; }
+  .q-opts.selectable li.selected { background:none; }
+  .autosave-note { display:none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 3 · Global Economics — Lesson 6</div>
+      <div class="k-title">Course Finale Mock: Evaluation &amp; Real-World Evidence</div>
+      <div class="k-sub">Homework Workbook · Tier 2 — Read the Map (Ages 13–15)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="meta-strip">
+    <div class="pill">Timed mock format</div>
+    <div class="pill">9 questions</div>
+    <div class="pill">+ 1 extended response</div>
+    <div class="pill">~35 min</div>
+    <div class="pill">Self-mark against the key</div>
+  </div>
+  <div class="cc-chips">
+    <span class="cc-chip">Whole-Course Synthesis</span><span class="cc-chip">Levels of Response</span>
+    <span class="cc-chip">Real-World Evidence</span>
+  </div>
+
+  <div class="section-tag">Section A — Multiple Choice (1 mark each)</div>
+  <div class="big-title">Whole-course warm-up</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">1.</span> Two countries each specialise in what they produce relatively best, then trade. This is based on: <span class="marks">[1]</span><span class="tier-band band-easy">Easy</span></div>
+    <ul class="q-opts selectable">
+      <li>A. Absolute advantage only</li>
+      <li>B. Comparative advantage</li>
+      <li>C. A budget deficit</li>
+      <li>D. Protectionism</li>
+    </ul>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">2.</span> A government places a tax on imported cars to protect its domestic car industry. This is: <span class="marks">[1]</span><span class="tier-band band-easy">Easy</span></div>
+    <ul class="q-opts selectable">
+      <li>A. A subsidy</li>
+      <li>B. A tariff</li>
+      <li>C. An import quota</li>
+      <li>D. A trade bloc</li>
+    </ul>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">3.</span> A country's central bank raises interest rates, attracting foreign investment. This most directly causes the currency to: <span class="marks">[1]</span><span class="tier-band band-easy">Easy</span></div>
+    <ul class="q-opts selectable">
+      <li>A. Depreciate</li>
+      <li>B. Appreciate</li>
+      <li>C. Stay perfectly fixed</li>
+      <li>D. Become worthless</li>
+    </ul>
+  </div>
+
+  <div class="section-tag">Section B — Short Answer (command-term precision)</div>
+  <div class="big-title">Say it the way an examiner rewards</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">4.</span> <strong>Define</strong> "trade in goods" balance and <strong>define</strong> "current account," then <strong>explain</strong>, in one sentence, why economists insist on keeping the two terms separate. <span class="marks">[3]</span><span class="tier-band band-med">Medium</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">5.</span> A student writes: "Multinational companies are always good for a country's economy." <strong>Explain</strong> why this sentence is imprecise, and <strong>rewrite</strong> it using correct economic wording. <span class="marks">[2]</span><span class="tier-band band-med">Medium</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="section-tag">Section C — Data Response</div>
+  <div class="big-title">Verdania: a currency depreciation event</div>
+
+  <div class="q-block">
+    <div class="q-text">The table shows Verdania's exchange rate (units of its currency per $1) and total export revenue, before and after a period of depreciation.</div>
+    <table class="data-table">
+      <tr><th></th><th>Exchange Rate (per $1)</th><th>Export Revenue ($bn)</th></tr>
+      <tr><td>Before depreciation</td><td>1,200</td><td>50</td></tr>
+      <tr><td>After depreciation</td><td>1,400</td><td>58</td></tr>
+    </table>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">6.</span> (a) <strong>Calculate</strong> the percentage change in the exchange rate. (b) <strong>Calculate</strong> the percentage change in export revenue. <span class="marks">[5]</span><span class="tier-band band-hard">Challenging</span></div>
+    <div class="work-box"><span class="wb-tag">Working</span><div class="wb-content" contenteditable="true" spellcheck="false"></div></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">7.</span> <strong>Explain</strong> how the depreciation affected export revenue shown in the data, and <strong>explain</strong> what this data suggests about a possible downside of depreciation for domestic consumers. <span class="marks">[4]</span><span class="tier-band band-hard">Challenging</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">8.</span> <strong>Discuss</strong> ONE reason Verdania's government might welcome this depreciation and ONE reason critics might object, referring to the data above. <span class="marks">[4]</span><span class="tier-band band-hard">Challenging</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="section-tag">Section D — Levels of Response Practice</div>
+  <div class="big-title">Spot the band, then upgrade it</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">9.</span> Below is a Band 1 answer to the question: "Discuss whether free trade benefits all countries equally." <strong>Identify</strong> THREE specific improvements that would move it into Band 3. <span class="marks">[3]</span><span class="tier-band band-hard">Challenging</span></div>
+    <div class="sample-ans"><span class="sa-tag">Band 1 sample answer</span>"Free trade is good because countries can sell more things. This helps everyone. So free trade always benefits every country equally."</div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="extended-box">
+    <div class="etag">Extended Response · mock exam · Evaluate</div>
+    <div class="q-text"><strong>10.</strong> <strong>Evaluate</strong> whether a developing country should prioritise export-led growth (free trade) or protecting domestic industries (protectionism) to promote economic development. Structure your answer as CLAIM → ANALYSIS → COUNTER → JUDGEMENT, referring to at least THREE concepts from this course (e.g. comparative advantage, tariffs, the infant industry argument, the current account) AND at least ONE named real-world example or institution as evidence. <span class="marks">[8]</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="answer-key">
+    <div class="ak-title">Answer Key &amp; Mark Scheme Notes</div>
+    <div class="ak-item"><strong>1.</strong> B — Comparative advantage. <span class="ms-tag">[1 mark]</span></div>
+    <div class="ak-item"><strong>2.</strong> B — A tariff. <span class="ms-tag">[1 mark]</span></div>
+    <div class="ak-item"><strong>3.</strong> B — Appreciate. <span class="ms-tag">[1 mark]</span></div>
+    <div class="ak-item"><strong>4.</strong> Trade in goods balance: the difference between the value of physical goods a country exports and imports. Current account: a BROADER measure combining trade in goods, trade in services, primary income, and secondary income. The terms are kept separate because the current account can be in surplus or deficit even when the trade-in-goods balance alone points the other way — services, income, and remittances can shift the overall picture. <span class="why">[1 mark each definition, 1 mark for the distinction]</span></div>
+    <div class="ak-item"><strong>5.</strong> It is imprecise because MNCs create both benefits (jobs, tax revenue, technology transfer) AND costs (competition for local firms, profits flowing back to the home country, environmental pressure) — "always good" ignores the trade-off. Correct version: "Multinational companies can bring real benefits to a host country, such as jobs and tax revenue, but also real costs, such as competition for local businesses." <span class="why">[1 mark for identifying the overgeneralisation, 1 mark for a correctly worded rewrite naming at least one benefit and one cost]</span></div>
+    <div class="ak-item"><strong>6.</strong> (a) % change in exchange rate = (1,400 − 1,200) ÷ 1,200 × 100 = <strong>+16.7%</strong> (the currency needs MORE units per $1, i.e. depreciation). (b) % change in export revenue = (58 − 50) ÷ 50 × 100 = <strong>+16%</strong>. <span class="why">[2–3 marks per correct calculation with method shown]</span></div>
+    <div class="ak-item"><strong>7.</strong> The depreciation made Verdania's exports cheaper in foreign-currency terms, boosting demand and raising export revenue from $50bn to $58bn. However, a weaker currency also makes IMPORTS more expensive in domestic-currency terms, which can raise the cost of imported goods for domestic consumers and contribute to inflationary pressure — a common downside of depreciation. <span class="why">[2 marks correctly explaining the export effect from the data, 2 marks correctly reasoning the import/consumer downside]</span></div>
+    <div class="ak-item"><strong>8.</strong> Government reason (accept any reasonable, e.g.): higher export revenue can boost domestic output and jobs in export industries, supporting growth. Critic's objection (accept any reasonable, e.g.): more expensive imports can raise the cost of living for consumers and raise costs for firms that rely on imported inputs, potentially fuelling inflation. <span class="why">[2 marks per reason: 1 for a valid reason, 1 for linking it explicitly to the data/scenario]</span></div>
+    <div class="ak-item"><strong>9.</strong> Accept any THREE of: (1) define free trade and comparative advantage precisely rather than assuming the reader knows; (2) add ANALYSIS — explain the mechanism (specialising in comparative advantage and trading raises total output for both trading partners); (3) add a COUNTER — countries with weak infrastructure, institutions, or negotiating power may capture a much smaller share of the gains, so benefits are NOT necessarily equal; (4) end with a JUDGEMENT that is CONDITIONAL rather than absolute (e.g. "free trade tends to raise total output, but how EQUALLY the gains are shared depends heavily on each country's starting infrastructure and institutions"). <span class="why">[1 mark per valid, specific improvement named — must describe what Band 1 is missing, not just restate the answer]</span></div>
+    <div class="ak-item"><strong>10.</strong> <strong>Band 3 (6–8 marks):</strong> CLAIM (e.g. "export-led growth is generally more effective long-term, but limited, temporary protectionism can be justified in specific cases"); ANALYSIS (specialising via comparative advantage and trading raises a country's total output and can fund development — supported by real-world evidence such as the European Union showing how deeper trade integration can accompany rising living standards among member states); COUNTER (the infant industry argument holds that brand-new domestic industries may need temporary tariff protection to grow strong enough to compete internationally, since immediate full exposure to established foreign competitors could prevent them from ever developing); JUDGEMENT (a supported conclusion such as "export-led growth is the stronger long-run strategy for most developing countries, but short-term, clearly time-limited protection for a small number of genuinely infant industries can be a reasonable complement, not a replacement, for openness"). <strong>Band 2 (3–5):</strong> names relevant concepts (comparative advantage, tariffs) but the four-part structure is incomplete — e.g. no real counter-argument, no real-world example, or a judgement that is just a restated claim. <strong>Band 1 (1–2):</strong> a one-sided assertion ("free trade always works best" or "protectionism always works best") with no named concept, no real-world evidence, and no conditional judgement.</div>
+  </div>
+
+  <div class="footer">M3L6 · Economics Academy · Stoic Edu</div>
+  <div class="autosave-note">Your typed answers autosave in this browser on this device · Press Enter on a blank line to add another line · <span class="reset-link" id="resetAnswersBtn">Clear my answers</span></div>
+</div>
+
+<script>
+(function(){
+  var STORAGE_KEY = 'stoic-edu-workbook::' + location.pathname;
+  var EXTRAS_KEY = STORAGE_KEY + '::extras';
+  var SELECT_KEY = STORAGE_KEY + '::selected';
+
+  function each(list, fn){ Array.prototype.forEach.call(list, fn); }
+
+  function allFields(){
+    return document.querySelectorAll('.answer-line[contenteditable="true"], .wb-content[contenteditable="true"], td[contenteditable="true"], .blank-fill[contenteditable="true"]');
+  }
+
+  function focusEnd(el){
+    el.focus();
+    try {
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } catch(e) {}
+  }
+
+  function saveAnswers(){
+    var data = {};
+    each(allFields(), function(el){ data[el.dataset.fieldId] = el.textContent; });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+  function loadAnswers(){
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      each(allFields(), function(el){
+        if (saved[el.dataset.fieldId] !== undefined) el.textContent = saved[el.dataset.fieldId];
+      });
+    } catch(e) {}
+  }
+
+  function getExtrasOf(anchorEl){
+    var id = anchorEl.dataset.anchorId;
+    var result = [];
+    var node = anchorEl.nextElementSibling;
+    while (node && node.classList && node.classList.contains('answer-line') && !node.dataset.anchorId &&
+           node.dataset.fieldId && node.dataset.fieldId.indexOf(id + '_x') === 0) {
+      result.push(node);
+      node = node.nextElementSibling;
+    }
+    return result;
+  }
+
+  function saveExtras(){
+    var counts = {};
+    each(document.querySelectorAll('.answer-line[data-anchor-id]'), function(anchorEl){
+      var n = getExtrasOf(anchorEl).length;
+      if (n > 0) counts[anchorEl.dataset.anchorId] = n;
+    });
+    try { localStorage.setItem(EXTRAS_KEY, JSON.stringify(counts)); } catch(e) {}
+  }
+
+  function attachAnswerLine(el){
+    el.addEventListener('input', saveAnswers);
+    el.addEventListener('keydown', function(ev){
+      if (ev.key === 'Enter') {
+        ev.preventDefault();
+        addLineAfter(el);
+      } else if (ev.key === 'Backspace' && el.dataset.fieldId.indexOf('_x') > -1 && el.textContent === '') {
+        ev.preventDefault();
+        removeLine(el);
+      }
+    });
+  }
+
+  function newLine(fieldId){
+    var el = document.createElement('div');
+    el.className = 'answer-line';
+    el.setAttribute('contenteditable', 'true');
+    el.setAttribute('spellcheck', 'false');
+    el.dataset.fieldId = fieldId;
+    attachAnswerLine(el);
+    return el;
+  }
+
+  function addLineAfter(el){
+    var anchorId = el.dataset.anchorId || el.dataset.fieldId.split('_x')[0];
+    var anchorEl = document.querySelector('.answer-line[data-anchor-id="' + anchorId + '"]');
+    var newIdx = getExtrasOf(anchorEl).length;
+    var lineEl = newLine(anchorId + '_x' + newIdx);
+    el.parentNode.insertBefore(lineEl, el.nextSibling);
+    focusEnd(lineEl);
+    saveExtras();
+    saveAnswers();
+  }
+
+  function removeLine(el){
+    var anchorId = el.dataset.fieldId.split('_x')[0];
+    var anchorEl = document.querySelector('.answer-line[data-anchor-id="' + anchorId + '"]');
+    var prev = el.previousElementSibling;
+    el.parentNode.removeChild(el);
+    each(getExtrasOf(anchorEl), function(node, i){ node.dataset.fieldId = anchorId + '_x' + i; });
+    if (prev) focusEnd(prev);
+    saveExtras();
+    saveAnswers();
+  }
+
+  // ----- Selectable multiple-choice / "circle it" option lists -----
+  function initSelectableLists(){
+    each(document.querySelectorAll('.q-opts.selectable'), function(ul, ulIdx){
+      var ulId = 'sel' + ulIdx;
+      ul.dataset.selId = ulId;
+      var items = ul.querySelectorAll('li');
+      each(items, function(li){
+        li.addEventListener('click', function(){
+          var already = li.classList.contains('selected');
+          each(items, function(other){ other.classList.remove('selected'); });
+          if (!already) li.classList.add('selected');
+          saveSelections();
+        });
+      });
+    });
+  }
+  function saveSelections(){
+    var data = {};
+    each(document.querySelectorAll('.q-opts.selectable'), function(ul){
+      var items = ul.querySelectorAll('li');
+      var sel = -1;
+      each(items, function(li, i){ if (li.classList.contains('selected')) sel = i; });
+      data[ul.dataset.selId] = sel;
+    });
+    try { localStorage.setItem(SELECT_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+  function loadSelections(){
+    try {
+      var saved = JSON.parse(localStorage.getItem(SELECT_KEY) || '{}');
+      each(document.querySelectorAll('.q-opts.selectable'), function(ul){
+        var idx = saved[ul.dataset.selId];
+        if (idx === undefined || idx < 0) return;
+        var items = ul.querySelectorAll('li');
+        if (items[idx]) items[idx].classList.add('selected');
+      });
+    } catch(e) {}
+  }
+
+  // Tag original answer-line blanks as stable anchors.
+  each(document.querySelectorAll('.answer-line[contenteditable="true"]'), function(el, i){
+    el.dataset.anchorId = 'a' + i;
+    el.dataset.fieldId = 'a' + i;
+  });
+
+  // Recreate any extra lines a student had added previously, from localStorage.
+  var extraCounts = {};
+  try { extraCounts = JSON.parse(localStorage.getItem(EXTRAS_KEY) || '{}'); } catch(e) {}
+  each(document.querySelectorAll('.answer-line[data-anchor-id]'), function(anchorEl){
+    var id = anchorEl.dataset.anchorId;
+    var count = extraCounts[id] || 0;
+    var ref = anchorEl;
+    for (var i = 0; i < count; i++) {
+      var lineEl = newLine(id + '_x' + i);
+      ref.parentNode.insertBefore(lineEl, ref.nextSibling);
+      ref = lineEl;
+    }
+  });
+
+  each(document.querySelectorAll('.answer-line[data-anchor-id]'), attachAnswerLine);
+
+  var autoIdx = 0;
+  each(document.querySelectorAll('.wb-content[contenteditable="true"], td[contenteditable="true"], .blank-fill[contenteditable="true"]'), function(el){
+    el.dataset.fieldId = 'g' + (autoIdx++);
+    el.addEventListener('input', saveAnswers);
+  });
+
+  initSelectableLists();
+  loadAnswers();
+  loadSelections();
+
+  var resetBtn = document.getElementById('resetAnswersBtn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function(){
+      if (confirm('Clear all typed answers and selections on this page? This also removes any extra lines you added.')) {
+        each(document.querySelectorAll('.answer-line[data-field-id*="_x"]'), function(el){ el.parentNode.removeChild(el); });
+        each(document.querySelectorAll('.answer-line[data-anchor-id], .wb-content[contenteditable="true"], td[contenteditable="true"], .blank-fill[contenteditable="true"]'), function(el){ el.textContent = ''; });
+        each(document.querySelectorAll('.q-opts.selectable li.selected'), function(li){ li.classList.remove('selected'); });
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(EXTRAS_KEY);
+          localStorage.removeItem(SELECT_KEY);
+        } catch(e) {}
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

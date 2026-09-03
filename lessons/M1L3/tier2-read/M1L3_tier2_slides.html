@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elasticity: Measuring Responsiveness | Stoic Edu</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
@@ -32,8 +32,9 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,3.6vw,40px); line-height:1.05; margin-bottom:14px; color:var(--white); }
 .btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
 .btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
-.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
 @keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
 
 /* ===== COVER ===== */
 #s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
@@ -60,7 +61,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .hyp-lbl { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; }
 .hyp-text { font-size:13px; color:var(--dim); line-height:1.7; margin-top:6px; }
 
-/* ===== s1 command term drill ===== */
+/* ===== s1: DEFINITIONS (command term drill) ===== */
 #s1 { flex-direction:column; gap:12px; }
 .cmd-tabs { display:flex; gap:8px; }
 .cmd-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
@@ -69,54 +70,52 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .cmd-answer { font-size:13.5px; line-height:1.8; color:var(--white); }
 .cmd-answer strong { color:var(--blue); }
 
-/* ===== s2 calculation walkthrough ===== */
+/* ===== s2: CONCEPT 1 — PED CALCULATION ===== */
 #s2 { flex-direction:column; gap:10px; }
 .calc-wrap { display:flex; gap:22px; max-width:860px; width:100%; align-items:flex-start; }
 .calc-scenario { width:260px; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 18px; font-size:12.5px; line-height:1.8; color:var(--dim); }
 .calc-scenario strong { color:var(--white); }
 .calc-steps { flex:1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; }
-.calc-line { font-family:'Space Mono',monospace; font-size:12.5px; color:var(--dim); padding:5px 0; opacity:0.25; transition:opacity 0.3s; }
+.calc-line { font-family:'Space Mono',monospace; font-size:12.5px; color:var(--dim); padding:5px 0; opacity:0.25; transition:opacity 0.3s; display:block; }
 .calc-line.show { opacity:1; color:var(--white); }
 .calc-line strong { color:var(--blue); }
-.calc-final { font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--teal); margin-top:6px; }
+.calc-final { font-family:'Bebas Neue',sans-serif; font-size:16px; color:var(--teal); margin-top:6px; }
 
-/* ===== s3 five-value ===== */
+/* ===== s3: CONCEPT 2 — PES ===== */
 #s3 { flex-direction:column; gap:10px; }
+.pes-tabs { display:flex; gap:8px; flex-wrap:wrap; }
+.pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:13px; padding:7px 16px; border-radius:20px; cursor:pointer; }
+.pes-tab.active { background:var(--teal); color:#fff; }
+.pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:800px; width:100%; min-height:150px; }
+
+/* ===== s4: KEY CONCEPT 3 — FIVE-VALUE VOCAB + REVENUE ===== */
+#s4 { flex-direction:column; gap:10px; }
 .pv-wrap { display:flex; gap:22px; max-width:860px; width:100%; align-items:center; }
 .pv-graph { flex:1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:10px; }
-.pv-tabs { width:240px; display:flex; flex-direction:column; gap:6px; }
+.pv-tabs { width:250px; display:flex; flex-direction:column; gap:6px; }
 .pv-tab { background:#fff; border:1px solid rgba(0,0,0,0.1); border-radius:10px; padding:7px 12px; font-size:11.5px; cursor:pointer; color:var(--dim); }
 .pv-tab.active { border-color:var(--blue); background:rgba(13,45,82,0.06); color:var(--blue); font-weight:700; }
-.pv-legend { font-size:11px; color:var(--dim); line-height:1.6; margin-top:4px; }
+.pv-legend { font-size:10.5px; color:var(--dim); line-height:1.6; margin-top:4px; }
+.pv-revenue { font-size:11px; color:var(--white); background:rgba(200,150,10,0.06); border-radius:8px; padding:7px 10px; margin-top:6px; }
+.pv-revenue strong { color:var(--gold); }
 
-/* ===== s4 revenue link ===== */
-#s4 { flex-direction:column; gap:10px; }
-.rev-wrap { display:flex; gap:22px; max-width:860px; width:100%; align-items:center; }
-.rev-graph { flex:1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:10px; }
-.rev-controls { width:250px; }
-.rev-readout { font-size:12px; color:var(--dim); line-height:1.8; margin-top:8px; }
-.rev-readout strong { color:var(--white); }
-
-/* ===== s5 determinants ===== */
-#s5 { flex-direction:column; gap:12px; }
-.det-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; max-width:800px; }
-.det-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:9px 11px; font-size:11px; color:var(--white); }
-.det-card strong { color:var(--blue); display:block; font-size:11.5px; margin-bottom:2px; }
-
-/* ===== s6 PES ===== */
-#s6 { flex-direction:column; gap:10px; }
-.pes-tabs { display:flex; gap:8px; }
-.pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
-.pes-tab.active { background:var(--teal); color:#fff; }
-.pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:800px; width:100%; min-height:170px; }
-
-/* ===== s7 IB enrichment ===== */
-#s7 { flex-direction:column; gap:10px; }
-.ib-tabs { display:flex; gap:8px; }
-.ib-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
-.ib-tab.active { background:var(--blue); color:#fff; }
-.ib-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:800px; width:100%; min-height:170px; font-size:12.5px; line-height:1.8; color:var(--white); }
-.ib-panel strong { color:var(--blue); }
+/* ===== s5: POSITIVE/NORMATIVE GAME ===== */
+#s5 { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
+.game-scenario { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:16px; color:var(--white); margin-bottom:14px; line-height:1.5; min-height:56px; }
+.answer-options { display:flex; gap:14px; justify-content:center; margin-bottom:10px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:17px; padding:9px 24px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:130px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); animation:pop 0.4s ease; }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); animation:shake 0.4s ease; }
+.game-feedback { font-size:12.5px; min-height:20px; font-family:'Space Mono',monospace; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:10px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
 
 /* ===== adapter ===== */
 #s-adapter { flex-direction:column; gap:10px; }
@@ -146,12 +145,21 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .quiz-explain strong { color:var(--gold); }
 .quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
 .quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+/* ===== s-news: REAL-WORLD HEADLINES ===== */
+#s-news { flex-direction:column; gap:10px; }
+.news-grid { display:flex; flex-direction:column; gap:8px; max-width:800px; width:100%; max-height:340px; overflow-y:auto; padding-right:4px; }
+.news-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 16px; cursor:pointer; transition:border-color 0.15s; }
+.news-card:hover { border-color:var(--gold); }
+.news-headline { font-family:'Bebas Neue',sans-serif; font-size:15px; color:var(--blue); }
+.news-source { font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.news-out { font-size:11.5px; color:var(--dim); margin-top:6px; line-height:1.6; display:none; }
+.news-out.show { display:block; }
 </style>
 </head>
 <body>
 <div id="slide-frame">
 
-<!-- ============ COVER ============ -->
+<!-- ============ 1. COVER ============ -->
 <section class="slide active" id="s-cover">
   <div class="cover-left"><canvas id="coverCanvas" width="260" height="220" class="ped-diagram"></canvas></div>
   <div class="cover-right">
@@ -163,7 +171,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
       <div class="cc-label">In this deck</div>
       <div class="cc-chips">
         <span class="cc-chip">PED</span><span class="cc-chip">PES</span>
-        <span class="cc-chip">Revenue Rule</span><span class="cc-chip">Tax Incidence</span>
+        <span class="cc-chip">Revenue Rule</span>
       </div>
     </div>
     <div class="cover-meta">
@@ -174,7 +182,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   </div>
 </section>
 
-<!-- ============ s0 HOOK ============ -->
+<!-- ============ 2. HOOK ============ -->
 <section class="slide" id="s0">
   <div class="grid-bg"></div>
   <div class="tag">Hypothesis</div>
@@ -185,7 +193,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   </div>
 </section>
 
-<!-- ============ s1 COMMAND TERM DRILL ============ -->
+<!-- ============ 3. DEFINITIONS ============ -->
 <section class="slide" id="s1">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:4px">
@@ -196,7 +204,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div class="cmd-box"><div class="cmd-answer" id="cmdAnswer"></div></div>
 </section>
 
-<!-- ============ s2 CALCULATION WALKTHROUGH ============ -->
+<!-- ============ 4. CONCEPT 1: PED CALCULATION ============ -->
 <section class="slide" id="s2">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:2px">
@@ -214,48 +222,8 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   </div>
 </section>
 
-<!-- ============ s3 FIVE-VALUE VOCABULARY ============ -->
+<!-- ============ 5. CONCEPT 2: PES ============ -->
 <section class="slide" id="s3">
-  <div class="grid-bg"></div>
-  <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">The Five-Value Vocabulary</div>
-    <div class="big-title">From Perfectly Inelastic to Perfectly Elastic</div>
-  </div>
-  <div class="pv-wrap">
-    <div class="pv-graph"><canvas id="pvCanvas" width="440" height="230"></canvas></div>
-    <div class="pv-tabs" id="pvTabs"></div>
-  </div>
-</section>
-
-<!-- ============ s4 REVENUE LINK ============ -->
-<section class="slide" id="s4">
-  <div class="grid-bg"></div>
-  <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">The Most-Tested Application</div>
-    <div class="big-title">PED &amp; Total Revenue</div>
-  </div>
-  <div class="rev-wrap">
-    <div class="rev-graph"><canvas id="revCanvas" width="440" height="230"></canvas></div>
-    <div class="rev-controls">
-      <button class="pv-tab active" style="display:block;width:100%;margin-bottom:6px" onclick="setRevMode('elastic',this)">Elastic good, price ↑</button>
-      <button class="pv-tab" style="display:block;width:100%;margin-bottom:6px" onclick="setRevMode('inelastic',this)">Inelastic good, price ↑</button>
-      <div class="rev-readout" id="revReadout"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ s5 DETERMINANTS OF PED ============ -->
-<section class="slide" id="s5">
-  <div class="grid-bg"></div>
-  <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">Why Does PED Vary?</div>
-    <div class="big-title">Determinants of Price Elasticity of Demand</div>
-  </div>
-  <div class="det-grid" id="detGrid"></div>
-</section>
-
-<!-- ============ s6 PES ============ -->
-<section class="slide" id="s6">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:2px">
     <div class="tag">The Seller's Side</div>
@@ -265,18 +233,53 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div class="pes-panel" id="pesPanel"></div>
 </section>
 
-<!-- ============ s7 IB ENRICHMENT ============ -->
-<section class="slide" id="s7">
+<!-- ============ 6. KEY CONCEPT 3: FIVE-VALUE VOCAB + REVENUE ============ -->
+<section class="slide" id="s4">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:2px">
-    <div class="tag">IB Enrichment</div>
-    <div class="big-title">Beyond PED &amp; PES</div>
+    <div class="tag">Key Diagram</div>
+    <div class="big-title">From Perfectly Inelastic to Perfectly Elastic</div>
   </div>
-  <div class="ib-tabs" id="ibTabs"></div>
-  <div class="ib-panel" id="ibPanel"></div>
+  <div class="pv-wrap">
+    <div class="pv-graph"><canvas id="pvCanvas" width="440" height="230"></canvas></div>
+    <div class="pv-tabs" id="pvTabs"></div>
+  </div>
 </section>
 
-<!-- ============ EXAM ADAPTER SLOT ============ -->
+<!-- ============ 7. POSITIVE OR NORMATIVE? ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Mini Game</div>
+    <div class="big-title">Positive or Normative?</div>
+  </div>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">POSITIVE</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">NORMATIVE</button>
+    </div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s-news: REAL-WORLD HEADLINES ============ -->
+<section class="slide" id="s-news">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">In the News</div>
+    <div class="big-title">Real-World Headlines</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Tap a headline to see how it connects to this lesson's economics.</p>
+  </div>
+  <div class="news-grid" id="newsGrid"></div>
+</section>
+
+<!-- ============ 8. EXAM ADAPTER SLOT ============ -->
 <section class="slide" id="s-adapter">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:4px">
@@ -290,7 +293,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div class="adapter-panel" id="adapterPanel"></div>
 </section>
 
-<!-- ============ QUIZ ============ -->
+<!-- ============ 9. QUIZ ============ -->
 <section class="slide" id="s-quiz">
   <div class="grid-bg"></div>
   <div style="text-align:center;margin-bottom:4px">
@@ -327,7 +330,8 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const QUIZ_SLIDE_IDX = 10;
+const GAME_SLIDE_IDX = 6;  // s5 positive/normative
+const QUIZ_SLIDE_IDX = 9;  // s-quiz
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -347,9 +351,9 @@ function goTo(n) {
   dotNav.children[cur].classList.add('active');
   counter.textContent = (cur+1) + ' / ' + slides.length;
   adaptLogo();
+  if (cur === GAME_SLIDE_IDX && !pnInited) initPN();
   if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
-  if (slides[cur].id === 's3') drawPV();
-  if (slides[cur].id === 's4') drawRev();
+  if (slides[cur].id === 's4') drawPV();
   if (slides[cur].id === 's-cover') drawCover();
 }
 document.addEventListener('keydown', e => {
@@ -374,18 +378,16 @@ function drawCover() {
   ctx.clearRect(0,0,260,220);
   ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=1.5;
   ctx.beginPath(); ctx.moveTo(30,10); ctx.lineTo(30,190); ctx.lineTo(240,190); ctx.stroke();
-  // steep (inelastic) line
   ctx.strokeStyle='#00c9a7'; ctx.lineWidth=2.5;
   ctx.beginPath(); ctx.moveTo(90,20); ctx.lineTo(120,180); ctx.stroke();
   ctx.fillStyle='#00c9a7'; ctx.font='10px monospace'; ctx.fillText('STIFF', 96, 16);
-  // flat (elastic) line
   ctx.strokeStyle='#f5c842'; ctx.lineWidth=2.5;
   ctx.beginPath(); ctx.moveTo(40,60); ctx.lineTo(230,150); ctx.stroke();
   ctx.fillStyle='#f5c842'; ctx.fillText('STRETCHY', 170, 145);
 }
 drawCover();
 
-// ============ s1 COMMAND TERM DRILL ============
+// ============ s1: DEFINITIONS (COMMAND TERM DRILL) ============
 const CMDS = [
   {key:'define', lbl:'Define', ans:'<strong>Define price elasticity of demand.</strong> PED measures the responsiveness of quantity demanded to a change in price, calculated as %change in quantity demanded ÷ %change in price.'},
   {key:'state', lbl:'State', ans:'<strong>State the formula for PED.</strong> PED = %ΔQd / %ΔP.'},
@@ -403,7 +405,7 @@ CMDS.forEach((c,i) => {
 function renderCmd() { document.getElementById('cmdAnswer').innerHTML = CMDS[cmdActive].ans + `<div style="margin-top:10px;font-size:11px;color:var(--dim)">Notice how answer length and depth changes with the command word — this is examined discipline, not decoration.</div>`; }
 renderCmd();
 
-// ============ s2 CALCULATION WALKTHROUGH ============
+// ============ s2: CONCEPT 1 — PED CALCULATION ============
 const CALC_STEPS = [
   `<span class="calc-line"><strong>Step 1 — Formula:</strong> PED = %ΔQd ÷ %ΔP</span>`,
   `<span class="calc-line"><strong>Step 2 — %ΔQd:</strong> (70 − 100) ÷ 100 × 100 = <strong>−30%</strong></span>`,
@@ -421,13 +423,32 @@ function renderCalc() {
 function calcNext() { calcIdx = Math.min(CALC_STEPS.length-1, calcIdx+1); renderCalc(); }
 renderCalc();
 
-// ============ s3 FIVE-VALUE VOCABULARY ============
+// ============ s3: CONCEPT 2 — PES ============
+const PES_TABS = [
+  {key:'define', lbl:'Definition & Formula', html:`<strong>Price elasticity of supply (PES)</strong> measures the responsiveness of quantity supplied to a change in price.<br><br><strong>PES = %ΔQs ÷ %ΔP</strong><br><br>Unlike PED, PES is (almost) always positive — supply curves slope upward, so price and quantity supplied move in the same direction.`},
+  {key:'calc', lbl:'Worked Calculation', html:`A rise in price from $4 to $5 (+25%) causes quantity supplied to rise from 200 to 280 units (+40%).<br><br>PES = 40% ÷ 25% = <strong>1.6</strong><br><br>Since PES &gt; 1, supply is <strong>elastic</strong> — sellers can ramp up production proportionally more than the price rose.`},
+  {key:'values', lbl:'Five-Value Interpretation', html:`Same structure as PED, but always ≥ 0:<br>• PES = 0 → perfectly inelastic (fixed supply, e.g. original artwork)<br>• 0 &lt; PES &lt; 1 → inelastic<br>• PES = 1 → unitary<br>• PES &gt; 1 → elastic<br>• PES = ∞ → perfectly elastic (constant-cost industry, flat supply curve)`},
+  {key:'dets', lbl:'Determinants', html:`<strong>Time to produce/respond:</strong> longer production time → less elastic (short-run supply is often steep).<br><strong>Spare capacity:</strong> unused factories/machines → more elastic.<br><strong>Ease of storage:</strong> storable goods → more elastic (can release stock quickly).<br><strong>Mobility of factors of production:</strong> factors that switch easily between uses → more elastic.`}
+];
+let pesActive = 0;
+const pesTabsEl = document.getElementById('pesTabs');
+PES_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { pesActive=i; document.querySelectorAll('.pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderPes(); };
+  pesTabsEl.appendChild(b);
+});
+function renderPes() { document.getElementById('pesPanel').innerHTML = `<div style="font-size:13px;line-height:1.8;color:var(--white)">${PES_TABS[pesActive].html}</div>`; }
+renderPes();
+
+// ============ s4: KEY CONCEPT 3 — FIVE-VALUE VOCABULARY + REVENUE ============
 const PV_MODES = [
-  {key:'peri', lbl:'Perfectly Inelastic (PED=0)', legend:'Quantity demanded does not change AT ALL as price changes — a vertical demand curve. Extremely rare in reality (e.g. a life-saving drug with a fixed dose need).'},
-  {key:'inelastic', lbl:'Inelastic (0<PED<1)', legend:'Quantity demanded changes proportionally LESS than price — a steep curve. E.g. petrol in the short run.'},
-  {key:'unitary', lbl:'Unitary (PED=1)', legend:'Quantity demanded changes by exactly the same % as price — total revenue stays constant as price changes.'},
-  {key:'elastic', lbl:'Elastic (PED>1)', legend:'Quantity demanded changes proportionally MORE than price — a flatter curve. E.g. one brand of soda among many.'},
-  {key:'pes', lbl:'Perfectly Elastic (PED=∞)', legend:'Any price rise above the going rate causes quantity demanded to fall to ZERO — a horizontal demand curve. Approximated by a single small firm in a perfectly competitive market.'}
+  {key:'peri', lbl:'Perfectly Inelastic (PED=0)', legend:'Quantity demanded does not change AT ALL as price changes — a vertical demand curve. Extremely rare (e.g. a life-saving drug with a fixed dose need).', revenue:'A price RISE always increases revenue — quantity never falls to offset it.'},
+  {key:'inelastic', lbl:'Inelastic (0<PED<1)', legend:'Quantity demanded changes proportionally LESS than price — a steep curve. E.g. petrol in the short run.', revenue:'A price RISE increases revenue — quantity falls by proportionally less.'},
+  {key:'unitary', lbl:'Unitary (PED=1)', legend:'Quantity demanded changes by exactly the same % as price.', revenue:'Total revenue stays CONSTANT as price changes.'},
+  {key:'elastic', lbl:'Elastic (PED>1)', legend:'Quantity demanded changes proportionally MORE than price — a flatter curve. E.g. one brand of soda among many.', revenue:'A price RISE decreases revenue — quantity falls by proportionally more.'},
+  {key:'pes', lbl:'Perfectly Elastic (PED=∞)', legend:'Any price rise above the going rate causes quantity demanded to fall to ZERO — a horizontal demand curve.', revenue:'Any price RISE above the going rate crashes revenue to zero.'}
 ];
 let pvMode = 0;
 const pvTabsEl = document.getElementById('pvTabs');
@@ -450,98 +471,76 @@ function drawPV() {
   const m = PV_MODES[pvMode].key;
   if (m === 'peri') { ctx.moveTo(pad+120,20); ctx.lineTo(pad+120,h-pad-10); }
   else if (m === 'inelastic') { ctx.moveTo(pad+80,20); ctx.lineTo(pad+160,h-pad-10); }
-  else if (m === 'unitary') { ctx.moveTo(pad+20,20); ctx.moveTo(pad+30,h-pad-100); for(let x=pad+30;x<w-30;x+=2){ const q=x-pad; const p=(h-pad-10)-3500/(q+20); ctx.lineTo(x, Math.max(20,Math.min(h-pad-10,p))); } }
+  else if (m === 'unitary') { ctx.moveTo(pad+30,h-pad-100); for(let x=pad+30;x<w-30;x+=2){ const q=x-pad; const p=(h-pad-10)-3500/(q+20); ctx.lineTo(x, Math.max(20,Math.min(h-pad-10,p))); } }
   else if (m === 'elastic') { ctx.moveTo(pad+15,60); ctx.lineTo(w-30,h-pad-40); }
   else { ctx.moveTo(pad+15,90); ctx.lineTo(w-30,90); }
   ctx.stroke();
   ctx.fillStyle='#0d2d52'; ctx.font='bold 12px sans-serif'; ctx.fillText('D', w-40, m==='pes'?85:(h-pad-16));
-  document.getElementById('pvLegendHolder');
-  // legend text placed under tabs via separate element
-  const legendEl = document.querySelector('.pv-legend') || (() => { const d=document.createElement('div'); d.className='pv-legend'; document.getElementById('pvTabs').appendChild(d); return d; })();
+  let legendEl = document.querySelector('.pv-legend');
+  if (!legendEl) { legendEl = document.createElement('div'); legendEl.className='pv-legend'; pvTabsEl.appendChild(legendEl); }
   legendEl.textContent = PV_MODES[pvMode].legend;
+  let revEl = document.querySelector('.pv-revenue');
+  if (!revEl) { revEl = document.createElement('div'); revEl.className='pv-revenue'; pvTabsEl.appendChild(revEl); }
+  revEl.innerHTML = '<strong>Revenue effect:</strong> ' + PV_MODES[pvMode].revenue;
 }
 drawPV();
 
-// ============ s4 REVENUE LINK ============
-let revMode = 'elastic';
-function setRevMode(m, el) { revMode = m; document.querySelectorAll('#s4 .pv-tab').forEach(b=>b.classList.remove('active')); el.classList.add('active'); drawRev(); }
-function drawRev() {
-  const c = document.getElementById('revCanvas'); if (!c) return; const ctx = c.getContext('2d');
-  const w=440,h=230,pad=40;
-  ctx.clearRect(0,0,w,h);
-  ctx.strokeStyle='rgba(90,106,128,0.4)'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(pad,10); ctx.lineTo(pad,h-pad); ctx.lineTo(w-10,h-pad); ctx.stroke();
-  let oldP, oldQ, newP, newQ, readout;
-  if (revMode === 'elastic') {
-    oldP=60; oldQ=180; newP=100; newQ=60;
-    readout = `<strong>Elastic good (PED &gt; 1):</strong> price rises from $6 to $10 (+67%), quantity falls from 60 to 20 units/day (−67%... exaggerated for illustration).<br><br>Old revenue = $6 × 60 = <strong>$360</strong><br>New revenue = $10 × 20 = <strong>$200</strong><br><span style="color:var(--red)">Revenue FALLS — the price rise costs the firm money.</span>`;
-  } else {
-    oldP=60; oldQ=170; newP=100; newQ=150;
-    readout = `<strong>Inelastic good (PED &lt; 1):</strong> price rises from $6 to $10 (+67%), quantity falls only slightly from 60 to 55 units/day.<br><br>Old revenue = $6 × 60 = <strong>$360</strong><br>New revenue = $10 × 55 = <strong>$550</strong><br><span style="color:var(--teal)">Revenue RISES — buyers keep buying almost regardless of price.</span>`;
+// ============ s5: POSITIVE OR NORMATIVE ============
+const PN_ITEMS = [
+  {text:'A 10% price rise causing a 25% fall in quantity demanded means demand is price elastic.', type:'positive'},
+  {text:'Governments should tax cigarettes heavily because smoking is bad for health.', type:'normative'},
+  {text:'When demand is inelastic, a price rise increases total revenue.', type:'positive'},
+  {text:"It's unfair that petrol prices rise so quickly during a fuel shortage.", type:'normative'},
+  {text:'A good with many close substitutes tends to have a higher PED.', type:'positive'},
+  {text:'Firms should never raise prices during an economic downturn.', type:'normative'}
+];
+let pnIdx=0, pnScore=0, pnStreak=0, pnInited=false;
+function initPN() { pnInited = true; renderPN(); }
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🎓 You can now separate testable claims from value judgements — a core AO1/AO3 skill.';
+    return;
   }
-  // old rectangle
-  ctx.fillStyle = 'rgba(200,150,10,0.18)';
-  ctx.fillRect(pad, h-pad-oldP*0.55, oldQ*0.9, oldP*0.55);
-  // new rectangle outline
-  ctx.strokeStyle = revMode==='elastic' ? '#e53935' : '#00897b'; ctx.lineWidth = 2.5;
-  ctx.strokeRect(pad, h-pad-newP*0.55, newQ*0.9, newP*0.55);
-  ctx.fillStyle = '#5a6a80'; ctx.font = '10px monospace';
-  ctx.fillText('Shaded = old revenue (P×Q) · Outline = new revenue', pad, 20);
-  document.getElementById('revReadout').innerHTML = readout;
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
 }
-drawRev();
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\'s '+item.type+' — a '+(item.type==='positive'?'testable claim.':'value judgement.'); document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
+}
 
-// ============ s5 DETERMINANTS OF PED ============
-const PED_DETS = [
-  {n:'Number of substitutes', d:'More close substitutes → more elastic. Fewer/none → more inelastic.'},
-  {n:'Necessity vs luxury', d:'Necessities tend to be inelastic; luxuries tend to be elastic.'},
-  {n:'% of income spent', d:'A bigger share of the budget → more elastic (price rises really hurt).'},
-  {n:'Time period', d:'Demand becomes MORE elastic over time as buyers find substitutes/adjust habits.'},
-  {n:'Habit / addiction', d:'Addictive goods (e.g. tobacco) tend to be inelastic even at high income shares.'},
-  {n:'Breadth of definition', d:'"Food" is inelastic; "one brand of cereal" is elastic — narrower definition, more substitutes.'}
+// ============ s-news: REAL-WORLD HEADLINES ============
+const NEWS_ITEMS = [
+  {headline:'Cigarette Tax Hike Barely Dents Sales, Treasury Reports Record Revenue', source:'National Business Wire', link:'Addictive goods like cigarettes tend to have low (inelastic) PED — quantity demanded barely falls even as price rises sharply, which is exactly why governments tax them for revenue.'},
+  {headline:'Airlines Slash Fares and Watch Bookings Surge Overnight', source:'Global Trade Wire', link:'Leisure air travel usually has relatively elastic PED — a price cut leads to a proportionally bigger rise in quantity demanded, boosting total revenue for the airline.'},
+  {headline:'Luxury Handbag Sales Rise Even Faster Than Incomes During Economic Boom', source:'Financial Times Wire', link:'This is a real-world example of high (income-elastic) YED for a luxury good — as incomes rise, demand for luxuries rises by a larger percentage, unlike for necessities.'}
 ];
-document.getElementById('detGrid').innerHTML = PED_DETS.map(d => `<div class="det-card"><strong>${d.n}</strong>${d.d}</div>`).join('');
-
-// ============ s6 PES ============
-const PES_TABS = [
-  {key:'define', lbl:'Definition & Formula', html:`<strong>Price elasticity of supply (PES)</strong> measures the responsiveness of quantity supplied to a change in price.<br><br><strong>PES = %ΔQs ÷ %ΔP</strong><br><br>Unlike PED, PES is (almost) always positive — supply curves slope upward, so price and quantity supplied move in the same direction.`},
-  {key:'calc', lbl:'Worked Calculation', html:`A rise in price from $4 to $5 (+25%) causes quantity supplied to rise from 200 to 280 units (+40%).<br><br>PES = 40% ÷ 25% = <strong>1.6</strong><br><br>Since PES &gt; 1, supply is <strong>elastic</strong> — sellers can ramp up production proportionally more than the price rose.`},
-  {key:'values', lbl:'Five-Value Interpretation', html:`Same structure as PED, but always ≥ 0:<br>• PES = 0 → perfectly inelastic (fixed supply, e.g. original artwork)<br>• 0 &lt; PES &lt; 1 → inelastic<br>• PES = 1 → unitary<br>• PES &gt; 1 → elastic<br>• PES = ∞ → perfectly elastic (constant-cost industry, flat supply curve)`},
-  {key:'dets', lbl:'Determinants', html:`<strong>Time to produce/respond:</strong> longer production time → less elastic (short-run supply is often steep).<br><strong>Spare capacity:</strong> unused factories/machines → more elastic.<br><strong>Ease of storage:</strong> storable goods → more elastic (can release stock quickly).<br><strong>Mobility of factors of production:</strong> factors that switch easily between uses → more elastic.`}
-];
-let pesActive = 0;
-const pesTabsEl = document.getElementById('pesTabs');
-PES_TABS.forEach((t,i) => {
-  const b = document.createElement('button');
-  b.className = 'pes-tab' + (i===0?' active':'');
-  b.textContent = t.lbl;
-  b.onclick = () => { pesActive=i; document.querySelectorAll('.pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderPes(); };
-  pesTabsEl.appendChild(b);
+const newsGrid = document.getElementById('newsGrid');
+NEWS_ITEMS.forEach((n,i) => {
+  const card = document.createElement('div');
+  card.className = 'news-card';
+  card.innerHTML = `<div class="news-headline">"${n.headline}"</div><div class="news-source">${n.source}</div><div class="news-out" id="newsOut${i}">${n.link}</div>`;
+  card.onclick = () => { document.getElementById('newsOut'+i).classList.toggle('show'); };
+  newsGrid.appendChild(card);
 });
-function renderPes() { document.getElementById('pesPanel').innerHTML = `<div style="font-size:13px;line-height:1.8;color:var(--white)">${PES_TABS[pesActive].html}</div>`; }
-renderPes();
-
-// ============ s7 IB ENRICHMENT ============
-const IB_TABS = [
-  {key:'yed', lbl:'YED (Income Elasticity)', html:`<strong>YED = %ΔQd ÷ %ΔIncome</strong><br><br>Unlike PED, the SIGN of YED is the whole point:<br>• <strong>YED &gt; 0 (positive):</strong> Normal good — demand rises as income rises (most goods).<br>• <strong>YED &lt; 0 (negative):</strong> Inferior good — demand FALLS as income rises (e.g. instant noodles, as people switch to better alternatives once they can afford to).<br><br>IB note: this is IB-only — YED does not appear in the IGCSE 0455 syllabus.`},
-  {key:'tax', lbl:'Tax Incidence (IB HL)', html:`<strong>Who really pays a tax?</strong> The statutory payer (who hands the tax to the government) is often NOT who bears the true economic cost.<br><br>When demand is more <strong>inelastic</strong> than supply, buyers absorb most of the tax burden (they can't easily avoid buying, so the price they pay rises close to the full tax). When demand is more <strong>elastic</strong> than supply, sellers absorb more of the burden (buyers walk away if price rises much, so sellers must keep price low and eat the cost).<br><br>Full incidence-split calculation is HL-level; SL and IGCSE only need the qualitative direction of the argument.`}
-];
-let ibActive = 0;
-const ibTabsEl = document.getElementById('ibTabs');
-IB_TABS.forEach((t,i) => {
-  const b = document.createElement('button');
-  b.className = 'ib-tab' + (i===0?' active':'');
-  b.textContent = t.lbl;
-  b.onclick = () => { ibActive=i; document.querySelectorAll('.ib-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderIb(); };
-  ibTabsEl.appendChild(b);
-});
-function renderIb() { document.getElementById('ibPanel').innerHTML = IB_TABS[ibActive].html; }
-renderIb();
 
 // ============ EXAM ADAPTER ============
 const ADAPTER = {
   igcse: `<strong>AO2 "calculate and comment" structure (2–3 marks):</strong> show full working (the formula, the substituted numbers, the answer), then a short comment interpreting the value (elastic/inelastic) and what it means for the firm or government.<br><br><strong>Practice move:</strong> for every calculation question, insist on the 3-line structure: Formula → Substitution → Answer + one-sentence comment. Partial credit is awarded for correct working even with an arithmetic slip — never skip straight to the final number.`,
-  ib: `<strong>AO4 calculation technique — the value → implication chain:</strong> IB Paper 3 rewards not just a correct number but a clear chain from the calculated value to a stated implication for a specific stakeholder (a firm deciding whether to raise price, or a government choosing what to tax).<br><br><strong>Practice move:</strong> after every PED/PES/YED calculation, require one extra sentence: "Because PED = [value], a firm/government should therefore ___" — this is the exact chain IB markschemes look for.`
+  ib: `<strong>AO4 calculation technique — the value → implication chain:</strong> IB Paper 3 rewards not just a correct number but a clear chain from the calculated value to a stated implication for a specific stakeholder (a firm deciding whether to raise price, or a government choosing what to tax).<br><br><strong>Practice move:</strong> after every PED/PES calculation, require one extra sentence: "Because PED = [value], a firm/government should therefore ___" — this is the exact chain IB markschemes look for.`
 };
 function setAdapter(k, el) {
   document.querySelectorAll('.adapter-tab').forEach(t=>t.classList.remove('active'));
@@ -555,8 +554,8 @@ const QUIZ = [
   { q:'Price rises 10%, quantity demanded falls 25%. What is PED, and what does it mean?', opts:['PED = -2.5, elastic','PED = -0.4, inelastic','PED = 2.5, perfectly inelastic'], correct:0, explain:'PED = -25% ÷ 10% = -2.5. |PED| > 1, so demand is elastic — buyers reacted proportionally more than the price change.' },
   { q:'If PED = 0.3, and a firm raises its price, total revenue will...', opts:['Fall','Rise','Stay exactly the same'], correct:1, explain:'PED < 1 means demand is inelastic — quantity falls proportionally less than price rises, so revenue rises.' },
   { q:'A good with MANY close substitutes is likely to have PED that is...', opts:['Close to 0 (inelastic)','Large / elastic','Impossible to calculate'], correct:1, explain:'More substitutes make it easy for buyers to switch away, producing a larger (more elastic) PED value.' },
-  { q:'YED for an inferior good (e.g. instant noodles) is...', opts:['Positive','Negative','Always exactly 1'], correct:1, explain:'Inferior goods see demand FALL as income rises — a negative YED, the defining feature of this IB-only concept.' },
-  { q:'[IB HL] If demand is much more inelastic than supply, a new tax on a good is mostly paid by...', opts:['The government','Sellers','Buyers'], correct:2, explain:'Inelastic demand means buyers can\'t easily avoid the good, so they end up absorbing most of the tax through a higher price.' }
+  { q:'A rise in price from $4 to $5 causes quantity supplied to rise from 200 to 280. What does PES = 1.6 tell you?', opts:['Supply is elastic — sellers responded proportionally more than the price change','Supply is inelastic','This is a demand calculation, not supply'], correct:0, explain:'PES > 1 means supply is elastic: the % rise in quantity supplied (40%) exceeds the % rise in price (25%).' },
+  { q:'"The government should tax cigarettes heavily because smoking is bad for health" is a...', opts:['Positive statement','Normative statement','A PED calculation'], correct:1, explain:'It contains a value judgement ("should") — testability, not agreement, is what makes a statement positive or normative.' }
 ];
 let quizIdx = 0, quizScoreVal = 0, quizInited = false;
 function initQuiz() {

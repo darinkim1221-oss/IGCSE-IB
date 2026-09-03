@@ -111,6 +111,24 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:820px; width:100%; min-height:140px; font-size:12.5px; line-height:1.8; color:var(--white); }
 .pes-panel strong { color:var(--blue); }
 
+/* ===== s-pn: POSITIVE OR NORMATIVE ===== */
+#s-pn { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
+.game-scenario { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:16px; color:var(--white); margin-bottom:14px; line-height:1.5; min-height:56px; }
+.answer-options { display:flex; gap:14px; justify-content:center; margin-bottom:10px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:17px; padding:9px 24px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:130px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); }
+.game-feedback { font-size:12.5px; min-height:20px; font-family:'Space Mono',monospace; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:10px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
 /* ===== adapter ===== */
 #s-adapter { flex-direction:column; gap:10px; }
 .adapter-tabs { display:flex; gap:8px; margin-bottom:4px; }
@@ -139,6 +157,15 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .quiz-explain strong { color:var(--gold); }
 .quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
 .quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+/* ===== s-news: REAL-WORLD HEADLINES ===== */
+#s-news { flex-direction:column; gap:10px; }
+.news-grid { display:flex; flex-direction:column; gap:8px; max-width:800px; width:100%; max-height:340px; overflow-y:auto; padding-right:4px; }
+.news-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 16px; cursor:pointer; transition:border-color 0.15s; }
+.news-card:hover { border-color:var(--gold); }
+.news-headline { font-family:'Bebas Neue',sans-serif; font-size:15px; color:var(--blue); }
+.news-source { font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.news-out { font-size:11.5px; color:var(--dim); margin-top:6px; line-height:1.6; display:none; }
+.news-out.show { display:block; }
 </style>
 </head>
 <body>
@@ -306,6 +333,39 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div class="cmd-box"><div class="cmd-answer" id="recapAnswer"></div></div>
 </section>
 
+<!-- ============ s-news: REAL-WORLD HEADLINES ============ -->
+<section class="slide" id="s-news">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">In the News</div>
+    <div class="big-title">Real-World Headlines</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Tap a headline to see how it ties together ideas from across Module 1.</p>
+  </div>
+  <div class="news-grid" id="newsGrid"></div>
+</section>
+
+<!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
+<section class="slide" id="s-pn">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Module Review Game</div>
+    <div class="big-title">Positive or Normative?</div>
+  </div>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">POSITIVE</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">NORMATIVE</button>
+    </div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ EXAM ADAPTER SLOT ============ -->
 <section class="slide" id="s-adapter">
   <div class="grid-bg"></div>
@@ -357,7 +417,8 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const QUIZ_SLIDE_IDX = 13;
+const QUIZ_SLIDE_IDX = 15;
+const PN_SLIDE_IDX = 13;
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -378,6 +439,7 @@ function goTo(n) {
   counter.textContent = (cur+1) + ' / ' + slides.length;
   adaptLogo();
   if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+  if (cur === PN_SLIDE_IDX && !pnInited) initPN();
   if (slides[cur].id === 's-cover') drawCover();
 }
 document.addEventListener('keydown', e => {
@@ -533,6 +595,58 @@ RECAP_TABS.forEach((t,i) => {
 });
 function renderRecap() { document.getElementById('recapAnswer').innerHTML = RECAP_TABS[recapActive].ans; }
 renderRecap();
+
+// ============ s-news: REAL-WORLD HEADLINES ============
+const NEWS_ITEMS = [
+  {headline:'Government Weighs New Tax on Sugary Drinks to Cut Health Costs', source:'Global Economic Bulletin', link:'Ties together market failure (a negative externality of consumption) with the D/S model — a tax shifts the supply curve left, raising price and cutting quantity toward the socially efficient level.'},
+  {headline:'Small Bakery Chain Merges With Rival to Cut Costs Amid Rising Wheat Prices', source:'National Business Wire', link:'Combines firms & costs (a horizontal merger for economies of scale) with elasticity — wheat is a key input, and if bread has inelastic PED, firms can pass some cost rises on to consumers.'},
+  {headline:'Economists Debate Whether the Minimum Wage "Should" Rise Next Year', source:'Financial Times Wire', link:'A normative statement dressed as economic news — it can\'t be settled by data alone, which is exactly the positive/normative distinction from the start of this module.'}
+];
+const newsGrid = document.getElementById('newsGrid');
+NEWS_ITEMS.forEach((n,i) => {
+  const card = document.createElement('div');
+  card.className = 'news-card';
+  card.innerHTML = `<div class="news-headline">"${n.headline}"</div><div class="news-source">${n.source}</div><div class="news-out" id="newsOut${i}">${n.link}</div>`;
+  card.onclick = () => { document.getElementById('newsOut'+i).classList.toggle('show'); };
+  newsGrid.appendChild(card);
+});
+
+// ============ s-pn: POSITIVE OR NORMATIVE (module review) ============
+const PN_ITEMS = [
+  {text:'A price ceiling set below equilibrium creates a shortage.', type:'positive'},
+  {text:'Rent control should be introduced in every city.', type:'normative'},
+  {text:'Average total cost falls as output rises, up to the minimum efficient scale.', type:'positive'},
+  {text:'The government should break up every monopoly it finds.', type:'normative'},
+  {text:'A demerit good is over-consumed because buyers undervalue its future cost.', type:'positive'},
+  {text:'Taxing sugary drinks is the best way to fight obesity.', type:'normative'}
+];
+let pnIdx=0, pnScore=0, pnStreak=0, pnInited=false;
+function initPN() { pnInited = true; renderPN(); }
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🎓 You can separate testable claims from value judgements across the WHOLE module — a core AO1/AO3 skill.';
+    return;
+  }
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
+}
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\'s '+item.type+' — a '+(item.type==='positive'?'testable claim.':'value judgement.'); document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
+}
 
 // ============ EXAM ADAPTER ============
 const ADAPTER = {

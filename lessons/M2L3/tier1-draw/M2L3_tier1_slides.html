@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Moves a Whole Economy? | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif; overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center; }
+#slide-frame { position:relative; width:960px; height:540px; background:var(--bg); border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0; }
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none; transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box; }
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%); pointer-events:none; }
+#nav { position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border); border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
+.tag { display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; }
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(26px,4vw,44px); line-height:1.05; margin-bottom:14px; color:var(--white); }
+.btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
+@keyframes floatIcon { 0%,100%{transform:translateY(0);opacity:0.85;} 50%{transform:translateY(-6px);opacity:1;} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.story-scene { position:relative; z-index:2; width:260px; height:190px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; }
+.story-row { display:flex; align-items:center; gap:10px; animation:fadeUp 0.6s ease 0.4s backwards; }
+.story-emoji { font-size:40px; animation:floatIcon 2.4s ease-in-out infinite; }
+.story-lbl { color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(28px,4.6vw,48px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:380px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 HOOK ===== */
+#s0 { text-align:center; }
+.hook-question { font-family:'Bebas Neue',sans-serif; font-size:clamp(22px,3.4vw,40px); line-height:1.15; letter-spacing:1px; margin-bottom:18px; max-width:800px; }
+.hook-question span { color:var(--gold); }
+.hook-vs { display:flex; gap:28px; margin:12px 0; align-items:stretch; }
+.vs-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:16px 28px; box-shadow:0 4px 24px rgba(0,0,0,0.06); text-align:center; flex:1; max-width:300px; position:relative; overflow:hidden; }
+.vs-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; }
+.vs-card.a::after { background:var(--blue); }
+.vs-card.b::after { background:var(--gold); }
+.vs-label { font-family:'Space Mono',monospace; font-size:12px; color:var(--dim); margin-bottom:10px; letter-spacing:2px; text-transform:uppercase; }
+.vs-amount { font-size:32px; margin-bottom:6px; }
+.vs-desc { font-size:12px; color:var(--dim); line-height:1.6; }
+.vs-separator { display:flex; align-items:center; font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--dim); }
+.hook-reveal { font-size:15px; color:var(--teal); opacity:0; animation:fadeUp 0.8s ease 1.3s forwards; letter-spacing:1px; margin-top:14px; cursor:pointer; transition:transform 0.15s, color 0.15s; display:inline-block; }
+.hook-reveal:hover { color:var(--gold); transform:translateY(-2px); }
+
+/* ===== s1 DEFINITIONS ===== */
+#s1 { flex-direction:column; gap:10px; }
+.term-row { display:flex; gap:12px; margin-bottom:6px; }
+.term-btn { flex:1; background:var(--card); border:2px solid rgba(0,0,0,0.08); border-radius:14px; padding:14px; text-align:center; cursor:pointer; transition:all 0.2s; }
+.term-btn:hover { border-color:var(--gold); transform:translateY(-2px); }
+.term-btn.active { border-color:var(--teal); background:rgba(0,137,123,0.08); }
+.term-btn .t-name { font-family:'Bebas Neue',sans-serif; font-size:16px; color:var(--blue); }
+.term-out { background:linear-gradient(135deg,rgba(200,150,10,0.08),rgba(200,150,10,0.02)); border:1px solid var(--border); border-radius:14px; padding:16px 22px; max-width:760px; width:100%; font-size:13px; color:var(--white); line-height:1.7; min-height:56px; }
+
+/* ===== s2: BUILD THE ECONOMY ===== */
+#s2 { flex-direction:column; gap:10px; }
+.econ-arena { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:18px 26px; max-width:820px; width:100%; text-align:center; }
+.econ-bars { display:flex; gap:18px; justify-content:center; align-items:flex-end; height:110px; margin:14px 0; }
+.econ-col { display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; }
+.econ-bar { width:56px; border-radius:8px 8px 0 0; transition:height 0.4s cubic-bezier(0.34,1.56,0.64,1); min-height:6px; background:linear-gradient(180deg,var(--blue),#173f6e); }
+.econ-bar.total { background:linear-gradient(180deg,var(--gold),var(--gold2)); width:70px; }
+.econ-col-lbl { font-size:10.5px; color:var(--dim); margin-top:6px; text-align:center; }
+.econ-col-val { font-family:'Bebas Neue',sans-serif; font-size:16px; color:var(--white); }
+.econ-cards { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:8px; }
+.econ-event-btn { background:#fff; border:1px solid rgba(0,0,0,0.12); border-radius:14px; padding:8px 14px; font-size:11.5px; cursor:pointer; text-align:left; max-width:190px; }
+.econ-event-btn:hover { border-color:var(--gold); }
+.econ-feedback { margin-top:8px; font-size:12px; color:var(--white); min-height:20px; }
+
+/* ===== s3: DEBATE CARDS ===== */
+#s3 { flex-direction:column; gap:14px; }
+.debate-row { display:flex; gap:20px; max-width:820px; width:100%; }
+.debate-card { flex:1; background:var(--card); border:2px solid rgba(0,0,0,0.06); border-radius:16px; padding:16px 18px; cursor:pointer; transition:all 0.2s; }
+.debate-card:hover { border-color:var(--gold); }
+.debate-card.selected { border-color:var(--teal); background:rgba(0,137,123,0.08); }
+.debate-name { font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--blue); margin-bottom:6px; }
+.debate-desc { font-size:12px; color:var(--dim); line-height:1.6; }
+.debate-reveal { margin-top:8px; background:rgba(200,150,10,0.06); border-left:3px solid var(--gold); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--white); max-width:820px; min-height:20px; display:none; }
+.debate-reveal.show { display:block; animation:fadeUp 0.4s ease; }
+.debate-reveal strong { color:var(--gold); }
+
+/* ===== s4: TOTAL SPENDING THERMOMETER (Key Concept) ===== */
+#s4 { flex-direction:column; gap:10px; }
+.therm-wrap { display:flex; gap:26px; align-items:center; max-width:760px; width:100%; }
+.therm-slider-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 20px; width:280px; flex-shrink:0; }
+.therm-slider-box input[type=range] { width:100%; -webkit-appearance:none; height:4px; background:rgba(0,0,0,0.12); border-radius:2px; outline:none; margin:10px 0; }
+.therm-slider-box input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:var(--gold); cursor:pointer; box-shadow:0 0 10px rgba(245,200,66,0.5); }
+.therm-readout { display:flex; justify-content:space-between; font-family:'Space Mono',monospace; font-size:11px; color:var(--dim); }
+.therm-gauge { flex:1; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 24px; text-align:center; }
+.therm-bar-track { width:100%; height:30px; background:rgba(0,0,0,0.06); border-radius:15px; overflow:hidden; margin:10px 0; }
+.therm-bar-fill { height:100%; border-radius:15px; background:linear-gradient(90deg,var(--teal),var(--gold)); transition:width 0.3s ease; }
+.therm-note { font-size:12px; color:var(--dim); margin-top:10px; max-width:760px; line-height:1.6; }
+.therm-note strong { color:var(--gold); }
+
+/* ===== s-pn ===== */
+#s-pn { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:22px 32px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:13px; color:var(--dim); margin-bottom:8px; min-height:20px; }
+.game-scenario { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:16px; color:var(--white); margin-bottom:16px; line-height:1.4; min-height:60px; }
+.answer-options { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:12px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:18px; padding:10px 26px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:120px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); animation:pop 0.4s ease; }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); animation:shake 0.4s ease; }
+.game-feedback { font-size:13px; min-height:20px; font-family:'Space Mono',monospace; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:12px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+/* ===== s-adapter ===== */
+#s-adapter { flex-direction:column; gap:12px; }
+.adapter-tabs { display:flex; gap:8px; }
+.adapter-tab { padding:8px 22px; border-radius:20px; background:var(--card); border:2px solid transparent; cursor:pointer; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:1px; color:var(--dim); }
+.adapter-tab.active.igcse { border-color:var(--blue); color:var(--blue); background:#fff; }
+.adapter-tab.active.ib { border-color:var(--gold); color:var(--gold); background:#fff; }
+.adapter-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 26px; max-width:800px; width:100%; font-size:13px; color:var(--dim); line-height:1.75; }
+.adapter-shared { font-size:11.5px; color:var(--dim); background:rgba(200,150,10,0.06); border-radius:10px; padding:8px 14px; max-width:800px; }
+
+/* ===== QUIZ ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:18px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left">
+    <div class="story-scene">
+      <div class="story-row"><span class="story-emoji">🏗️</span><span class="story-lbl">BUILD THE ECONOMY</span></div>
+      <div class="story-row"><span class="story-emoji">🌡️</span><span class="story-lbl">TOTAL SPENDING</span></div>
+    </div>
+  </div>
+  <div class="cover-right">
+    <div class="cover-module">Module 2 · Macroeconomics — Lesson 3</div>
+    <div class="cover-title">What Moves a<br><span>Whole Economy?</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">Households, businesses, government, and trade with other countries — see how each group's spending adds up to move an entire economy.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Total Spending</span><span class="cc-chip">Confidence</span>
+        <span class="cc-chip">Government Spending</span><span class="cc-chip">Economic Shocks</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 10–12</div>
+      <div class="cover-pill">Interactive</div>
+      <div class="cover-pill">45 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0: HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="hook-question">If everyone in a country got <span>SCARED</span><br>and stopped spending money, what would happen?</div>
+  <div class="hook-vs">
+    <div class="vs-card a">
+      <div class="vs-label">Nothing Happens</div>
+      <div class="vs-amount">🤷</div>
+      <div class="vs-desc">"Shops and factories keep running just the same."</div>
+    </div>
+    <div class="vs-separator">vs</div>
+    <div class="vs-card b">
+      <div class="vs-label">Everything Slows</div>
+      <div class="vs-amount">📉</div>
+      <div class="vs-desc">"Shops sell less, factories make less, and some workers lose jobs."</div>
+    </div>
+  </div>
+  <div class="hook-reveal" onclick="go(1)">👇 Let's build an economy and test it...</div>
+</section>
+
+<!-- ============ s1: DEFINITIONS ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Learn the Words</div>
+    <div class="big-title">Tap a Word to Meet It</div>
+  </div>
+  <div class="term-row" id="termRow"></div>
+  <div class="term-out" id="termOut">Tap a word above to see what it means.</div>
+</section>
+
+<!-- ============ s2: BUILD THE ECONOMY ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Four Groups, One Economy</div>
+    <div class="big-title">Build the Economy</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Tap an event card and watch how each group's spending — and the TOTAL — reacts.</p>
+  </div>
+  <div class="econ-arena">
+    <div class="econ-bars" id="econBars"></div>
+    <div class="econ-cards" id="econCards"></div>
+    <div class="econ-feedback" id="econFeedback"></div>
+  </div>
+</section>
+
+<!-- ============ s3: KEYNES VS. HAYEK DEBATE ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Whose Side Are You On?</div>
+    <div class="big-title">Should the Government Step In?</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">When total spending crashes, two famous economists disagreed about what to do.</p>
+  </div>
+  <div class="debate-row" id="debateRow"></div>
+  <div class="debate-reveal" id="debateReveal"></div>
+</section>
+
+<!-- ============ s4: TOTAL SPENDING THERMOMETER (KEY CONCEPT) ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Key Idea: Confidence Drives Spending</div>
+    <div class="big-title">The Total Spending Thermometer</div>
+  </div>
+  <div class="therm-wrap">
+    <div class="therm-slider-box">
+      <label style="font-size:11px;color:var(--dim);letter-spacing:0.5px">How confident do people feel about the future?</label>
+      <input type="range" id="thermSlider" min="0" max="10" value="5" step="1" oninput="updateTherm(this.value)">
+      <div class="therm-readout"><span>Scared</span><span>Confident</span></div>
+    </div>
+    <div class="therm-gauge">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold)" id="thermVal">50%</div>
+      <div class="therm-bar-track"><div class="therm-bar-fill" id="thermFill" style="width:50%"></div></div>
+      <div style="font-size:11px;color:var(--dim)">Total Spending in the Economy</div>
+    </div>
+  </div>
+  <div class="therm-note">This is a simple stand-in for a real economics idea you'll meet later: when people and businesses FEEL confident, total spending rises; when they feel scared, it falls — moving the whole economy up or down.</div>
+</section>
+
+<!-- ============ s-pn: FACT OR OPINION ============ -->
+<section class="slide" id="s-pn">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:0">
+    <div class="tag">Mini Game</div>
+    <div class="big-title">Fact or Opinion?</div>
+  </div>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">FACT</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">OPINION</button>
+    </div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXAM SNEAK PEEK ============ -->
+<section class="slide" id="s-adapter">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Sneak Peek: Exam Skills</div>
+    <div class="big-title">How Examiners Talk About This</div>
+  </div>
+  <div class="adapter-shared"><strong style="color:var(--white)">Shared skill (both boards):</strong> later you'll explain, step by step, how one event (like a government building a new road) changes total spending in the whole economy.</div>
+  <div class="adapter-tabs">
+    <div class="adapter-tab active igcse" data-b="igcse" onclick="setAdapter(this)">IGCSE</div>
+    <div class="adapter-tab ib" data-b="ib" onclick="setAdapter(this)">IB</div>
+  </div>
+  <div class="adapter-panel" id="adapterPanel"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">How well did you get it? 🧠</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const PN_SLIDE_IDX = 6;
+const QUIZ_SLIDE_IDX = 8;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === PN_SLIDE_IDX && !pnInited) initPN();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ s1: DEFINITIONS ============
+const TERMS = [
+  {name:'Total Spending', def:'All the spending in a whole economy added up — by households, businesses, the government, and trade with other countries.'},
+  {name:'Confidence', def:'How positive or worried people and businesses feel about the future — it strongly affects how much they spend.'},
+  {name:'Economic Shock', def:'A sudden event (good or bad) that changes how much people and businesses want to spend.'}
+];
+const termRow = document.getElementById('termRow');
+TERMS.forEach((t) => {
+  const b = document.createElement('div');
+  b.className = 'term-btn';
+  b.innerHTML = `<div class="t-name">${t.name}</div>`;
+  b.onclick = () => {
+    document.querySelectorAll('.term-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById('termOut').innerHTML = `<strong style="color:var(--gold)">${t.name}:</strong> ${t.def}`;
+  };
+  termRow.appendChild(b);
+});
+
+// ============ s2: BUILD THE ECONOMY ============
+let econState = { households:40, businesses:25, government:20, trade:15 };
+const ECON_EVENTS = [
+  {lbl:'😨 Scary news week', change:{households:-15, businesses:-10, government:0, trade:-5}, note:'People get worried and spend less. Businesses, expecting fewer sales, invest less too.'},
+  {lbl:'🏟️ Government builds a stadium', change:{households:0, businesses:5, government:20, trade:0}, note:'Government spending jumps directly — and businesses supplying the building materials benefit too.'},
+  {lbl:'📈 Exports boom', change:{households:5, businesses:10, government:0, trade:20}, note:'Other countries buy more of this country\'s goods — trade spending rises, and the extra income lifts household and business spending too.'},
+  {lbl:'💳 New tax on shopping', change:{households:-10, businesses:-5, government:5, trade:0}, note:'Higher taxes leave households with less to spend — even though the government collects a bit more.'}
+];
+function renderEconBars() {
+  const total = econState.households + econState.businesses + econState.government + econState.trade;
+  const cols = [
+    {key:'households', lbl:'🏠 Households'}, {key:'businesses', lbl:'🏭 Businesses'},
+    {key:'government', lbl:'🏛️ Government'}, {key:'trade', lbl:'🚢 Trade'}
+  ];
+  document.getElementById('econBars').innerHTML = cols.map(c => `
+    <div class="econ-col"><div class="econ-col-val">${Math.max(0,econState[c.key])}</div><div class="econ-bar" style="height:${Math.max(4,econState[c.key])}%"></div><div class="econ-col-lbl">${c.lbl}</div></div>`
+  ).join('') + `<div class="econ-col"><div class="econ-col-val">${Math.max(0,total)}</div><div class="econ-bar total" style="height:${Math.min(100,Math.max(4,total/1.5))}%"></div><div class="econ-col-lbl"><strong>TOTAL</strong></div></div>`;
+}
+renderEconBars();
+const econCardsEl = document.getElementById('econCards');
+ECON_EVENTS.forEach(ev => {
+  const b = document.createElement('button');
+  b.className = 'econ-event-btn';
+  b.textContent = ev.lbl;
+  b.onclick = () => {
+    Object.keys(ev.change).forEach(k => { econState[k] = Math.max(0, econState[k] + ev.change[k]); });
+    renderEconBars();
+    document.getElementById('econFeedback').innerHTML = `<strong style="color:var(--gold)">${ev.lbl}:</strong> ${ev.note}`;
+  };
+  econCardsEl.appendChild(b);
+});
+
+// ============ s3: KEYNES VS. HAYEK DEBATE ============
+const DEBATE_SIDES = [
+  {name:'Step In', desc:'When total spending crashes, the government should step in and spend more itself, to keep shops and factories running until confidence returns.', reveal:'This is closer to the view of economist John Maynard KEYNES — that waiting for the economy to fix itself can take too long and cause real harm.'},
+  {name:'Let It Fix Itself', desc:'The government should NOT step in — prices and wages will eventually adjust on their own, and government spending can create new problems.', reveal:'This is closer to the view of economists like Friedrich HAYEK — that markets self-correct, and government intervention often does more harm than good.'}
+];
+const debateRow = document.getElementById('debateRow');
+DEBATE_SIDES.forEach(d => {
+  const el = document.createElement('div');
+  el.className = 'debate-card';
+  el.innerHTML = `<div class="debate-name">${d.name}</div><div class="debate-desc">${d.desc}</div>`;
+  el.onclick = () => {
+    document.querySelectorAll('.debate-card').forEach(x=>x.classList.remove('selected'));
+    el.classList.add('selected');
+    const box = document.getElementById('debateReveal');
+    box.innerHTML = `<strong style="color:var(--gold)">You picked "${d.name}" — </strong>${d.reveal} Real economists still debate this today!`;
+    box.classList.add('show');
+  };
+  debateRow.appendChild(el);
+});
+
+// ============ s4: TOTAL SPENDING THERMOMETER ============
+function updateTherm(v) {
+  v = Number(v);
+  const pct = 10 + v * 8;
+  document.getElementById('thermVal').textContent = pct + '%';
+  document.getElementById('thermFill').style.width = pct + '%';
+}
+
+// ============ s-pn: FACT OR OPINION ============
+const PN_ITEMS = [
+  {text:'Total spending in an economy comes from households, businesses, government, and trade.', type:'positive'},
+  {text:'The government should always spend more money when people feel scared.', type:'normative'},
+  {text:'When people feel worried about the future, they tend to spend less.', type:'positive'},
+  {text:'Markets always fix themselves without any help.', type:'normative'},
+  {text:'A government building a new stadium directly increases government spending.', type:'positive'},
+  {text:'It would be better if governments never got involved in the economy.', type:'normative'}
+];
+let pnIdx=0, pnScore=0, pnStreak=0, pnInited=false;
+function initPN() { pnInited = true; renderPN(); }
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🌟 You can tell a testable FACT apart from someone\'s OPINION!';
+    return;
+  }
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
+}
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\'s an '+item.type.replace('positive','fact').replace('normative','opinion')+'.'; document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
+}
+
+// ============ EXAM SNEAK PEEK ============
+const ADAPTER = {
+  igcse: 'Good to know: IGCSE does not test this whole-economy model directly. But understanding "what makes total spending rise or fall" is exactly what you need for the government-policy topics coming up next.',
+  ib: 'Practise explaining a CHAIN: an event happens → one group\'s spending changes → total spending in the whole economy changes → the effect on jobs and prices. This model becomes an exam diagram in the next tier.'
+};
+function setAdapter(el) {
+  document.querySelectorAll('.adapter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('adapterPanel').innerHTML = ADAPTER[el.dataset.b];
+}
+setAdapter(document.querySelector('.adapter-tab[data-b="igcse"]'));
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'Which of these is NOT one of the four groups whose spending adds up to total spending?', opts:['Households','Businesses','The weather'], correct:2, explain:'The four groups are households, businesses, the government, and trade with other countries — not the weather!' },
+  { q:'If people suddenly feel scared about the future, what usually happens to total spending?', opts:['It rises','It falls','It stays exactly the same'], correct:1, explain:'Fear and worry make people and businesses more cautious, so they tend to spend and invest less — total spending falls.' },
+  { q:'A government builds a new stadium. Which group\'s spending rises DIRECTLY because of this?', opts:['Households','Government','Trade'], correct:1, explain:'Building the stadium IS government spending — a direct increase, though it can lift other groups\' spending too.' },
+  { q:'In the Keynes vs. Hayek debate, which view says the government should step in when spending crashes?', opts:['Keynes\'s view', 'Hayek\'s view', 'Neither view'], correct:0, explain:'Keynes argued that waiting for the economy to self-correct can take too long and cause real harm, so government spending should step in.' },
+  { q:'"The government should always spend more when people feel scared" is an example of a...', opts:['Fact','Opinion','Type of trade'], correct:1, explain:'It contains the value judgement "should" — that makes it an opinion (normative), not a testable fact.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect — you can explain what moves a whole economy! 🏆' : 'Nice work — review any tricky ones and try again!'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>

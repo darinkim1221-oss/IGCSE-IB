@@ -293,6 +293,28 @@ body {
   </div>
 </section>
 
+<!-- ============ s-needs-wants: NEED OR WANT? (60-second challenge) ============ -->
+<section class="slide" id="s-needs-wants">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:0">
+    <div class="tag">60-Second Challenge</div>
+    <div class="big-title">Need or Want?</div>
+  </div>
+  <div class="game-arena">
+    <div class="game-question" id="nwRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="nwStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="needBtn" onclick="nwAnswer('need')">NEED</button>
+      <button class="ans-btn" id="wantBtn" onclick="nwAnswer('want')">WANT</button>
+    </div>
+    <div class="game-feedback" id="nwFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="nwScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="nwStreak">0</div><div class="score-lbl">Streak</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ s0: HOOK ============ -->
 <section class="slide" id="s0">
   <div class="grid-bg"></div>
@@ -448,8 +470,8 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const GAME_SLIDE_IDX = 7;  // s6 fact-or-opinion
-const QUIZ_SLIDE_IDX = 8;  // s-quiz
+const GAME_SLIDE_IDX = 8;  // s6 fact-or-opinion
+const QUIZ_SLIDE_IDX = 9;  // s-quiz
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -488,6 +510,50 @@ function adaptLogo() {
   if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
 }
 adaptLogo();
+
+// ============ s-needs-wants: NEED OR WANT? ============
+const NW_ITEMS = [
+  {text:'Clean drinking water', type:'need'},
+  {text:'The newest video game console', type:'want'},
+  {text:'A place to sleep', type:'need'},
+  {text:'Designer sneakers', type:'want'},
+  {text:'Food to eat', type:'need'},
+  {text:'A bigger TV', type:'want'}
+];
+let nwIdx = 0, nwScore = 0, nwStreak = 0;
+function renderNW() {
+  if (nwIdx >= NW_ITEMS.length) {
+    document.getElementById('nwRoundLbl').textContent = 'Complete!';
+    document.getElementById('nwStatement').innerHTML = '🌟 Needs keep you alive — there are only a few. Wants make life fun, and there\'s always one more. That\'s why <strong style="color:var(--gold)">wants are unlimited</strong>, but needs are not.';
+    return;
+  }
+  document.getElementById('nwRoundLbl').textContent = 'Round ' + (nwIdx+1) + ' of ' + NW_ITEMS.length;
+  document.getElementById('nwStatement').textContent = NW_ITEMS[nwIdx].text;
+  document.getElementById('nwFeedback').textContent = '';
+  document.getElementById('nwFeedback').className = 'game-feedback';
+  ['needBtn','wantBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
+}
+function nwAnswer(choice) {
+  const item = NW_ITEMS[nwIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='need'?'needBtn':'wantBtn');
+  const other = document.getElementById(choice==='need'?'wantBtn':'needBtn');
+  ['needBtn','wantBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) {
+    btn.classList.add('correct'); nwScore++; nwStreak++;
+    document.getElementById('nwFeedback').textContent = '✓ Correct!';
+    document.getElementById('nwFeedback').className = 'game-feedback right';
+  } else {
+    btn.classList.add('wrong'); other.classList.add('correct'); nwStreak = 0;
+    document.getElementById('nwFeedback').textContent = '✗ That\'s a ' + item.type + '.';
+    document.getElementById('nwFeedback').className = 'game-feedback wrong';
+  }
+  document.getElementById('nwScore').textContent = nwScore;
+  document.getElementById('nwStreak').textContent = nwStreak;
+  nwIdx++;
+  setTimeout(renderNW, 1500);
+}
+renderNW();
 
 // ============ s1: DESERT ISLAND RAFT ============
 const ISLAND_ITEMS = [

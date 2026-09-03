@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework Workbook — Inequality, Poverty & Population (Tier 2) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:8px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:30px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.meta-strip { display:flex; gap:8px; margin:14px 0 28px; flex-wrap:wrap; }
+.pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:var(--blue); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:4px 11px; border-radius:20px; text-transform:uppercase; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:28px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:30px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:14px; }
+.q-block { margin-bottom:22px; page-break-inside:avoid; }
+.q-num { font-family:'Space Mono',monospace; font-size:11px; color:var(--gold); font-weight:700; margin-right:6px; }
+.q-text { font-size:14px; line-height:1.7; margin-bottom:8px; }
+.marks { font-family:'Space Mono',monospace; font-size:10px; color:var(--teal); font-weight:700; }
+.answer-line { border-bottom:1px solid rgba(0,0,0,0.18); height:26px; margin-bottom:4px; }
+.tier-band { display:inline-block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1px; text-transform:uppercase; padding:2px 8px; border-radius:10px; margin-left:8px; }
+.band-easy { background:rgba(0,137,123,0.1); color:var(--teal); }
+.band-med { background:rgba(200,150,10,0.12); color:var(--gold); }
+.band-hard { background:rgba(229,57,53,0.1); color:var(--red); }
+.work-box { background:var(--card); border:1px dashed rgba(0,0,0,0.18); border-radius:8px; height:100px; margin-top:6px; position:relative; }
+.work-box .wb-tag { position:absolute; top:6px; left:10px; font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); text-transform:uppercase; letter-spacing:1px; }
+.data-table { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:8px; }
+.data-table th, .data-table td { padding:7px 10px; border:1px solid rgba(0,0,0,0.1); text-align:left; }
+.data-table th { background:var(--card); font-family:'Space Mono',monospace; font-size:10px; text-transform:uppercase; color:var(--blue); }
+.extended-box { background:linear-gradient(135deg,rgba(13,45,82,0.05),rgba(13,45,82,0.01)); border:1px solid rgba(13,45,82,0.15); border-radius:12px; padding:16px 20px; margin-top:10px; }
+.extended-box .etag { font-family:'Space Mono',monospace; font-size:10px; color:var(--blue); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+
+.answer-key { margin-top:50px; padding-top:24px; border-top:3px dashed var(--gold); page-break-before:always; }
+.ak-title { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--gold); margin-bottom:16px; }
+.ak-item { font-size:13px; line-height:1.7; margin-bottom:12px; }
+.ak-item strong { color:var(--teal); }
+.ak-item .why { color:var(--dim); }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+@media print {
+  body { background:#fff; }
+  .page { box-shadow:none; padding:0; }
+}
+
+/* ===== Editable answer fields ===== */
+[contenteditable="true"] { outline:none; cursor:text; -webkit-user-modify:read-write-plaintext-only; }
+[contenteditable="true"]:hover { background:rgba(200,150,10,0.05); }
+[contenteditable="true"]:focus { background:rgba(200,150,10,0.08); box-shadow:0 0 0 2px var(--gold) inset; border-radius:4px; }
+.answer-line[contenteditable="true"] { padding:2px 6px; font-size:13px; line-height:22px; color:var(--white); font-family:'Noto Sans KR',sans-serif; white-space:pre-wrap; }
+.work-box .wb-content { position:absolute; top:24px; left:10px; right:10px; bottom:8px; overflow-y:auto; font-size:12.5px; line-height:1.6; color:var(--white); white-space:pre-wrap; }
+.autosave-note { font-size:9px; color:var(--dim); text-align:center; margin-top:10px; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+.autosave-note .reset-link { color:var(--gold); cursor:pointer; text-decoration:underline; }
+@media print {
+  [contenteditable="true"]:focus, [contenteditable="true"]:hover { box-shadow:none; background:none; }
+  .autosave-note { display:none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 3 · Global Economics — Lesson 4</div>
+      <div class="k-title">Inequality, Poverty &amp; Population</div>
+      <div class="k-sub">Homework Workbook · Tier 2 — Read the Map (Ages 13–15)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="meta-strip">
+    <div class="pill">5 questions</div>
+    <div class="pill">+ 1 extended response</div>
+    <div class="pill">~30 min</div>
+  </div>
+  <div class="cc-chips">
+    <span class="cc-chip">Population Structure</span><span class="cc-chip">Lorenz Curve &amp; Gini</span>
+    <span class="cc-chip">Poverty &amp; Redistribution</span>
+  </div>
+
+  <div class="section-tag">Foundations</div>
+  <div class="big-title">Population definitions and structure</div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">1.</span> <strong>Define</strong> net migration, and <strong>state</strong> whether a country with 40,000 immigrants and 55,000 emigrants in a year has positive or negative net migration. <span class="marks">[3]</span><span class="tier-band band-easy">Easy</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">2.</span> <strong>Explain</strong> how a falling birth rate combined with rising life expectancy changes the shape of a population pyramid over several decades, and <strong>state</strong> one consequence for the working-age population's tax burden. <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="section-tag">Calculations</div>
+  <div class="big-title">Dependency ratio &amp; the Gini coefficient</div>
+
+  <div class="q-block">
+    <div class="q-text">A country's population by age band: 0–14 years = 18 million; 15–64 years = 60 million; 65+ years = 22 million.</div>
+    <table class="data-table">
+      <tr><th>Age band</th><th>Population (millions)</th></tr>
+      <tr><td>0–14 (dependent)</td><td>18</td></tr>
+      <tr><td>15–64 (working-age)</td><td>60</td></tr>
+      <tr><td>65+ (dependent)</td><td>22</td></tr>
+    </table>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">3.</span> <strong>Calculate</strong> the age-dependency ratio (dependents ÷ working-age population × 100), and <strong>comment</strong> on what this ratio means for the economy. <span class="marks">[4]</span><span class="tier-band band-med">Medium</span></div>
+    <div class="work-box"><span class="wb-tag">Working</span><div class="wb-content" contenteditable="true" spellcheck="false"></div></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">4.</span> Country X has a Gini coefficient of 0.27. Country Y has a Gini coefficient of 0.58. <strong>State</strong> which country has more income inequality, and <strong>describe</strong> how the shape of each country's Lorenz curve would differ relative to the 45° line of perfect equality. <span class="marks">[3]</span><span class="tier-band band-easy">Easy</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">5.</span> <strong>Explain</strong> ONE cause of relative poverty AND ONE government policy that could help reduce it, including its mechanism. <span class="marks">[4]</span><span class="tier-band band-hard">Challenging</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="extended-box">
+    <div class="etag">Extended Response · exam-style</div>
+    <div class="q-text"><strong>6.</strong> <strong>Discuss</strong> whether progressive taxation and government benefits are an effective way to reduce income inequality. Structure your answer as CLAIM → EVIDENCE → LINK, referring to at least one specific limitation of redistribution policy. <span class="marks">[8]</span></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="answer-key">
+    <div class="ak-title">Answer Key &amp; Mark Scheme Notes</div>
+    <div class="ak-item"><strong>1.</strong> Net migration = immigration − emigration. Here: 40,000 − 55,000 = <strong>−15,000 — negative net migration</strong> (more people left than arrived). <span class="why">[1 mark definition, 2 marks correct calculation and sign]</span></div>
+    <div class="ak-item"><strong>2.</strong> A falling birth rate narrows the BASE of the pyramid (fewer children born each year); rising life expectancy widens the TOP (more people surviving into old age) — over decades the pyramid shifts from a wide-based triangle toward a more rectangular or top-heavy shape. Consequence: a smaller working-age population must support a larger number of retirees, raising the tax burden per worker to fund pensions and healthcare. <span class="why">[2 marks correct shape-change explanation, 2 marks correct consequence]</span></div>
+    <div class="ak-item"><strong>3.</strong> Dependency ratio = (18 + 22) ÷ 60 × 100 = 40 ÷ 60 × 100 = <strong>66.7%</strong>. This means for every 100 working-age people, there are roughly 67 dependents to support — a relatively high ratio that could strain public spending on pensions, healthcare and education relative to tax revenue collected from workers. <span class="why">[2 marks correct calculation, 2 marks reasonable comment]</span></div>
+    <div class="ak-item"><strong>4.</strong> Country Y (Gini = 0.58) has more income inequality — a higher Gini coefficient (closer to 1) means more inequality, a lower one (closer to 0) means more equality. Country X's Lorenz curve would sit CLOSE to the 45° diagonal (small gap = fairly equal); Country Y's Lorenz curve would bow much further AWAY from the diagonal (large gap = highly unequal). <span class="why">[1 mark correct country, 2 marks correct curve-shape description]</span></div>
+    <div class="ak-item"><strong>5.</strong> Cause (accept any reasonable, e.g.): low-skilled workers may earn wages that grow much more slowly than the national average, leaving them increasingly poor relative to others even if their absolute income doesn't fall. Policy (accept any reasonable, e.g.): raising the minimum wage directly increases the income floor for the lowest-paid workers, narrowing the gap with average income — though this must be explained with its mechanism, not just named. <span class="why">[2 marks per correctly explained point]</span></div>
+    <div class="ak-item"><strong>6.</strong> <strong>Band 3 (6–8 marks):</strong> CLAIM (e.g. "redistribution can meaningfully reduce inequality but has real limits"); EVIDENCE (progressive taxation takes a larger share of income from high earners, and transfer payments/benefits directly raise the income of low earners — together these narrow the gap between the top and bottom of the income distribution, as shown by a Lorenz curve moving closer to the diagonal; however, very high tax rates can reduce the incentive to work or invest, and some benefits can create a "poverty trap" where earning more causes a similarly-sized loss of benefits); LINK (a supported conclusion such as "redistribution is effective at reducing the SYMPTOMS of inequality but works best alongside policies — like education and training — that address its underlying causes"). <strong>Band 2 (3–5):</strong> explains redistribution's effect but no clearly explained limitation. <strong>Band 1 (1–2):</strong> a one-sided assertion with no mechanism.</div>
+  </div>
+
+  <div class="footer">M3L4 · Economics Academy · Stoic Edu</div>
+  <div class="autosave-note">Your typed answers autosave in this browser on this device · Press Enter on a blank line to add another line · <span class="reset-link" id="resetAnswersBtn">Clear my answers</span></div>
+</div>
+
+<script>
+(function(){
+  var STORAGE_KEY = 'stoic-edu-workbook::' + location.pathname;
+  var EXTRAS_KEY = STORAGE_KEY + '::extras';
+
+  function each(list, fn){ Array.prototype.forEach.call(list, fn); }
+
+  function allFields(){
+    return document.querySelectorAll('.answer-line[contenteditable="true"], .wb-content[contenteditable="true"]');
+  }
+
+  function focusEnd(el){
+    el.focus();
+    try {
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } catch(e) {}
+  }
+
+  function saveAnswers(){
+    var data = {};
+    each(allFields(), function(el){ data[el.dataset.fieldId] = el.textContent; });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+  function loadAnswers(){
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      each(allFields(), function(el){
+        if (saved[el.dataset.fieldId] !== undefined) el.textContent = saved[el.dataset.fieldId];
+      });
+    } catch(e) {}
+  }
+
+  function getExtrasOf(anchorEl){
+    var id = anchorEl.dataset.anchorId;
+    var result = [];
+    var node = anchorEl.nextElementSibling;
+    while (node && node.classList && node.classList.contains('answer-line') && !node.dataset.anchorId &&
+           node.dataset.fieldId && node.dataset.fieldId.indexOf(id + '_x') === 0) {
+      result.push(node);
+      node = node.nextElementSibling;
+    }
+    return result;
+  }
+
+  function saveExtras(){
+    var counts = {};
+    each(document.querySelectorAll('.answer-line[data-anchor-id]'), function(anchorEl){
+      var n = getExtrasOf(anchorEl).length;
+      if (n > 0) counts[anchorEl.dataset.anchorId] = n;
+    });
+    try { localStorage.setItem(EXTRAS_KEY, JSON.stringify(counts)); } catch(e) {}
+  }
+
+  function attachAnswerLine(el){
+    el.addEventListener('input', saveAnswers);
+    el.addEventListener('keydown', function(ev){
+      if (ev.key === 'Enter') {
+        ev.preventDefault();
+        addLineAfter(el);
+      } else if (ev.key === 'Backspace' && el.dataset.fieldId.indexOf('_x') > -1 && el.textContent === '') {
+        ev.preventDefault();
+        removeLine(el);
+      }
+    });
+  }
+
+  function newLine(fieldId){
+    var el = document.createElement('div');
+    el.className = 'answer-line';
+    el.setAttribute('contenteditable', 'true');
+    el.setAttribute('spellcheck', 'false');
+    el.dataset.fieldId = fieldId;
+    attachAnswerLine(el);
+    return el;
+  }
+
+  function addLineAfter(el){
+    var anchorId = el.dataset.anchorId || el.dataset.fieldId.split('_x')[0];
+    var anchorEl = document.querySelector('.answer-line[data-anchor-id="' + anchorId + '"]');
+    var newIdx = getExtrasOf(anchorEl).length;
+    var lineEl = newLine(anchorId + '_x' + newIdx);
+    el.parentNode.insertBefore(lineEl, el.nextSibling);
+    focusEnd(lineEl);
+    saveExtras();
+    saveAnswers();
+  }
+
+  function removeLine(el){
+    var anchorId = el.dataset.fieldId.split('_x')[0];
+    var anchorEl = document.querySelector('.answer-line[data-anchor-id="' + anchorId + '"]');
+    var prev = el.previousElementSibling;
+    el.parentNode.removeChild(el);
+    each(getExtrasOf(anchorEl), function(node, i){ node.dataset.fieldId = anchorId + '_x' + i; });
+    if (prev) focusEnd(prev);
+    saveExtras();
+    saveAnswers();
+  }
+
+  each(document.querySelectorAll('.answer-line[contenteditable="true"]'), function(el, i){
+    el.dataset.anchorId = 'a' + i;
+    el.dataset.fieldId = 'a' + i;
+  });
+
+  var extraCounts = {};
+  try { extraCounts = JSON.parse(localStorage.getItem(EXTRAS_KEY) || '{}'); } catch(e) {}
+  each(document.querySelectorAll('.answer-line[data-anchor-id]'), function(anchorEl){
+    var id = anchorEl.dataset.anchorId;
+    var count = extraCounts[id] || 0;
+    var ref = anchorEl;
+    for (var i = 0; i < count; i++) {
+      var lineEl = newLine(id + '_x' + i);
+      ref.parentNode.insertBefore(lineEl, ref.nextSibling);
+      ref = lineEl;
+    }
+  });
+
+  each(document.querySelectorAll('.answer-line[data-anchor-id]'), attachAnswerLine);
+
+  var autoIdx = 0;
+  each(document.querySelectorAll('.wb-content[contenteditable="true"]'), function(el){
+    el.dataset.fieldId = 'g' + (autoIdx++);
+    el.addEventListener('input', saveAnswers);
+  });
+
+  loadAnswers();
+
+  var resetBtn = document.getElementById('resetAnswersBtn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function(){
+      if (confirm('Clear all typed answers on this page? This also removes any extra lines you added.')) {
+        each(document.querySelectorAll('.answer-line[data-field-id*="_x"]'), function(el){ el.parentNode.removeChild(el); });
+        each(document.querySelectorAll('.answer-line[data-anchor-id], .wb-content[contenteditable="true"]'), function(el){ el.textContent = ''; });
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(EXTRAS_KEY);
+        } catch(e) {}
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

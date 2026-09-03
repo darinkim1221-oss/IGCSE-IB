@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Growth, Unemployment & Inflation | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif; overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center; }
+#slide-frame { position:relative; width:960px; height:540px; background:var(--bg); border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0; }
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none; transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box; }
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%); pointer-events:none; }
+#nav { position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border); border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
+.tag { display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; }
+.tag.ib { background:rgba(13,45,82,0.08); border-color:rgba(13,45,82,0.2); color:var(--blue); }
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,3.6vw,40px); line-height:1.05; margin-bottom:14px; color:var(--white); }
+.btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.cov-diagram { position:relative; z-index:2; width:260px; height:220px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,4vw,42px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:370px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 hook ===== */
+#s0 { text-align:center; }
+.hyp-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 26px; max-width:660px; margin-top:10px; }
+.hyp-lbl { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; }
+.hyp-text { font-size:13px; color:var(--dim); line-height:1.7; margin-top:6px; }
+
+/* ===== s1 command term drill ===== */
+#s1 { flex-direction:column; gap:12px; }
+.cmd-tabs { display:flex; gap:8px; }
+.cmd-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
+.cmd-tab.active { background:var(--gold); color:#fff; }
+.cmd-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 24px; max-width:800px; width:100%; min-height:120px; }
+.cmd-answer { font-size:13.5px; line-height:1.8; color:var(--white); }
+.cmd-answer strong { color:var(--blue); }
+
+/* ===== s2/s3 calculators ===== */
+#s2, #s3 { flex-direction:column; gap:10px; }
+.calc-scenario { font-size:12.5px; color:var(--dim); max-width:760px; text-align:center; line-height:1.6; }
+.calc-slider-wrap { max-width:640px; width:100%; text-align:center; }
+.calc-slider-wrap input[type=range] { width:100%; -webkit-appearance:none; height:6px; background:linear-gradient(90deg,var(--teal),var(--gold)); border-radius:3px; outline:none; margin:8px 0; }
+.calc-slider-wrap input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:#fff; border:3px solid var(--blue); cursor:pointer; }
+.calc-q-lbl { font-family:'Space Mono',monospace; font-size:12px; color:var(--gold); }
+.calc-table { width:100%; max-width:640px; border-collapse:collapse; font-size:12.5px; background:var(--card); border-radius:12px; overflow:hidden; }
+.calc-table th { background:var(--blue); color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:7px 12px; text-align:left; }
+.calc-table td { padding:7px 12px; border-bottom:1px solid rgba(0,0,0,0.08); color:var(--white); }
+.calc-table tr:last-child td { border-bottom:none; }
+.calc-table td.formula { font-family:'Space Mono',monospace; color:var(--dim); font-size:11px; }
+.calc-table td.val { font-weight:700; color:var(--gold2); text-align:right; }
+
+/* ===== s5b: business cycle diagram ===== */
+#s5b { flex-direction:column; gap:8px; }
+.cycle-toggle { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.cycle-btn { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:13px; padding:6px 16px; border-radius:20px; cursor:pointer; }
+.cycle-btn.active { background:var(--blue); color:#fff; }
+.cycle-note { font-size:11.5px; color:var(--dim); max-width:760px; text-align:center; min-height:36px; }
+
+/* ===== s4/s5/s6 tab panels (shared) ===== */
+#s4, #s5, #s6 { flex-direction:column; gap:10px; }
+.pes-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:13px; padding:7px 18px; border-radius:20px; cursor:pointer; }
+.pes-tab.active { background:var(--teal); color:#fff; }
+.pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:820px; width:100%; min-height:150px; max-height:270px; overflow-y:auto; font-size:12.5px; line-height:1.8; color:var(--white); }
+.pes-panel strong { color:var(--blue); }
+
+/* ===== s-news: REAL-WORLD HEADLINES ===== */
+#s-news { flex-direction:column; gap:10px; }
+.news-grid { display:flex; flex-direction:column; gap:8px; max-width:800px; width:100%; max-height:340px; overflow-y:auto; padding-right:4px; }
+.news-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 16px; cursor:pointer; transition:border-color 0.15s; }
+.news-card:hover { border-color:var(--gold); }
+.news-headline { font-family:'Bebas Neue',sans-serif; font-size:15px; color:var(--blue); }
+.news-source { font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.news-out { font-size:11.5px; color:var(--dim); margin-top:6px; line-height:1.6; display:none; }
+.news-out.show { display:block; }
+
+/* ===== s-pn: POSITIVE OR NORMATIVE ===== */
+#s-pn { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
+.game-scenario { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:16px; color:var(--white); margin-bottom:14px; line-height:1.5; min-height:56px; }
+.answer-options { display:flex; gap:14px; justify-content:center; margin-bottom:10px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:17px; padding:9px 24px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:130px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); }
+.game-feedback { font-size:12.5px; min-height:20px; font-family:'Space Mono',monospace; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:10px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+/* ===== adapter ===== */
+#s-adapter { flex-direction:column; gap:10px; }
+.adapter-tabs { display:flex; gap:8px; margin-bottom:4px; }
+.adapter-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 22px; border-radius:20px; cursor:pointer; }
+.adapter-tab.active.igcse { background:var(--teal); color:#fff; }
+.adapter-tab.active.ib { background:var(--blue); color:#fff; }
+.adapter-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 26px; max-width:760px; width:100%; font-size:13px; line-height:1.8; color:var(--white); }
+.adapter-panel strong { color:var(--blue); }
+
+/* ===== quiz ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:17px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left"><canvas id="coverCanvas" width="260" height="220" class="cov-diagram"></canvas></div>
+  <div class="cover-right">
+    <div class="cover-module">Module 2 · Macroeconomics — Lesson 4</div>
+    <div class="cover-title">Growth, Unemployment<br><span>&amp; Inflation</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">Can an economy grow forever? Which is worse — unemployment or inflation, and for whom? Build the calculation toolkit and the full policy picture.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Economic Growth</span><span class="cc-chip">Unemployment Rate</span>
+        <span class="cc-chip">CPI &amp; Inflation</span><span class="cc-chip">Recession</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 13–15</div>
+      <div class="cover-pill">IGCSE + IB</div>
+      <div class="cover-pill">60 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0 HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="tag">Hypothesis</div>
+  <div class="big-title" style="max-width:780px;text-align:center">Unemployment and inflation are both "bad," but they hurt completely different people in completely different ways.</div>
+  <div class="hyp-box">
+    <div class="hyp-lbl">TEST IT</div>
+    <div class="hyp-text">If this is true, we should be able to name specific winners and losers for each, not just say "both are bad." Today: growth and recession, unemployment rate and type calculations, CPI and the inflation rate, and who actually bears the cost of each.</div>
+  </div>
+</section>
+
+<!-- ============ s1 COMMAND TERM DRILL ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">AO1/AO2 Precision</div>
+    <div class="big-title">Same Concept, Different Command Word</div>
+  </div>
+  <div class="cmd-tabs" id="cmdTabs"></div>
+  <div class="cmd-box"><div class="cmd-answer" id="cmdAnswer"></div></div>
+</section>
+
+<!-- ============ s2 UNEMPLOYMENT RATE CALCULATOR ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">AO2 — Show Your Working</div>
+    <div class="big-title">The Unemployment Rate</div>
+  </div>
+  <div class="calc-scenario">A country's labour force survey counts <strong>1.8 million people without a job who want one</strong>, out of a total labour force of <strong>30 million</strong>. Drag the slider to change the number unemployed and watch the rate recalculate.</div>
+  <div class="calc-slider-wrap">
+    <input type="range" id="uSlider" min="500000" max="4500000" value="1800000" step="100000" oninput="updateU(this.value)">
+    <div class="calc-q-lbl">Number unemployed = <span id="uVal">1,800,000</span></div>
+  </div>
+  <table class="calc-table">
+    <tr><th>Term</th><th>Formula</th><th>Value</th></tr>
+    <tr><td>Total labour force</td><td class="formula">given</td><td class="val">30,000,000</td></tr>
+    <tr><td>Unemployment rate</td><td class="formula">(number unemployed ÷ labour force) × 100</td><td class="val" id="uRateVal">6.00%</td></tr>
+  </table>
+</section>
+
+<!-- ============ s3 CPI / INFLATION RATE CALCULATOR ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">AO2 — Show Your Working</div>
+    <div class="big-title">CPI &amp; the Inflation Rate</div>
+  </div>
+  <div class="calc-scenario">The Consumer Prices Index (CPI) tracks the cost of a fixed "basket" of goods and services. Last year's CPI = <strong>100</strong> (the base year). Drag the slider to set this year's CPI and watch the inflation rate recalculate.</div>
+  <div class="calc-slider-wrap">
+    <input type="range" id="cpiSlider" min="95" max="115" value="103" step="0.5" oninput="updateCpi(this.value)">
+    <div class="calc-q-lbl">This year's CPI = <span id="cpiVal">103</span></div>
+  </div>
+  <table class="calc-table">
+    <tr><th>Term</th><th>Formula</th><th>Value</th></tr>
+    <tr><td>Last year's CPI (base)</td><td class="formula">given</td><td class="val">100</td></tr>
+    <tr><td>Inflation rate</td><td class="formula">(this year's CPI − last year's CPI) ÷ last year's CPI × 100</td><td class="val" id="cpiRateVal">3.00%</td></tr>
+  </table>
+</section>
+
+<!-- ============ s4 TYPES OF UNEMPLOYMENT (Key Concept) ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Four Named Types</div>
+    <div class="big-title">Types of Unemployment</div>
+  </div>
+  <div class="pes-tabs" id="typeTabs"></div>
+  <div class="pes-panel" id="typePanel"></div>
+</section>
+
+<!-- ============ s5 GROWTH & RECESSION ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Two Sides of the Same Coin</div>
+    <div class="big-title">Economic Growth &amp; Recession</div>
+  </div>
+  <div class="pes-tabs" id="growTabs"></div>
+  <div class="pes-panel" id="growPanel"></div>
+</section>
+
+<!-- ============ s5b BUSINESS CYCLE DIAGRAM ============ -->
+<section class="slide" id="s5b">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Key Diagram — Draw &amp; Interpret</div>
+    <div class="big-title">The Business (Trade) Cycle</div>
+  </div>
+  <div class="cycle-toggle">
+    <button class="cycle-btn active" id="cycleBoomBtn" onclick="setCycle('boom')">Boom</button>
+    <button class="cycle-btn" id="cycleDownBtn" onclick="setCycle('downturn')">Downturn</button>
+    <button class="cycle-btn" id="cycleTroughBtn" onclick="setCycle('trough')">Trough</button>
+    <button class="cycle-btn" id="cycleRecoveryBtn" onclick="setCycle('recovery')">Recovery</button>
+  </div>
+  <canvas id="cycleCanvas" width="620" height="220"></canvas>
+  <div class="cycle-note" id="cycleNote"></div>
+</section>
+
+<!-- ============ s6 IB HL ENRICHMENT ============ -->
+<section class="slide" id="s6">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag ib">IB HL Enrichment — not required at IGCSE</div>
+    <div class="big-title">Beyond the Basics</div>
+  </div>
+  <div class="pes-tabs" id="hlTabs"></div>
+  <div class="pes-panel" id="hlPanel"></div>
+</section>
+
+<!-- ============ s-news: REAL-WORLD HEADLINES ============ -->
+<section class="slide" id="s-news">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">In the News</div>
+    <div class="big-title">Real-World Headlines</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Tap a headline to see how it connects to this lesson's economics.</p>
+  </div>
+  <div class="news-grid" id="newsGrid"></div>
+</section>
+
+<!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
+<section class="slide" id="s-pn">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Mini Game</div>
+    <div class="big-title">Positive or Normative?</div>
+  </div>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">POSITIVE</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">NORMATIVE</button>
+    </div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXAM ADAPTER SLOT ============ -->
+<section class="slide" id="s-adapter">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Exam Adapter Slot</div>
+    <div class="big-title">Same Skill — Different Exam</div>
+  </div>
+  <div class="adapter-tabs">
+    <button class="adapter-tab active igcse" onclick="setAdapter('igcse',this)">IGCSE</button>
+    <button class="adapter-tab" onclick="setAdapter('ib',this)">IB</button>
+  </div>
+  <div class="adapter-panel" id="adapterPanel"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Quiz</div>
+    <div class="big-title">Growth, Unemployment &amp; Inflation Check</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const PN_SLIDE_IDX = 10;
+const QUIZ_SLIDE_IDX = 12;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+  if (cur === PN_SLIDE_IDX && !pnInited) initPN();
+  if (slides[cur].id === 's-cover') drawCover();
+  if (slides[cur].id === 's5b') drawCycle(cyclePhase);
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ COVER DIAGRAM ============
+function drawCover() {
+  const c = document.getElementById('coverCanvas'); const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,260,220);
+  ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(30,10); ctx.lineTo(30,190); ctx.lineTo(240,190); ctx.stroke();
+  ctx.strokeStyle='#f5c842'; ctx.lineWidth=2.5;
+  ctx.beginPath();
+  const pts = [[40,150],[80,120],[120,140],[160,80],[200,60]];
+  pts.forEach((p,i) => { if (i===0) ctx.moveTo(p[0],p[1]); else ctx.lineTo(p[0],p[1]); });
+  ctx.stroke();
+  ctx.fillStyle='#f5c842'; ctx.font='9px monospace'; ctx.fillText('Real GDP over time', 90, 200);
+}
+drawCover();
+
+// ============ s1 COMMAND TERM DRILL ============
+const CMDS = [
+  {key:'define', lbl:'Define', ans:'<strong>Define full employment.</strong> Full employment does not mean zero unemployment — it means everyone able and willing to work at the going wage can find a job, accepting some unavoidable frictional/seasonal unemployment.'},
+  {key:'calculate', lbl:'Calculate', ans:'<strong>Calculate the inflation rate if CPI rises from 100 to 104.</strong> Inflation rate = (104 − 100) ÷ 100 × 100 = <strong>4%</strong>. Always show the formula, the substitution, AND the final labelled answer for full working marks.'},
+  {key:'comment', lbl:'Comment', ans:'<strong>Comment on whether unemployment or inflation is "worse."</strong> Neither is worse in general — it depends who you ask: unemployment falls hardest on those without a job; inflation falls hardest on savers and those on fixed incomes. A strong "comment" answer names specific winners and losers rather than a blanket judgement.'}
+];
+let cmdActive = 0;
+const cmdTabs = document.getElementById('cmdTabs');
+CMDS.forEach((c,i) => {
+  const b = document.createElement('button');
+  b.className = 'cmd-tab' + (i===0?' active':'');
+  b.textContent = c.lbl;
+  b.onclick = () => { cmdActive=i; document.querySelectorAll('.cmd-tab').forEach(t=>t.classList.remove('active')); b.classList.add('active'); renderCmd(); };
+  cmdTabs.appendChild(b);
+});
+function renderCmd() { document.getElementById('cmdAnswer').innerHTML = CMDS[cmdActive].ans; }
+renderCmd();
+
+// ============ s2 UNEMPLOYMENT RATE CALCULATOR ============
+function updateU(v) {
+  v = Number(v);
+  const force = 30000000;
+  const rate = (v / force * 100).toFixed(2);
+  document.getElementById('uVal').textContent = Number(v).toLocaleString();
+  document.getElementById('uRateVal').textContent = rate + '%';
+}
+
+// ============ s3 CPI / INFLATION RATE CALCULATOR ============
+function updateCpi(v) {
+  v = Number(v);
+  const base = 100;
+  const rate = ((v - base) / base * 100).toFixed(2);
+  document.getElementById('cpiVal').textContent = v;
+  document.getElementById('cpiRateVal').textContent = rate + '%';
+}
+
+// ============ s4 TYPES OF UNEMPLOYMENT ============
+const TYPE_TABS = [
+  {key:'frictional', lbl:'Frictional', html:`Short-term unemployment while someone is BETWEEN jobs — e.g. a graduate who has accepted a job offer but hasn't started yet. Some frictional unemployment always exists, even in a healthy economy, and is part of why "full employment" never means literally zero unemployment.`},
+  {key:'structural', lbl:'Structural', html:`Unemployment caused by a long-term change in the STRUCTURE of the economy — e.g. a worker whose factory-line skills become obsolete after automation. Structural unemployment can persist for a long time because it requires RETRAINING, not just waiting for a new vacancy.`},
+  {key:'cyclical', lbl:'Cyclical', html:`Unemployment caused by a downturn in the economic (business) cycle — e.g. workers laid off across many industries during a recession, when total demand for goods and services falls. Cyclical unemployment rises and falls with the wider economy.`},
+  {key:'seasonal', lbl:'Seasonal', html:`Unemployment that follows a predictable seasonal pattern — e.g. a ski instructor unemployed in summer, or a fruit-picker unemployed outside harvest season. Newly explicit at IGCSE 2027-29 as its own named type, distinct from the other three.`}
+];
+let typeActive = 0;
+const typeTabsEl = document.getElementById('typeTabs');
+TYPE_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { typeActive=i; document.querySelectorAll('#typeTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderType(); };
+  typeTabsEl.appendChild(b);
+});
+function renderType() { document.getElementById('typePanel').innerHTML = TYPE_TABS[typeActive].html; }
+renderType();
+
+// ============ s5 GROWTH & RECESSION ============
+const GROW_TABS = [
+  {key:'causes', lbl:'Causes of Growth', html:`Real GDP grows through THREE channels: <strong>an increase in total demand</strong> (more spending by households, firms, government, or trade partners); <strong>an increase in the quantity of resources</strong> (a larger workforce, more capital/machinery, more land brought into use); <strong>an increase in the quality of resources</strong> (better education/training raising labour productivity, better technology raising capital productivity).`},
+  {key:'adv', lbl:'Advantages &amp; Disadvantages', html:`<strong>Advantages:</strong> higher incomes and living standards, more jobs created, higher tax revenue for public services. <strong>Disadvantages:</strong> can bring demand-pull inflation if it outpaces resource growth, can widen inequality if gains aren't shared, and can increase environmental strain (pollution, resource depletion) if not managed sustainably.`},
+  {key:'recession', lbl:'Recession', html:`A recession is a period where real GDP falls — caused by the REVERSE of growth's causes: a fall in total demand, or a fall in the quantity/quality of resources available. <strong>Consequences:</strong> consumers face job insecurity and lower confidence; firms see falling sales and profits, and may cut investment or staff; the government collects less tax and often spends more on unemployment support, worsening its budget position.`}
+];
+let growActive = 0;
+const growTabsEl = document.getElementById('growTabs');
+GROW_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { growActive=i; document.querySelectorAll('#growTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderGrowTab(); };
+  growTabsEl.appendChild(b);
+});
+function renderGrowTab() { document.getElementById('growPanel').innerHTML = GROW_TABS[growActive].html; }
+renderGrowTab();
+
+// ============ s5b BUSINESS CYCLE DIAGRAM ============
+const CYCLE_PHASES = {
+  boom: {x: 0.25, note: '<strong style="color:var(--white)">Boom (peak):</strong> real GDP is at its highest point in the cycle — low unemployment, factories running near full capacity, but rising demand-pull inflation risk as resources become scarce.'},
+  downturn: {x: 0.50, note: '<strong style="color:var(--white)">Downturn:</strong> real GDP starts falling from the peak — falling demand, rising unemployment as firms cut back, and confidence declining.'},
+  trough: {x: 0.75, note: '<strong style="color:var(--white)">Trough:</strong> real GDP is at its lowest point — unemployment peaks, spending and investment are weak, and the economy is at its most fragile.'},
+  recovery: {x: 0.95, note: '<strong style="color:var(--white)">Recovery:</strong> real GDP starts rising again — falling unemployment, rebuilding confidence, and increasing spending and investment as the economy climbs back toward the next peak.'}
+};
+let cyclePhase = 'boom';
+function setCycle(phase) {
+  cyclePhase = phase;
+  document.getElementById('cycleBoomBtn').classList.toggle('active', phase==='boom');
+  document.getElementById('cycleDownBtn').classList.toggle('active', phase==='downturn');
+  document.getElementById('cycleTroughBtn').classList.toggle('active', phase==='trough');
+  document.getElementById('cycleRecoveryBtn').classList.toggle('active', phase==='recovery');
+  drawCycle(phase);
+}
+function drawCycle(phase) {
+  const c = document.getElementById('cycleCanvas'); if (!c) return;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,620,220);
+  const leftX = 50, rightX = 590, baseY = 190, topY = 30;
+
+  // axes
+  ctx.strokeStyle = '#5a6a80'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(leftX, topY); ctx.lineTo(leftX, baseY); ctx.lineTo(rightX, baseY); ctx.stroke();
+  ctx.font = '10px monospace'; ctx.fillStyle = '#5a6a80'; ctx.textAlign = 'center';
+  ctx.fillText('Time →', (leftX+rightX)/2, baseY + 20);
+  ctx.save(); ctx.translate(leftX - 34, (topY+baseY)/2); ctx.rotate(-Math.PI/2); ctx.fillText('Real GDP →', 0, 0); ctx.restore();
+
+  // trend line (potential output, rising, dashed)
+  ctx.strokeStyle = '#c8960a'; ctx.lineWidth = 1.5; ctx.setLineDash([5,4]);
+  ctx.beginPath(); ctx.moveTo(leftX, baseY - 20); ctx.lineTo(rightX, topY + 20); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#c8960a'; ctx.font = '10px monospace'; ctx.textAlign = 'left';
+  ctx.fillText('Long-run trend (potential output)', leftX + 10, topY + 12);
+
+  // actual GDP wave: oscillates around the trend line using a sine curve.
+  // sin(2*PI*t) peaks at t=0.25 (boom), crosses down at t=0.5 (downturn),
+  // troughs at t=0.75 (trough), crosses up at t=1.0 (recovery, drawn near t=0.95).
+  const w = rightX - leftX, amp = 55;
+  const trendAt = (t) => (baseY - 20) + (topY + 20 - (baseY - 20)) * t;
+  const waveAt = (t) => trendAt(t) - amp * Math.sin(t * Math.PI * 2);
+  ctx.strokeStyle = '#0d2d52'; ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  for (let px = 0; px <= w; px++) {
+    const t = px / w;
+    const y = waveAt(t);
+    if (px === 0) ctx.moveTo(leftX + px, y); else ctx.lineTo(leftX + px, y);
+  }
+  ctx.stroke();
+
+  // marker for selected phase
+  const info = CYCLE_PHASES[phase];
+  const t = info.x;
+  const markY = waveAt(t);
+  const markX = leftX + t * w;
+  ctx.fillStyle = '#e53935';
+  ctx.beginPath(); ctx.arc(markX, markY, 7, 0, 7); ctx.fill();
+  ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+  ctx.fillStyle = '#e53935'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText(phase.charAt(0).toUpperCase()+phase.slice(1), markX, markY - 14);
+
+  document.getElementById('cycleNote').innerHTML = info.note;
+}
+drawCycle('boom');
+
+// ============ s6 IB HL ENRICHMENT ============
+const HL_TABS = [
+  {key:'deflation', lbl:'Deflation &amp; the Spiral', html:`Deflation is a SUSTAINED FALL in the general price level. While falling prices sound good for buyers, a deflationary spiral can occur: consumers delay purchases expecting even lower prices tomorrow → falling demand → firms cut prices further and lay off workers → falling incomes → even less spending. This self-reinforcing cycle is why economists generally fear deflation more than moderate inflation. Removed from IGCSE 0455 (2027-29); IB content only.`},
+  {key:'ppc', lbl:'Growth on the PPC/LRAS', html:`In IB framing, economic growth is shown as an OUTWARD SHIFT of the economy's production possibilities curve (PPC) or long-run aggregate supply (LRAS) — both represent the economy's maximum potential output. A rise in total demand alone (without more/better resources) causes only a short-run movement toward the existing curve, not a genuine outward shift. IGCSE 0455 does not use PPC/LRAS language for growth.`},
+  {key:'phillips', lbl:'The Short-Run Phillips Curve', html:`The short-run Phillips curve models an observed TRADE-OFF between unemployment and inflation: policies that reduce unemployment (e.g. boosting demand) tend to push inflation up, and vice versa. This trade-off is a HL-only concept and is a live debate — many economists argue the trade-off breaks down in the long run as expectations adjust.`}
+];
+let hlActive = 0;
+const hlTabsEl = document.getElementById('hlTabs');
+HL_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { hlActive=i; document.querySelectorAll('#hlTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderHl(); };
+  hlTabsEl.appendChild(b);
+});
+function renderHl() { document.getElementById('hlPanel').innerHTML = HL_TABS[hlActive].html; }
+renderHl();
+
+// ============ s-news: REAL-WORLD HEADLINES ============
+const NEWS_ITEMS = [
+  {headline:'Central Bank Raises Interest Rates for Third Straight Month', source:'Global Economic Bulletin', link:'This is a classic monetary-policy response to rising inflation — higher rates make borrowing more expensive, cooling spending and slowing demand-pull price rises, but also risk pushing the economy toward the "downturn" phase of the business cycle if applied too aggressively.'},
+  {headline:'Factory Closures Push Regional Unemployment to Five-Year High', source:'National Business Wire', link:'If the closures are due to automation or a permanent shift in demand, this is STRUCTURAL unemployment — it requires retraining, not just waiting for the economy to recover, unlike unemployment caused by a general recession (cyclical).'},
+  {headline:'Consumer Prices Index Climbs as Import Costs Surge', source:'Financial Times Wire', link:'Rising import costs pushing up prices is a textbook example of COST-PUSH inflation — production costs rising and being passed on to consumers — distinct from demand-pull inflation caused by excess spending.'}
+];
+const newsGrid = document.getElementById('newsGrid');
+NEWS_ITEMS.forEach((n,i) => {
+  const card = document.createElement('div');
+  card.className = 'news-card';
+  card.innerHTML = `<div class="news-headline">"${n.headline}"</div><div class="news-source">${n.source}</div><div class="news-out" id="newsOut${i}">${n.link}</div>`;
+  card.onclick = () => { document.getElementById('newsOut'+i).classList.toggle('show'); };
+  newsGrid.appendChild(card);
+});
+
+// ============ s-pn: POSITIVE OR NORMATIVE ============
+const PN_ITEMS = [
+  {text:'The unemployment rate is calculated as the number unemployed divided by the labour force, times 100.', type:'positive'},
+  {text:'The government should always prioritise reducing unemployment over controlling inflation.', type:'normative'},
+  {text:'Cost-push inflation happens when the cost of producing goods rises.', type:'positive'},
+  {text:'Inflation is always worse for an economy than unemployment.', type:'normative'},
+  {text:'Structural unemployment can persist because it requires workers to retrain.', type:'positive'},
+  {text:'It is unfair that savers lose out during periods of high inflation.', type:'normative'}
+];
+let pnIdx=0, pnScore=0, pnStreak=0, pnInited=false;
+function initPN() { pnInited = true; renderPN(); }
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🎓 You can now separate testable claims from value judgements — a core AO1/AO3 skill.';
+    return;
+  }
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
+}
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\'s '+item.type+' — a '+(item.type==='positive'?'testable claim.':'value judgement.'); document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
+}
+
+// ============ EXAM ADAPTER ============
+const ADAPTER = {
+  igcse: `<strong>IGCSE P2 Section A (data response): extract data, calculate, comment — Q1 format.</strong> Command words: calculate, comment, identify.<br><br><strong>Practice move:</strong> given raw unemployment or CPI data, always show the formula, the substitution, AND the final labelled answer — then add ONE sentence of comment linking the number back to the scenario (e.g. "this rate suggests the labour market is..."), since "calculate and comment" questions award marks for both parts separately.`,
+  ib: `<strong>P2 data-response intro: read the extract → define → calculate → analyse in sub-questions (a)-(f).</strong><br><br><strong>Practice move:</strong> work through a data-response extract in strict order — define any named term first, THEN calculate using the extract's own figures, THEN analyse by linking the calculated figure back to a cause or consequence discussed in this lesson. Skipping straight to analysis without the calculation step loses easy marks.`
+};
+function setAdapter(k, el) {
+  document.querySelectorAll('.adapter-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('adapterPanel').innerHTML = ADAPTER[k];
+}
+setAdapter('igcse', document.querySelector('.adapter-tab.igcse'));
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'A country has 2 million unemployed out of a labour force of 40 million. What is the unemployment rate?', opts:['2%','5%','20%'], correct:1, explain:'Unemployment rate = (2,000,000 ÷ 40,000,000) × 100 = 5%.' },
+  { q:'If CPI rises from 100 to 106, what is the inflation rate?', opts:['0.6%','6%','106%'], correct:1, explain:'Inflation rate = (106 − 100) ÷ 100 × 100 = 6%.' },
+  { q:'A worker is unemployed because their factory-line job was replaced by automation and they need retraining. This is...', opts:['Frictional unemployment','Structural unemployment','Seasonal unemployment'], correct:1, explain:'A long-term change in the economy\'s structure that requires retraining is structural unemployment.' },
+  { q:'Which of these is a genuine cause of economic growth?', opts:['A fall in the quantity of resources','An increase in the quality of resources (e.g. better training)','A recession'], correct:1, explain:'Growth comes from a rise in total demand, or a rise in the quantity OR quality of resources — better-trained workers raise the quality of the labour resource.' },
+  { q:'Inflation tends to hurt which group the most?', opts:['Borrowers','Savers and those on fixed incomes','Nobody — it affects everyone equally'], correct:1, explain:'Savers see their money buy less over time, and those on a fixed income see their real purchasing power fall as prices rise around them.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect — growth, unemployment and inflation calculations locked in! 🏆' : 'Solid — revisit any missed slide before the workbook.'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>

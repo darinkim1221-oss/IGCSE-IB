@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Notebook — Course Finale Mock (Tier 2) | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff; --gold:#c8960a; --gold2:#e0a800; --blue:#0d2d52; --teal:#00897b;
+  --red:#e53935; --white:#1a2340; --dim:#5a6a80; --card:#f5f7fa; --border:rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#eef1f6; }
+.page { max-width:840px; margin:0 auto; background:var(--bg); padding:40px 52px 60px; }
+.hdr { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--border); padding-bottom:16px; margin-bottom:16px; }
+.hdr-left .k-module { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+.hdr-left .k-title { font-family:'Bebas Neue',sans-serif; font-size:30px; color:var(--blue); line-height:1.05; }
+.hdr-left .k-sub { font-size:12px; color:var(--dim); margin-top:4px; }
+.wordmark { text-align:right; flex-shrink:0; }
+.wordmark a { text-decoration:none; }
+.wordmark .prep { display:block; font-size:9px; color:var(--dim); }
+.wordmark .word { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--blue); }
+.flow-strip { font-size:11px; color:var(--dim); background:var(--card); border-radius:10px; padding:10px 16px; margin-bottom:20px; font-family:'Space Mono',monospace; }
+.toc { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:30px; }
+.toc a { font-size:10px; text-decoration:none; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); padding:4px 10px; border-radius:20px; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; margin-top:34px; scroll-margin-top:20px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); margin-bottom:12px; }
+.p { font-size:13.5px; line-height:1.8; color:var(--white); margin-bottom:10px; }
+.p strong { color:var(--blue); }
+.list { font-size:13px; line-height:1.9; color:var(--white); padding-left:20px; margin-bottom:10px; }
+.kc-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+.kc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.obj-item { font-size:13px; line-height:1.8; padding:6px 0 6px 26px; position:relative; }
+.obj-item::before { content:'✓'; color:var(--teal); position:absolute; left:0; font-weight:700; }
+.obj-item .ao-tag { font-family:'Space Mono',monospace; font-size:9px; color:var(--gold); margin-left:6px; }
+
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:12px 18px; font-size:12.5px; color:var(--dim); line-height:1.7; margin:12px 0; }
+.tip-box strong { color:var(--gold); }
+.warn-box { border-left:3px solid var(--red); background:rgba(229,57,53,0.05); border-radius:0 10px 10px 0; padding:12px 18px; font-size:12.5px; color:var(--dim); line-height:1.7; margin:12px 0; }
+.warn-box strong { color:var(--red); }
+
+.diagram-note { display:flex; gap:16px; background:var(--card); border-radius:14px; padding:16px 18px; margin-bottom:12px; }
+.diagram-note .dn-icon { font-size:26px; flex-shrink:0; }
+.diagram-note .dn-text { font-size:12.5px; color:var(--dim); line-height:1.7; }
+.diagram-note .dn-text strong { color:var(--white); }
+
+table.glossary { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:8px; }
+table.glossary td { padding:8px 10px; border-bottom:1px solid rgba(0,0,0,0.08); vertical-align:top; }
+table.glossary td:first-child { font-weight:700; color:var(--blue); width:170px; }
+
+.footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--border); font-size:10px; color:var(--dim); text-align:center; font-family:'Space Mono',monospace; letter-spacing:0.5px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="k-module">Module 3 · Global Economics — Lesson 6</div>
+      <div class="k-title">Course Finale Mock: Evaluation &amp; Real-World Evidence</div>
+      <div class="k-sub">Teacher Notebook · Tier 2 — Read the Map (Ages 13–15)</div>
+    </div>
+    <div class="wordmark">
+      <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer">
+        <span class="prep">Prepared by</span>
+        <span class="word">STOIC EDU</span>
+      </a>
+    </div>
+  </div>
+  <div class="flow-strip">
+    SUGGESTED FLOW (55 min)
+    <ol style="margin:8px 0 0 18px;padding:0">
+      <li>Hook (3)</li>
+      <li>Command-term drill: justify/recommend/evaluate (5)</li>
+      <li>MCQ warm-up (5)</li>
+      <li>Short-answer mark-scheme literacy (5)</li>
+      <li>Data-response practice (7)</li>
+      <li>Levels of response: Band 1 vs Band 3 (5)</li>
+      <li>Real-world example bank building (5)</li>
+      <li>IB Part (b) essay structure (4)</li>
+      <li>Misconception clinic, exam-framed (4)</li>
+      <li>Timing &amp; strategy across all papers (3)</li>
+      <li>Whole-course concept connections recap (3)</li>
+      <li>Positive/normative game (4)</li>
+      <li>Exam Adapter Slot (3)</li>
+      <li>Quiz (4)</li>
+    </ol>
+    — then run the full timed mock (workbook) as a separate session
+  </div>
+  <div class="toc">
+    <a href="#obj">Objectives</a><a href="#kc">Key Concepts</a><a href="#notes">Teaching Notes</a>
+    <a href="#viz">Visuals</a><a href="#worked">Worked Example</a><a href="#misc">Misconceptions</a>
+    <a href="#resources">Resources</a>
+  </div>
+
+  <div class="section-tag" id="obj">Learning Objectives</div>
+  <div class="big-title">By the end, students can…</div>
+  <div class="obj-item">retell the whole course — foundations → macroeconomics → global economics — as one connected chain, not three separate modules <span class="ao-tag">AO1</span></div>
+  <div class="obj-item">correctly distinguish command terms — justify, recommend, evaluate — and match each to the depth of response it requires <span class="ao-tag">AO1/AO2</span></div>
+  <div class="obj-item">answer an MCQ and short-answer set drawing on content from all three modules, under time pressure <span class="ao-tag">AO1/AO2</span></div>
+  <div class="obj-item">complete a data-response question (calculation + explanation + short discuss) using unfamiliar exchange-rate and trade data <span class="ao-tag">AO2</span></div>
+  <div class="obj-item">name, state, and link a real-world example as genuine evidence within an extended answer, not as decoration <span class="ao-tag">AO3</span></div>
+  <div class="obj-item">distinguish a Band 1 from a Band 3 levels-of-response answer on a Section B-style question, and name the specific missing ingredients <span class="ao-tag">AO3</span></div>
+  <div class="obj-item">[IB] construct a full Part (b) essay using Claim → Analysis (with evidence) → Evaluation → Judgement</div>
+  <div class="obj-item">apply exam timing and planning strategy across all three papers' formats (IGCSE P1/P2; IB P1/P2/P3)</div>
+
+  <div class="section-tag" id="kc">Key Concepts &amp; the IB Lens</div>
+  <div class="kc-row"><span class="kc-chip">Sustainability</span><span class="kc-chip">Equity</span><span class="kc-chip">Change</span><span class="kc-chip">Economic Well-Being</span><span class="kc-chip">(all global-primary concepts, revisited)</span></div>
+
+  <div class="section-tag" id="notes">Detailed Teaching Notes</div>
+  <div class="big-title">From recall to judgement — with evidence</div>
+  <ul class="list">
+    <li><strong>Hook:</strong> two students who know exactly the same theory can still earn very different marks — the gap is a real-world example used as genuine EVIDENCE, not decoration. State this explicitly: no new economics today.</li>
+    <li><strong>Command-term drill:</strong> separates <em>justify</em> (pick one option, give reasons it beats an alternative), <em>recommend</em> (frame the answer as advice to a decision-maker), and <em>evaluate</em> (the full two-sided, judgement-bearing structure) — the three command terms this course has built toward since M3L1.</li>
+    <li><strong>MCQ warm-up:</strong> deliberately drawn from across ALL THREE modules — treat wrong answers as a diagnostic for which earlier lesson needs a 2-minute verbal recap.</li>
+    <li><strong>Short-answer mark-scheme literacy:</strong> uses a current-account calculation to show marks are awarded for the METHOD, the correct TOTAL, and the correct deficit/surplus LABEL as three separate credit-bearing steps.</li>
+    <li><strong>Data-response practice:</strong> rehearses the (a)/(b)/(c) escalating-depth structure common to both boards, using an exchange-rate depreciation scenario — model reading the WHOLE question stem before writing any answer.</li>
+    <li><strong>Levels of response:</strong> put a genuine Band 1 and Band 3 answer to the SAME extended question side by side and have students name the differences themselves before revealing the mark-scheme language (structure / content / judgement).</li>
+    <li><strong>Real-world example bank:</strong> the DISTINCTIVE new skill this lesson — drill the NAME → STATE → LINK sequence across four categories (trade blocs, MNCs, currency events, development institutions). Stress that naming an example with NO link back to the argument earns nothing; this is the single most common way strong students lose AO3 marks.</li>
+    <li><strong>IB Part (b) essay structure:</strong> walks Claim → Analysis (with a real-world example) → Evaluation → Judgement using the free-trade-and-development example from M3L5. The EVIDENCE inside Analysis is the step students skip most under time pressure.</li>
+    <li><strong>Misconception clinic:</strong> re-framed around "why this specific wording costs marks" — e.g. naming an example without linking it, writing one-sided "discuss" answers, or conflating a current account deficit with national debt.</li>
+    <li><strong>Timing &amp; strategy:</strong> roughly one minute per mark as a pacing check; a 30–60 second plan before any extended response; know the actual shape of your paper (IGCSE P1/P2 Section A/Section B; IB P1/P2/P3) in advance.</li>
+    <li><strong>Whole-course concept connections recap:</strong> re-walks Module 1, Module 2, and Module 3 as three connected movements in one course-long story.</li>
+    <li><strong>Positive/normative game:</strong> a whole-course review of the positive/normative distinction threaded through all three modules.</li>
+  </ul>
+
+  <div class="section-tag" id="viz">Visuals &amp; Diagrams</div>
+  <div class="diagram-note">
+    <div class="dn-icon">📊</div>
+    <div class="dn-text"><strong>No new economics diagram this lesson.</strong> The cover slide's mark-band ladder (three ascending bars, Band 1/2/3) is an exam-literacy visual, not an economics diagram. All formal diagrams (currency D/S, tariff D/S, Lorenz curve, population pyramid, development indicators, poverty cycle) should already be secure from M3L1–L5 — this lesson applies them under exam conditions and pairs them with real-world evidence, rather than re-teaching them.</div>
+  </div>
+
+  <div class="section-tag" id="worked">Worked Example</div>
+  <div class="p"><strong>Exam-style prompt:</strong> "Evaluate whether a developing country should prioritise export-led growth or protecting domestic industries to promote economic development." Model: CLAIM — export-led growth is generally more effective long-term, but limited, temporary protectionism can be justified in specific cases. ANALYSIS + EVIDENCE — specialising via comparative advantage and trading raises a country's total output and can fund development, supported by real-world evidence such as the European Union showing how deeper trade integration can accompany rising living standards among member states. COUNTER — the infant industry argument holds that brand-new domestic industries may need temporary tariff protection to grow strong enough to compete internationally. JUDGEMENT — export-led growth is the stronger long-run strategy for most developing countries, but short-term, clearly time-limited protection for a small number of genuinely infant industries can be a reasonable complement, not a replacement, for openness. This is the exact structure required in workbook Q10.</div>
+
+  <div class="section-tag" id="misc">Common Misconceptions</div>
+  <div class="warn-box"><strong>"Naming a real country or company is itself worth marks."</strong> Fix: a real-world example only earns credit when explicitly LINKED back to the argument — naming alone earns nothing.</div>
+  <div class="warn-box"><strong>"Discuss and evaluate mean the same thing — just write everything I know."</strong> Fix: <em>discuss</em> only requires presenting more than one side; <em>evaluate</em> additionally requires weighing those sides to reach a supported judgement.</div>
+  <div class="warn-box"><strong>"A current account deficit and national debt are the same thing" (written in an exam answer).</strong> Fix: a current account deficit is a FLOW (one year's imbalance); national debt is a STOCK (the total accumulated amount owed, built up over many years).</div>
+
+  <div class="section-tag" id="resources">Teaching Resources</div>
+  <div class="big-title">Exam-Precise Glossary</div>
+  <table class="glossary">
+    <tr><td>Command term</td><td>The instruction word in a question (e.g. justify, recommend, evaluate) that fixes exactly what kind of response is required and how much depth earns credit.</td></tr>
+    <tr><td>Real-world evidence (RWE)</td><td>A named real example (country, company, institution, or event) used to support an argument — must be explicitly linked back to the point being made to earn credit.</td></tr>
+    <tr><td>Levels of response</td><td>An IGCSE mark-scheme format that grades an extended answer holistically into bands based on structure, content, and judgement, rather than awarding isolated single marks.</td></tr>
+    <tr><td>Claim → Analysis → Evaluation → Judgement</td><td>The scaffold for a full IB Part (b) essay: a clear position, the reasoning/mechanism with evidence, a genuine opposing consideration, and a final supported (usually conditional) conclusion.</td></tr>
+    <tr><td>Justify / Recommend</td><td>Command terms requiring a clear position AND explicit reasons why it beats at least one alternative — often framed as advice to a named decision-maker.</td></tr>
+    <tr><td>Current account deficit vs. national debt</td><td>A current account deficit is one year's imbalance in trade and income flows (a flow); national debt is the total accumulated amount a government owes (a stock).</td></tr>
+  </table>
+
+  <div class="footer">M3L6 · Economics Academy · Stoic Edu — Teacher Notebook</div>
+</div>
+</body>
+</html>

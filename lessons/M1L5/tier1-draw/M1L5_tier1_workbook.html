@@ -37,6 +37,9 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--white); background:#ee
 .answer-line { border-bottom:1px solid rgba(0,0,0,0.18); height:26px; margin-bottom:4px; }
 .match-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:6px; }
 .match-table td { padding:7px 10px; border-bottom:1px solid rgba(0,0,0,0.08); }
+.graph-box { width:100%; height:180px; background-image:linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size:24px 24px; border:1px solid rgba(0,0,0,0.2); border-radius:4px; position:relative; margin-top:8px; }
+.graph-axis-x { position:absolute; bottom:-20px; left:0; right:0; text-align:center; font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; }
+.graph-axis-y { position:absolute; top:50%; left:-70px; transform:rotate(-90deg); font-size:10px; color:var(--dim); font-family:'Space Mono',monospace; width:150px; text-align:center; }
 .mission-box { background:linear-gradient(135deg,rgba(200,150,10,0.08),rgba(200,150,10,0.02)); border:1px solid var(--border); border-radius:12px; padding:16px 20px; margin-top:10px; }
 .mission-box .mtag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
 
@@ -90,7 +93,7 @@ td[contenteditable="true"] { min-width:60px; }
     </div>
   </div>
   <div class="meta-strip">
-    <div class="pill">10 questions</div>
+    <div class="pill">8 questions</div>
     <div class="pill">+ 1 family mission</div>
     <div class="pill">~20 min</div>
   </div>
@@ -103,9 +106,12 @@ td[contenteditable="true"] { min-width:60px; }
   <div class="big-title">Show what you discovered today</div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">1.</span> In the Cookie Factory game, what happened to the average cost per cookie as you hired your FIRST few bakers? Why?</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+    <div class="q-text"><span class="q-num">1.</span> What happened to the average cost per cookie as you hired your FIRST few bakers? Circle the best answer.</div>
+    <ul class="q-opts selectable">
+      <li>It rose steadily the whole time.</li>
+      <li>It fell.</li>
+      <li>It stayed exactly the same.</li>
+    </ul>
   </div>
 
   <div class="q-block">
@@ -114,13 +120,7 @@ td[contenteditable="true"] { min-width:60px; }
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">3.</span> What happened in the game once the factory got TOO crowded? What is that pattern called?</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">4.</span> Match each business to its correct SECTOR.</div>
+    <div class="q-text"><span class="q-num">3.</span> Match each business to its correct SECTOR.</div>
     <table class="match-table">
       <tr><td>A wheat farm</td><td contenteditable="true" spellcheck="false"></td></tr>
       <tr><td>A cookie factory</td><td contenteditable="true" spellcheck="false"></td></tr>
@@ -130,36 +130,39 @@ td[contenteditable="true"] { min-width:60px; }
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">5.</span> True or False: a business owned and run by the government (like a public library) is a "private" firm.</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">6.</span> Two rival cookie factories join together to become one bigger cookie factory. What TYPE of merger is this — horizontal, vertical, or conglomerate? Explain your choice.</div>
+    <div class="q-text"><span class="q-num">4.</span> What happened once the factory got TOO crowded? What is that pattern called?</div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">7.</span> A cookie factory buys the flour mill that supplies its flour. What TYPE of merger is this? Explain your choice.</div>
+    <div class="q-text"><span class="q-num">5.</span> Draw a bar graph. Draw one bar for the average cost per cookie with FEW bakers, and one bar for the average cost per cookie once the kitchen was TOO crowded.</div>
+    <div style="margin:26px 0 30px 80px;position:relative;max-width:600px">
+      <div class="graph-box">
+        <div class="graph-axis-y">Cost per Cookie</div>
+        <div class="graph-axis-x">Few Bakers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Too Crowded</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">6.</span> Two rival cookie factories join together to become one bigger factory. Circle the correct merger type, then give ONE reason for your choice.</div>
+    <ul class="q-opts selectable">
+      <li>Horizontal merger</li>
+      <li>Vertical merger</li>
+      <li>Conglomerate merger</li>
+    </ul>
+    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-text"><span class="q-num">7.</span> In the lemonade stand game, what happened to the price — and to how many customers stayed — as the stand became the ONLY seller in town?</div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
 
   <div class="q-block">
-    <div class="q-text"><span class="q-num">8.</span> In the lemonade stand game, what happened to the price — and to how many customers stayed — as the stand became the ONLY seller in town?</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">9.</span> In the used-bike game, why couldn't you tell just by looking whether a bike was "peachy" or a "lemon"? What is it called when a seller knows more about a product than the buyer does?</div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-    <div class="answer-line" contenteditable="true" spellcheck="false"></div>
-  </div>
-
-  <div class="q-block">
-    <div class="q-text"><span class="q-num">10.</span> Do you think a factory should ALWAYS try to grow as big as possible? Give one reason why growing can help, and one reason why growing too much can hurt.</div>
+    <div class="q-text"><span class="q-num">8.</span> Should a factory ALWAYS try to grow as big as possible? Give ONE reason why growing can help, and ONE reason why growing too much can hurt.</div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
     <div class="answer-line" contenteditable="true" spellcheck="false"></div>
   </div>
@@ -174,16 +177,14 @@ td[contenteditable="true"] { min-width:60px; }
 
   <div class="answer-key">
     <div class="ak-title">Answer Key</div>
-    <div class="ak-item"><strong>1.</strong> It fell — each new baker helped spread the cost of the oven and rent over more cookies, so the average cost per cookie went down. <span class="why">This is economies of scale.</span></div>
+    <div class="ak-item"><strong>1.</strong> "It fell." <span class="why">— Each new baker helped spread the cost of the oven and rent over more cookies, so the average cost per cookie went down. This is economies of scale.</span></div>
     <div class="ak-item"><strong>2.</strong> Economies. <span class="why">— Economies of scale means growing bigger makes each unit cheaper to produce.</span></div>
-    <div class="ak-item"><strong>3.</strong> Average cost per cookie started rising again as bakers got in each other's way on a crowded floor. <span class="why">This is called diseconomies of scale.</span></div>
-    <div class="ak-item"><strong>4.</strong> Wheat farm: Primary. Cookie factory: Secondary. Hair salon: Tertiary.</div>
-    <div class="ak-item"><strong>5.</strong> False. <span class="why">— A government-owned business is a "public" firm, not a "private" one. Private firms are owned by individuals or shareholders.</span></div>
+    <div class="ak-item"><strong>3.</strong> Wheat farm: Primary. Cookie factory: Secondary. Hair salon: Tertiary.</div>
+    <div class="ak-item"><strong>4.</strong> Average cost per cookie started rising again as bakers got in each other's way on a crowded floor. <span class="why">This is called diseconomies of scale.</span></div>
+    <div class="ak-item"><strong>5.</strong> Accept any two bars showing a LOWER bar for "Few Bakers" and a TALLER bar for "Too Crowded" — the key skill is drawing/reading a simple bar graph showing cost falling then rising (a U-shape).</div>
     <div class="ak-item"><strong>6.</strong> Horizontal merger. <span class="why">— Both factories make the SAME product at the SAME stage of production (baking cookies), which is the definition of a horizontal merger.</span></div>
-    <div class="ak-item"><strong>7.</strong> Vertical merger. <span class="why">— The factory is joining with a business at a DIFFERENT stage of the same supply chain (a supplier), which is the definition of a vertical merger.</span></div>
-    <div class="ak-item"><strong>8.</strong> The price kept rising, and fewer customers stayed willing to buy as it got more expensive — some walked away thirsty rather than pay the higher price. <span class="why">This is the power a monopolist (the only seller) has over price that a seller in a competitive market doesn't have.</span></div>
-    <div class="ak-item"><strong>9.</strong> You couldn't tell from the outside because the SELLER knows things about the bike's real condition that the BUYER can't see just by looking. <span class="why">This is called asymmetric information — one side of a deal knows more than the other.</span></div>
-    <div class="ak-item"><strong>10.</strong> Accept any reasonable pair, e.g. Growing helps: "spreading fixed costs like rent and machinery over more products makes each one cheaper (economies of scale)." Growing too much hurts: "past a certain size, a crowded factory floor or hard-to-manage workforce can make average cost rise again (diseconomies of scale)."</div>
+    <div class="ak-item"><strong>7.</strong> The price kept rising, and fewer customers stayed willing to buy as it got more expensive — some walked away thirsty rather than pay the higher price. <span class="why">This is the power a monopolist (the only seller) has over price that a seller in a competitive market doesn't have.</span></div>
+    <div class="ak-item"><strong>8.</strong> Accept any reasonable pair, e.g. Growing helps: "spreading fixed costs like rent and machinery over more products makes each one cheaper (economies of scale)." Growing too much hurts: "past a certain size, a crowded factory floor or hard-to-manage workforce can make average cost rise again (diseconomies of scale)."</div>
   </div>
 
   <div class="footer">M1L5 · Economics Academy · Stoic Edu</div>
