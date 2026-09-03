@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Finale Mock: Evaluation & Real-World Evidence | Stoic Edu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --gold: #c8960a; --gold2: #e0a800; --blue: #0d2d52;
+  --teal: #00897b; --red: #e53935; --white: #1a2340; --dim: #5a6a80;
+  --card: #f5f7fa; --card2: #eef1f6; --border: rgba(200,150,10,0.25);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-serif; overflow:hidden; height:100vh; width:100vw; display:flex; align-items:center; justify-content:center; }
+#slide-frame { position:relative; width:960px; height:540px; background:var(--bg); border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.18); overflow:hidden; flex-shrink:0; }
+@media (max-aspect-ratio: 16/9) { #slide-frame { width:100vw; height:calc(100vw*9/16); border-radius:0; } }
+@media (min-aspect-ratio: 16/9) { #slide-frame { height:100vh; width:calc(100vh*16/9); border-radius:0; } }
+.slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 44px 42px 44px; opacity:0; pointer-events:none; transition:opacity 0.5s ease; overflow:hidden; box-sizing:border-box; }
+.slide.active { opacity:1; pointer-events:all; }
+.slide::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 50%, rgba(21,101,192,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(200,150,10,0.05) 0%, transparent 50%); pointer-events:none; }
+#nav { position:absolute; bottom:14px; right:20px; display:flex; align-items:center; gap:10px; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border:1px solid var(--border); border-radius:50px; padding:7px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+.nav-btn { background:none; border:none; color:var(--dim); font-size:14px; cursor:pointer; transition:color 0.2s; line-height:1; }
+.nav-btn:hover { color:var(--gold); }
+#slide-counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--dim); min-width:36px; text-align:center; }
+.dot-nav { display:flex; gap:4px; }
+.dot { width:5px; height:5px; border-radius:50%; background:var(--dim); transition:all 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); width:14px; border-radius:3px; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
+.tag { display:inline-block; background:rgba(245,200,66,0.1); border:1px solid var(--border); color:var(--gold); font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:3px 10px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; }
+.tag.ib { background:rgba(13,45,82,0.08); border-color:rgba(13,45,82,0.2); color:var(--blue); }
+.section-tag { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(22px,3.4vw,38px); line-height:1.05; margin-bottom:14px; color:var(--white); }
+.btn { background:var(--gold); color:var(--bg); border:none; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:1px; padding:10px 28px; border-radius:50px; cursor:pointer; transition:all 0.2s; }
+.btn:hover { background:#fff; border:1px solid var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,200,66,0.3); }
+.tip-box { border-left:3px solid var(--gold); background:rgba(200,150,10,0.06); border-radius:0 10px 10px 0; padding:10px 16px; font-size:12px; color:var(--dim); line-height:1.6; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+
+/* ===== COVER ===== */
+#s-cover { flex-direction:row; gap:0; padding:0; overflow:hidden; }
+.cover-left { position:relative; z-index:1; width:42%; height:100%; background:#0d2d52; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.cover-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size:28px 28px; }
+.cover-left::after { content:''; position:absolute; right:-32px; top:0; bottom:0; width:64px; background:#0d2d52; border-radius:0 50% 50% 0 / 0 30% 30% 0; z-index:2; }
+.cov-diagram { position:relative; z-index:2; width:260px; height:220px; }
+.cover-right { position:relative; z-index:1; flex:1; height:100%; background:#ffffff; display:flex; flex-direction:column; justify-content:center; padding:44px 44px 44px 52px; }
+.cover-module { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; animation:fadeUp 0.5s ease 0.3s backwards; }
+.cover-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(22px,3.6vw,36px); line-height:1; color:#0d2d52; margin-bottom:16px; animation:fadeUp 0.5s ease 0.45s backwards; }
+.cover-title span { color:var(--gold); display:block; }
+.cover-divider { width:44px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:14px; animation:fadeUp 0.5s ease 0.55s backwards; }
+.cover-tagline { font-size:13px; line-height:1.7; color:var(--dim); margin-bottom:18px; max-width:370px; animation:fadeUp 0.5s ease 0.65s backwards; }
+.cover-concepts { margin-bottom:16px; animation:fadeUp 0.5s ease 0.7s backwards; }
+.cc-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.cc-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.cc-chip { font-size:11px; font-weight:700; color:var(--blue); background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.16); border-radius:8px; padding:4px 10px; }
+.cover-meta { display:flex; gap:8px; flex-wrap:wrap; animation:fadeUp 0.5s ease 0.8s backwards; }
+.cover-pill { background:rgba(13,45,82,0.06); border:1px solid rgba(13,45,82,0.14); color:#0d2d52; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 12px; border-radius:20px; text-transform:uppercase; }
+
+/* ===== s0 hook ===== */
+#s0 { text-align:center; }
+.hyp-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 26px; max-width:660px; margin-top:10px; }
+.hyp-lbl { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:2px; }
+.hyp-text { font-size:13px; color:var(--dim); line-height:1.7; margin-top:6px; }
+
+/* ===== tabs/panel shared (s1, s2, s7, s10) ===== */
+#s1, #s2, #s7, #s10 { flex-direction:column; gap:12px; }
+.cmd-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.cmd-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 20px; border-radius:20px; cursor:pointer; }
+.cmd-tab.active { background:var(--gold); color:#fff; }
+.cmd-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 24px; max-width:800px; width:100%; min-height:130px; }
+.cmd-answer { font-size:13px; line-height:1.8; color:var(--white); }
+.cmd-answer strong { color:var(--blue); }
+
+/* ===== s3 short-answer calc ===== */
+#s3 { flex-direction:column; gap:10px; }
+.calc-scenario { font-size:12.5px; color:var(--dim); max-width:760px; text-align:center; line-height:1.6; }
+.calc-table { width:100%; max-width:640px; border-collapse:collapse; font-size:12.5px; background:var(--card); border-radius:12px; overflow:hidden; }
+.calc-table th { background:var(--blue); color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:7px 12px; text-align:left; }
+.calc-table td { padding:7px 12px; border-bottom:1px solid rgba(0,0,0,0.08); color:var(--white); }
+.calc-table tr:last-child td { border-bottom:none; }
+.calc-table td.formula { font-family:'Space Mono',monospace; color:var(--dim); font-size:11px; }
+.calc-table td.val { font-weight:700; color:var(--gold2); text-align:right; }
+
+/* ===== s4 data response ===== */
+#s4 { flex-direction:column; gap:10px; }
+.dr-table { width:100%; max-width:640px; border-collapse:collapse; font-size:12px; background:var(--card); border-radius:12px; overflow:hidden; margin-bottom:6px; }
+.dr-table th { background:var(--blue); color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:6px 12px; text-align:left; }
+.dr-table td { padding:6px 12px; border-bottom:1px solid rgba(0,0,0,0.08); color:var(--white); }
+.dr-qlist { font-size:12.5px; line-height:1.9; color:var(--white); max-width:760px; }
+.dr-qlist .marks { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); }
+
+/* ===== s5 band table ===== */
+#s5 { flex-direction:column; gap:10px; }
+.band-table { width:100%; max-width:840px; border-collapse:collapse; font-size:11.5px; background:var(--card); border-radius:12px; overflow:hidden; }
+.band-table th { background:var(--blue); color:#fff; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:7px 12px; text-align:left; }
+.band-table td { padding:9px 12px; border-bottom:1px solid rgba(0,0,0,0.08); color:var(--white); line-height:1.6; vertical-align:top; }
+.band-table tr:last-child td { border-bottom:none; }
+.band-table td.b1 { border-left:3px solid var(--red); }
+.band-table td.b3 { border-left:3px solid var(--teal); }
+
+/* ===== s6 RWE bank ===== */
+#s6 { flex-direction:column; gap:10px; }
+
+/* ===== s8/s9 misconception + strategy tabs ===== */
+#s8, #s9 { flex-direction:column; gap:10px; }
+.pes-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:13px; padding:7px 18px; border-radius:20px; cursor:pointer; }
+.pes-tab.active { background:var(--teal); color:#fff; }
+.pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:820px; width:100%; min-height:140px; font-size:12.5px; line-height:1.8; color:var(--white); }
+.pes-panel strong { color:var(--blue); }
+
+/* ===== s-pn: POSITIVE OR NORMATIVE ===== */
+#s-pn { flex-direction:column; gap:16px; }
+.game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
+.game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
+.game-scenario { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:16px; color:var(--white); margin-bottom:14px; line-height:1.5; min-height:56px; }
+.answer-options { display:flex; gap:14px; justify-content:center; margin-bottom:10px; }
+.ans-btn { background:rgba(0,0,0,0.03); border:2px solid rgba(0,0,0,0.1); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:17px; padding:9px 24px; border-radius:12px; cursor:pointer; transition:all 0.2s; min-width:130px; }
+.ans-btn:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+.ans-btn.correct { background:rgba(0,137,123,0.15); border-color:var(--teal); color:var(--teal); }
+.ans-btn.wrong { background:rgba(229,57,53,0.15); border-color:var(--red); color:var(--red); }
+.game-feedback { font-size:12.5px; min-height:20px; font-family:'Space Mono',monospace; }
+.game-feedback.right { color:var(--teal); }
+.game-feedback.wrong { color:var(--red); }
+.score-display { display:flex; justify-content:center; gap:36px; margin-top:10px; }
+.score-item { text-align:center; }
+.score-num { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); }
+.score-lbl { font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; }
+
+/* ===== adapter ===== */
+#s-adapter { flex-direction:column; gap:10px; }
+.adapter-tabs { display:flex; gap:8px; margin-bottom:4px; }
+.adapter-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 22px; border-radius:20px; cursor:pointer; }
+.adapter-tab.active.igcse { background:var(--teal); color:#fff; }
+.adapter-tab.active.ib { background:var(--blue); color:#fff; }
+.adapter-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 26px; max-width:760px; width:100%; font-size:13px; line-height:1.8; color:var(--white); }
+.adapter-panel strong { color:var(--blue); }
+
+/* ===== quiz ===== */
+#s-quiz { flex-direction:column; gap:24px; }
+.quiz-progress { display:flex; gap:6px; justify-content:center; margin-bottom:2px; }
+.q-dot { width:32px; height:4px; border-radius:2px; background:rgba(0,0,0,0.1); transition:background 0.3s; }
+.q-dot.done { background:var(--teal); }
+.q-dot.current { background:var(--gold); }
+.quiz-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 30px; max-width:720px; width:100%; text-align:center; }
+.quiz-q { font-size:16px; line-height:1.6; margin-bottom:12px; min-height:26px; }
+.quiz-q span { color:var(--gold); }
+.quiz-options { display:flex; flex-direction:column; gap:7px; }
+.quiz-opt { background:rgba(0,0,0,0.02); border:1px solid rgba(0,0,0,0.1); color:var(--white); padding:10px 18px; border-radius:10px; cursor:pointer; font-size:13px; text-align:left; transition:all 0.2s; font-family:'Noto Sans KR',sans-serif; }
+.quiz-opt:hover { border-color:var(--gold); color:var(--gold); }
+.quiz-opt.correct { background:rgba(0,137,123,0.1); border-color:var(--teal); color:var(--teal); }
+.quiz-opt.wrong { background:rgba(229,57,53,0.1); border-color:var(--red); color:var(--red); }
+.quiz-explain { margin-top:14px; padding:9px 14px; background:rgba(245,200,66,0.08); border-radius:12px; font-size:12px; color:var(--dim); line-height:1.6; display:none; text-align:left; }
+.quiz-explain.show { display:block; }
+.quiz-explain strong { color:var(--gold); }
+.quiz-score-final { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--gold); text-align:center; }
+.quiz-score-msg { font-size:16px; color:var(--dim); text-align:center; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="slide-frame">
+
+<!-- ============ COVER ============ -->
+<section class="slide active" id="s-cover">
+  <div class="cover-left"><canvas id="coverCanvas" width="260" height="220" class="cov-diagram"></canvas></div>
+  <div class="cover-right">
+    <div class="cover-module">Module 3 · Global Economics — Lesson 6</div>
+    <div class="cover-title">Course Finale Mock:<br><span>Evaluation &amp; Real-World Evidence</span></div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">Every concept from all three modules, one connected story — plus the exam skill that separates a Band 1 answer from a Band 3: a real-world example used as genuine evidence, not decoration. Full mock format across every question type.</div>
+    <div class="cover-concepts">
+      <div class="cc-label">In this deck</div>
+      <div class="cc-chips">
+        <span class="cc-chip">Full Mock Format</span><span class="cc-chip">Real-World Evidence</span>
+        <span class="cc-chip">Essay Structure</span><span class="cc-chip">Exam Strategy</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-pill">Ages 13–15</div>
+      <div class="cover-pill">IGCSE + IB</div>
+      <div class="cover-pill">60 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ s0 HOOK ============ -->
+<section class="slide" id="s0">
+  <div class="grid-bg"></div>
+  <div class="tag">Hypothesis</div>
+  <div class="big-title" style="max-width:800px;text-align:center">Two students know the same theory. Only one earns the top band. What's the difference?</div>
+  <div class="hyp-box">
+    <div class="hyp-lbl">TEST IT</div>
+    <div class="hyp-text">If this is true, the extra marks must come from something beyond recall — naming a real-world example, stating the relevant fact, and LINKING it back to the argument, not just decorating a paragraph with it. Today: full mock exam practice across every question type, a real-world-example bank you can reuse, essay-structure mastery, and a strategy for turning minutes into marks across all three papers.</div>
+  </div>
+</section>
+
+<!-- ============ s1 COMMAND TERM DRILL ============ -->
+<section class="slide" id="s1">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">AO3 Precision</div>
+    <div class="big-title">Justify. Recommend. Evaluate.</div>
+  </div>
+  <div class="cmd-tabs" id="cmdTabs"></div>
+  <div class="cmd-box"><div class="cmd-answer" id="cmdAnswer"></div></div>
+</section>
+
+<!-- ============ s2 MCQ WARM-UP ============ -->
+<section class="slide" id="s2">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Paper 1 Style</div>
+    <div class="big-title">MCQ Warm-Up — Whole Course</div>
+  </div>
+  <div class="cmd-tabs" id="mcqTabs"></div>
+  <div class="cmd-box"><div class="cmd-answer" id="mcqAnswer"></div></div>
+</section>
+
+<!-- ============ s3 SHORT ANSWER ============ -->
+<section class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">AO2 — Mark-Scheme Literacy</div>
+    <div class="big-title">Short Answer: Where Every Mark Comes From</div>
+  </div>
+  <div class="calc-scenario">"A country's current account shows: trade in goods −$40bn, trade in services +$18bn, primary income +$6bn, secondary income −$2bn. Calculate the current account total and state whether it is a deficit or surplus. [3 marks]"</div>
+  <table class="calc-table">
+    <tr><th>Mark-scheme step</th><th>What the examiner wants to see</th><th>Marks</th></tr>
+    <tr><td>Method</td><td class="formula">−40 + 18 + 6 − 2</td><td class="val">1</td></tr>
+    <tr><td>Correct total</td><td class="formula">= −18 $bn</td><td class="val">1</td></tr>
+    <tr><td>Correct label</td><td class="formula">A DEFICIT (negative total)</td><td class="val">1</td></tr>
+  </table>
+  <div class="tip-box"><strong>Rule of thumb:</strong> a multi-step calculation almost always awards separate marks for METHOD, correct ANSWER, and correct LABELLING — so showing every step protects marks even if one step goes wrong.</div>
+</section>
+
+<!-- ============ s4 DATA RESPONSE ============ -->
+<section class="slide" id="s4">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Data Response Practice</div>
+    <div class="big-title">Read the Data Before You Read the Questions</div>
+  </div>
+  <table class="dr-table">
+    <tr><th>Country</th><th>GDP per Person</th><th>HDI</th></tr>
+    <tr><td>Verdania</td><td>$8,000</td><td>0.71</td></tr>
+    <tr><td>Coralis</td><td>$8,000</td><td>0.52</td></tr>
+  </table>
+  <div class="dr-qlist">
+    <div>(a) Define the Human Development Index (HDI). <span class="marks">[2]</span></div>
+    <div>(b) Using the data, compare the two countries' living standards. <span class="marks">[4]</span></div>
+    <div>(c) Explain one possible reason why two countries with the same GDP per person could have different HDI scores. <span class="marks">[4]</span></div>
+  </div>
+  <div class="tip-box"><strong>Strategy:</strong> scan the WHOLE data table and every question stem before writing a single word — the fact that GDP per person is IDENTICAL here is the entire point of the data set.</div>
+</section>
+
+<!-- ============ s5 LEVELS OF RESPONSE ============ -->
+<section class="slide" id="s5">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">IGCSE Levels of Response</div>
+    <div class="big-title">Band 1 vs. Band 3 on a Section B Question</div>
+  </div>
+  <table class="band-table">
+    <tr><th>"Discuss whether free trade benefits all countries equally." [12]</th><th>Band 1 (low marks)</th><th>Band 3 (top marks)</th></tr>
+    <tr><td>Structure</td><td class="b1">One-sided; states an opinion with little development</td><td class="b3">Two-sided; explores BOTH the case for and against with development</td></tr>
+    <tr><td>Content</td><td class="b1">"Yes, trade helps everyone." (no mechanism, no example)</td><td class="b3">Explains comparative advantage's gains AND names a real-world constraint (e.g. weak infrastructure limiting how much a country can benefit) as evidence</td></tr>
+    <tr><td>Judgement</td><td class="b1">No final judgement, or one with no supporting reason</td><td class="b3">A clear judgement ("benefits are real but uneven, depending on a country's starting infrastructure and institutions") supported by the analysis above</td></tr>
+  </table>
+</section>
+
+<!-- ============ s6 REAL-WORLD EXAMPLE BANK ============ -->
+<section class="slide" id="s6">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">The Final Skill Check</div>
+    <div class="big-title">Building Your Real-World Example Bank</div>
+    <p style="font-size:11.5px;color:var(--dim);max-width:760px">A real-world example only earns marks if you NAME it, STATE the relevant fact, then LINK it back to the argument — never just drop a name and move on.</p>
+  </div>
+  <div class="pes-tabs" id="rweTabs"></div>
+  <div class="pes-panel" id="rwePanel"></div>
+</section>
+
+<!-- ============ s7 IB ESSAY STRUCTURE ============ -->
+<section class="slide" id="s7">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag ib">IB Paper 1 Part (b)</div>
+    <div class="big-title">Claim → Analysis → Evaluation, With Evidence</div>
+  </div>
+  <div class="cmd-tabs" id="ibTabs"></div>
+  <div class="cmd-box"><div class="cmd-answer" id="ibAnswer"></div></div>
+</section>
+
+<!-- ============ s8 MISCONCEPTION CLINIC ============ -->
+<section class="slide" id="s8">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Where Marks Are Actually Lost</div>
+    <div class="big-title">Exam Misconception Clinic</div>
+  </div>
+  <div class="pes-tabs" id="miscTabs"></div>
+  <div class="pes-panel" id="miscPanel"></div>
+</section>
+
+<!-- ============ s9 TIMING & STRATEGY ============ -->
+<section class="slide" id="s9">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Turning Minutes Into Marks</div>
+    <div class="big-title">Timing &amp; Exam Strategy — All Papers</div>
+  </div>
+  <div class="pes-tabs" id="stratTabs"></div>
+  <div class="pes-panel" id="stratPanel"></div>
+</section>
+
+<!-- ============ s10 CONCEPT CONNECTIONS RECAP ============ -->
+<section class="slide" id="s10">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Whole-Course Synthesis</div>
+    <div class="big-title">Three Modules, One Connected Story</div>
+  </div>
+  <div class="cmd-tabs" id="recapTabs"></div>
+  <div class="cmd-box"><div class="cmd-answer" id="recapAnswer"></div></div>
+</section>
+
+<!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
+<section class="slide" id="s-pn">
+  <div class="grid-bg"></div>
+  <div style="text-align:center">
+    <div class="tag">Whole-Course Review Game</div>
+    <div class="big-title">Positive or Normative? Final Round</div>
+  </div>
+  <div class="game-arena">
+    <div class="game-question" id="pnRoundLbl">Round 1 of 6</div>
+    <div class="game-scenario" id="pnStatement">Loading...</div>
+    <div class="answer-options">
+      <button class="ans-btn" id="posBtn" onclick="pnAnswer('positive')">POSITIVE</button>
+      <button class="ans-btn" id="normBtn" onclick="pnAnswer('normative')">NORMATIVE</button>
+    </div>
+    <div class="game-feedback" id="pnFeedback"></div>
+    <div class="score-display">
+      <div class="score-item"><div class="score-num" id="pnScore">0</div><div class="score-lbl">Correct</div></div>
+      <div class="score-item"><div class="score-num" id="pnStreak">0</div><div class="score-lbl">Streak</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXAM ADAPTER SLOT ============ -->
+<section class="slide" id="s-adapter">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Exam Adapter Slot</div>
+    <div class="big-title">The Full Mock, Board by Board</div>
+  </div>
+  <div class="adapter-tabs">
+    <button class="adapter-tab active igcse" onclick="setAdapter('igcse',this)">IGCSE</button>
+    <button class="adapter-tab" onclick="setAdapter('ib',this)">IB</button>
+  </div>
+  <div class="adapter-panel" id="adapterPanel"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="slide" id="s-quiz">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:4px">
+    <div class="tag">Final Mock Check</div>
+    <div class="big-title">Whole-Course Synthesis Quiz</div>
+  </div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-box" id="quizBox"></div>
+  <button class="btn" id="quizNextBtn" style="display:none;margin-top:10px" onclick="nextQuiz()">Next Question →</button>
+</section>
+
+<!-- ============ ATTRIBUTION HEADER ============ -->
+<div id="logo-header" style="position:absolute; top:14px; left:20px; display:flex; align-items:center; gap:10px; z-index:200; transition:transform 0.2s;"
+  onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+  <a href="https://stoic-edu.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:9px; text-decoration:none;">
+    <span class="prep" style="font-family:'Noto Sans KR',sans-serif; font-size:9px; color:#5a6a80; letter-spacing:0.5px; white-space:nowrap">Prepared by</span>
+    <span class="word" style="font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:#0d2d52">STOIC EDU</span>
+  </a>
+</div>
+
+<!-- ============ NAV ============ -->
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span id="slide-counter">1 / N</span>
+  <button class="nav-btn" onclick="go(1)">→</button>
+</div>
+
+</div><!-- /slide-frame -->
+
+<script>
+// ============ SLIDE ENGINE ============
+const slides = document.querySelectorAll('.slide');
+const dotNav = document.getElementById('dotNav');
+const counter = document.getElementById('slide-counter');
+let cur = 0;
+const PN_SLIDE_IDX = 12;
+const QUIZ_SLIDE_IDX = 14;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotNav.appendChild(d);
+});
+counter.textContent = '1 / ' + slides.length;
+
+function go(dir) { goTo(cur + dir); }
+function goTo(n) {
+  n = Math.max(0, Math.min(slides.length-1, n));
+  slides[cur].classList.remove('active');
+  dotNav.children[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dotNav.children[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + slides.length;
+  adaptLogo();
+  if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
+  if (cur === PN_SLIDE_IDX && !pnInited) initPN();
+  if (slides[cur].id === 's-cover') drawCover();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+function adaptLogo() {
+  const darkSlides = ['s-cover'];
+  const isDark = darkSlides.includes(slides[cur].id);
+  const header = document.getElementById('logo-header');
+  if (!header) return;
+  const word = header.querySelector('.word');
+  const prep = header.querySelector('.prep');
+  if (word) word.style.color = isDark ? '#ffffff' : '#0d2d52';
+  if (prep) prep.style.color = isDark ? 'rgba(255,255,255,0.7)' : '#5a6a80';
+}
+adaptLogo();
+
+// ============ COVER DIAGRAM (mark-band ladder) ============
+function drawCover() {
+  const c = document.getElementById('coverCanvas'); const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,260,220);
+  ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(30,10); ctx.lineTo(30,190); ctx.lineTo(240,190); ctx.stroke();
+  const bars = [ {x:60,h:36,c:'#e53935',lbl:'1'}, {x:130,h:88,c:'#c8960a',lbl:'2'}, {x:200,h:150,c:'#00897b',lbl:'3'} ];
+  bars.forEach(b => {
+    ctx.fillStyle = b.c;
+    ctx.fillRect(b.x-18, 190-b.h, 36, b.h);
+    ctx.fillStyle = '#fff'; ctx.font = '10px monospace'; ctx.textAlign='center';
+    ctx.fillText('BAND ' + b.lbl, b.x, 202);
+  });
+  ctx.textAlign='left';
+  ctx.fillStyle='#f5c842'; ctx.font='bold 11px sans-serif'; ctx.fillText('Marks', 34, 24);
+}
+drawCover();
+
+// ============ s1 COMMAND TERM DRILL ============
+const CMDS = [
+  {key:'justify', lbl:'Justify', ans:'<strong>"Justify a development strategy for a resource-poor, densely populated country."</strong> "Justify" wants you to pick ONE option and give REASONS why it is the strongest choice compared to at least one alternative — e.g. education/services over resource-export strategies, because the country\'s real strength is its large potential workforce, not resources it doesn\'t have.'},
+  {key:'recommend', lbl:'Recommend', ans:'<strong>"Recommend whether a government should intervene to correct a current account deficit."</strong> "Recommend" is close to "justify" but frames the answer as ADVICE to a decision-maker — state your recommendation clearly, back it with reasoning and a real-world-style example, and acknowledge the strongest counter-argument before confirming your final advice.'},
+  {key:'evaluate', lbl:'Evaluate', ans:'<strong>"Evaluate whether free trade promotes economic development."</strong> "Evaluate" demands the full Claim → Analysis → Counter → Judgement chain: state the claim, analyse the mechanism with a real-world example, counter it with a genuine limitation, then reach a supported final judgement — not just a list of points.'}
+];
+let cmdActive = 0;
+const cmdTabs = document.getElementById('cmdTabs');
+CMDS.forEach((c,i) => {
+  const b = document.createElement('button');
+  b.className = 'cmd-tab' + (i===0?' active':'');
+  b.textContent = c.lbl;
+  b.onclick = () => { cmdActive=i; document.querySelectorAll('#cmdTabs .cmd-tab').forEach(t=>t.classList.remove('active')); b.classList.add('active'); renderCmd(); };
+  cmdTabs.appendChild(b);
+});
+function renderCmd() { document.getElementById('cmdAnswer').innerHTML = CMDS[cmdActive].ans; }
+renderCmd();
+
+// ============ s2 MCQ WARM-UP ============
+const MCQS = [
+  {lbl:'Q1', q:'Two countries each specialise in what they produce relatively best, then trade. This is based on:', opts:['Absolute advantage only','Comparative advantage','Protectionism'], correct:1, why:'Comparative advantage is the principle that specialising in relative strengths, then trading, benefits both sides.'},
+  {lbl:'Q2', q:'A government adds a tax on imported steel to protect domestic steel producers. This is:', opts:['A tariff','A subsidy','An exchange rate intervention'], correct:0, why:'A tax specifically on imported goods is a tariff — a classic protectionist tool.'},
+  {lbl:'Q3', q:'Which of these would most likely cause a currency to APPRECIATE?', opts:['A fall in demand for the country\'s exports','A rise in the country\'s interest rates, attracting foreign investment','A rise in the country\'s imports'], correct:1, why:'Higher interest rates attract foreign investors seeking better returns, increasing demand for the currency and pushing its value up.'}
+];
+let mcqActive = 0;
+const mcqTabsEl = document.getElementById('mcqTabs');
+MCQS.forEach((m,i) => {
+  const b = document.createElement('button');
+  b.className = 'cmd-tab' + (i===0?' active':'');
+  b.textContent = m.lbl;
+  b.onclick = () => { mcqActive=i; document.querySelectorAll('#mcqTabs .cmd-tab').forEach(t=>t.classList.remove('active')); b.classList.add('active'); renderMcq(); };
+  mcqTabsEl.appendChild(b);
+});
+function renderMcq() {
+  const m = MCQS[mcqActive];
+  document.getElementById('mcqAnswer').innerHTML = `<strong>${m.q}</strong><br><br>${m.opts.map((o,i)=>`${i===m.correct?'<span style="color:var(--teal)">✓</span>':'○'} ${o}`).join('<br>')}<br><br><span style="color:var(--dim);font-size:12px">${m.why}</span>`;
+}
+renderMcq();
+
+// ============ s6 REAL-WORLD EXAMPLE BANK ============
+const RWE_TABS = [
+  {key:'blocs', lbl:'Trade Blocs', html:`<strong>Example category:</strong> the European Union (EU) began as a customs union and later deepened into a common market with free movement of labour and capital. <strong>How to use it:</strong> NAME the EU, STATE that it shows real countries progressing up the integration ladder (not just a theoretical idea), then LINK it back to whatever claim you're making about the benefits or costs of deeper integration.`},
+  {key:'mnc', lbl:'MNCs', html:`<strong>Example category:</strong> a well-known multinational company operating factories or offices across several countries. <strong>How to use it:</strong> NAME the type of company (e.g. a global consumer-electronics or car manufacturer), STATE the specific host/home effect you're illustrating (jobs and tax revenue for the host; market access and profit for the home), then LINK it back to your argument about MNC costs or benefits.`},
+  {key:'currency', lbl:'Currency Events', html:`<strong>Example category:</strong> a currency's value shifting sharply after a central bank changes interest rates, or after a change in investor confidence. <strong>How to use it:</strong> NAME the mechanism (interest-rate change → capital flows → exchange-rate movement), STATE the direction of the shift, then LINK it back to the currency demand/supply diagram you've already learned to draw.`},
+  {key:'institutions', lbl:'Development Institutions', html:`<strong>Example category:</strong> the World Bank provides longer-term development financing, while the IMF provides financial stability support and short-term loans (IB HL naming; not required at IGCSE). <strong>How to use it:</strong> NAME the specific institution and its actual role, rather than a vague "some organisation" — this precision is exactly what turns a generic point into real-world evidence.`}
+];
+let rweActive = 0;
+const rweTabsEl = document.getElementById('rweTabs');
+RWE_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { rweActive=i; document.querySelectorAll('#rweTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderRwe(); };
+  rweTabsEl.appendChild(b);
+});
+function renderRwe() { document.getElementById('rwePanel').innerHTML = RWE_TABS[rweActive].html; }
+renderRwe();
+
+// ============ s7 IB ESSAY STRUCTURE ============
+const IB_TABS = [
+  {key:'claim', lbl:'Claim', ans:'Open with a direct, arguable position: "Free trade can promote economic development, but is not sufficient on its own." A vague opening ("there are many views on this") wastes valuable time and signals no clear direction to the examiner.'},
+  {key:'analysis', lbl:'Analysis + Evidence', ans:'Develop the mechanism AND back it with a real-world example: free trade gives access to larger export markets and drives specialisation gains — as seen in countries pursuing export-led growth strategies — potentially raising incomes and funding further development.'},
+  {key:'evaluation', lbl:'Evaluation', ans:'Counter the claim with a genuine limitation, then close with a supported judgement: "countries with weak infrastructure or institutions may struggle to compete even with open trade access" — so free trade is likely to help development most when paired with investment in infrastructure, education, and institutions, not as a strategy on its own.'}
+];
+let ibActive = 0;
+const ibTabsEl = document.getElementById('ibTabs');
+IB_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'cmd-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { ibActive=i; document.querySelectorAll('#ibTabs .cmd-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderIb(); };
+  ibTabsEl.appendChild(b);
+});
+function renderIb() { document.getElementById('ibAnswer').innerHTML = IB_TABS[ibActive].ans; }
+renderIb();
+
+// ============ s8 MISCONCEPTION CLINIC ============
+const MISC_TABS = [
+  {key:'nameonly', lbl:'Naming Without Linking', html:`<strong>The trap:</strong> dropping a real-world name (a country, company, or institution) into an answer without explaining WHY it's relevant.<br><br><strong>Why it costs marks:</strong> examiners credit evidence that is explicitly LINKED back to the argument — "for example, the EU" earns nothing on its own; "the EU shows how a customs union can deepen into a common market, which supports the argument that integration tends to intensify over time" earns real marks.`},
+  {key:'onesided', lbl:'One-Sided "Discuss"/"Evaluate"', html:`<strong>The trap:</strong> writing a strong paragraph that only covers ONE side of a "discuss" or "evaluate" question.<br><br><strong>Fix:</strong> however well-written, a one-sided answer is capped in the lowest band on both boards. Budget explicit time for the COUNTER side, even if you believe the claim is basically correct.`},
+  {key:'deficitdebt', lbl:'Deficit vs. Debt', html:`<strong>The trap:</strong> using "current account deficit" and "national debt" interchangeably.<br><br><strong>Fix:</strong> a current account deficit is a FLOW — the gap for one year's trade and income; national debt is a STOCK — the total accumulated amount owed over time. Confusing the two is a common source of lost AO1 marks.`}
+];
+let miscActive = 0;
+const miscTabsEl = document.getElementById('miscTabs');
+MISC_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { miscActive=i; document.querySelectorAll('#miscTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderMisc(); };
+  miscTabsEl.appendChild(b);
+});
+function renderMisc() { document.getElementById('miscPanel').innerHTML = MISC_TABS[miscActive].html; }
+renderMisc();
+
+// ============ s9 TIMING & STRATEGY ============
+const STRAT_TABS = [
+  {key:'time', lbl:'The 1-Minute-Per-Mark Rule', html:`As a baseline, budget roughly ONE MINUTE of writing per mark available — a 2-mark definition should take under 2 minutes; a 12–16 mark Section B question, or an IB Part (b), deserves close to that many minutes of planning and writing combined. Running over on a low-mark question is one of the most common ways strong students run out of time for the high-mark ones.`},
+  {key:'plan', lbl:'Plan Before You Write', html:`For any question worth 6+ marks, spend 30–60 seconds jotting a one-line plan (claim / evidence / counter / judgement) BEFORE writing prose. This costs almost no time but prevents the single biggest cause of weak extended answers: starting to write before knowing where the answer is going.`},
+  {key:'papers', lbl:'Know Your Papers', html:`IGCSE: Paper 1 is 40 MCQs in 60 minutes (single best answer, no penalty for guessing); Paper 2 Section A is short data-response questions; Section B asks for 3 of 4 extended responses (12–16 marks each) — choose the ones you can support with the clearest reasoning, not just the ones that "look easy." IB: Paper 1 asks two-part (a)+(b) essays; Paper 2 is a data-response exercise; HL students also sit Paper 3 on policy analysis. Knowing the SHAPE of your paper in advance is itself a marks-saving strategy.`}
+];
+let stratActive = 0;
+const stratTabsEl = document.getElementById('stratTabs');
+STRAT_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'pes-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { stratActive=i; document.querySelectorAll('#stratTabs .pes-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderStrat(); };
+  stratTabsEl.appendChild(b);
+});
+function renderStrat() { document.getElementById('stratPanel').innerHTML = STRAT_TABS[stratActive].html; }
+renderStrat();
+
+// ============ s10 CONCEPT CONNECTIONS RECAP ============
+const RECAP_TABS = [
+  {key:'m1', lbl:'Module 1', ans:'<strong>Foundations — Scarcity, Markets &amp; Firms:</strong> every choice has an opportunity cost; markets bring buyers and sellers together through demand and supply; firms compete in different ways, and markets sometimes need government help to work well.'},
+  {key:'m2', lbl:'Module 2', ans:'<strong>Macroeconomics — Money, Growth &amp; Policy:</strong> money and banks let households and firms save and borrow; GDP and HDI measure how an economy and its people are doing; fiscal, monetary, and supply-side policy are the tools governments and central banks use to steer growth, jobs, and prices — each with its own trade-off.'},
+  {key:'m3', lbl:'Module 3', ans:'<strong>Global Economics — Trade, Currencies &amp; Development:</strong> countries gain from specialising and trading, though protectionism and currency movements complicate that story; income and opportunity are shared unevenly both within and between countries; and globalisation connects it all, for better and for worse.'}
+];
+let recapActive = 0;
+const recapTabsEl = document.getElementById('recapTabs');
+RECAP_TABS.forEach((t,i) => {
+  const b = document.createElement('button');
+  b.className = 'cmd-tab' + (i===0?' active':'');
+  b.textContent = t.lbl;
+  b.onclick = () => { recapActive=i; document.querySelectorAll('#recapTabs .cmd-tab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderRecap(); };
+  recapTabsEl.appendChild(b);
+});
+function renderRecap() { document.getElementById('recapAnswer').innerHTML = RECAP_TABS[recapActive].ans; }
+renderRecap();
+
+// ============ s-pn: POSITIVE OR NORMATIVE (whole-course review) ============
+const PN_ITEMS = [
+  {text:'Comparative advantage means specialising in what you produce relatively best, then trading.', type:'positive'},
+  {text:'Every country should always sign every trade deal offered to it.', type:'normative'},
+  {text:'Raising a country\'s interest rates tends to attract foreign investment and can cause the currency to appreciate.', type:'positive'},
+  {text:'Rich countries have a moral duty to give more foreign aid to poorer countries.', type:'normative'},
+  {text:'The Human Development Index combines health, education and income into one score.', type:'positive'},
+  {text:'Governments should always prioritise growth over reducing income inequality.', type:'normative'}
+];
+let pnIdx=0, pnScore=0, pnStreak=0, pnInited=false;
+function initPN() { pnInited = true; renderPN(); }
+function renderPN() {
+  if (pnIdx >= PN_ITEMS.length) {
+    document.getElementById('pnRoundLbl').textContent = 'Complete!';
+    document.getElementById('pnStatement').textContent = '🎓 You can separate testable claims from value judgements across the WHOLE course — a core AO1/AO3 skill.';
+    return;
+  }
+  document.getElementById('pnRoundLbl').textContent = 'Round ' + (pnIdx+1) + ' of ' + PN_ITEMS.length;
+  document.getElementById('pnStatement').textContent = PN_ITEMS[pnIdx].text;
+  document.getElementById('pnFeedback').textContent = '';
+  document.getElementById('pnFeedback').className = 'game-feedback';
+  ['posBtn','normBtn'].forEach(id => { const b=document.getElementById(id); b.classList.remove('correct','wrong'); b.disabled=false; });
+}
+function pnAnswer(choice) {
+  const item = PN_ITEMS[pnIdx];
+  const correct = choice === item.type;
+  const btn = document.getElementById(choice==='positive'?'posBtn':'normBtn');
+  const other = document.getElementById(choice==='positive'?'normBtn':'posBtn');
+  ['posBtn','normBtn'].forEach(id => document.getElementById(id).disabled = true);
+  if (correct) { btn.classList.add('correct'); pnScore++; pnStreak++; document.getElementById('pnFeedback').textContent='✓ Correct!'; document.getElementById('pnFeedback').className='game-feedback right'; }
+  else { btn.classList.add('wrong'); other.classList.add('correct'); pnStreak=0; document.getElementById('pnFeedback').textContent='✗ That\'s '+item.type+' — a '+(item.type==='positive'?'testable claim.':'value judgement.'); document.getElementById('pnFeedback').className='game-feedback wrong'; }
+  document.getElementById('pnScore').textContent = pnScore;
+  document.getElementById('pnStreak').textContent = pnStreak;
+  pnIdx++;
+  setTimeout(renderPN, 1600);
+}
+
+// ============ EXAM ADAPTER ============
+const ADAPTER = {
+  igcse: `<strong>IGCSE full mock:</strong> Paper 1 (40 MCQ, 60 min) + Paper 2 Section A (data response, 20 marks) + Section B (choose 3 of 4 extended responses, 12–16 marks each, 60 marks total).<br><br><strong>Practice move:</strong> after the mock, debrief against the actual mark scheme — the biggest late-course gain usually comes from mark-scheme literacy (knowing exactly what earns each mark), not new content.`,
+  ib: `<strong>IB full mock:</strong> Paper 1 (two-part (a)+(b) essays across two questions), Paper 2 (data response), and — for HL students — Paper 3 (policy-analysis paper).<br><br><strong>Practice move:</strong> review your real-world-example bank one more time before the mock, and do a final essay-structure check — every extended answer should visibly hit Claim → Analysis (with evidence) → Evaluation → Judgement.`
+};
+function setAdapter(k, el) {
+  document.querySelectorAll('.adapter-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('adapterPanel').innerHTML = ADAPTER[k];
+}
+setAdapter('igcse', document.querySelector('.adapter-tab.igcse'));
+
+// ============ QUIZ ============
+const QUIZ = [
+  { q:'What is comparative advantage?', opts:['Producing everything a country needs by itself','Specialising in what you produce relatively best, then trading', 'Always choosing the cheapest imported goods'], correct:1, explain:'Comparative advantage means specialising in relative strengths, then trading for the rest.' },
+  { q:'"Evaluate whether free trade promotes economic development." A Band 1 answer typically...', opts:['Covers both sides with a supported judgement and evidence','Is one-sided with little development and no real-world example','Only defines free trade'], correct:1, explain:'Band 1 responses are one-sided, undeveloped, and lack real-world evidence — top-band responses cover both sides with evidence and a supported judgement.' },
+  { q:'In the Claim → Analysis → Evaluation structure, real-world evidence belongs mainly in the...', opts:['Claim only','Analysis step, to support the mechanism','Nowhere — theory alone is sufficient'], correct:1, explain:'Real-world evidence is most powerful when used to support the mechanism explained in the Analysis step, then referenced again in the final judgement.' },
+  { q:'A current account "deficit" and a country\'s national "debt" are...', opts:['Exactly the same thing','Different: debt is an accumulated total, deficit is one year\'s flow','Both measures of GDP'], correct:1, explain:'Debt is a stock (total accumulated amount owed); a deficit is a flow (one year\'s imbalance).' },
+  { q:'Naming a real institution like the EU or the IMF in an essay only earns marks if you...', opts:['Just mention its name once','Link it explicitly back to the argument you are making','Describe its full history in detail'], correct:1, explain:'Real-world evidence only earns marks when it is explicitly linked back to the argument — naming alone earns nothing.' }
+];
+let quizIdx = 0, quizScoreVal = 0, quizInited = false;
+function initQuiz() {
+  quizInited = true;
+  const prog = document.getElementById('quizProgress');
+  QUIZ.forEach(() => { const d = document.createElement('div'); d.className = 'q-dot'; prog.appendChild(d); });
+  renderQuiz();
+}
+function renderQuiz() {
+  const prog = document.getElementById('quizProgress').children;
+  for (let i=0;i<prog.length;i++) prog[i].className = 'q-dot' + (i<quizIdx?' done':i===quizIdx?' current':'');
+  if (quizIdx >= QUIZ.length) {
+    document.getElementById('quizBox').innerHTML = `<div class="quiz-score-final">${quizScoreVal}/${QUIZ.length}</div><div class="quiz-score-msg">${quizScoreVal===QUIZ.length ? 'Perfect — full mock format and evidence-based essay structure locked in! 🏆' : 'Solid — revisit any missed slide, then move to the mock paper.'}</div>`;
+    document.getElementById('quizNextBtn').style.display = 'none';
+    return;
+  }
+  const item = QUIZ[quizIdx];
+  document.getElementById('quizBox').innerHTML = `
+    <div class="quiz-q">${item.q}</div>
+    <div class="quiz-options">${item.opts.map((o,i)=>`<div class="quiz-opt" data-i="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}</div>
+    <div class="quiz-explain" id="quizExplain"><strong>Why:</strong> ${item.explain}</div>`;
+  document.getElementById('quizNextBtn').style.display = 'none';
+}
+function answerQuiz(i) {
+  const item = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.onclick = null);
+  opts[item.correct].classList.add('correct');
+  if (i !== item.correct) opts[i].classList.add('wrong'); else quizScoreVal++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+function nextQuiz() { quizIdx++; renderQuiz(); }
+</script>
+</body>
+</html>
