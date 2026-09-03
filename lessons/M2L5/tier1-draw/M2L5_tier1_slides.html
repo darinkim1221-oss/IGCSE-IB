@@ -423,9 +423,9 @@ TERMS.forEach((t) => {
 // ============ s2: YOU ARE THE CENTRAL BANK ============
 let cbVal = 50;
 const CB_LEVERS = [
-  {lbl:'⬆️ Raise interest rates', change:-15, news:'📰 Prices have been rising fast!', note:'Higher interest rates make borrowing more expensive, so people and businesses spend less — this cools an overheating economy, but can slow growth and raise unemployment.'},
-  {lbl:'⬇️ Lower interest rates', change:15, news:'📰 Shops are empty — people have stopped spending.', note:'Lower interest rates make borrowing cheaper, encouraging spending and investment — this can boost growth and jobs, but risks pushing prices up if overdone.'},
-  {lbl:'🎯 Hold rates steady', change:0, news:'📰 The economy looks balanced for now.', note:'Sometimes the safest move is to wait and see how the economy responds before changing rates again.'}
+  {lbl:'⬆️ Raise interest rates', change:-15, news:'📰 Prices have been rising fast!', note:'Higher interest rates make borrowing more expensive, so people and businesses spend less — this cools an overheating economy, but can slow growth and raise unemployment.', real:'🌍 Real-world echo: central banks around the world raised interest rates sharply in 2022-23 to fight fast-rising prices.'},
+  {lbl:'⬇️ Lower interest rates', change:15, news:'📰 Shops are empty — people have stopped spending.', note:'Lower interest rates make borrowing cheaper, encouraging spending and investment — this can boost growth and jobs, but risks pushing prices up if overdone.', real:'🌍 Real-world echo: during the 2008 financial crisis, many central banks cut interest rates close to zero to fight a deep slowdown.'},
+  {lbl:'🎯 Hold rates steady', change:0, news:'📰 The economy looks balanced for now.', note:'Sometimes the safest move is to wait and see how the economy responds before changing rates again.', real:'🌍 Real-world echo: central banks often "pause" for months at a time, watching new data before their next move.'}
 ];
 function renderCB() {
   document.getElementById('cbVal').textContent = 'Economy Temp: ' + cbVal;
@@ -441,7 +441,7 @@ CB_LEVERS.forEach(lv => {
     cbVal = Math.max(5, Math.min(100, cbVal + lv.change));
     renderCB();
     document.getElementById('cbNews').textContent = lv.news;
-    document.getElementById('cbFeedback').innerHTML = `<strong style="color:var(--gold)">${lv.lbl}:</strong> ${lv.note}`;
+    document.getElementById('cbFeedback').innerHTML = `<strong style="color:var(--gold)">${lv.lbl}:</strong> ${lv.note}<br><span style="font-size:11px;color:var(--teal);font-style:italic">${lv.real}</span>`;
   };
   cbBtnsEl.appendChild(b);
 });

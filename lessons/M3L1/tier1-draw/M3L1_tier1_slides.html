@@ -101,6 +101,10 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 
 /* ===== s3: COMPARATIVE ADVANTAGE TABS ===== */
 #s3 { flex-direction:column; gap:10px; }
+.messi-bars { display:flex; gap:40px; align-items:flex-end; height:130px; margin:4px 0; }
+.messi-bar-col { display:flex; flex-direction:column; align-items:center; }
+.messi-bar { width:56px; border-radius:8px 8px 0 0; }
+.messi-bar-lbl { font-size:11px; color:var(--dim); margin-top:6px; text-align:center; max-width:100px; }
 .pes-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
 .pes-tab { background:var(--card); border:2px solid rgba(0,0,0,0.06); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:13px; padding:7px 18px; border-radius:20px; cursor:pointer; }
 .pes-tab.active { background:var(--teal); color:#fff; border-color:var(--teal); }
@@ -259,6 +263,10 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div style="text-align:center;margin-bottom:2px">
     <div class="tag">The Puzzle</div>
     <div class="big-title">Why Doesn't Messi Mow His Own Lawn?</div>
+  </div>
+  <div class="messi-bars">
+    <div class="messi-bar-col"><div class="messi-bar" style="height:110px;background:linear-gradient(180deg,var(--gold),var(--gold2))"></div><div class="messi-bar-lbl">⚽ 1 hour of football &amp; endorsements</div></div>
+    <div class="messi-bar-col"><div class="messi-bar" style="height:14px;background:var(--teal)"></div><div class="messi-bar-lbl">🌱 1 hour of mowing the lawn</div></div>
   </div>
   <div class="pes-tabs" id="messiTabs"></div>
   <div class="pes-panel" id="messiPanel"></div>
@@ -457,7 +465,9 @@ const PACK_ITEMS = [
   {name:'📱 Phone', origin:'Assembled in China (parts from many countries)', why:'Electronics assembly often specialises in one country, even though the components (chips, screens, batteries) are made all over the world.'},
   {name:'👟 Sneakers', origin:'Vietnam', why:'Vietnam has become a major specialist in footwear manufacturing, offering skilled labour at competitive cost.'},
   {name:'🎒 Backpack Itself', origin:'China or Cambodia', why:'These countries specialise in low-cost, high-volume textile and bag production.'},
-  {name:'🍫 Chocolate Snack', origin:'Cocoa from West Africa, made into chocolate in Europe', why:'Countries like Ghana and Côte d\'Ivoire specialise in growing cocoa; European countries often specialise in turning it into finished chocolate.'}
+  {name:'🍫 Chocolate Snack', origin:'Cocoa from West Africa, made into chocolate in Europe', why:'Countries like Ghana and Côte d\'Ivoire specialise in growing cocoa; European countries often specialise in turning it into finished chocolate.'},
+  {name:'✏️ Pencil', origin:'Wood from the US or Indonesia, graphite from China', why:'Even something as simple as a pencil combines resources and manufacturing steps specialised across several different countries.'},
+  {name:'⌚ Watch', origin:'Switzerland (luxury) or China (everyday)', why:'Switzerland has specialised in precision watchmaking for centuries, built on generations of skilled craftsmanship — a classic example of specialisation built up over time.'}
 ];
 const packGrid = document.getElementById('packChips');
 PACK_ITEMS.forEach((it) => {

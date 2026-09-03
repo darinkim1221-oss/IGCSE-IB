@@ -86,6 +86,10 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 
 /* ===== TABS (s2,s3,s6) ===== */
 #s2, #s3, #s6 { flex-direction:column; gap:10px; }
+.rich-compare { display:flex; gap:20px; justify-content:center; margin-bottom:2px; }
+.rich-col { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:10px 22px; text-align:center; }
+.rich-col .rc-lbl { font-family:'Bebas Neue',sans-serif; font-size:13px; color:var(--blue); margin-bottom:4px; }
+.rich-col .rc-row { font-size:20px; letter-spacing:3px; }
 .pes-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
 .pes-tab { background:var(--card); border:2px solid rgba(0,0,0,0.06); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:12.5px; padding:6px 14px; border-radius:20px; cursor:pointer; }
 .pes-tab.active { background:var(--teal); color:#fff; border-color:var(--teal); }
@@ -229,6 +233,10 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div style="text-align:center;margin-bottom:2px">
     <div class="tag">Country to Country</div>
     <div class="big-title">Why Are Some Countries Richer Than Others?</div>
+  </div>
+  <div class="rich-compare">
+    <div class="rich-col"><div class="rc-lbl">A Richer Country</div><div class="rc-row">🏫🏫🏫 🏥🏥🏥 💼💼💼</div></div>
+    <div class="rich-col"><div class="rc-lbl">A Poorer Country</div><div class="rc-row">🏫 🏥 💼</div></div>
   </div>
   <div class="pes-tabs" id="richTabs"></div>
   <div class="pes-panel" id="richPanel"></div>

@@ -96,6 +96,8 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .cur-check-icon { font-size:15px; width:20px; text-align:center; }
 .cur-verdict { flex:1; background:linear-gradient(135deg,rgba(200,150,10,0.08),rgba(200,150,10,0.02)); border:1px solid var(--border); border-radius:14px; padding:16px 18px; font-size:12.5px; line-height:1.7; color:var(--white); min-height:150px; }
 .cur-verdict strong { color:var(--gold); }
+.real-currency-strip { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:6px; }
+.real-currency-chip { font-size:11px; color:var(--dim); background:var(--card); border:1px solid var(--border); border-radius:16px; padding:4px 12px; }
 
 /* ===== s3 MINI-BANK SIMULATION ===== */
 #s3 { flex-direction:column; gap:14px; }
@@ -255,6 +257,9 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div style="text-align:center;margin-bottom:2px">
     <div class="tag">Stress-Test It</div>
     <div class="big-title">Invent-Your-Own-Currency Game</div>
+  </div>
+  <div class="real-currency-strip">
+    <span class="real-currency-chip">🇺🇸 US Dollar</span><span class="real-currency-chip">🇬🇧 British Pound</span><span class="real-currency-chip">🇯🇵 Japanese Yen</span><span class="real-currency-chip">🇰🇷 Korean Won</span><span class="real-currency-chip">🇪🇺 Euro</span>
   </div>
   <div class="cur-tabs" id="curTabs"></div>
   <div class="cur-panel">

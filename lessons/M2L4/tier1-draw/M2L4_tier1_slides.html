@@ -429,11 +429,11 @@ TERMS.forEach((t) => {
 // ============ s2: GROW THE COUNTRY ============
 let growVal = 50;
 const GROW_LEVERS = [
-  {lbl:'🛍️ People buy more stuff', change:12, note:'When total demand rises, businesses sell more and often hire more workers to keep up — the economy grows.'},
-  {lbl:'🏗️ Build more factories & tools', change:10, note:'More resources (capital) to work with means the country can produce more — a bigger "quantity" of resources.'},
-  {lbl:'🎓 Workers get better trained', change:9, note:'Better-skilled, more productive workers make more out of the same resources — a better "quality" of resources.'},
-  {lbl:'😨 People stop spending (recession)', change:-18, note:'A recession: total demand falls, factories cut back production, and the economy shrinks instead of growing.'},
-  {lbl:'🏚️ Factories close down', change:-10, note:'Losing capital (factories, tools) shrinks how much the country CAN produce, even if people want to buy.'}
+  {lbl:'🛍️ People buy more stuff', change:12, note:'When total demand rises, businesses sell more and often hire more workers to keep up — the economy grows.', real:'🌍 Real-world echo: shopping-season sales surges are a classic short-term demand boost that governments watch closely.'},
+  {lbl:'🏗️ Build more factories & tools', change:10, note:'More resources (capital) to work with means the country can produce more — a bigger "quantity" of resources.', real:'🌍 Real-world echo: countries that invest heavily in new infrastructure and factories often see faster long-run growth.'},
+  {lbl:'🎓 Workers get better trained', change:9, note:'Better-skilled, more productive workers make more out of the same resources — a better "quality" of resources.', real:'🌍 Real-world echo: nations that invest in education and job training tend to grow faster over decades, not just years.'},
+  {lbl:'😨 People stop spending (recession)', change:-18, note:'A recession: total demand falls, factories cut back production, and the economy shrinks instead of growing.', real:'🌍 Real-world echo: the 2008 global financial crisis saw confidence collapse worldwide — spending fell and many economies shrank.'},
+  {lbl:'🏚️ Factories close down', change:-10, note:'Losing capital (factories, tools) shrinks how much the country CAN produce, even if people want to buy.', real:'🌍 Real-world echo: when major factories or mines shut down, whole regions can lose years of productive capacity at once.'}
 ];
 function renderGrow() {
   document.getElementById('growVal').textContent = growVal;
@@ -448,7 +448,7 @@ GROW_LEVERS.forEach(lv => {
   b.onclick = () => {
     growVal = Math.max(5, Math.min(100, growVal + lv.change));
     renderGrow();
-    document.getElementById('growFeedback').innerHTML = `<strong style="color:${lv.change<0?'var(--red)':'var(--gold)'}">${lv.lbl}:</strong> ${lv.note}`;
+    document.getElementById('growFeedback').innerHTML = `<strong style="color:${lv.change<0?'var(--red)':'var(--gold)'}">${lv.lbl}:</strong> ${lv.note}<br><span style="font-size:11px;color:var(--teal);font-style:italic">${lv.real}</span>`;
   };
   growBtnsEl.appendChild(b);
 });

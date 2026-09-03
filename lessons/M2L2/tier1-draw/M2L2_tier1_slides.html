@@ -125,6 +125,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .hdi-col-val { font-family:'Bebas Neue',sans-serif; font-size:16px; color:var(--white); }
 .hdi-note { font-size:12px; color:var(--dim); max-width:760px; text-align:center; line-height:1.6; min-height:20px; }
 .hdi-note strong { color:var(--gold); }
+.hdi-real { font-size:11px; color:var(--teal); text-align:center; margin-top:6px; font-style:italic; }
 
 /* ===== s-pn: FACT OR OPINION ===== */
 #s-pn { flex-direction:column; gap:16px; }
@@ -277,6 +278,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div class="hdi-tabs" id="hdiTabs"></div>
   <div class="hdi-bars" id="hdiBars"></div>
   <div class="hdi-note" id="hdiNote"></div>
+  <div class="hdi-real" id="hdiReal"></div>
 </section>
 
 <!-- ============ s-pn: FACT OR OPINION ============ -->
@@ -457,9 +459,9 @@ HAPPY_COUNTRIES.forEach(c => {
 
 // ============ s4: GDP PER PERSON vs. HDI ============
 const HDI_COUNTRIES = [
-  {name:'Country A', money:95, life:60, note:'<strong>Country A</strong> has a very high income per person, but a LOWER HDI score — long life and good schooling for everyone haven\'t kept pace with the money.'},
-  {name:'Country B', money:35, life:80, note:'<strong>Country B</strong> has a modest income per person, but a HIGHER HDI score — strong healthcare and schooling stretch a smaller income a long way.'},
-  {name:'Country C', money:70, life:72, note:'<strong>Country C</strong> has income and HDI fairly close together — a more "balanced" development story.'}
+  {name:'Country A', money:95, life:60, note:'<strong>Country A</strong> has a very high income per person, but a LOWER HDI score — long life and good schooling for everyone haven\'t kept pace with the money.', real:'🛢️ Real-world echo: oil- and gas-rich nations often top the income tables but rank lower on HDI.'},
+  {name:'Country B', money:35, life:80, note:'<strong>Country B</strong> has a modest income per person, but a HIGHER HDI score — strong healthcare and schooling stretch a smaller income a long way.', real:'🏥 Real-world echo: countries with strong free healthcare & education systems often "overperform" their income on HDI.'},
+  {name:'Country C', money:70, life:72, note:'<strong>Country C</strong> has income and HDI fairly close together — a more "balanced" development story.', real:'⚖️ Real-world echo: many mid-income countries show income and HDI rising together at a similar pace.'}
 ];
 let hdiActive = 0;
 const hdiTabsEl = document.getElementById('hdiTabs');
@@ -476,6 +478,7 @@ function renderHdi() {
     <div class="hdi-col"><div class="hdi-col-val">${c.money}</div><div class="hdi-bar money" style="height:${c.money}%"></div><div class="hdi-col-lbl">💰 Money-Per-Person Score</div></div>
     <div class="hdi-col"><div class="hdi-col-val">${c.life}</div><div class="hdi-bar life" style="height:${c.life}%"></div><div class="hdi-col-lbl">🌱 HDI Score (health + education + income)</div></div>`;
   document.getElementById('hdiNote').innerHTML = c.note;
+  document.getElementById('hdiReal').innerHTML = c.real;
 }
 renderHdi();
 

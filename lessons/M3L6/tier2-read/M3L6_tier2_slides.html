@@ -102,6 +102,11 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 
 /* ===== s8/s9 misconception + strategy tabs ===== */
 #s8, #s9 { flex-direction:column; gap:10px; }
+.time-chart { display:flex; align-items:flex-end; gap:24px; height:110px; margin:2px 0; }
+.time-col { display:flex; flex-direction:column; align-items:center; }
+.time-bar { width:60px; border-radius:8px 8px 0 0; background:linear-gradient(180deg,var(--teal),var(--blue)); }
+.time-lbl { font-size:10.5px; color:var(--dim); margin-top:5px; text-align:center; max-width:100px; }
+.time-val { font-family:'Space Mono',monospace; font-size:10px; color:var(--gold); }
 .pes-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
 .pes-tab { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:13px; padding:7px 18px; border-radius:20px; cursor:pointer; }
 .pes-tab.active { background:var(--teal); color:#fff; }
@@ -322,6 +327,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
     <div class="tag">Turning Minutes Into Marks</div>
     <div class="big-title">Timing &amp; Exam Strategy — All Papers</div>
   </div>
+  <div class="time-chart" id="timeChart"></div>
   <div class="pes-tabs" id="stratTabs"></div>
   <div class="pes-panel" id="stratPanel"></div>
 </section>
@@ -602,6 +608,22 @@ STRAT_TABS.forEach((t,i) => {
 });
 function renderStrat() { document.getElementById('stratPanel').innerHTML = STRAT_TABS[stratActive].html; }
 renderStrat();
+
+// ============ s9: EXAM TIME BUDGET CHART ============
+const TIME_BUDGET = [
+  {lbl:'MCQ (1 mark each)', mins:1, maxMins:16},
+  {lbl:'Short Answer (2-4 marks)', mins:4, maxMins:16},
+  {lbl:'Data Response (4-6 marks)', mins:6, maxMins:16},
+  {lbl:'Extended Response (8-16 marks)', mins:16, maxMins:16}
+];
+const timeChartEl = document.getElementById('timeChart');
+TIME_BUDGET.forEach(t => {
+  const col = document.createElement('div');
+  col.className = 'time-col';
+  const h = Math.round((t.mins / t.maxMins) * 90) + 10;
+  col.innerHTML = `<div class="time-val">~${t.mins} min</div><div class="time-bar" style="height:${h}px"></div><div class="time-lbl">${t.lbl}</div>`;
+  timeChartEl.appendChild(col);
+});
 
 // ============ s10 CONCEPT CONNECTIONS RECAP ============
 const RECAP_TABS = [

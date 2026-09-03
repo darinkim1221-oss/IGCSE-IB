@@ -72,6 +72,37 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 
 /* ===== s1: STORY MAP ===== */
 #s1 { flex-direction:column; gap:10px; }
+
+/* ===== s1b: JOURNEY MAP ===== */
+#s1b { flex-direction:column; gap:6px; }
+.journey-track { display:flex; align-items:center; justify-content:center; gap:10px; margin-top:8px; }
+.journey-stop { background:var(--card); border:2px solid var(--border); border-radius:16px; padding:14px 20px; text-align:center; cursor:pointer; transition:all 0.2s; max-width:210px; }
+.journey-stop:hover { border-color:var(--gold); }
+.journey-stop.active { border-color:var(--teal); background:rgba(0,137,123,0.08); }
+.journey-stop .js-emoji { font-size:30px; }
+.journey-stop .js-lbl { font-family:'Bebas Neue',sans-serif; font-size:14px; color:var(--blue); margin-top:4px; }
+.journey-arrow { font-size:22px; color:var(--gold); }
+.journey-out { font-size:12px; color:var(--dim); text-align:center; max-width:700px; min-height:40px; margin-top:6px; line-height:1.6; }
+
+/* ===== s2b: REAL-WORLD ROUND-UP ===== */
+#s2b { flex-direction:column; gap:10px; }
+.rw-grid { display:flex; flex-direction:column; gap:8px; max-width:800px; width:100%; }
+.rw-card { background:var(--card); border:2px solid rgba(0,0,0,0.06); border-radius:14px; padding:11px 18px; cursor:pointer; }
+.rw-card:hover { border-color:var(--gold); }
+.rw-headline { font-family:'Bebas Neue',sans-serif; font-size:15px; color:var(--blue); }
+.rw-out { font-size:11.5px; color:var(--dim); margin-top:5px; line-height:1.6; display:none; }
+.rw-out.show { display:block; }
+
+/* ===== s4b: MEET YOUR COUNTRY ===== */
+#s4b { flex-direction:column; gap:8px; }
+.country-row { display:flex; justify-content:center; gap:14px; margin:8px 0; flex-wrap:wrap; }
+.country-card { text-align:center; cursor:pointer; }
+.country-bar { width:38px; background:linear-gradient(180deg,var(--gold),var(--gold2)); border-radius:6px 6px 0 0; margin:0 auto; transition:height 0.3s; }
+.country-name { font-size:10.5px; color:var(--dim); margin-top:4px; }
+.country-count { font-family:'Bebas Neue',sans-serif; font-size:13px; color:var(--blue); }
+.country-out { font-size:12px; color:var(--white); min-height:44px; max-width:720px; margin:0 auto; text-align:center; }
+
+#s2, #s3 { flex-direction:column; gap:8px; }
 .spec-cards { display:flex; flex-wrap:wrap; gap:9px; justify-content:center; max-width:850px; }
 .spec-card { background:var(--card); border:2px solid rgba(0,0,0,0.06); border-radius:12px; padding:8px 12px; font-size:11px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; }
 .spec-card:hover { border-color:var(--gold); }
@@ -217,6 +248,18 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div class="spec-hint" id="storyHint">Tap a chapter above to recap what it taught you.</div>
 </section>
 
+<!-- ============ s1b: JOURNEY MAP ============ -->
+<section class="slide" id="s1b">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Your Journey</div>
+    <div class="big-title">Three Big Stops on the Map</div>
+    <p style="font-size:11px;color:var(--dim);max-width:640px">Tap each stop to remember what it felt like to learn it.</p>
+  </div>
+  <div class="journey-track" id="journeyTrack"></div>
+  <div class="journey-out" id="journeyOut">Tap a stop above.</div>
+</section>
+
 <!-- ============ s2: CONCEPT CONNECTION ============ -->
 <section class="slide" id="s2">
   <div class="grid-bg"></div>
@@ -226,6 +269,17 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
     <p style="font-size:11px;color:var(--dim);max-width:640px">Read each mini-scene, guess the idea, then check your answer.</p>
   </div>
   <div class="merge-cards" id="connectCards"></div>
+</section>
+
+<!-- ============ s2b: REAL-WORLD ROUND-UP ============ -->
+<section class="slide" id="s2b">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">In the News</div>
+    <div class="big-title">Real-World Round-Up</div>
+    <p style="font-size:11px;color:var(--dim);max-width:640px">Tap a headline to see how it connects to something you learned.</p>
+  </div>
+  <div class="rw-grid" id="rwGrid"></div>
 </section>
 
 <!-- ============ s3: MISCONCEPTION CLINIC ============ -->
@@ -255,6 +309,18 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   </div>
   <div class="kc-chip-row" id="kcChips"></div>
   <div class="kc-hint" id="kcHint">Tap a word above to see which Key Concept it belongs to.</div>
+</section>
+
+<!-- ============ s4b: MEET YOUR COUNTRY ============ -->
+<section class="slide" id="s4b">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Before the Summit</div>
+    <div class="big-title">Meet Your Country</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Just like the Candy Economy, these 5 countries are heading into the World Summit with very unequal starting resources. Tap each one.</p>
+  </div>
+  <div class="country-row" id="countryRow"></div>
+  <div class="country-out" id="countryOut">Tap a country above.</div>
 </section>
 
 <!-- ============ s5: THE WORLD SUMMIT ============ -->
@@ -352,8 +418,8 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const PN_SLIDE_IDX = 7;
-const QUIZ_SLIDE_IDX = 9;
+const PN_SLIDE_IDX = 10;
+const QUIZ_SLIDE_IDX = 12;
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -414,6 +480,60 @@ STORY_CHAPTERS.forEach((it) => {
     document.getElementById('storyHint').innerHTML = `<strong style="color:var(--teal)">${it.name}:</strong> ${it.recap}`;
   };
   storyGrid.appendChild(c);
+});
+
+// ============ s1b: JOURNEY MAP ============
+const JOURNEY_STOPS = [
+  {emoji:'⚖️', name:'Module 1: Foundations', out:'You learned that every choice has a cost, and watched markets find their price through buyers and sellers.'},
+  {emoji:'🏦', name:'Module 2: Macroeconomics', out:'You learned how money, banks, and government policy try to keep a whole economy healthy — jobs, prices, and growth all at once.'},
+  {emoji:'🌍', name:'Module 3: Global Economics', out:'You learned how countries trade, connect, and sometimes grow unevenly — and led your own country through the World Summit.'}
+];
+const journeyTrack = document.getElementById('journeyTrack');
+JOURNEY_STOPS.forEach((s,i) => {
+  if (i > 0) { const arrow = document.createElement('div'); arrow.className = 'journey-arrow'; arrow.textContent = '→'; journeyTrack.appendChild(arrow); }
+  const card = document.createElement('div');
+  card.className = 'journey-stop';
+  card.innerHTML = `<div class="js-emoji">${s.emoji}</div><div class="js-lbl">${s.name}</div>`;
+  card.onclick = () => {
+    document.querySelectorAll('.journey-stop').forEach(x => x.classList.remove('active'));
+    card.classList.add('active');
+    document.getElementById('journeyOut').textContent = s.out;
+  };
+  journeyTrack.appendChild(card);
+});
+
+// ============ s2b: REAL-WORLD ROUND-UP ============
+const RW_ITEMS = [
+  {headline:'"Two Countries Sign Deal to Trade More Freely"', out:'This connects to specialisation and trade from Module 3 — when countries trade, both sides can end up with more than if they tried to make everything themselves.'},
+  {headline:'"Prices at the Shops Have Gone Up Again This Year"', out:'This is inflation from Module 2 — when the average price of things rises over time, the same amount of money buys less than before.'},
+  {headline:'"New Report Shows Rich and Poor Getting Further Apart"', out:'This connects to income inequality from Module 3 — even when a whole country grows richer, that extra money isn\'t always shared evenly.'}
+];
+const rwGrid = document.getElementById('rwGrid');
+RW_ITEMS.forEach((n,i) => {
+  const card = document.createElement('div');
+  card.className = 'rw-card';
+  card.innerHTML = `<div class="rw-headline">${n.headline}</div><div class="rw-out" id="rwOut${i}">${n.out}</div>`;
+  card.onclick = () => { document.getElementById('rwOut'+i).classList.toggle('show'); };
+  rwGrid.appendChild(card);
+});
+
+// ============ s4b: MEET YOUR COUNTRY ============
+const SUMMIT_COUNTRIES = [
+  {name:'Verdania', count:6, feeling:'"We start the summit with the most resources — factories, farmland, and money to invest."'},
+  {name:'Coralis', count:2, feeling:'"We have a decent start, but nowhere near as much as Verdania."'},
+  {name:'Marisol', count:1, feeling:'"We\'re starting small, but we\'re hoping smart choices at the summit can help us catch up."'},
+  {name:'Tellus', count:1, feeling:'"Like Marisol, we\'re starting with very little — every summit decision matters even more for us."'},
+  {name:'Auroria', count:0, feeling:'"We start the summit with almost nothing. Whatever happens at the summit will shape our whole future."'}
+];
+const countryRow = document.getElementById('countryRow');
+SUMMIT_COUNTRIES.forEach((p) => {
+  const div = document.createElement('div');
+  div.className = 'country-card';
+  div.innerHTML = `<div class="country-bar" style="height:${p.count*14+6}px"></div><div class="country-count">${p.count}</div><div class="country-name">${p.name}</div>`;
+  div.onclick = () => {
+    document.getElementById('countryOut').innerHTML = `<strong style="color:var(--gold)">${p.name}:</strong> ${p.feeling}`;
+  };
+  countryRow.appendChild(div);
 });
 
 // ============ s2: CONCEPT CONNECTION ============
