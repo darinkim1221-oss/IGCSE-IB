@@ -97,6 +97,16 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .barrier-panel { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:11px 18px; max-width:800px; width:100%; min-height:52px; max-height:70px; overflow-y:auto; font-size:11.5px; line-height:1.65; color:var(--white); }
 
 /* ===== s-pn ===== */
+/* ===== s-news: REAL-WORLD HEADLINES ===== */
+#s-news { flex-direction:column; gap:10px; }
+.news-grid { display:flex; flex-direction:column; gap:8px; max-width:800px; width:100%; max-height:340px; overflow-y:auto; padding-right:4px; }
+.news-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 16px; cursor:pointer; transition:border-color 0.15s; }
+.news-card:hover { border-color:var(--gold); }
+.news-headline { font-family:'Bebas Neue',sans-serif; font-size:15px; color:var(--blue); }
+.news-source { font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.news-out { font-size:11.5px; color:var(--dim); margin-top:6px; line-height:1.6; display:none; }
+.news-out.show { display:block; }
+
 #s-pn { flex-direction:column; gap:16px; }
 .game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
 .game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
@@ -303,6 +313,16 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 </section>
 
 <!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
+<section class="slide" id="s-news">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">In the News</div>
+    <div class="big-title">Real-World Headlines</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Tap a headline to see how it connects to this lesson's economics.</p>
+  </div>
+  <div class="news-grid" id="newsGrid"></div>
+</section>
+
 <section class="slide" id="s-pn">
   <div class="grid-bg"></div>
   <div style="text-align:center">
@@ -375,8 +395,8 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const PN_SLIDE_IDX = 12;
-const QUIZ_SLIDE_IDX = 14;
+const PN_SLIDE_IDX = 13;
+const QUIZ_SLIDE_IDX = 15;
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -644,6 +664,21 @@ HL_TABS.forEach((t,i) => {
 });
 function renderHl() { document.getElementById('hlPanel').innerHTML = HL_TABS[hlActive].html; }
 renderHl();
+
+// ============ s-news: REAL-WORLD HEADLINES ============
+const NEWS_ITEMS = [
+  {headline:'Multinational Firm Announces New Factory, Creating Thousands of Local Jobs', source:'Global Trade Wire', link:'A direct real-world example of an MNC bringing benefits to a host country — new jobs and, typically, new tax revenue — one side of the host-country advantage/disadvantage analysis in this lesson.'},
+  {headline:'Country\'s HDI Ranking Rises Despite Modest GDP Growth', source:'Global Economic Bulletin', link:'This illustrates exactly why this lesson stresses multiple development indicators — HDI can improve through gains in health or education even when GDP per person grows only modestly.'},
+  {headline:'Coastal Nations Push for Stronger Climate Commitments at Global Summit', source:'Financial Times Wire', link:'Connects directly to this lesson\'s sustainability theme — balancing continued economic growth against environmental protection is a live, real-world policy tension, not just a textbook trade-off.'}
+];
+const newsGrid = document.getElementById('newsGrid');
+NEWS_ITEMS.forEach((n,i) => {
+  const card = document.createElement('div');
+  card.className = 'news-card';
+  card.innerHTML = `<div class="news-headline">"${n.headline}"</div><div class="news-source">${n.source}</div><div class="news-out" id="newsOut${i}">${n.link}</div>`;
+  card.onclick = () => { document.getElementById('newsOut'+i).classList.toggle('show'); };
+  newsGrid.appendChild(card);
+});
 
 // ============ s-pn: POSITIVE OR NORMATIVE ============
 const PN_ITEMS = [

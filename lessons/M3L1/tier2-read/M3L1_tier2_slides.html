@@ -90,6 +90,23 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .gft-table tr:last-child td { border-bottom:none; font-weight:700; color:var(--gold2); }
 .gft-msg { font-size:12px; color:var(--dim); max-width:700px; text-align:center; min-height:20px; }
 
+/* ===== s4b: PPF DIAGRAM ===== */
+#s4b { flex-direction:column; gap:8px; }
+.ppf-toggle { display:flex; gap:8px; }
+.ppf-btn { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:14px; padding:7px 22px; border-radius:20px; cursor:pointer; }
+.ppf-btn.active { background:var(--teal); color:#fff; }
+.ppf-note { font-size:11.5px; color:var(--dim); max-width:760px; text-align:center; min-height:36px; }
+
+/* ===== s-news: REAL-WORLD HEADLINES ===== */
+#s-news { flex-direction:column; gap:10px; }
+.news-grid { display:flex; flex-direction:column; gap:8px; max-width:800px; width:100%; max-height:340px; overflow-y:auto; padding-right:4px; }
+.news-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 16px; cursor:pointer; transition:border-color 0.15s; }
+.news-card:hover { border-color:var(--gold); }
+.news-headline { font-family:'Bebas Neue',sans-serif; font-size:15px; color:var(--blue); }
+.news-source { font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.news-out { font-size:11.5px; color:var(--dim); margin-top:6px; line-height:1.6; display:none; }
+.news-out.show { display:block; }
+
 /* ===== s-pn: POSITIVE OR NORMATIVE ===== */
 #s-pn { flex-direction:column; gap:16px; }
 .game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
@@ -224,6 +241,21 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div class="gft-msg" id="gftMsg"></div>
 </section>
 
+<!-- ============ s4b: PPF DIAGRAM ============ -->
+<section class="slide" id="s4b">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Key Diagram — Draw &amp; Interpret</div>
+    <div class="big-title">The Production Possibility Frontier (PPF) View</div>
+  </div>
+  <div class="ppf-toggle">
+    <button class="ppf-btn active" id="ppfBeforeBtn" onclick="setPpf('before')">Before Trade</button>
+    <button class="ppf-btn" id="ppfAfterBtn" onclick="setPpf('after')">After Trade</button>
+  </div>
+  <canvas id="ppfCanvas" width="620" height="230"></canvas>
+  <div class="ppf-note" id="ppfNote"></div>
+</section>
+
 <!-- ============ s5: IB HL ENRICHMENT ============ -->
 <section class="slide" id="s5">
   <div class="grid-bg"></div>
@@ -233,6 +265,17 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   </div>
   <div class="pes-tabs" id="hlTabs"></div>
   <div class="pes-panel" id="hlPanel"></div>
+</section>
+
+<!-- ============ s-news: REAL-WORLD HEADLINES ============ -->
+<section class="slide" id="s-news">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">In the News</div>
+    <div class="big-title">Real-World Headlines</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Tap a headline to see how it connects to this lesson's economics.</p>
+  </div>
+  <div class="news-grid" id="newsGrid"></div>
 </section>
 
 <!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
@@ -308,8 +351,8 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const PN_SLIDE_IDX = 7;
-const QUIZ_SLIDE_IDX = 9;
+const PN_SLIDE_IDX = 9;
+const QUIZ_SLIDE_IDX = 11;
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -332,6 +375,7 @@ function goTo(n) {
   if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
   if (cur === PN_SLIDE_IDX && !pnInited) initPN();
   if (slides[cur].id === 's-cover') drawCover();
+  if (slides[cur].id === 's4b') drawPpf(ppfMode);
 }
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === ' ') go(1);
@@ -445,6 +489,63 @@ function setGft(mode) {
 }
 setGft('before');
 
+// ============ s4b: PPF DIAGRAM ============
+let ppfMode = 'before';
+function setPpf(mode) {
+  ppfMode = mode;
+  document.getElementById('ppfBeforeBtn').classList.toggle('active', mode==='before');
+  document.getElementById('ppfAfterBtn').classList.toggle('active', mode==='after');
+  drawPpf(mode);
+}
+function drawPpf(mode) {
+  const c = document.getElementById('ppfCanvas'); if (!c) return;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,620,230);
+
+  function panel(originX, maxCloth, maxWine, label, prodPt, consPt) {
+    const axisW = 240, axisH = 170, baseY = 200, leftX = originX + 30;
+    ctx.strokeStyle = '#5a6a80'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(leftX, baseY - axisH); ctx.lineTo(leftX, baseY); ctx.lineTo(leftX + axisW, baseY); ctx.stroke();
+    ctx.font = '9px monospace'; ctx.fillStyle = '#5a6a80'; ctx.textAlign = 'center';
+    ctx.fillText('Cloth →', leftX + axisW/2, baseY + 16);
+    ctx.save(); ctx.translate(leftX - 18, baseY - axisH/2); ctx.rotate(-Math.PI/2); ctx.fillText('Wine →', 0, 0); ctx.restore();
+
+    const toX = (cloth) => leftX + (cloth/maxCloth)*axisW;
+    const toY = (wine) => baseY - (wine/maxWine)*axisH;
+
+    // PPF line
+    ctx.strokeStyle = '#0d2d52'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(toX(0), toY(maxWine)); ctx.lineTo(toX(maxCloth), toY(0)); ctx.stroke();
+
+    // Production point
+    ctx.fillStyle = '#00897b';
+    ctx.beginPath(); ctx.arc(toX(prodPt[0]), toY(prodPt[1]), 5, 0, 7); ctx.fill();
+
+    if (consPt) {
+      // dashed trade line from production to consumption
+      ctx.strokeStyle = '#c8960a'; ctx.lineWidth = 1.5; ctx.setLineDash([4,3]);
+      ctx.beginPath(); ctx.moveTo(toX(prodPt[0]), toY(prodPt[1])); ctx.lineTo(toX(consPt[0]), toY(consPt[1])); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#e53935';
+      ctx.beginPath(); ctx.arc(toX(consPt[0]), toY(consPt[1]), 5, 0, 7); ctx.fill();
+    }
+
+    ctx.textAlign = 'left'; ctx.font = 'bold 12px sans-serif'; ctx.fillStyle = '#1a2340';
+    ctx.fillText(label, leftX, baseY - axisH - 14);
+  }
+
+  if (mode === 'before') {
+    panel(0, 5, 10, 'Country A (max: 5 Cloth or 10 Wine)', [2.5, 5], null);
+    panel(320, 10, 5, 'Country B (max: 10 Cloth or 5 Wine)', [5, 2.5], null);
+    document.getElementById('ppfNote').innerHTML = '<strong style="color:var(--white)">Before trade:</strong> each country splits its labour and produces AND consumes at a point ON its own PPF (teal dot) — no trade means no way to consume beyond your own production possibilities.';
+  } else {
+    panel(0, 5, 10, 'Country A (max: 5 Cloth or 10 Wine)', [0, 10], [3, 7]);
+    panel(320, 10, 5, 'Country B (max: 10 Cloth or 5 Wine)', [10, 0], [7, 3]);
+    document.getElementById('ppfNote').innerHTML = '<strong style="color:var(--white)">After trade:</strong> each country fully specialises and PRODUCES at its axis intercept (teal dot), then trades to reach a CONSUMPTION point (red dot) — notice the red dot sits beyond that country\'s own PPF, which is only possible because of trade.';
+  }
+}
+drawPpf('before');
+
 // ============ s5: IB HL ENRICHMENT ============
 const HL_TABS = [
   {key:'abscomp', lbl:'Absolute vs. Comparative Advantage', html:`<strong>Absolute advantage:</strong> a country can produce MORE of a good using the same resources than another country. <strong>Comparative advantage:</strong> a country has a LOWER opportunity cost of producing a good than another country — even if it has no absolute advantage in anything.<br><br><strong>Opportunity-cost table (from the Gains from Trade example):</strong><br>Country A: opportunity cost of 1 Cloth = 2 Wine (gives up 2 Wine to make 1 Cloth). Country B: opportunity cost of 1 Cloth = 0.5 Wine.<br>Since B has the LOWER opportunity cost of Cloth, B has comparative advantage in Cloth; A has comparative advantage in Wine. The key insight: gains from trade rely on COMPARATIVE advantage, not absolute — even a country with no absolute advantage in anything can still gain by specialising in its comparative advantage good. Not required at IGCSE 0455.`},
@@ -461,6 +562,21 @@ HL_TABS.forEach((t,i) => {
 });
 function renderHl() { document.getElementById('hlPanel').innerHTML = HL_TABS[hlActive].html; }
 renderHl();
+
+// ============ s-news: REAL-WORLD HEADLINES ============
+const NEWS_ITEMS = [
+  {headline:'Trade Bloc Members Report Record Export Growth After Tariff Cuts', source:'Global Trade Wire', link:'This illustrates the gains-from-trade principle directly — as barriers fall, countries can specialise more fully in their comparative-advantage goods and export more, echoing this lesson\'s Gains from Trade calculator.'},
+  {headline:'Shipping Delays Highlight Risk of Over-Reliance on Single Trading Partner', source:'Financial Times Wire', link:'A genuine disadvantage of specialisation and free trade — depending heavily on one partner for essential goods creates vulnerability if that trade relationship is disrupted.'},
+  {headline:'Domestic Textile Workers Struggle as Cheaper Imports Flood Market', source:'National Business Wire', link:'A real-world example of free trade\'s disadvantage: domestic industries unable to compete with cheaper imports can decline, causing structural unemployment in that sector — even as consumers benefit from lower prices.'}
+];
+const newsGrid = document.getElementById('newsGrid');
+NEWS_ITEMS.forEach((n,i) => {
+  const card = document.createElement('div');
+  card.className = 'news-card';
+  card.innerHTML = `<div class="news-headline">"${n.headline}"</div><div class="news-source">${n.source}</div><div class="news-out" id="newsOut${i}">${n.link}</div>`;
+  card.onclick = () => { document.getElementById('newsOut'+i).classList.toggle('show'); };
+  newsGrid.appendChild(card);
+});
 
 // ============ s-pn: POSITIVE OR NORMATIVE ============
 const PN_ITEMS = [

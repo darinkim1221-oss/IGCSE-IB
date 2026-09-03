@@ -103,6 +103,16 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .lm-legend strong { color:var(--blue); }
 
 /* ===== s-pn: POSITIVE OR NORMATIVE ===== */
+/* ===== s-news: REAL-WORLD HEADLINES ===== */
+#s-news { flex-direction:column; gap:10px; }
+.news-grid { display:flex; flex-direction:column; gap:8px; max-width:800px; width:100%; max-height:340px; overflow-y:auto; padding-right:4px; }
+.news-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 16px; cursor:pointer; transition:border-color 0.15s; }
+.news-card:hover { border-color:var(--gold); }
+.news-headline { font-family:'Bebas Neue',sans-serif; font-size:15px; color:var(--blue); }
+.news-source { font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.news-out { font-size:11.5px; color:var(--dim); margin-top:6px; line-height:1.6; display:none; }
+.news-out.show { display:block; }
+
 #s-pn { flex-direction:column; gap:16px; }
 .game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
 .game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
@@ -256,6 +266,16 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 </section>
 
 <!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
+<section class="slide" id="s-news">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">In the News</div>
+    <div class="big-title">Real-World Headlines</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Tap a headline to see how it connects to this lesson's economics.</p>
+  </div>
+  <div class="news-grid" id="newsGrid"></div>
+</section>
+
 <section class="slide" id="s-pn">
   <div class="grid-bg"></div>
   <div style="text-align:center">
@@ -328,8 +348,8 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const PN_SLIDE_IDX = 7;
-const QUIZ_SLIDE_IDX = 9;
+const PN_SLIDE_IDX = 8;
+const QUIZ_SLIDE_IDX = 10;
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -497,6 +517,21 @@ LAB_TABS.forEach((t,i) => {
 });
 function renderLab() { document.getElementById('labPanel').innerHTML = LAB_TABS[labActive].html; }
 renderLab();
+
+// ============ s-news: REAL-WORLD HEADLINES ============
+const NEWS_ITEMS = [
+  {headline:'Lawmakers Approve Sharp Rise in National Minimum Wage', source:'National Business Wire', link:'A real policy change you can plot directly on the labour market diagram — raising the minimum wage above equilibrium widens the gap between the quantity of labour supplied and demanded.'},
+  {headline:'Retailers Warn of Job Cuts Following Wage Floor Increase', source:'Financial Times Wire', link:'This is exactly the labour SURPLUS (unemployment) risk shown on the diagram — a minimum wage set above equilibrium can mean fewer workers hired than want to work at that wage.'},
+  {headline:'Major Bank Reports Sharp Rise in Household Savings Rates', source:'Global Economic Bulletin', link:'Connects to this lesson\'s coverage of money\'s role as a store of value and the household saving/borrowing decisions that banks intermediate between savers and borrowers.'}
+];
+const newsGrid = document.getElementById('newsGrid');
+NEWS_ITEMS.forEach((n,i) => {
+  const card = document.createElement('div');
+  card.className = 'news-card';
+  card.innerHTML = `<div class="news-headline">"${n.headline}"</div><div class="news-source">${n.source}</div><div class="news-out" id="newsOut${i}">${n.link}</div>`;
+  card.onclick = () => { document.getElementById('newsOut'+i).classList.toggle('show'); };
+  newsGrid.appendChild(card);
+});
 
 // ============ s-pn: POSITIVE OR NORMATIVE ============
 const PN_ITEMS = [

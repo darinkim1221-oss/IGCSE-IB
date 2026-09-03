@@ -112,6 +112,16 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .pes-panel strong { color:var(--blue); }
 
 /* ===== s-pn: POSITIVE OR NORMATIVE ===== */
+/* ===== s-news: REAL-WORLD HEADLINES ===== */
+#s-news { flex-direction:column; gap:10px; }
+.news-grid { display:flex; flex-direction:column; gap:8px; max-width:800px; width:100%; max-height:340px; overflow-y:auto; padding-right:4px; }
+.news-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 16px; cursor:pointer; transition:border-color 0.15s; }
+.news-card:hover { border-color:var(--gold); }
+.news-headline { font-family:'Bebas Neue',sans-serif; font-size:15px; color:var(--blue); }
+.news-source { font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.news-out { font-size:11.5px; color:var(--dim); margin-top:6px; line-height:1.6; display:none; }
+.news-out.show { display:block; }
+
 #s-pn { flex-direction:column; gap:16px; }
 .game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
 .game-question { font-size:11.5px; color:var(--dim); margin-bottom:6px; }
@@ -325,6 +335,16 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 </section>
 
 <!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
+<section class="slide" id="s-news">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Module Round-Up</div>
+    <div class="big-title">Real-World Headlines</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Tap a headline to see how it connects to this module's economics.</p>
+  </div>
+  <div class="news-grid" id="newsGrid"></div>
+</section>
+
 <section class="slide" id="s-pn">
   <div class="grid-bg"></div>
   <div style="text-align:center">
@@ -397,8 +417,8 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const QUIZ_SLIDE_IDX = 14;
-const PN_SLIDE_IDX = 12;
+const QUIZ_SLIDE_IDX = 15;
+const PN_SLIDE_IDX = 13;
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -575,6 +595,21 @@ RECAP_TABS.forEach((t,i) => {
 });
 function renderRecap() { document.getElementById('recapAnswer').innerHTML = RECAP_TABS[recapActive].ans; }
 renderRecap();
+
+// ============ s-news: REAL-WORLD HEADLINES ============
+const NEWS_ITEMS = [
+  {headline:'Statistics Office Revises GDP Growth Estimate Downward', source:'Global Economic Bulletin', link:'A reminder that GDP figures are often revised as more data comes in — always check whether a reported growth figure is preliminary or final before drawing conclusions.'},
+  {headline:'Finance Minister Defends Budget Deficit as \'Investment in the Future\'', source:'National Business Wire', link:'A real political framing of the deficit-vs-debt distinction from this module — whether a deficit is defensible often depends on what it is funding, exactly the judgement this module\'s evaluation paragraphs are built around.'},
+  {headline:'Unemployment Falls to Decade Low as Job Vacancies Rise', source:'Financial Times Wire', link:'Connects growth, unemployment types, and policy together — falling unemployment alongside rising vacancies suggests the labour market is tightening, which can also raise wage-driven inflation risk.'}
+];
+const newsGrid = document.getElementById('newsGrid');
+NEWS_ITEMS.forEach((n,i) => {
+  const card = document.createElement('div');
+  card.className = 'news-card';
+  card.innerHTML = `<div class="news-headline">"${n.headline}"</div><div class="news-source">${n.source}</div><div class="news-out" id="newsOut${i}">${n.link}</div>`;
+  card.onclick = () => { document.getElementById('newsOut'+i).classList.toggle('show'); };
+  newsGrid.appendChild(card);
+});
 
 // ============ s-pn: POSITIVE OR NORMATIVE (module review) ============
 const PN_ITEMS = [

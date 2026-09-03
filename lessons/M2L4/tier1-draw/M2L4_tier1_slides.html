@@ -73,7 +73,8 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .vs-amount { font-size:32px; margin-bottom:6px; }
 .vs-desc { font-size:12px; color:var(--dim); line-height:1.6; }
 .vs-separator { display:flex; align-items:center; font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--dim); }
-.hook-reveal { font-size:15px; color:var(--teal); opacity:0; animation:fadeUp 0.8s ease 1.3s forwards; letter-spacing:1px; margin-top:14px; }
+.hook-reveal { font-size:15px; color:var(--teal); opacity:0; animation:fadeUp 0.8s ease 1.3s forwards; letter-spacing:1px; margin-top:14px; cursor:pointer; transition:transform 0.15s, color 0.15s; display:inline-block; }
+.hook-reveal:hover { color:var(--gold); transform:translateY(-2px); }
 
 /* ===== s1 DEFINITIONS ===== */
 #s1 { flex-direction:column; gap:10px; }
@@ -220,7 +221,7 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
       <div class="vs-desc">"Growth can slow down, jobs can vanish, and prices can spiral."</div>
     </div>
   </div>
-  <div class="hook-reveal">👇 Let's grow a country and test what can go wrong...</div>
+  <div class="hook-reveal" onclick="go(1)">👇 Let's grow a country and test what can go wrong...</div>
 </section>
 
 <!-- ============ s1: DEFINITIONS ============ -->

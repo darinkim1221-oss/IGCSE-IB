@@ -86,6 +86,13 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .calc-table td.formula { font-family:'Space Mono',monospace; color:var(--dim); font-size:11px; }
 .calc-table td.val { font-weight:700; color:var(--gold2); text-align:right; }
 
+/* ===== s5b: business cycle diagram ===== */
+#s5b { flex-direction:column; gap:8px; }
+.cycle-toggle { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.cycle-btn { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:13px; padding:6px 16px; border-radius:20px; cursor:pointer; }
+.cycle-btn.active { background:var(--blue); color:#fff; }
+.cycle-note { font-size:11.5px; color:var(--dim); max-width:760px; text-align:center; min-height:36px; }
+
 /* ===== s4/s5/s6 tab panels (shared) ===== */
 #s4, #s5, #s6 { flex-direction:column; gap:10px; }
 .pes-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
@@ -93,6 +100,16 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .pes-tab.active { background:var(--teal); color:#fff; }
 .pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:820px; width:100%; min-height:150px; max-height:270px; overflow-y:auto; font-size:12.5px; line-height:1.8; color:var(--white); }
 .pes-panel strong { color:var(--blue); }
+
+/* ===== s-news: REAL-WORLD HEADLINES ===== */
+#s-news { flex-direction:column; gap:10px; }
+.news-grid { display:flex; flex-direction:column; gap:8px; max-width:800px; width:100%; max-height:340px; overflow-y:auto; padding-right:4px; }
+.news-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 16px; cursor:pointer; transition:border-color 0.15s; }
+.news-card:hover { border-color:var(--gold); }
+.news-headline { font-family:'Bebas Neue',sans-serif; font-size:15px; color:var(--blue); }
+.news-source { font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.news-out { font-size:11.5px; color:var(--dim); margin-top:6px; line-height:1.6; display:none; }
+.news-out.show { display:block; }
 
 /* ===== s-pn: POSITIVE OR NORMATIVE ===== */
 #s-pn { flex-direction:column; gap:16px; }
@@ -250,6 +267,23 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div class="pes-panel" id="growPanel"></div>
 </section>
 
+<!-- ============ s5b BUSINESS CYCLE DIAGRAM ============ -->
+<section class="slide" id="s5b">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Key Diagram — Draw &amp; Interpret</div>
+    <div class="big-title">The Business (Trade) Cycle</div>
+  </div>
+  <div class="cycle-toggle">
+    <button class="cycle-btn active" id="cycleBoomBtn" onclick="setCycle('boom')">Boom</button>
+    <button class="cycle-btn" id="cycleDownBtn" onclick="setCycle('downturn')">Downturn</button>
+    <button class="cycle-btn" id="cycleTroughBtn" onclick="setCycle('trough')">Trough</button>
+    <button class="cycle-btn" id="cycleRecoveryBtn" onclick="setCycle('recovery')">Recovery</button>
+  </div>
+  <canvas id="cycleCanvas" width="620" height="220"></canvas>
+  <div class="cycle-note" id="cycleNote"></div>
+</section>
+
 <!-- ============ s6 IB HL ENRICHMENT ============ -->
 <section class="slide" id="s6">
   <div class="grid-bg"></div>
@@ -259,6 +293,17 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   </div>
   <div class="pes-tabs" id="hlTabs"></div>
   <div class="pes-panel" id="hlPanel"></div>
+</section>
+
+<!-- ============ s-news: REAL-WORLD HEADLINES ============ -->
+<section class="slide" id="s-news">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">In the News</div>
+    <div class="big-title">Real-World Headlines</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Tap a headline to see how it connects to this lesson's economics.</p>
+  </div>
+  <div class="news-grid" id="newsGrid"></div>
 </section>
 
 <!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
@@ -334,8 +379,8 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const PN_SLIDE_IDX = 8;
-const QUIZ_SLIDE_IDX = 10;
+const PN_SLIDE_IDX = 10;
+const QUIZ_SLIDE_IDX = 12;
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -358,6 +403,7 @@ function goTo(n) {
   if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
   if (cur === PN_SLIDE_IDX && !pnInited) initPN();
   if (slides[cur].id === 's-cover') drawCover();
+  if (slides[cur].id === 's5b') drawCycle(cyclePhase);
 }
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === ' ') go(1);
@@ -463,6 +509,72 @@ GROW_TABS.forEach((t,i) => {
 function renderGrowTab() { document.getElementById('growPanel').innerHTML = GROW_TABS[growActive].html; }
 renderGrowTab();
 
+// ============ s5b BUSINESS CYCLE DIAGRAM ============
+const CYCLE_PHASES = {
+  boom: {x: 0.25, note: '<strong style="color:var(--white)">Boom (peak):</strong> real GDP is at its highest point in the cycle — low unemployment, factories running near full capacity, but rising demand-pull inflation risk as resources become scarce.'},
+  downturn: {x: 0.50, note: '<strong style="color:var(--white)">Downturn:</strong> real GDP starts falling from the peak — falling demand, rising unemployment as firms cut back, and confidence declining.'},
+  trough: {x: 0.75, note: '<strong style="color:var(--white)">Trough:</strong> real GDP is at its lowest point — unemployment peaks, spending and investment are weak, and the economy is at its most fragile.'},
+  recovery: {x: 0.95, note: '<strong style="color:var(--white)">Recovery:</strong> real GDP starts rising again — falling unemployment, rebuilding confidence, and increasing spending and investment as the economy climbs back toward the next peak.'}
+};
+let cyclePhase = 'boom';
+function setCycle(phase) {
+  cyclePhase = phase;
+  document.getElementById('cycleBoomBtn').classList.toggle('active', phase==='boom');
+  document.getElementById('cycleDownBtn').classList.toggle('active', phase==='downturn');
+  document.getElementById('cycleTroughBtn').classList.toggle('active', phase==='trough');
+  document.getElementById('cycleRecoveryBtn').classList.toggle('active', phase==='recovery');
+  drawCycle(phase);
+}
+function drawCycle(phase) {
+  const c = document.getElementById('cycleCanvas'); if (!c) return;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,620,220);
+  const leftX = 50, rightX = 590, baseY = 190, topY = 30;
+
+  // axes
+  ctx.strokeStyle = '#5a6a80'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(leftX, topY); ctx.lineTo(leftX, baseY); ctx.lineTo(rightX, baseY); ctx.stroke();
+  ctx.font = '10px monospace'; ctx.fillStyle = '#5a6a80'; ctx.textAlign = 'center';
+  ctx.fillText('Time →', (leftX+rightX)/2, baseY + 20);
+  ctx.save(); ctx.translate(leftX - 34, (topY+baseY)/2); ctx.rotate(-Math.PI/2); ctx.fillText('Real GDP →', 0, 0); ctx.restore();
+
+  // trend line (potential output, rising, dashed)
+  ctx.strokeStyle = '#c8960a'; ctx.lineWidth = 1.5; ctx.setLineDash([5,4]);
+  ctx.beginPath(); ctx.moveTo(leftX, baseY - 20); ctx.lineTo(rightX, topY + 20); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#c8960a'; ctx.font = '10px monospace'; ctx.textAlign = 'left';
+  ctx.fillText('Long-run trend (potential output)', leftX + 10, topY + 12);
+
+  // actual GDP wave: oscillates around the trend line using a sine curve.
+  // sin(2*PI*t) peaks at t=0.25 (boom), crosses down at t=0.5 (downturn),
+  // troughs at t=0.75 (trough), crosses up at t=1.0 (recovery, drawn near t=0.95).
+  const w = rightX - leftX, amp = 55;
+  const trendAt = (t) => (baseY - 20) + (topY + 20 - (baseY - 20)) * t;
+  const waveAt = (t) => trendAt(t) - amp * Math.sin(t * Math.PI * 2);
+  ctx.strokeStyle = '#0d2d52'; ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  for (let px = 0; px <= w; px++) {
+    const t = px / w;
+    const y = waveAt(t);
+    if (px === 0) ctx.moveTo(leftX + px, y); else ctx.lineTo(leftX + px, y);
+  }
+  ctx.stroke();
+
+  // marker for selected phase
+  const info = CYCLE_PHASES[phase];
+  const t = info.x;
+  const markY = waveAt(t);
+  const markX = leftX + t * w;
+  ctx.fillStyle = '#e53935';
+  ctx.beginPath(); ctx.arc(markX, markY, 7, 0, 7); ctx.fill();
+  ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+  ctx.fillStyle = '#e53935'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText(phase.charAt(0).toUpperCase()+phase.slice(1), markX, markY - 14);
+
+  document.getElementById('cycleNote').innerHTML = info.note;
+}
+drawCycle('boom');
+
 // ============ s6 IB HL ENRICHMENT ============
 const HL_TABS = [
   {key:'deflation', lbl:'Deflation &amp; the Spiral', html:`Deflation is a SUSTAINED FALL in the general price level. While falling prices sound good for buyers, a deflationary spiral can occur: consumers delay purchases expecting even lower prices tomorrow → falling demand → firms cut prices further and lay off workers → falling incomes → even less spending. This self-reinforcing cycle is why economists generally fear deflation more than moderate inflation. Removed from IGCSE 0455 (2027-29); IB content only.`},
@@ -480,6 +592,21 @@ HL_TABS.forEach((t,i) => {
 });
 function renderHl() { document.getElementById('hlPanel').innerHTML = HL_TABS[hlActive].html; }
 renderHl();
+
+// ============ s-news: REAL-WORLD HEADLINES ============
+const NEWS_ITEMS = [
+  {headline:'Central Bank Raises Interest Rates for Third Straight Month', source:'Global Economic Bulletin', link:'This is a classic monetary-policy response to rising inflation — higher rates make borrowing more expensive, cooling spending and slowing demand-pull price rises, but also risk pushing the economy toward the "downturn" phase of the business cycle if applied too aggressively.'},
+  {headline:'Factory Closures Push Regional Unemployment to Five-Year High', source:'National Business Wire', link:'If the closures are due to automation or a permanent shift in demand, this is STRUCTURAL unemployment — it requires retraining, not just waiting for the economy to recover, unlike unemployment caused by a general recession (cyclical).'},
+  {headline:'Consumer Prices Index Climbs as Import Costs Surge', source:'Financial Times Wire', link:'Rising import costs pushing up prices is a textbook example of COST-PUSH inflation — production costs rising and being passed on to consumers — distinct from demand-pull inflation caused by excess spending.'}
+];
+const newsGrid = document.getElementById('newsGrid');
+NEWS_ITEMS.forEach((n,i) => {
+  const card = document.createElement('div');
+  card.className = 'news-card';
+  card.innerHTML = `<div class="news-headline">"${n.headline}"</div><div class="news-source">${n.source}</div><div class="news-out" id="newsOut${i}">${n.link}</div>`;
+  card.onclick = () => { document.getElementById('newsOut'+i).classList.toggle('show'); };
+  newsGrid.appendChild(card);
+});
 
 // ============ s-pn: POSITIVE OR NORMATIVE ============
 const PN_ITEMS = [

@@ -95,6 +95,23 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 .pes-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px 22px; max-width:820px; width:100%; min-height:130px; max-height:250px; overflow-y:auto; font-size:12.5px; line-height:1.8; color:var(--white); }
 .pes-panel strong { color:var(--blue); }
 
+/* ===== s6b: policy AD/AS shift diagram ===== */
+#s6b { flex-direction:column; gap:8px; }
+.policy-toggle { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.policy-btn { background:var(--card); border:1px solid var(--border); color:var(--dim); font-family:'Bebas Neue',sans-serif; font-size:12.5px; padding:6px 16px; border-radius:20px; cursor:pointer; }
+.policy-btn.active { background:var(--blue); color:#fff; }
+.policy-note { font-size:11.5px; color:var(--dim); max-width:760px; text-align:center; min-height:36px; }
+
+/* ===== s-news: REAL-WORLD HEADLINES ===== */
+#s-news { flex-direction:column; gap:10px; }
+.news-grid { display:flex; flex-direction:column; gap:8px; max-width:800px; width:100%; max-height:340px; overflow-y:auto; padding-right:4px; }
+.news-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 16px; cursor:pointer; transition:border-color 0.15s; }
+.news-card:hover { border-color:var(--gold); }
+.news-headline { font-family:'Bebas Neue',sans-serif; font-size:15px; color:var(--blue); }
+.news-source { font-family:'Space Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.news-out { font-size:11.5px; color:var(--dim); margin-top:6px; line-height:1.6; display:none; }
+.news-out.show { display:block; }
+
 /* ===== s-pn: POSITIVE OR NORMATIVE ===== */
 #s-pn { flex-direction:column; gap:16px; }
 .game-arena { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px 28px; max-width:680px; width:100%; text-align:center; }
@@ -254,6 +271,22 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
   <div class="pes-panel" id="supplyPanel"></div>
 </section>
 
+<!-- ============ s6b: POLICY AD/AS SHIFT DIAGRAM ============ -->
+<section class="slide" id="s6b">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">Key Diagram — Draw &amp; Interpret</div>
+    <div class="big-title">Seeing Policy on the AD-AS Diagram</div>
+  </div>
+  <div class="policy-toggle">
+    <button class="policy-btn active" id="polExpBtn" onclick="setPolicy('expansionary')">Expansionary Fiscal/Monetary</button>
+    <button class="policy-btn" id="polConBtn" onclick="setPolicy('contractionary')">Contractionary Fiscal/Monetary</button>
+    <button class="policy-btn" id="polSupplyBtn" onclick="setPolicy('supply')">Supply-Side Policy</button>
+  </div>
+  <canvas id="policyCanvas" width="560" height="220"></canvas>
+  <div class="policy-note" id="policyNote"></div>
+</section>
+
 <!-- ============ s7: IB HL ENRICHMENT ============ -->
 <section class="slide" id="s7">
   <div class="grid-bg"></div>
@@ -266,6 +299,16 @@ body { background:#e8eaed; color:var(--white); font-family:'Noto Sans KR',sans-s
 </section>
 
 <!-- ============ s-pn: POSITIVE OR NORMATIVE ============ -->
+<section class="slide" id="s-news">
+  <div class="grid-bg"></div>
+  <div style="text-align:center;margin-bottom:2px">
+    <div class="tag">In the News</div>
+    <div class="big-title">Real-World Headlines</div>
+    <p style="font-size:11px;color:var(--dim);max-width:680px">Tap a headline to see how it connects to this lesson's economics.</p>
+  </div>
+  <div class="news-grid" id="newsGrid"></div>
+</section>
+
 <section class="slide" id="s-pn">
   <div class="grid-bg"></div>
   <div style="text-align:center">
@@ -338,8 +381,8 @@ const slides = document.querySelectorAll('.slide');
 const dotNav = document.getElementById('dotNav');
 const counter = document.getElementById('slide-counter');
 let cur = 0;
-const PN_SLIDE_IDX = 9;
-const QUIZ_SLIDE_IDX = 11;
+const PN_SLIDE_IDX = 11;
+const QUIZ_SLIDE_IDX = 13;
 
 slides.forEach((_,i) => {
   const d = document.createElement('div');
@@ -362,6 +405,7 @@ function goTo(n) {
   if (cur === QUIZ_SLIDE_IDX && !quizInited) initQuiz();
   if (cur === PN_SLIDE_IDX && !pnInited) initPN();
   if (slides[cur].id === 's-cover') drawCover();
+  if (slides[cur].id === 's6b') drawPolicy(policyMode);
 }
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === ' ') go(1);
@@ -510,6 +554,70 @@ SUPPLY_TABS.forEach((t,i) => {
 function renderSupply() { document.getElementById('supplyPanel').innerHTML = SUPPLY_TABS[supplyActive].html; }
 renderSupply();
 
+// ============ s6b: POLICY AD/AS SHIFT DIAGRAM ============
+let policyMode = 'expansionary';
+function setPolicy(mode) {
+  policyMode = mode;
+  document.getElementById('polExpBtn').classList.toggle('active', mode==='expansionary');
+  document.getElementById('polConBtn').classList.toggle('active', mode==='contractionary');
+  document.getElementById('polSupplyBtn').classList.toggle('active', mode==='supply');
+  drawPolicy(mode);
+}
+function drawPolicy(mode) {
+  const c = document.getElementById('policyCanvas'); if (!c) return;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0,0,560,220);
+  const leftX = 60, rightX = 500, baseY = 190, topY = 30;
+
+  ctx.strokeStyle = '#5a6a80'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(leftX, topY); ctx.lineTo(leftX, baseY); ctx.lineTo(rightX, baseY); ctx.stroke();
+  ctx.font = '10px monospace'; ctx.fillStyle = '#5a6a80'; ctx.textAlign = 'center';
+  ctx.fillText('Real Output →', (leftX+rightX)/2, baseY + 20);
+  ctx.save(); ctx.translate(leftX - 40, (topY+baseY)/2); ctx.rotate(-Math.PI/2); ctx.fillText('Price Level →', 0, 0); ctx.restore();
+
+  // static AS curve (upward sloping)
+  function drawAS(color, dashed) {
+    ctx.strokeStyle = color; ctx.lineWidth = 2; if (dashed) ctx.setLineDash([5,4]); else ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(leftX + 30, baseY - 10); ctx.lineTo(rightX - 20, topY + 20); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  // static AD curve (downward sloping) at given horizontal offset
+  function drawAD(offsetX, color, dashed) {
+    ctx.strokeStyle = color; ctx.lineWidth = 2; if (dashed) ctx.setLineDash([5,4]); else ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(leftX + 20 + offsetX, topY + 15); ctx.lineTo(rightX - 40 + offsetX, baseY - 15); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  if (mode === 'expansionary') {
+    drawAS('#0d2d52', false);
+    drawAD(0, '#5a6a80', true);
+    drawAD(60, '#00897b', false);
+    ctx.fillStyle = '#00897b'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'left';
+    ctx.fillText('AD1 →', rightX - 130, baseY - 60);
+    document.getElementById('policyNote').innerHTML = '<strong style="color:var(--white)">Expansionary policy</strong> (e.g. higher government spending, tax cuts, or lower interest rates) shifts AD RIGHT (AD0 → AD1) — raising both real output and the price level in the short run.';
+  } else if (mode === 'contractionary') {
+    drawAS('#0d2d52', false);
+    drawAD(60, '#5a6a80', true);
+    drawAD(0, '#e53935', false);
+    ctx.fillStyle = '#e53935'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'left';
+    ctx.fillText('← AD1', leftX + 60, baseY - 90);
+    document.getElementById('policyNote').innerHTML = '<strong style="color:var(--white)">Contractionary policy</strong> (e.g. lower government spending, higher taxes, or higher interest rates) shifts AD LEFT (AD0 → AD1) — cooling inflation, but at the cost of lower real output in the short run.';
+  } else {
+    // supply-side: shift AS rightward (long-run capacity increase)
+    ctx.strokeStyle = '#5a6a80'; ctx.lineWidth = 2; ctx.setLineDash([5,4]);
+    ctx.beginPath(); ctx.moveTo(leftX + 30, baseY - 10); ctx.lineTo(rightX - 20, topY + 20); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.strokeStyle = '#00897b'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(leftX + 70, baseY - 10); ctx.lineTo(rightX + 20, topY + 20); ctx.stroke();
+    drawAD(0, '#0d2d52', false);
+    ctx.fillStyle = '#00897b'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'left';
+    ctx.fillText('AS1', rightX + 25, topY + 18);
+    document.getElementById('policyNote').innerHTML = '<strong style="color:var(--white)">Supply-side policy</strong> (e.g. education/training, deregulation, infrastructure investment) shifts AS RIGHT over the LONG RUN — raising the economy\'s maximum potential output WITHOUT the inflationary cost of a demand-side expansion.';
+  }
+  ctx.textAlign = 'left';
+}
+drawPolicy('expansionary');
+
 // ============ s7 IB HL ENRICHMENT ============
 const HL_TABS = [
   {key:'debt', lbl:'Sustainable Government Debt', html:`How much debt a government can safely carry depends on factors like the size of its economy, the interest rate on its debt, and its ability to grow future revenue. Persistently rising debt as a share of GDP is generally seen as unsustainable. Not required at IGCSE 0455; IB content only.`},
@@ -526,6 +634,21 @@ HL_TABS.forEach((t,i) => {
 });
 function renderHl() { document.getElementById('hlPanel').innerHTML = HL_TABS[hlActive].html; }
 renderHl();
+
+// ============ s-news: REAL-WORLD HEADLINES ============
+const NEWS_ITEMS = [
+  {headline:'Government Announces Emergency Spending Package to Boost Growth', source:'National Business Wire', link:'A real-world expansionary fiscal policy move — you can plot this directly as a rightward AD shift on this lesson\'s policy diagram.'},
+  {headline:'Central Bank Signals Rate Hikes to Combat Rising Prices', source:'Global Economic Bulletin', link:'This is contractionary monetary policy in action — higher interest rates aim to shift AD left, cooling inflation at the cost of some output.'},
+  {headline:'New National Skills Programme Aims to Lift Long-Term Productivity', source:'Financial Times Wire', link:'A real supply-side policy — investing in worker training raises the economy\'s long-run productive capacity, shifting AS right without the inflation risk of a demand-side stimulus.'}
+];
+const newsGrid = document.getElementById('newsGrid');
+NEWS_ITEMS.forEach((n,i) => {
+  const card = document.createElement('div');
+  card.className = 'news-card';
+  card.innerHTML = `<div class="news-headline">"${n.headline}"</div><div class="news-source">${n.source}</div><div class="news-out" id="newsOut${i}">${n.link}</div>`;
+  card.onclick = () => { document.getElementById('newsOut'+i).classList.toggle('show'); };
+  newsGrid.appendChild(card);
+});
 
 // ============ s-pn: POSITIVE OR NORMATIVE ============
 const PN_ITEMS = [
